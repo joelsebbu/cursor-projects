@@ -96,6 +96,6 @@ The system SHALL extract raw markdown text for individual requirement blocks fro
 #### Scenario: Main spec paths resolve against the selected root
 
 - **WHEN** resolving the main spec path for a given capability
-- **THEN** the system SHALL build `openspec/specs/<cap>/spec.md` under the same OpenSpec root the change was read from, so `--store <id>` diffs against that store's main specs rather than the working directory
+- **THEN** the system SHALL build `openspec/specs/<cap>/spec.md` under the same OfficeSpec root the change was read from, so `--store <id>` diffs against that store's main specs rather than the working directory
 - **AND** the system SHALL use `path.join()` for filesystem operations
 - **AND** display paths SHALL use forward slashes regardless of platform

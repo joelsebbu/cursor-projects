@@ -150,7 +150,7 @@ describe('propose project context', () => {
       const section = contextSection(body);
       expect(section, label).toContain('For any other context failure, stop');
       expect(section, label).toContain('do not fall back to the current directory');
-      expect(section, label).toContain('run later OpenSpec commands without the selected store');
+      expect(section, label).toContain('run later OfficeSpec commands without the selected store');
     }
   });
 
@@ -330,7 +330,7 @@ describe('propose schema selection', () => {
         /^\s*openspec new change "<name>" --schema "<schema-name>"\s*$/m
       );
       expect(createSection, label).toContain(
-        'If a registered store is selected, append `--store "<store-id>"` to that command and each later OpenSpec command shown below that accepts `--store`'
+        'If a registered store is selected, append `--store "<store-id>"` to that command and each later OfficeSpec command shown below that accepts `--store`'
       );
       expect(createSection, label).not.toContain('every follow-up command');
     }

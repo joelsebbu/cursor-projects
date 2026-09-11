@@ -1,6 +1,6 @@
 ## Why
 
-Creating and managing project-local schemas currently requires manual directory creation, copying files, and hoping the structure is correct. Users only discover structural errors at runtime when commands fail. This friction discourages schema customization and makes it harder to tailor OpenSpec workflows to specific project needs.
+Creating and managing project-local schemas currently requires manual directory creation, copying files, and hoping the structure is correct. Users only discover structural errors at runtime when commands fail. This friction discourages schema customization and makes it harder to tailor OfficeSpec workflows to specific project needs.
 
 Key pain points:
 - **Manual scaffolding**: Users must manually create `openspec/schemas/<name>/` with correct structure

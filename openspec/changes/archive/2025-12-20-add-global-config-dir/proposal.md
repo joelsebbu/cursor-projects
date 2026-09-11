@@ -1,6 +1,6 @@
 ## Why
 
-OpenSpec currently has no mechanism for user-level global settings or feature flags. As the CLI grows, we need a standard location to store user preferences, experimental features, and other configuration that persists across projects. Following XDG Base Directory Specification provides a well-understood, cross-platform approach.
+OfficeSpec currently has no mechanism for user-level global settings or feature flags. As the CLI grows, we need a standard location to store user preferences, experimental features, and other configuration that persists across projects. Following XDG Base Directory Specification provides a well-understood, cross-platform approach.
 
 ## What Changes
 

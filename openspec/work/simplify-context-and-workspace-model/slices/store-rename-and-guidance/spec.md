@@ -2,7 +2,7 @@
 
 ## Outcome
 
-The product noun for a registered standalone OpenSpec repo is **store**,
+The product noun for a registered standalone OfficeSpec repo is **store**,
 everywhere: the command group, the machine tokens, the help text, the
 completions metadata, the generated workflow skills, the checked-in agent
 guidance, and the docs. The same pass makes stores discoverable to agents —
@@ -19,7 +19,7 @@ written, so no guidance bakes in a name that is about to change.
 ## Locked Decisions (from roadmap, 2026-06-11)
 
 1. **The noun is "store"**, defined everywhere as "a store — a standalone
-   OpenSpec repo you've registered." "Planning repo" and "contracts repo"
+   OfficeSpec repo you've registered." "Planning repo" and "contracts repo"
    are prose examples of what a store is for, never product nouns.
    "Context" is retired from this concept (freed for Phase 4).
 2. **Command group renames `context-store` → `store`.** Subcommand names
@@ -161,15 +161,15 @@ openspec store list
 openspec store doctor
 ```
 
-Top-level help describes the group as the standalone OpenSpec repo
+Top-level help describes the group as the standalone OfficeSpec repo
 feature, in the locked vocabulary:
 
 ```text
-store      Create and manage stores - standalone OpenSpec repos you register on this machine
+store      Create and manage stores - standalone OfficeSpec repos you register on this machine
 ```
 
 The `--store` flag on lifecycle commands reads "Store id to use as the
-OpenSpec root (a store is a standalone OpenSpec repo you've registered)".
+OfficeSpec root (a store is a standalone OfficeSpec repo you've registered)".
 Nothing in help, errors, JSON, completions, or docs says "context store"
 anymore.
 

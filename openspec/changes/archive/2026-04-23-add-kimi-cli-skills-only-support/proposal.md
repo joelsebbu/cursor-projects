@@ -1,8 +1,8 @@
 ## Why
 
-OpenSpec already has user demand for Kimi CLI support, but the previous upstream attempt stalled because it assumed Kimi needed a command adapter. Local review of the Kimi CLI codebase shows a different integration surface: Kimi discovers `SKILL.md` files from `.kimi/skills/` and exposes them through `/skill:<name>`, but it does not provide a stable, file-based custom command directory like Claude Code or Codex.
+OfficeSpec already has user demand for Kimi CLI support, but the previous upstream attempt stalled because it assumed Kimi needed a command adapter. Local review of the Kimi CLI codebase shows a different integration surface: Kimi discovers `SKILL.md` files from `.kimi/skills/` and exposes them through `/skill:<name>`, but it does not provide a stable, file-based custom command directory like Claude Code or Codex.
 
-OpenSpec already supports tools that install skills without a command adapter. Trae and ForgeCode are the existing examples. Kimi should follow the same pattern instead of introducing undocumented `.kimi/commands/...` behavior.
+OfficeSpec already supports tools that install skills without a command adapter. Trae and ForgeCode are the existing examples. Kimi should follow the same pattern instead of introducing undocumented `.kimi/commands/...` behavior.
 
 ## What Changes
 

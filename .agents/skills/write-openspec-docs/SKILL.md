@@ -1,12 +1,12 @@
 ---
 name: write-openspec-docs
-description: Switches into OpenSpec docs-writing mode; loads the house style guide and drafts or revises pages in its voice (action-first, no preamble, scannable). Use when writing or editing pages in the OpenSpec docs tree.
+description: Switches into OfficeSpec docs-writing mode; loads the house style guide and drafts or revises pages in its voice (action-first, no preamble, scannable). Use when writing or editing pages in the OfficeSpec docs tree.
 argument-hint: page or section
 ---
 
-# Write OpenSpec docs
+# Write OfficeSpec docs
 
-You are now writing OpenSpec's user docs. Read [writing.md](writing.md); it is the style authority for everything drafted here. The short version, in effect immediately:
+You are now writing OfficeSpec's user docs. Read [writing.md](writing.md); it is the style authority for everything drafted here. The short version, in effect immediately:
 
 - A page is a retrieval surface, not an essay. Structure decides whether the reader finds the answer; prose only decides how it reads. Open every section with the answer, never a running story.
 - Choose the page type before the outline. Guides follow the reader's task; reference mirrors the product's structure and uses exact field, command, and file names as scan anchors. Reference needs complete coverage without compressing several facts into one sentence, cell, or paragraph.
@@ -20,7 +20,7 @@ You are now writing OpenSpec's user docs. Read [writing.md](writing.md); it is t
 
 ## Ground rules
 
-- Load the `no-ai-slop` skill before drafting; it owns the generic slop patterns, while [writing.md](writing.md) owns what OpenSpec's docs specifically look and sound like.
+- Load the `no-ai-slop` skill before drafting; it owns the generic slop patterns, while [writing.md](writing.md) owns what OfficeSpec's docs specifically look and sound like.
 - Read the target page in full before editing it.
 - Real facts only: flags, paths, and output as they exist in source. If a claim can't be checked cheaply, still write it, but name it as unchecked when you show the work; never bridge a gap with a plausible-sounding sentence.
 - A fact lives on one page; everywhere else links to it. The docs tree's README owns the page map and structural invariants; check it before restructuring or adding pages.

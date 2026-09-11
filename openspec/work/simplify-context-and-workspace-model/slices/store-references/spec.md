@@ -73,7 +73,7 @@ the app repo discovers them from config, fetches what it needs with
      contract — the index degrades where the CLI refuses.)
    - `reference_root_unhealthy` — the registry resolved the id but
      anything after that failed (missing checkout path, missing or
-     mismatched store metadata, unhealthy OpenSpec root per
+     mismatched store metadata, unhealthy OfficeSpec root per
      `inspectOpenSpecRoot().healthy === false`); fix:
      `openspec store doctor <id>`.
    A self-reference (the resolved root IS the referenced store, by

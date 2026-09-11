@@ -40,7 +40,7 @@ const expectedInvocation = (toolId: string) => ({
 
 const sampleContent: CommandContent = {
   id: 'apply',
-  name: 'OpenSpec Apply',
+  name: 'OfficeSpec Apply',
   description: 'Implement tasks',
   category: 'Workflow',
   tags: ['openspec'],

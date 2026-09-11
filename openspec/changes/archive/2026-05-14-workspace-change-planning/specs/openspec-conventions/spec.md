@@ -1,7 +1,7 @@
 ## ADDED Requirements
 
 ### Requirement: Workspace planning vocabulary
-OpenSpec conventions SHALL distinguish workspace planning concepts using user-facing product language.
+OfficeSpec conventions SHALL distinguish workspace planning concepts using user-facing product language.
 
 #### Scenario: Naming affected areas
 - **WHEN** documentation or generated guidance refers to repos, folders, packages, services, apps, or docs sites touched by a workspace change
@@ -14,7 +14,7 @@ OpenSpec conventions SHALL distinguish workspace planning concepts using user-fa
 - **AND** it SHALL not use slice as a synonym for repo, folder, or affected area
 
 ### Requirement: Workspace planning and implementation boundary
-OpenSpec conventions SHALL distinguish workspace-level planning from repo-local implementation ownership.
+OfficeSpec conventions SHALL distinguish workspace-level planning from repo-local implementation ownership.
 
 #### Scenario: Workspace as shared planning home
 - **WHEN** a change spans linked repos or folders
@@ -27,6 +27,6 @@ OpenSpec conventions SHALL distinguish workspace-level planning from repo-local 
 - **AND** it SHALL avoid making users understand implementation terms such as materialization before they can plan
 
 #### Scenario: Preserving familiar workflow verbs
-- **WHEN** workspace guidance describes OpenSpec workflows
+- **WHEN** workspace guidance describes OfficeSpec workflows
 - **THEN** it SHALL keep the familiar verbs explore, propose, apply, verify, and archive
 - **AND** it SHALL explain that workspace context changes paths, scope, and allowed edit roots rather than creating a separate workflow family

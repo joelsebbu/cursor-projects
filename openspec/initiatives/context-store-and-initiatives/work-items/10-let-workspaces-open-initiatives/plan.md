@@ -210,7 +210,7 @@ initiative-aware opening.
 
 Status: decided.
 
-Store each private workspace view under the user's OpenSpec global data
+Store each private workspace view under the user's OfficeSpec global data
 directory, keyed by workspace name:
 
 ```text
@@ -236,7 +236,7 @@ getGlobalDataDir()/workspaces/<workspace-name>/
 ```
 
 `workspace.yaml` is the durable private view record and the only view file in
-Item 10. The other files are generated runtime support owned by OpenSpec. They
+Item 10. The other files are generated runtime support owned by OfficeSpec. They
 may be overwritten by `workspace open`, `workspace update`, or a future explicit
 preparation surface.
 
@@ -286,7 +286,7 @@ Regeneration behavior:
   opener.
 - `workspace update` regenerates the managed runtime files without changing
   durable local view choices unless the user asked for a state change.
-- Generated files are OpenSpec-owned and may be overwritten each time.
+- Generated files are OfficeSpec-owned and may be overwritten each time.
 - `workspace.yaml` is not generated output and should not be overwritten except
   when the local view record itself changes.
 
@@ -316,7 +316,7 @@ generated file paths, selected context, opened roots, skipped or missing roots,
 opener, launch status, and warnings.
 
 Human-facing behavior remains the normal `workspace open` output. JSON mode is
-for tools that need structured facts after OpenSpec has prepared the workspace
+for tools that need structured facts after OfficeSpec has prepared the workspace
 root and attempted the requested open.
 
 ### Missing Paths At Open Time

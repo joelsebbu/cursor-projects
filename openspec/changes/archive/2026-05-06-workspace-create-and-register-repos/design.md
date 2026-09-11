@@ -8,7 +8,7 @@ The user experience should be:
 I set up a workspace.
 I link the repos or folders it should know about.
 I can list my workspaces later.
-I can ask OpenSpec what is broken and how to fix it.
+I can ask OfficeSpec what is broken and how to fix it.
 ```
 
 No change proposal is required yet.
@@ -26,13 +26,13 @@ checkout -> /repos/platform/apps/checkout
 billing  -> /repos/platform/services/billing
 ```
 
-The path may point at a full repo or a folder inside a large monorepo. It may point at a repo or folder that has not adopted repo-local OpenSpec yet.
+The path may point at a full repo or a folder inside a large monorepo. It may point at a repo or folder that has not adopted repo-local OfficeSpec yet.
 
 The product language should say "repos or folders". It should avoid "working set", "code area", "entry", "alias", and "local overlay" in user-facing output.
 
-Path handling should behave like a folder picker. The user may type a relative or absolute path, but OpenSpec should verify that it points to an existing folder, convert it to an absolute path relative to the command's current working directory when needed, and store that verified absolute path in local workspace state. OpenSpec should not store the raw string the user typed.
+Path handling should behave like a folder picker. The user may type a relative or absolute path, but OfficeSpec should verify that it points to an existing folder, convert it to an absolute path relative to the command's current working directory when needed, and store that verified absolute path in local workspace state. OfficeSpec should not store the raw string the user typed.
 
-Path conversion stays in the current runtime. Native Windows paths, WSL2 paths, and Unix paths should not be translated across runtimes. Where duplicate-path detection needs canonical comparisons, OpenSpec may compare canonical existing paths internally, but it should store and display the verified absolute path for the current runtime.
+Path conversion stays in the current runtime. Native Windows paths, WSL2 paths, and Unix paths should not be translated across runtimes. Where duplicate-path detection needs canonical comparisons, OfficeSpec may compare canonical existing paths internally, but it should store and display the verified absolute path for the current runtime.
 
 ## Names
 
@@ -102,7 +102,7 @@ There is no public `workspace create` command in this slice. Setup is the creati
 
 ### `workspace list`
 
-Show known OpenSpec-managed workspaces from the local workspace registry.
+Show known OfficeSpec-managed workspaces from the local workspace registry.
 
 `workspace ls` should behave the same way.
 
@@ -180,9 +180,9 @@ The path must exist. The command should accept:
 - monorepo folders such as packages, services, and apps
 - repos or folders without repo-local `openspec/`
 
-If the user passes a relative path, OpenSpec should resolve it against the command's current working directory before writing local state.
+If the user passes a relative path, OfficeSpec should resolve it against the command's current working directory before writing local state.
 
-If the path has repo-local OpenSpec state, OpenSpec can report the repo specs path in doctor output. If it does not, OpenSpec should still allow workspace planning.
+If the path has repo-local OfficeSpec state, OfficeSpec can report the repo specs path in doctor output. If it does not, OfficeSpec should still allow workspace planning.
 
 `workspace link` only records the link. It must not create, copy, move, initialize, or edit files in the linked repo or folder.
 
@@ -346,7 +346,7 @@ Keep:
 Change:
 
 - do not expose public `workspace create` in the first release
-- do not require repo-local OpenSpec state to link a repo or folder
+- do not require repo-local OfficeSpec state to link a repo or folder
 - use `workspace link` instead of `workspace add-repo`
 - use `workspace relink` instead of `workspace update-repo`
 - do not save a preferred agent during setup

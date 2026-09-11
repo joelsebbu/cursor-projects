@@ -109,7 +109,7 @@ describe('tool-detection', () => {
       expect(status.skillCount).toBe(SKILL_NAMES.length);
     });
 
-    it('should detect MiniMax Code only from its global OpenSpec skill target', async () => {
+    it('should detect MiniMax Code only from its global OfficeSpec skill target', async () => {
       const globalSkill = path.join(
         testDir,
         'home',

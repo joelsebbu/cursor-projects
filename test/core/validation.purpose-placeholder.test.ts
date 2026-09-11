@@ -119,7 +119,7 @@ describe('Purpose placeholder validation', () => {
 
   describe('a Purpose that documents the placeholder is not one', () => {
     it('passes --strict while quoting the sentence archive writes inside a fence', async () => {
-      // OpenSpec's own docs are the population most likely to quote this text.
+      // OfficeSpec's own docs are the population most likely to quote this text.
       // A check that fails the document explaining what the placeholder is
       // teaches people that the warning is noise, which costs more than the one
       // finding it adds.

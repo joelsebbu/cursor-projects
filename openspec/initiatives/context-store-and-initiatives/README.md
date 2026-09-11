@@ -32,7 +32,7 @@ Use this reading order when researching the beta history:
 ## Boundary
 
 These artifacts preserve product intent, roadmap decisions, and beta evidence
-from the old model. OpenSpec specs describe the current behavioral contract
+from the old model. OfficeSpec specs describe the current behavioral contract
 behind the code.
 
 Do not rewrite specs for future intent until behavior changes with an
@@ -51,7 +51,7 @@ Changes implement repo-owned slices.
 The newer direction is:
 
 ```text
-OpenSpec is a Git-native artifact format for specs and work.
+OfficeSpec is a Git-native artifact format for specs and work.
 
 Specs are what is true.
 Work is what is in motion.

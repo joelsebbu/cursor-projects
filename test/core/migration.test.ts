@@ -388,7 +388,7 @@ describe('migration', () => {
     it('leaves a legacy command alone when no replacement was generated', async () => {
       // Skills-only delivery and a deselected workflow both leave the current
       // root without that command. Moving the legacy file there would install
-      // a command OpenSpec just decided not to write.
+      // a command OfficeSpec just decided not to write.
       await writeSkill(projectDir, 'openspec-explore', '.agents');
       const legacyCommand = path.join(projectDir, '.agent', 'workflows', 'opsx-explore.md');
       await fsp.mkdir(path.dirname(legacyCommand), { recursive: true });

@@ -1,10 +1,10 @@
 ---
 name: verify-openspec-docs
-description: Fact-checks OpenSpec user documentation with a fresh-context subagent that re-runs commands and checks claims against source. Manually triggered; not part of the drafting loop. Use when the user asks to verify, fact-check, or accuracy-check a docs page, section, or set of changed claims.
+description: Fact-checks OfficeSpec user documentation with a fresh-context subagent that re-runs commands and checks claims against source. Manually triggered; not part of the drafting loop. Use when the user asks to verify, fact-check, or accuracy-check a docs page, section, or set of changed claims.
 argument-hint: page or section
 ---
 
-# Verify OpenSpec docs
+# Verify OfficeSpec docs
 
 Check finished docs prose against reality. The point of a fresh context is that the reviewer hasn't watched the prose get written, so it can't be talked into the author's assumptions.
 
@@ -21,7 +21,7 @@ This skill runs only when the user asks for it. Drafting is owned by `write-open
 General-purpose subagent. Subagents don't inherit skills, so the prompt hands the reviewer everything by path. Fill every placeholder, make every path absolute, and send:
 
 ```
-You are reviewing one unit of OpenSpec's user documentation before it reaches the docs owner. Be the two hardest readers it will meet: a skeptical developer reading it cold, and a fact-checker with the repo open.
+You are reviewing one unit of OfficeSpec's user documentation before it reaches the docs owner. Be the two hardest readers it will meet: a skeptical developer reading it cold, and a fact-checker with the repo open.
 
 Repo root: <ABSOLUTE REPO ROOT>. Use absolute paths with every tool.
 

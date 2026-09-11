@@ -6,10 +6,10 @@
 - Keep the existing `openspec/AGENTS.md` template as the canonical source while ensuring assistants that read `AGENTS.md` opt-in instructions get the latest guidance automatically.
 
 ## Motivation
-The README now points teams to AGENTS.md-compatible assistants, but the CLI only manages `CLAUDE.md`. Projects must hand-roll a root `AGENTS.md` file to benefit from the standard, and updates will drift unless maintainers remember to copy content manually. Extending `init` and `update` closes that gap so OpenSpec actually delivers on the promise of first-class AGENTS support.
+The README now points teams to AGENTS.md-compatible assistants, but the CLI only manages `CLAUDE.md`. Projects must hand-roll a root `AGENTS.md` file to benefit from the standard, and updates will drift unless maintainers remember to copy content manually. Extending `init` and `update` closes that gap so OfficeSpec actually delivers on the promise of first-class AGENTS support.
 
 ## Proposal
-1. Extend the `openspec init` selection flow with an "AGENTS.md standard" option that creates or refreshes a root `AGENTS.md` file wrapped in OpenSpec markers, mirroring the existing CLAUDE integration.
+1. Extend the `openspec init` selection flow with an "AGENTS.md standard" option that creates or refreshes a root `AGENTS.md` file wrapped in OfficeSpec markers, mirroring the existing CLAUDE integration.
 2. When generating the file, pull the managed content from the same template used in `openspec/AGENTS.md`, ensuring both locations stay in sync.
 3. Update `openspec update` so it always refreshes the root `AGENTS.md` (creating it if missing) alongside `openspec/AGENTS.md` and any other configured assistants.
 4. Document the new behavior in CLI specs and verify marker handling (no duplicates, preserve user content outside the block) with tests for both commands.

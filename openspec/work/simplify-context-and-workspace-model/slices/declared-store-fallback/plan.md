@@ -74,7 +74,7 @@ Start from `spec.md` (this folder). Keep nearby: `../../roadmap.md`
      `openspec/config.{yaml,yml}` (small local helper: read file, YAML
      parse in try/catch, pluck `store`) and one stderr warning when a
      `store` key exists ("openspec/config.yaml declares store 'x', but
-     this directory is a real OpenSpec root; the declaration is
+     this directory is a real OfficeSpec root; the declaration is
      ignored.").
    - Config-only → targeted read: no config or no `store` key → today's
      nearest behavior; unparseable config or non-string `store` →

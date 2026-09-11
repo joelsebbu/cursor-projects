@@ -1,6 +1,6 @@
 # Migrating to OPSX
 
-This guide helps you transition from the legacy OpenSpec workflow to OPSX. The migration is designed to be smooth—your existing work is preserved, and the new system offers more flexibility.
+This guide helps you transition from the legacy OfficeSpec workflow to OPSX. The migration is designed to be smooth—your existing work is preserved, and the new system offers more flexibility.
 
 ## What's Changing?
 
@@ -27,17 +27,17 @@ The migration process is designed with preservation in mind:
 - **Active changes in `openspec/changes/`** — Completely preserved. You can continue them with OPSX commands.
 - **Archived changes** — Untouched. Your history remains intact.
 - **Main specs in `openspec/specs/`** — Untouched. These are your source of truth.
-- **Your content in CLAUDE.md, AGENTS.md, etc.** — Preserved. Only the OpenSpec marker blocks are removed; everything you wrote stays.
+- **Your content in CLAUDE.md, AGENTS.md, etc.** — Preserved. Only the OfficeSpec marker blocks are removed; everything you wrote stays.
 
 ### What Gets Removed
 
-Only OpenSpec-managed files that are being replaced:
+Only OfficeSpec-managed files that are being replaced:
 
 | What | Why |
 |------|-----|
 | Legacy slash command directories/files | Replaced by the new skills system |
 | `openspec/AGENTS.md` | Obsolete workflow trigger |
-| OpenSpec markers in `CLAUDE.md`, `AGENTS.md`, etc. | No longer needed |
+| OfficeSpec markers in `CLAUDE.md`, `AGENTS.md`, etc. | No longer needed |
 
 **Legacy command locations by tool** (examples—your tool may vary):
 
@@ -47,12 +47,12 @@ Only OpenSpec-managed files that are being replaced:
 - Cline: `.clinerules/workflows/openspec-*.md`
 - Roo: `.roo/commands/openspec-*.md`
 - GitHub Copilot: `.github/prompts/openspec-*.prompt.md` (IDE extensions only; not supported in Copilot CLI)
-- Codex: OpenSpec now uses the canonical `.agents/skills/openspec-*` path. OpenSpec-managed `SKILL.md` files under the former `.codex/skills` path are reconciled only after replacements exist; custom files and divergent copies stay in place. If an unmarked `.agents` tree already contains OpenSpec skills, OpenSpec preserves its existing Codex (`$openspec-*`) or generic (`/openspec-*`) rendering instead of guessing from the legacy directory. Select `codex` explicitly with `openspec init` to switch ownership. Legacy prompt cleanup still targets only OpenSpec's allowlisted filenames in `$CODEX_HOME/prompts` or `~/.codex/prompts`.
+- Codex: OfficeSpec now uses the canonical `.agents/skills/openspec-*` path. OfficeSpec-managed `SKILL.md` files under the former `.codex/skills` path are reconciled only after replacements exist; custom files and divergent copies stay in place. If an unmarked `.agents` tree already contains OfficeSpec skills, OfficeSpec preserves its existing Codex (`$openspec-*`) or generic (`/openspec-*`) rendering instead of guessing from the legacy directory. Select `codex` explicitly with `openspec init` to switch ownership. Legacy prompt cleanup still targets only OfficeSpec's allowlisted filenames in `$CODEX_HOME/prompts` or `~/.codex/prompts`.
 - And others (Augment, Continue, Amazon Q, etc.)
 
 The migration detects whichever tools you have configured and cleans up their legacy files.
 
-The removal list may seem long, but these are all files that OpenSpec originally created. Your own content is never deleted.
+The removal list may seem long, but these are all files that OfficeSpec originally created. Your own content is never deleted.
 
 ### What Needs Your Attention
 
@@ -68,7 +68,7 @@ One file requires manual migration:
 
 The old `project.md` was passive—agents might read it, might not, might forget what they read. We found reliability was inconsistent.
 
-The new `config.yaml` context is **actively injected into every OpenSpec planning request**. This means your work conventions, tech stack, and rules are always present when the AI is creating artifacts. Higher reliability.
+The new `config.yaml` context is **actively injected into every OfficeSpec planning request**. This means your work conventions, tech stack, and rules are always present when the AI is creating artifacts. Higher reliability.
 
 **The tradeoff:**
 
@@ -99,9 +99,9 @@ openspec init
 The init command detects legacy files and guides you through cleanup:
 
 ```
-Upgrading to the new OpenSpec
+Upgrading to the new OfficeSpec
 
-OpenSpec now uses agent skills, the emerging standard across coding
+OfficeSpec now uses agent skills, the emerging standard across coding
 agents. This simplifies your setup while keeping everything working
 as before.
 
@@ -111,7 +111,7 @@ No user content to preserve:
   • openspec/AGENTS.md
 
 Files to update
-OpenSpec markers will be removed, your content preserved:
+OfficeSpec markers will be removed, your content preserved:
   • CLAUDE.md
   • AGENTS.md
 
@@ -120,7 +120,7 @@ Needs your attention
     We won't delete this file. It may contain useful project context.
 
     The new openspec/config.yaml has a "context:" section for planning
-    context. This is included in every OpenSpec request and works more
+    context. This is included in every OfficeSpec request and works more
     reliably than the old project.md approach.
 
     Review project.md, move any useful content to config.yaml's context
@@ -132,7 +132,7 @@ Needs your attention
 **What happens when you say yes:**
 
 1. Legacy slash command directories are removed
-2. OpenSpec markers are stripped from `CLAUDE.md`, `AGENTS.md`, etc. (your content stays)
+2. OfficeSpec markers are stripped from `CLAUDE.md`, `AGENTS.md`, etc. (your content stays)
 3. `openspec/AGENTS.md` is deleted
 4. New skills are installed in `.claude/skills/`
 5. `openspec/config.yaml` is created with a default schema
@@ -157,7 +157,7 @@ openspec init --force --tools claude
 
 The `--force` flag skips prompts and auto-accepts cleanup.
 
-This includes cleanup of OpenSpec-managed Codex prompt files in the global Codex prompt directory. Cleanup only targets OpenSpec's allowlisted legacy Codex prompt filenames, removes them only after replacement `.agents/skills/openspec-*` skills exist, and preserves all other files.
+This includes cleanup of OfficeSpec-managed Codex prompt files in the global Codex prompt directory. Cleanup only targets OfficeSpec's allowlisted legacy Codex prompt filenames, removes them only after replacement `.agents/skills/openspec-*` skills exist, and preserves all other files.
 
 ---
 
@@ -263,7 +263,7 @@ When migrating, be selective. Ask yourself: "Does the AI need this for *every* p
 If you're unsure how to distill your work.md, ask your AI assistant:
 
 ```
-I'm migrating from OpenSpec's old project.md to the new config.yaml format.
+I'm migrating from OfficeSpec's old project.md to the new config.yaml format.
 
 Here's my current project.md:
 [paste your work.md content]
@@ -411,7 +411,7 @@ OPSX uses the emerging **skills** standard:
 
 Skills are recognized across multiple AI coding tools and provide richer metadata.
 
-Codex is skills-only in OPSX. OpenSpec no longer generates Codex custom prompt files; use the generated `.agents/skills/openspec-*` directories instead.
+Codex is skills-only in OPSX. OfficeSpec no longer generates Codex custom prompt files; use the generated `.agents/skills/openspec-*` directories instead.
 
 ---
 
@@ -571,8 +571,8 @@ project/
 │       ├── openspec-sync-specs/
 │       ├── openspec-archive-change/
 │       └── ...                   # expanded profile adds new/continue/ff/etc.
-├── CLAUDE.md                     # OpenSpec markers removed, your content preserved
-└── AGENTS.md                     # OpenSpec markers removed, your content preserved
+├── CLAUDE.md                     # OfficeSpec markers removed, your content preserved
+└── AGENTS.md                     # OfficeSpec markers removed, your content preserved
 ```
 
 ### What's Gone
@@ -580,7 +580,7 @@ project/
 - `.claude/commands/openspec/` — replaced by `.claude/skills/`
 - `openspec/AGENTS.md` — obsolete
 - `openspec/project.md` — migrate to `config.yaml`, then delete
-- OpenSpec marker blocks in `CLAUDE.md`, `AGENTS.md`, etc.
+- OfficeSpec marker blocks in `CLAUDE.md`, `AGENTS.md`, etc.
 
 ### Command Cheatsheet
 
@@ -600,5 +600,5 @@ project/
 ## Getting Help
 
 - **Discord**: [discord.gg/YctCnvvshC](https://discord.gg/YctCnvvshC)
-- **GitHub Issues**: [github.com/Fission-AI/OpenSpec/issues](https://github.com/Fission-AI/OpenSpec/issues)
+- **GitHub Issues**: [github.com/joelsebbu/OpenSpec/issues](https://github.com/joelsebbu/OpenSpec/issues)
 - **Documentation**: [docs/opsx.md](opsx.md) for the full OPSX reference

@@ -1,9 +1,9 @@
 {
-  "name": "@fission-ai/openspec",
+  "name": "officespec",
   "version": "1.13.0",
-  "description": "AI-native system for spec-driven work — plan any office work with your AI assistant",
+  "description": "AI-native system for spec-driven office work — plan any office work with your AI assistant",
   "keywords": [
-    "openspec",
+    "officespec",
     "specs",
     "cli",
     "ai",
@@ -12,13 +12,13 @@
     "office",
     "workflow"
   ],
-  "homepage": "https://github.com/Fission-AI/OpenSpec",
+  "homepage": "https://github.com/joelsebbu/OpenSpec",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Fission-AI/OpenSpec"
+    "url": "https://github.com/joelsebbu/OpenSpec"
   },
   "license": "MIT",
-  "author": "OpenSpec Contributors",
+  "author": "OfficeSpec Contributors",
   "type": "module",
   "packageManager": "pnpm@10.34.5",
   "publishConfig": {
@@ -31,7 +31,8 @@
     }
   },
   "bin": {
-    "openspec": "./bin/openspec.js"
+    "openspec": "./bin/openspec.js",
+    "officespec": "./bin/officespec.js"
   },
   "files": [
     "dist",

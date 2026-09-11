@@ -27,10 +27,10 @@ redesigned as contextual receipts or affordances rather than fixed linear
 - [ ] Decide how generated docs or setup output points to the agent CLI
       playbook without requiring a pasted mini-playbook in every guide step.
 - [ ] Clarify delivery terminology so commands-oriented delivery means workflow
-      commands as entrypoints, not absence of baseline OpenSpec guidance.
+      commands as entrypoints, not absence of baseline OfficeSpec guidance.
 - [ ] Add warnings when a selected tool does not support workflow slash command
       delivery.
-- [ ] Define how baseline OpenSpec guidance is reported when commands-oriented
+- [ ] Define how baseline OfficeSpec guidance is reported when commands-oriented
       delivery is selected for a tool that still supports skills.
 - [ ] Add tests or fixtures for human output, JSON output, and delivery-warning
       behavior.

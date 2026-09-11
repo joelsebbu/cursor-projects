@@ -138,7 +138,7 @@ describe('openspec view root resolution', () => {
 
       expect(list.exitCode, list.stderr).toBe(0);
       expect(view.exitCode, view.stderr).toBe(0);
-      expect(view.stdout).toContain('OpenSpec Dashboard');
+      expect(view.stdout).toContain('OfficeSpec Dashboard');
     },
     TIMEOUT_MS
   );

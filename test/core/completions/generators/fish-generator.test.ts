@@ -37,14 +37,14 @@ describe('FishGenerator', () => {
       const commands: CommandDefinition[] = [
         {
           name: 'init',
-          description: 'Initialize OpenSpec',
+          description: 'Initialize OfficeSpec',
           flags: [],
         },
       ];
 
       const script = generator.generate(commands);
 
-      expect(script).toContain('# Fish completion script for OpenSpec CLI');
+      expect(script).toContain('# Fish completion script for OfficeSpec CLI');
       expect(script).toContain('function __fish_openspec');
     });
 
@@ -52,7 +52,7 @@ describe('FishGenerator', () => {
       const commands: CommandDefinition[] = [
         {
           name: 'init',
-          description: 'Initialize OpenSpec',
+          description: 'Initialize OfficeSpec',
           flags: [],
         },
       ];
@@ -76,7 +76,7 @@ describe('FishGenerator', () => {
       const commands: CommandDefinition[] = [
         {
           name: 'init',
-          description: 'Initialize OpenSpec',
+          description: 'Initialize OfficeSpec',
           flags: [],
         },
         {
@@ -95,7 +95,7 @@ describe('FishGenerator', () => {
 
       expect(script).toContain("complete -c openspec");
       expect(script).toContain("-f -a 'init'");
-      expect(script).toContain("'Initialize OpenSpec'");
+      expect(script).toContain("'Initialize OfficeSpec'");
       expect(script).toContain("-a 'validate'");
       expect(script).toContain("'Validate specs'");
       expect(script).toContain("-a 'show'");

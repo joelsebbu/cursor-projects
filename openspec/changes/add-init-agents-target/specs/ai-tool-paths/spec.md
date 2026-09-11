@@ -4,7 +4,7 @@
 
 ### Requirement: Shared .agents skills target
 
-OpenSpec SHALL provide a vendor-neutral `agents` tool target rooted at the shared `.agents` directory, for assistants that read skills from the shared location rather than a vendor-specific one.
+OfficeSpec SHALL provide a vendor-neutral `agents` tool target rooted at the shared `.agents` directory, for assistants that read skills from the shared location rather than a vendor-specific one.
 
 #### Scenario: Shared agents target paths defined
 
@@ -14,10 +14,10 @@ OpenSpec SHALL provide a vendor-neutral `agents` tool target rooted at the share
 #### Scenario: Detection keys off the shared skills subtree
 
 - **WHEN** a project contains a `.agents/skills` path
-- **THEN** OpenSpec SHALL detect `agents` as an available target
+- **THEN** OfficeSpec SHALL detect `agents` as an available target
 
 #### Scenario: A bare shared root does not select the target
 
 - **GIVEN** a project contains `.agents` but no `.agents/skills` path
-- **WHEN** OpenSpec detects available tools
+- **WHEN** OfficeSpec detects available tools
 - **THEN** `agents` SHALL NOT be reported as available

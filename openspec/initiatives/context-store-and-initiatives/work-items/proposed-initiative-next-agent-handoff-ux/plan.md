@@ -6,7 +6,7 @@ Discussion draft. Not locked into the numbered roadmap yet.
 
 ## Why This Exists
 
-The GSD workspace comparison highlighted a UX gap: OpenSpec has increasingly
+The GSD workspace comparison highlighted a UX gap: OfficeSpec has increasingly
 good discovery primitives, but agents still need to infer the next useful step
 from several commands.
 
@@ -16,7 +16,7 @@ work-progress status view, or replacement for workspace local-view behavior.
 
 The manual beta pass surfaced a second, related handoff gap: before a command
 like `initiative next` exists, a fresh coding agent still needs baseline
-OpenSpec literacy. It needs to understand context stores, initiatives,
+OfficeSpec literacy. It needs to understand context stores, initiatives,
 workspaces, repo-local changes, and where artifacts should live. A small
 `use-openspec` skill may be the simplest first slice.
 
@@ -74,7 +74,7 @@ whenever the selected agent supports skills.
 - Should it inspect actual work progress, or stay limited to handoff readiness?
 - How should it behave when no stores are registered, the initiative is
   ambiguous, the local repo is unrelated, or linked changes already exist?
-- Should baseline OpenSpec guidance be modeled as a default skill, a profile
+- Should baseline OfficeSpec guidance be modeled as a default skill, a profile
   member, or a separate managed guide?
 - How should the guide skill interact with commands-oriented delivery?
 - How should it teach artifact placement: context-store initiative vs

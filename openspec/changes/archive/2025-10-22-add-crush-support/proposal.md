@@ -1,5 +1,5 @@
 ## Why
-Add support for Crush AI assistant in OpenSpec to enable developers to use Crush's enhanced capabilities for spec-driven development workflows.
+Add support for Crush AI assistant in OfficeSpec to enable developers to use Crush's enhanced capabilities for spec-driven development workflows.
 
 ## What Changes
 - Add Crush slash command configurator for proposal, apply, and archive operations

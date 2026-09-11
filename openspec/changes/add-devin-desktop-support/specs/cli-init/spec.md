@@ -61,7 +61,7 @@ The command SHALL generate opsx slash commands only for selected tools that have
 #### Scenario: Kimi Code skips command-file generation
 
 - **WHEN** the user selects Kimi Code during initialization
-- **THEN** OpenSpec SHALL treat it as a supported tool with `skillsDir: '.kimi-code'`
+- **THEN** OfficeSpec SHALL treat it as a supported tool with `skillsDir: '.kimi-code'`
 - **AND** command-file generation SHALL be skipped because no Kimi adapter is registered
 
 #### Scenario: Generating workflows for Devin Desktop

@@ -300,7 +300,7 @@ describe('store command', () => {
     expectHealthyOpenSpecRoot(storeRoot);
   });
 
-  it('preserves an existing healthy OpenSpec root during setup', async () => {
+  it('preserves an existing healthy OfficeSpec root during setup', async () => {
     const storeRoot = mkdir('team-context');
     createHealthyOpenSpecRoot(storeRoot, 'config.yml');
     fs.writeFileSync(path.join(storeRoot, 'openspec', 'specs', 'note.md'), 'keep\n');
@@ -659,7 +659,7 @@ describe('store command', () => {
     await runStoreCommand(['register', storeRoot]);
 
     expect(confirm).toHaveBeenCalledWith({
-      message: "Turn this OpenSpec root into store 'team-context'?",
+      message: "Turn this OfficeSpec root into store 'team-context'?",
       default: false,
     });
     expect(fs.existsSync(getStoreMetadataPath(storeRoot))).toBe(false);
@@ -1068,7 +1068,7 @@ describe('store command', () => {
     );
   });
 
-  it('reports OpenSpec root health separately without repairing it', async () => {
+  it('reports OfficeSpec root health separately without repairing it', async () => {
     const storeRoot = mkdir('team-context');
     fs.mkdirSync(path.join(storeRoot, 'openspec', 'specs'), { recursive: true });
     fs.mkdirSync(path.join(storeRoot, 'openspec', 'changes'), { recursive: true });

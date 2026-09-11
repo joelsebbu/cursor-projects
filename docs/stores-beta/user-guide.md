@@ -7,7 +7,7 @@
 
 ## The problem this solves
 
-OpenSpec normally lives inside one code repo: an `openspec/` folder next to
+OfficeSpec normally lives inside one code repo: an `openspec/` folder next to
 your code, holding specs and changes for that repo.
 
 That stops fitting the moment your planning is bigger than one repo:
@@ -23,7 +23,7 @@ That stops fitting the moment your planning is bigger than one repo:
 A **store** is the answer: a standalone repo whose whole job is planning.
 It has the same `openspec/` shape you already know — specs and changes —
 plus a small identity file. You register it on your machine once, by name,
-and then every normal OpenSpec command can work in it from anywhere.
+and then every normal OfficeSpec command can work in it from anywhere.
 
 ## The shape
 
@@ -45,9 +45,9 @@ and then every normal OpenSpec command can work in it from anywhere.
 Two rules keep this simple:
 
 1. **A store is just a git repo.** You commit, push, pull, and review it
-   yourself. OpenSpec never clones, syncs, or pushes anything on its own.
+   yourself. OfficeSpec never clones, syncs, or pushes anything on its own.
 2. **Declarations, not machinery.** Repos can *declare* how they relate to
-   stores (shown below). Declarations change what OpenSpec can tell you —
+   stores (shown below). Declarations change what OfficeSpec can tell you —
    never where your commands act.
 
 ## Five minutes to your first store
@@ -61,10 +61,10 @@ openspec store setup team-plans --path ~/openspec/team-plans
 ```
 Store ready: team-plans
 Location: /Users/you/openspec/team-plans
-OpenSpec root: ready
+OfficeSpec root: ready
 Registry: registered
 
-Next: run normal OpenSpec commands against this store, for example:
+Next: run normal OfficeSpec commands against this store, for example:
   openspec new change <change-id> --store team-plans
 Share this store by committing and pushing it like any Git repo.
 ```
@@ -74,7 +74,7 @@ openspec new change add-login --store team-plans
 ```
 
 ```
-Using OpenSpec root: team-plans (/Users/you/openspec/team-plans)
+Using OfficeSpec root: team-plans (/Users/you/openspec/team-plans)
 Created change 'add-login' at /Users/you/openspec/team-plans/openspec/changes/add-login/
 Schema: spec-driven
 Next: openspec status --change add-login --store team-plans
@@ -83,7 +83,7 @@ Next: openspec status --change add-login --store team-plans
 That's the whole model. From here the lifecycle is exactly what you know —
 `status`, `instructions`, `validate`, `archive` — with `--store team-plans`
 on each command, and every printed hint carries the flag for you. The
-`Using OpenSpec root:` line always tells you where a command is acting.
+`Using OfficeSpec root:` line always tells you where a command is acting.
 
 ## Story: one team, one planning repo
 
@@ -131,7 +131,7 @@ externalized needs exactly one line, in `openspec/config.yaml`:
 store: team-plans
 ```
 
-Now every OpenSpec command run inside `web-app` acts on `team-plans` with
+Now every OfficeSpec command run inside `web-app` acts on `team-plans` with
 no flags at all:
 
 ```bash
@@ -140,7 +140,7 @@ openspec status --change add-login
 ```
 
 ```
-Using OpenSpec root: team-plans (/Users/you/openspec/team-plans)
+Using OfficeSpec root: team-plans (/Users/you/openspec/team-plans)
 ...
 ```
 
@@ -191,7 +191,7 @@ the store repo like any other branch and pull request.
 
 ### What context does planning see?
 
-Selecting a store changes the OpenSpec root; it does not discover or read
+Selecting a store changes the OfficeSpec root; it does not discover or read
 every code repo that uses that store. Store instructions see the artifacts
 and configured context in the store. They see component code only when those
 folders are also available to the agent or editor and the agent reads them.
@@ -217,11 +217,11 @@ rely on a planner remembering source it happened to inspect.
 
 When no explicit `--store` or nearer `openspec/` root applies, a
 `store: team-plans` pointer routes commands to that store. It does not split
-one store task list by the directory from which `apply` was invoked. OpenSpec
+one store task list by the directory from which `apply` was invoked. OfficeSpec
 currently does not route tasks to repos.
 
 When each component needs an independently scoped apply/review cycle, give it
-a local OpenSpec root and reference the central store instead of pointing at
+a local OfficeSpec root and reference the central store instead of pointing at
 it:
 
 ```yaml
@@ -324,7 +324,7 @@ Doctor
 
 Root
   Location: /Users/you/src/api-server
-  OpenSpec root: ok
+  OfficeSpec root: ok
 
 References
   - platform-reqs: ok (/Users/you/openspec/platform-reqs)
@@ -334,12 +334,12 @@ References
 ```
 
 **"What am I working with?"** — `openspec context` assembles the working
-set from OpenSpec declarations: the root and the stores it references.
+set from OfficeSpec declarations: the root and the stores it references.
 
 ```
 Working context for api-server (/Users/you/src/api-server)
 
-OpenSpec root
+OfficeSpec root
   api-server  /Users/you/src/api-server
 
 Referenced stores
@@ -407,7 +407,7 @@ Every normal command resolves its root the same way, in this order:
                                                           (classic behavior)
 ```
 
-The `Using OpenSpec root:` line (and the `root` block in `--json` output)
+The `Using OfficeSpec root:` line (and the `root` block in `--json` output)
 tells you which case you're in.
 
 ## Known limitations
@@ -416,7 +416,7 @@ tells you which case you're in.
   names, flags, file formats, JSON keys.
 - **One checkout per store id per machine.** Registering a second checkout
   under the same id fails with a hint to `store unregister` first.
-- **No sync, ever — by design.** OpenSpec never clones, pulls, or pushes.
+- **No sync, ever — by design.** OfficeSpec never clones, pulls, or pushes.
   A stale checkout shows stale specs until *you* pull; references are
   indexed live from whatever is on disk.
 - **Empty planning folders can be absent.** A new store may not have

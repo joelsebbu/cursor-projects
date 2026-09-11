@@ -1,8 +1,8 @@
 /**
- * Shared OpenSpec root resolution for normal commands.
+ * Shared OfficeSpec root resolution for normal commands.
  *
  * Normal commands (`new change`, `status`, `instructions`, `list`, `show`,
- * `validate`, `archive`) resolve one OpenSpec root through this module:
+ * `validate`, `archive`) resolve one OfficeSpec root through this module:
  *
  * - `--store <id>` selects a registered store's root.
  * - Without `--store`, the nearest ancestor containing `openspec/` wins.
@@ -208,7 +208,7 @@ async function resolveStoreRoot(
       );
     case 'unhealthy_root':
       throw new RootSelectionError(
-        `Store '${id}' does not have a healthy OpenSpec root at ${storeRoot}: ${inspection.problems} ${doctorFix(id)}`,
+        `Store '${id}' does not have a healthy OfficeSpec root at ${storeRoot}: ${inspection.problems} ${doctorFix(id)}`,
         'unhealthy_store_root',
         { target: 'openspec.root', fix: doctorFix(id) }
       );
@@ -260,7 +260,7 @@ export async function inspectRegisteredStore(
   if (!inspection.healthy) {
     const problems =
       inspection.diagnostics.map((diagnostic) => diagnostic.message).join(' ') ||
-      'OpenSpec root is missing or incomplete.';
+      'OfficeSpec root is missing or incomplete.';
     return { kind: 'unhealthy_root', problems };
   }
 
@@ -306,7 +306,7 @@ async function resolveNearestOrDeclaredRoot(
   if (hasPlanningShape) {
     if (pointer.value !== undefined) {
       console.error(
-        `Warning: ${pointer.filePath} declares store '${pointer.value}', but this directory is a real OpenSpec root; the declaration is ignored.`
+        `Warning: ${pointer.filePath} declares store '${pointer.value}', but this directory is a real OfficeSpec root; the declaration is ignored.`
       );
     }
     return makeRoot(nearestRoot, 'nearest');
@@ -435,7 +435,7 @@ export async function resolveOpenSpecRoot(
 
   if (registeredIds.length > 0) {
     throw new RootSelectionError(
-      `No OpenSpec root found in the current directory or its ancestors. Registered stores: ${registeredIds.join(', ')}. Pass --store <id> to use one, or run openspec init to create a local root.`,
+      `No OfficeSpec root found in the current directory or its ancestors. Registered stores: ${registeredIds.join(', ')}. Pass --store <id> to use one, or run openspec init to create a local root.`,
       'no_root_with_registered_stores',
       {
         target: 'openspec.root',
@@ -446,7 +446,7 @@ export async function resolveOpenSpecRoot(
 
   if (options.allowImplicitRoot === false) {
     throw new RootSelectionError(
-      'No OpenSpec root found from the current directory.',
+      'No OfficeSpec root found from the current directory.',
       'no_openspec_root',
       { target: 'openspec.root', fix: 'Run openspec init to create a root here.' }
     );
@@ -490,7 +490,7 @@ export function isStoreSelectedRoot(
  */
 export function emitStoreRootBanner(root: ResolvedOpenSpecRoot): void {
   if (isStoreSelectedRoot(root)) {
-    console.error(`Using OpenSpec root: ${root.storeId} (${root.path})`);
+    console.error(`Using OfficeSpec root: ${root.storeId} (${root.path})`);
   }
 }
 

@@ -1,15 +1,15 @@
-# OpenSpec Documentation
+# OfficeSpec Documentation
 
-Welcome. This is the home for everything OpenSpec.
+Welcome. This is the home for everything OfficeSpec.
 
-OpenSpec helps you and your AI AI assistant **agree on what to do before any work starts.** You describe the change, the AI drafts a short spec and a task list, you both look at the same plan, and then the work happens. No more discovering halfway through that the AI built the wrong thing.
+OfficeSpec helps you and your AI AI assistant **agree on what to do before any work starts.** You describe the change, the AI drafts a short spec and a task list, you both look at the same plan, and then the work happens. No more discovering halfway through that the AI built the wrong thing.
 
 If you read nothing else, read these two pages:
 
 1. [Getting Started](getting-started.md): install, initialize, and ship your first change.
 2. [How Commands Work](how-commands-work.md): where you actually type `/opsx:propose` (hint: in your AI chat, not the terminal). This trips up almost everyone once.
 
-That second one matters more than it looks. OpenSpec has two halves: a command line tool you run in your terminal, and slash commands you give to your AI assistant. Knowing which is which saves you the most common moment of confusion.
+That second one matters more than it looks. OfficeSpec has two halves: a command line tool you run in your terminal, and slash commands you give to your AI assistant. Knowing which is which saves you the most common moment of confusion.
 
 > **The best habit to build first: when you're not sure what to build, start with `/opsx:explore`.** It's a no-stakes thinking partner that reads your code, weighs options, and sharpens a fuzzy idea into a concrete plan before any artifact or code exists. The [Explore First](explore.md) guide makes the case.
 
@@ -19,7 +19,7 @@ That second one matters more than it looks. OpenSpec has two halves: a command l
 
 **I have a problem but not a plan.** This is the common case, and it has a dedicated answer: [Explore First](explore.md). Use `/opsx:explore` to think it through with the AI before committing to anything.
 
-**I have a big existing workspace.** You don't document all of it. [Using OpenSpec in an Existing Project](existing-projects.md) shows how to start on real, existing work code without boiling the ocean.
+**I have a big existing workspace.** You don't document all of it. [Using OfficeSpec in an Existing Project](existing-projects.md) shows how to start on real, existing work code without boiling the ocean.
 
 **I just want to get it working.** [Install](installation.md), run `openspec init`, then read [How Commands Work](how-commands-work.md) so your first slash command lands in the right place. Or hand the setup to your assistant with the [AI-assisted install prompt](installation.md#install-with-your-ai-assistant).
 
@@ -27,7 +27,7 @@ That second one matters more than it looks. OpenSpec has two halves: a command l
 
 **The AI just drafted a plan — now what?** Read it. [Reviewing a Change](reviewing-changes.md) shows the two-minute pass that catches a wrong turn while it's still cheap, and [Writing Good Specs](writing-specs.md) covers what a plan worth approving is made of.
 
-**I work on a team.** [OpenSpec on a Team](team-workflow.md) shows how a change maps onto a branch and a pull request, and how teammates review a plan before the code.
+**I work on a team.** [OfficeSpec on a Team](team-workflow.md) shows how a change maps onto a branch and a pull request, and how teammates review a plan before the code.
 
 **I'm coming from the old workflow.** The [Migration Guide](migration-guide.md) explains what changed and why, and promises your existing work is safe.
 
@@ -55,8 +55,8 @@ That second one matters more than it looks. OpenSpec has two halves: a command l
 | [Examples & Recipes](examples.md) | Full walkthroughs of real changes, copy-pasteable |
 | [Writing Good Specs](writing-specs.md) | What a strong requirement and scenario look like, and how to right-size a change |
 | [Reviewing a Change](reviewing-changes.md) | The two-minute pass on a drafted plan before any work starts |
-| [OpenSpec on a Team](team-workflow.md) | How changes fit branches, pull requests, and review |
-| [Using OpenSpec in an Existing Project](existing-projects.md) | Adopting OpenSpec on a large work already in flight |
+| [OfficeSpec on a Team](team-workflow.md) | How changes fit branches, pull requests, and review |
+| [Using OfficeSpec in an Existing Project](existing-projects.md) | Adopting OfficeSpec on a large work already in flight |
 | [Editing & Iterating on a Change](editing-changes.md) | Update artifacts, go back, reconcile manual edits |
 | [Commands](commands.md) | Reference for every `/opsx:*` slash command |
 | [CLI](cli.md) | Reference for every `openspec` terminal command |
@@ -75,8 +75,8 @@ That second one matters more than it looks. OpenSpec has two halves: a command l
 |-----|-------------------|
 | [Customization](customization.md) | Project config, custom schemas, shared context |
 | [Multi-Language](multi-language.md) | Generate artifacts in languages other than English |
-| [Supported Tools](supported-tools.md) | The 30+ AI tools OpenSpec integrates with, and where files land |
-| [Community Showcase](community.md) | Projects and resources built with and for OpenSpec |
+| [Supported Tools](supported-tools.md) | The 30+ AI tools OfficeSpec integrates with, and where files land |
+| [Community Showcase](community.md) | Projects and resources built with and for OfficeSpec |
 
 ### When you need help
 
@@ -96,7 +96,7 @@ That second one matters more than it looks. OpenSpec has two halves: a command l
 ## The thirty-second version
 
 ```text
-1. Install        npm install -g @fission-ai/openspec@latest
+1. Install        npm install -g officespec@latest
 2. Initialize     cd your-work-folder && openspec init
 3. Explore        (in your AI chat)  /opsx:explore           ← optional, but a great habit
 4. Propose        (in your AI chat)  /opsx:propose improve-expense-approvals
@@ -109,7 +109,7 @@ Steps 1 and 2 happen in your terminal. The rest happen in your AI assistant's ch
 ## Where else to get help
 
 - **Discord:** [discord.gg/YctCnvvshC](https://discord.gg/YctCnvvshC) for questions, ideas, and help.
-- **GitHub Issues:** [github.com/Fission-AI/OpenSpec/issues](https://github.com/Fission-AI/OpenSpec/issues) for bugs and feature requests.
+- **GitHub Issues:** [github.com/joelsebbu/OpenSpec/issues](https://github.com/joelsebbu/OpenSpec/issues) for bugs and feature requests.
 - **`openspec feedback "your message"`** sends feedback straight from your terminal (it opens a GitHub issue).
 
 Found something in these docs that's wrong, stale, or confusing? That's a bug. Open an issue or a PR. Documentation improvements are some of the most valuable contributions you can make.

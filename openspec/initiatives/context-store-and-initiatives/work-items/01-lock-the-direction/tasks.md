@@ -5,7 +5,7 @@
 - [x] Create initiative-level `tasks.md`, `decisions.md`, and `questions.md`.
 - [x] Create `work-items/01-lock-the-direction/`.
 - [x] Record why roadmap implementation is tracked inside the initiative instead
-  of creating a new OpenSpec change.
+  of creating a new OfficeSpec change.
 
 ## Direction Lock Already Captured
 
@@ -19,7 +19,7 @@
 
 ## Non-Spec Direction Pass
 
-- [x] Keep OpenSpec specs unchanged until behavior changes.
+- [x] Keep OfficeSpec specs unchanged until behavior changes.
 - [x] Review initiative artifacts for a clear source-of-intent story.
 - [x] Review historical workspace roadmap artifacts for any remaining language
   that tells agents to continue the old shipping queue.
@@ -40,5 +40,5 @@
 ## Verification
 
 - [x] Run `git diff --check`.
-- [x] Confirm no OpenSpec specs were modified in this pass.
+- [x] Confirm no OfficeSpec specs were modified in this pass.
 - [x] Record evidence in `evidence.md`.

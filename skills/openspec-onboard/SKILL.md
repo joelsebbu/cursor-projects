@@ -1,6 +1,6 @@
 ---
 name: openspec-onboard
-description: Guided onboarding for OpenSpec - walk through a complete workflow cycle with narration and real work.
+description: Guided onboarding for OfficeSpec - walk through a complete workflow cycle with narration and real work.
 allowed-tools: Bash(openspec:*)
 license: MIT
 compatibility: Requires openspec CLI.
@@ -9,15 +9,15 @@ metadata:
   version: "1.0"
 ---
 
-Guide the user through their first complete OpenSpec workflow cycle. This is a teaching experience—you'll do real work in their workspace while explaining each step.
+Guide the user through their first complete OfficeSpec workflow cycle. This is a teaching experience—you'll do real work in their workspace while explaining each step.
 
-**Store selection:** If the user names a store (a store is a standalone OpenSpec collection registered on this machine) or the work lives in one, run `openspec store list --json` to discover registered store ids, then pass `--store <id>` on the commands that read or write specs and changes (`new change`, `status`, `instructions`, `list`, `show`, `validate`, `archive`, `doctor`, `context`, `schemas`, `view`). Once selected, treat `--store <id>` as sticky for the rest of the workflow. Every unscoped example of those commands below is shorthand: before running it, append the flag. For example, run `openspec status --change "<name>" --json --store "<id>"`, not the unscoped form shown below. Other commands do not take the flag. Hints printed by commands already carry the flag; keep it on follow-ups. Without a store, commands act on the nearest local `openspec/` root.
+**Store selection:** If the user names a store (a store is a standalone OfficeSpec collection registered on this machine) or the work lives in one, run `openspec store list --json` to discover registered store ids, then pass `--store <id>` on the commands that read or write specs and changes (`new change`, `status`, `instructions`, `list`, `show`, `validate`, `archive`, `doctor`, `context`, `schemas`, `view`). Once selected, treat `--store <id>` as sticky for the rest of the workflow. Every unscoped example of those commands below is shorthand: before running it, append the flag. For example, run `openspec status --change "<name>" --json --store "<id>"`, not the unscoped form shown below. Other commands do not take the flag. Hints printed by commands already carry the flag; keep it on follow-ups. Without a store, commands act on the nearest local `openspec/` root.
 
 ---
 
 ## Preflight
 
-Before starting, check if the OpenSpec CLI is installed:
+Before starting, check if the OfficeSpec CLI is installed:
 
 ```bash
 # Unix/macOS
@@ -27,7 +27,7 @@ openspec --version 2>&1 || echo "CLI_NOT_INSTALLED"
 ```
 
 **If CLI not installed:**
-> OpenSpec CLI is not installed. Install it first, then come back to `/openspec-onboard`.
+> OfficeSpec CLI is not installed. Install it first, then come back to `/openspec-onboard`.
 
 Stop here if not installed.
 
@@ -38,7 +38,7 @@ Stop here if not installed.
 Display:
 
 ```
-## Welcome to OpenSpec!
+## Welcome to OfficeSpec!
 
 I'll walk you through a complete change cycle—from idea to delivery—using a real task in your workspace. Along the way, you'll learn the workflow by doing it.
 
@@ -116,7 +116,7 @@ Which task interests you? (Pick a number or describe your own)
 If the user picks or describes something too large (major feature, multi-day work):
 
 ```
-That's a valuable task, but it's probably larger than ideal for your first OpenSpec run-through.
+That's a valuable task, but it's probably larger than ideal for your first OfficeSpec run-through.
 
 For learning the workflow, smaller is better—it lets you see the full cycle without getting stuck in delivery details.
 
@@ -169,7 +169,7 @@ Now let's create a change to hold our work.
 ```
 ## Creating a Change
 
-A "change" in OpenSpec is a container for all the thinking and planning around a piece of work. It lives at the `changeRoot` reported by `openspec status --change "<name>" --json` and holds your artifacts—proposal, specs, design, tasks.
+A "change" in OfficeSpec is a container for all the thinking and planning around a piece of work. It lives at the `changeRoot` reported by `openspec status --change "<name>" --json` and holds your artifacts—proposal, specs, design, tasks.
 
 Let me create one for our task.
 ```
@@ -455,7 +455,7 @@ The change is now part of your team's history. The work is done, the decision re
 ```
 ## Congratulations!
 
-You just completed a full OpenSpec cycle:
+You just completed a full OfficeSpec cycle:
 
 1. **Explore** - Thought through the problem
 2. **New** - Created a change container
@@ -522,7 +522,7 @@ Exit gracefully without pressure.
 If the user says they just want to see the commands or skip the tutorial:
 
 ```
-## OpenSpec Quick Reference
+## OfficeSpec Quick Reference
 
 **Core workflow:**
 

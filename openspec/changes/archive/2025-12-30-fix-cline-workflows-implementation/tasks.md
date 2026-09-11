@@ -10,4 +10,4 @@
 
 ## 4. Validate Changes
 - [x] Ensure all tests pass with the new paths
-- [x] Verify the change follows OpenSpec conventions
+- [x] Verify the change follows OfficeSpec conventions

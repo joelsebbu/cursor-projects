@@ -38,7 +38,7 @@ export interface LegacyToolRoot {
 }
 
 /**
- * Former tool roots whose OpenSpec-managed content belongs under the tool's
+ * Former tool roots whose OfficeSpec-managed content belongs under the tool's
  * current skillsDir. User files are never touched.
  */
 export const LEGACY_TOOL_ROOTS: Record<string, LegacyToolRoot[]> = {
@@ -72,7 +72,7 @@ export interface LegacyToolMigration {
   /** Command files that moved, or would move */
   commandFiles: number;
   /**
-   * OpenSpec-managed files left under the legacy root because the copy there
+   * OfficeSpec-managed files left under the legacy root because the copy there
    * differs materially from the one that survives, so it is reported rather
    * than dropped.
    */
@@ -82,7 +82,7 @@ export interface LegacyToolMigration {
 }
 
 /**
- * Classifies one OpenSpec-managed file. `move` is the fast path (nothing at
+ * Classifies one OfficeSpec-managed file. `move` is the fast path (nothing at
  * the destination yet); `drop` means the destination already holds equivalent
  * generated content, so the legacy copy is redundant; `keep` means the two
  * differ materially and the legacy copy is not ours to discard.
@@ -129,7 +129,7 @@ function legacyCommandPath(
 }
 
 /**
- * Reports the OpenSpec content sitting under each tool's legacy root, without
+ * Reports the OfficeSpec content sitting under each tool's legacy root, without
  * moving anything. Callers use this to ask before a move that needs consent.
  */
 export function findLegacyToolMigrations(
@@ -140,7 +140,7 @@ export function findLegacyToolMigrations(
 }
 
 /**
- * Moves OpenSpec-managed skill directories (openspec-*) and command files
+ * Moves OfficeSpec-managed skill directories (openspec-*) and command files
  * (opsx-*) from a tool's legacy root to its current one. When the destination
  * already exists the legacy copy is removed instead. Legacy directories are
  * deleted only when left empty, so user files under the old location — a
@@ -275,7 +275,7 @@ function migrateSkillDirs(
     try {
       // Move the generated file, never the directory around it. A skill
       // directory can also hold files the user wrote, and this destination is
-      // one OpenSpec deletes on its own — commands-only delivery and a
+      // one OfficeSpec deletes on its own — commands-only delivery and a
       // deselected workflow both remove the whole skill directory. Carrying a
       // user's file across would be handing it to that later removal.
       if (disposition === 'drop') {
@@ -320,7 +320,7 @@ function migrateCommandFiles(
       currentPath.split(/[\\/]/).join(path.sep)
     );
     // An after-generation move runs once the tool has written its replacement.
-    // No replacement means this command is not one OpenSpec installs now — a
+    // No replacement means this command is not one OfficeSpec installs now — a
     // skills-only delivery or a deselected workflow — so relocating the legacy
     // file would resurrect it under the current root.
     if (requireDestination && !fs.existsSync(destination)) continue;
@@ -372,14 +372,14 @@ export function describeLegacyMigration(migration: LegacyToolMigration): string 
 }
 
 /**
- * Names OpenSpec-managed files the move deliberately left behind, so a user
+ * Names OfficeSpec-managed files the move deliberately left behind, so a user
  * who customized one knows there are now two copies to reconcile.
  */
 export function keptInPlaceNotice(migration: LegacyToolMigration): string | undefined {
   if (migration.keptInPlace === 0) return undefined;
   const n = migration.keptInPlace;
   // Deliberately does not claim the difference came from an edit: an older
-  // OpenSpec version's output differs too. Either way nothing was overwritten,
+  // OfficeSpec version's output differs too. Either way nothing was overwritten,
   // and the user is the one who decides which copy to keep.
   return (
     `Left ${n} file${n === 1 ? '' : 's'} in ${migration.from}/ that ` +

@@ -10,7 +10,7 @@ import { STORE_SELECTION_GUIDANCE } from './store-selection.js';
 export function getFfChangeSkillTemplate(): SkillTemplate {
   return {
     name: 'openspec-ff-change',
-    description: 'Fast-forward through OpenSpec artifact creation. Use when the user wants to quickly create all artifacts needed to do the work without stepping through each one individually.',
+    description: 'Fast-forward through OfficeSpec artifact creation. Use when the user wants to quickly create all artifacts needed to do the work without stepping through each one individually.',
     instructions: `Fast-forward through artifact creation - generate everything needed to start the work in one go.
 
 ${STORE_SELECTION_GUIDANCE}

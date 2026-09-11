@@ -191,7 +191,7 @@ Locked behavior:
 Suggested human output:
 
 ```text
-OpenSpec context stores (2)
+OfficeSpec context stores (2)
 
 ID              Location
 platform        /Users/me/src/platform-context
@@ -266,7 +266,7 @@ Locked behavior:
 Suggested all-store output:
 
 ```text
-OpenSpec initiatives (3 across 2 stores)
+OfficeSpec initiatives (3 across 2 stores)
 
 ID                   Store       Title
 billing-launch       platform    Billing Launch
@@ -286,7 +286,7 @@ No initiatives found because no context stores are registered.
 Suggested filtered output:
 
 ```text
-OpenSpec initiatives in platform (2)
+OfficeSpec initiatives in platform (2)
 
 ID                   Title
 billing-launch       Billing Launch

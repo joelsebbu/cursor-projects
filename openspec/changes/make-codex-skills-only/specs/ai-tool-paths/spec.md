@@ -1,7 +1,7 @@
 ## ADDED Requirements
 
 ### Requirement: Codex skills path is the supported Codex integration path
-The system SHALL identify `.codex/skills/` as the supported Codex OpenSpec workflow path.
+The system SHALL identify `.codex/skills/` as the supported Codex OfficeSpec workflow path.
 
 #### Scenario: Codex skills path defined
 - **WHEN** looking up the `codex` tool
@@ -10,7 +10,7 @@ The system SHALL identify `.codex/skills/` as the supported Codex OpenSpec workf
 
 #### Scenario: Codex command path is not advertised as supported
 - **WHEN** displaying AI tool path documentation or command-generation metadata
-- **THEN** the system SHALL present Codex as a skills-only OpenSpec integration
+- **THEN** the system SHALL present Codex as a skills-only OfficeSpec integration
 - **AND** it SHALL NOT advertise `$CODEX_HOME/prompts/opsx-<id>.md` as a generated Codex command path
 
 ### Requirement: Codex global prompt cleanup path resolution
@@ -36,7 +36,7 @@ The system SHALL identify managed Codex prompt cleanup targets using the final s
 
 #### Scenario: Global legacy Codex prompts use an exact directory and filename allowlist
 - **WHEN** detecting managed legacy Codex prompt files in the resolved Codex prompt directory
-- **THEN** the system SHALL match only exact historical OpenSpec-owned filenames directly under that resolved directory
+- **THEN** the system SHALL match only exact historical OfficeSpec-owned filenames directly under that resolved directory
 - **AND** it SHALL infer the represented workflow IDs from those filenames
 - **AND** the allowlist SHALL include `opsx-update.md` mapped to the `update` workflow
 

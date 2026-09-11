@@ -2,7 +2,7 @@
 
 ## Outcome
 
-One read-only question, one place: is the resolved OpenSpec root healthy, and
+One read-only question, one place: is the resolved OfficeSpec root healthy, and
 are its referenced stores available on this machine? `openspec doctor` answers
 for the resolved root, separating root health, store metadata health, reference
 health, and cross-cutting relationship warnings. Nothing clones, pulls, pushes,
@@ -14,7 +14,7 @@ reports implementation-folder health.
 ## Locked Decisions
 
 1. **Diagnostic only.** No clone/sync/branch/worktree behavior, no repairs.
-2. **The report separates** OpenSpec root health, store metadata health,
+2. **The report separates** OfficeSpec root health, store metadata health,
    reference health, and top-level relationship warnings.
 3. **The surface is top-level `openspec doctor`.** It is root-scoped, not
    machine-scoped like `store doctor` and not change-scoped like `status`.
@@ -47,7 +47,7 @@ Doctor
 
 Root
   Location: /Users/dev/src/team-context
-  OpenSpec root: ok
+  OfficeSpec root: ok
   Store: team-context (metadata ok)
 
 References

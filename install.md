@@ -1,16 +1,16 @@
 # openspec
 
-> OpenSpec gives you and your AI assistant a shared, reviewable plan before work starts. This file installs its CLI and sets up your project.
+> OfficeSpec gives you and your AI assistant a shared, reviewable plan before work starts. This file installs its CLI and sets up your project.
 
-I want you to install OpenSpec and set up my project. Follow the steps below in order, and stop where a step tells you to stop.
+I want you to install OfficeSpec and set up my project. Follow the steps below in order, and stop where a step tells you to stop.
 
-OBJECTIVE: Install the OpenSpec CLI globally and initialize the user's workspace.
+OBJECTIVE: Install the OfficeSpec CLI globally and initialize the user's workspace.
 
 DONE WHEN:
 
 - `openspec --version` prints a version number
 - the workspace the user confirmed has an `openspec/` folder created or refreshed by `openspec init`
-- the user has been told the exact spelling to invoke OpenSpec in their AI tool
+- the user has been told the exact spelling to invoke OfficeSpec in their AI tool
 
 TODO:
 
@@ -22,7 +22,7 @@ TODO:
 
 ## 1. Runtime
 
-Run `node --version`. OpenSpec needs Node.js 20.19.0 or higher. If Node is missing or older, say so and stop, but leave the user with their next move: point them at https://nodejs.org, or if they use a version manager like nvm, name the command that would switch to a newer version. Don't install Node, switch versions, or reconfigure the user's version manager yourself.
+Run `node --version`. OfficeSpec needs Node.js 20.19.0 or higher. If Node is missing or older, say so and stop, but leave the user with their next move: point them at https://nodejs.org, or if they use a version manager like nvm, name the command that would switch to a newer version. Don't install Node, switch versions, or reconfigure the user's version manager yourself.
 
 ## 2. Install
 
@@ -31,10 +31,10 @@ Run `openspec --version` first. If it already prints a version, the CLI is insta
 Use whichever package manager is already on PATH, preferring npm:
 
 ```bash
-npm install -g @fission-ai/openspec@latest
-pnpm add -g @fission-ai/openspec@latest
-bun add --global @fission-ai/openspec@latest
-yarn global add @fission-ai/openspec@latest   # Yarn 1.x only
+npm install -g officespec@latest
+pnpm add -g officespec@latest
+bun add --global officespec@latest
+yarn global add officespec@latest   # Yarn 1.x only
 ```
 
 Don't pick based on this folder's lockfile: a global install has nothing to do with how this folder's own dependencies are installed. If none of those four is available, stop and say so; don't improvise an install. (On Nix, point the user at the Nix section of https://openspec.dev/docs/installation instead.)
@@ -49,13 +49,13 @@ Run `openspec --version`. If the command isn't found, it may only be missing fro
 
 ## 4. Initialize
 
-Work out where `openspec/` should go, and lead with your best guess rather than an open question: the root of the work the user is doing is almost always right. Name the folder you picked and let them correct it, for example "you're in ~/work/acme-onboarding, so I'll set OpenSpec up there". Prefer the version control root over the current directory, and in a monorepo say which package you chose and why. To target a folder other than the current one, pass it: `openspec init <path> --tools <ids>`.
+Work out where `openspec/` should go, and lead with your best guess rather than an open question: the root of the work the user is doing is almost always right. Name the folder you picked and let them correct it, for example "you're in ~/work/acme-onboarding, so I'll set OfficeSpec up there". Prefer the version control root over the current directory, and in a monorepo say which package you chose and why. To target a folder other than the current one, pass it: `openspec init <path> --tools <ids>`.
 
 init creates `openspec/` wherever you point it and won't warn you when that's wrong. If the folder is a home directory, a temp directory, or holds no work at all, stop and ask where the work is.
 
 Then work out which AI tools the user works with, and again lead with an inference instead of an open question: you are probably running inside one of them, so name it and ask what else they use, suggesting a few common options (Claude Code, Cursor, Copilot, Codex). Say what the answer changes: each tool named gets its own skill and command files in the workspace, and re-running init later adds more, so a short list now costs nothing. Map each tool to an id from `openspec init --help` (Copilot is `github-copilot`, Zoo Code is `roocode`). `--tools` takes a comma-separated list, so name all of them.
 
-`openspec init --tools <ids>` deletes leftovers from older OpenSpec versions automatically, without asking, including `opsx-*.md` prompt files in the home directory (Codex keeps them in `~/.codex/prompts`). Before running it, look for those: `.../commands/openspec/` folders, OpenSpec marker blocks in files like CLAUDE.md or AGENTS.md, and home-directory `opsx-*.md` prompts. List whatever you find, say plainly that init will delete these, and wait for a go-ahead; if you find nothing, say so and carry on without asking. An existing `openspec/` folder is not a problem: init refreshes it and leaves specs and changes alone.
+`openspec init --tools <ids>` deletes leftovers from older OfficeSpec versions automatically, without asking, including `opsx-*.md` prompt files in the home directory (Codex keeps them in `~/.codex/prompts`). Before running it, look for those: `.../commands/openspec/` folders, OfficeSpec marker blocks in files like CLAUDE.md or AGENTS.md, and home-directory `opsx-*.md` prompts. List whatever you find, say plainly that init will delete these, and wait for a go-ahead; if you find nothing, say so and carry on without asking. An existing `openspec/` folder is not a problem: init refreshes it and leaves specs and changes alone.
 
 Then run: `openspec init --tools <ids>`, adding the path when it isn't the current folder.
 
@@ -63,8 +63,8 @@ Then run: `openspec init --tools <ids>`, adding the path when it isn't the curre
 
 Don't assume what should exist; relay what init actually printed: how many skills and/or commands it created and where, the config file line, any "Setup required" note, and what to restart or reload. Some tools are skills-only and correctly create zero command files, so missing commands is not a failure on its own. If init said nothing was generated, relay the fix it suggested instead of retrying.
 
-Finish by telling the user how to invoke OpenSpec in their tool, taking the exact spelling from the files init created rather than from its summary line: the punctuation differs per tool (`/opsx:propose` in some, `/opsx-propose` in others, `@opsx-propose` in Amazon Q), and tools that get skills instead of commands are invoked by skill name (`/openspec-propose`, or `$openspec-propose` in Codex, or `/skill:openspec-propose` in Kimi Code).
+Finish by telling the user how to invoke OfficeSpec in their tool, taking the exact spelling from the files init created rather than from its summary line: the punctuation differs per tool (`/opsx:propose` in some, `/opsx-propose` in others, `@opsx-propose` in Amazon Q), and tools that get skills instead of commands are invoked by skill name (`/openspec-propose`, or `$openspec-propose` in Codex, or `/skill:openspec-propose` in Kimi Code).
 
-EXECUTE NOW: Complete the TODO list above to achieve: the OpenSpec CLI installed, this project initialized, and the user told exactly how to invoke OpenSpec in their AI tool.
+EXECUTE NOW: Complete the TODO list above to achieve: the OfficeSpec CLI installed, this project initialized, and the user told exactly how to invoke OfficeSpec in their AI tool.
 
 More context for agents: https://openspec.dev/llms.txt

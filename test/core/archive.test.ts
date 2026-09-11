@@ -54,7 +54,7 @@ describe('ArchiveCommand', () => {
     // host machine so no-root behavior stays the implicit-root path.
     process.env.XDG_DATA_HOME = path.join(tempDir, 'xdg-data');
 
-    // Create OpenSpec structure
+    // Create OfficeSpec structure
     const openspecDir = path.join(tempDir, 'openspec');
     await fs.mkdir(path.join(openspecDir, 'changes'), { recursive: true });
     await fs.mkdir(path.join(openspecDir, 'specs'), { recursive: true });
@@ -498,7 +498,7 @@ describe('ArchiveCommand', () => {
       await expect(fs.access(outsideDir)).resolves.not.toThrow();
     });
 
-    it('rejects an archive directory symlink outside the OpenSpec root', async () => {
+    it('rejects an archive directory symlink outside the OfficeSpec root', async () => {
       if (process.platform === 'win32') return;
 
       const changeName = 'stay-inside';
@@ -517,7 +517,7 @@ describe('ArchiveCommand', () => {
           noValidate: true,
           skipSpecs: true,
         })
-      ).rejects.toThrow(/outside the OpenSpec root/u);
+      ).rejects.toThrow(/outside the OfficeSpec root/u);
       await expect(fs.access(changeDir)).resolves.not.toThrow();
       await expect(fs.readdir(outsideDir)).resolves.toEqual([]);
     });
@@ -1095,7 +1095,7 @@ The system SHALL discover capabilities stored below namespace directories.
 
 #### Scenario: Validate nested delta
 - **WHEN** the user validates the change
-- **THEN** OpenSpec detects the nested capability`;
+- **THEN** OfficeSpec detects the nested capability`;
       await fs.writeFile(path.join(nestedSpecDir, 'spec.md'), specContent);
 
       await archiveCommand.execute(changeName, { yes: true, noValidate: true });

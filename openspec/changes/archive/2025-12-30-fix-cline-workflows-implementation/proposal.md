@@ -1,5 +1,5 @@
 ## Why
-The Cline implementation was architecturally incorrect. According to Cline's official documentation, Cline uses workflows for on-demand automation and rules for behavioral guidelines. The OpenSpec slash commands are procedural workflows (scaffold → implement → archive), not behavioral rules, so they should be placed in `.clinerules/workflows/` instead of `.clinerules/`.
+The Cline implementation was architecturally incorrect. According to Cline's official documentation, Cline uses workflows for on-demand automation and rules for behavioral guidelines. The OfficeSpec slash commands are procedural workflows (scaffold → implement → archive), not behavioral rules, so they should be placed in `.clinerules/workflows/` instead of `.clinerules/`.
 
 ## What Changes
 - Update ClineSlashCommandConfigurator to use `.clinerules/workflows/` paths instead of `.clinerules/` paths

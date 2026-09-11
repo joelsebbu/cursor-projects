@@ -185,7 +185,7 @@ describe('PowerShellInstaller', () => {
       await fs.mkdir(path.dirname(profilePath), { recursive: true });
 
       const initialContent = [
-        '# OPENSPEC:START - OpenSpec completion (managed block, do not edit manually)',
+        '# OPENSPEC:START - OfficeSpec completion (managed block, do not edit manually)',
         `. "${mockScriptPath}"`,
         '# OPENSPEC:END',
         '',
@@ -311,7 +311,7 @@ describe('PowerShellInstaller', () => {
 
       const initialContent = [
         '# OPENSPEC:START',
-        '# OpenSpec completions',
+        '# OfficeSpec completions',
         'if (Test-Path "/path") {',
         '    . "/path"',
         '}',
@@ -328,7 +328,7 @@ describe('PowerShellInstaller', () => {
       const content = await fs.readFile(profilePath, 'utf-8');
       expect(content).not.toContain('# OPENSPEC:START');
       expect(content).not.toContain('# OPENSPEC:END');
-      expect(content).not.toContain('# OpenSpec completions');
+      expect(content).not.toContain('# OfficeSpec completions');
       expect(content).toContain('# My config');
     });
 
@@ -361,7 +361,7 @@ describe('PowerShellInstaller', () => {
       const initialContent = [
         '# Before',
         '# OPENSPEC:START',
-        '# OpenSpec',
+        '# OfficeSpec',
         '# OPENSPEC:END',
         '# After',
       ].join('\n');
@@ -395,7 +395,7 @@ describe('PowerShellInstaller', () => {
   });
 
   describe('install', () => {
-    const mockCompletionScript = `# PowerShell completion script for OpenSpec
+    const mockCompletionScript = `# PowerShell completion script for OfficeSpec
 $openspecCompleter = {
     param($wordToComplete, $commandAst, $cursorPosition)
     # Completion logic here
@@ -638,7 +638,7 @@ Register-ArgumentCompleter -CommandName openspec -ScriptBlock $openspecCompleter
       expect(raw[0]).toBe(0xff);
       expect(raw[1]).toBe(0xfe);
 
-      // Verify content: original line kept, OpenSpec block removed
+      // Verify content: original line kept, OfficeSpec block removed
       const content = raw.subarray(2).toString('utf16le');
       expect(content).toContain('. "C:\\Code\\profile.ps1"');
       expect(content).not.toContain('# OPENSPEC:START');
@@ -714,7 +714,7 @@ Register-ArgumentCompleter -CommandName openspec -ScriptBlock $openspecCompleter
       const originalText = '. "C:\\Code\\SystemConfig\\Powershell\\profile.ps1"\r\n';
       await writeUtf16LeFile(profilePath, originalText);
 
-      // Install adds the OpenSpec block
+      // Install adds the OfficeSpec block
       const mockScript = '# completion script';
       await installer.install(mockScript);
 
@@ -726,7 +726,7 @@ Register-ArgumentCompleter -CommandName openspec -ScriptBlock $openspecCompleter
       expect(content).toContain('# OPENSPEC:START');
       expect(content).toContain(originalText.trimEnd());
 
-      // Uninstall removes the OpenSpec block
+      // Uninstall removes the OfficeSpec block
       await installer.uninstall();
 
       raw = await fs.readFile(profilePath);

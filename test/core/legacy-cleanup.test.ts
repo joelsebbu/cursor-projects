@@ -48,7 +48,7 @@ describe('legacy-cleanup', () => {
     it('should return true when both markers are present', () => {
       const content = `Some content
 ${OPENSPEC_MARKERS.start}
-OpenSpec content
+OfficeSpec content
 ${OPENSPEC_MARKERS.end}
 More content`;
       expect(hasOpenSpecMarkers(content)).toBe(true);
@@ -56,14 +56,14 @@ More content`;
 
     it('should return false when start marker is missing', () => {
       const content = `Some content
-OpenSpec content
+OfficeSpec content
 ${OPENSPEC_MARKERS.end}`;
       expect(hasOpenSpecMarkers(content)).toBe(false);
     });
 
     it('should return false when end marker is missing', () => {
       const content = `${OPENSPEC_MARKERS.start}
-OpenSpec content
+OfficeSpec content
 Some content`;
       expect(hasOpenSpecMarkers(content)).toBe(false);
     });
@@ -77,7 +77,7 @@ Some content`;
   describe('isOnlyOpenSpecContent', () => {
     it('should return true when content is only markers and whitespace outside', () => {
       const content = `${OPENSPEC_MARKERS.start}
-OpenSpec content here
+OfficeSpec content here
 ${OPENSPEC_MARKERS.end}`;
       expect(isOnlyOpenSpecContent(content)).toBe(true);
     });
@@ -86,7 +86,7 @@ ${OPENSPEC_MARKERS.end}`;
       const content = `
 
 ${OPENSPEC_MARKERS.start}
-OpenSpec content
+OfficeSpec content
 ${OPENSPEC_MARKERS.end}
 
 `;
@@ -96,14 +96,14 @@ ${OPENSPEC_MARKERS.end}
     it('should return false when content exists before markers', () => {
       const content = `User content here
 ${OPENSPEC_MARKERS.start}
-OpenSpec content
+OfficeSpec content
 ${OPENSPEC_MARKERS.end}`;
       expect(isOnlyOpenSpecContent(content)).toBe(false);
     });
 
     it('should return false when content exists after markers', () => {
       const content = `${OPENSPEC_MARKERS.start}
-OpenSpec content
+OfficeSpec content
 ${OPENSPEC_MARKERS.end}
 User content here`;
       expect(isOnlyOpenSpecContent(content)).toBe(false);
@@ -126,7 +126,7 @@ ${OPENSPEC_MARKERS.start}`;
     it('should remove marker block and preserve content before', () => {
       const content = `User content before
 ${OPENSPEC_MARKERS.start}
-OpenSpec content
+OfficeSpec content
 ${OPENSPEC_MARKERS.end}`;
       const result = removeMarkerBlock(content);
       expect(result).toBe('User content before\n');
@@ -136,7 +136,7 @@ ${OPENSPEC_MARKERS.end}`;
 
     it('should remove marker block and preserve content after', () => {
       const content = `${OPENSPEC_MARKERS.start}
-OpenSpec content
+OfficeSpec content
 ${OPENSPEC_MARKERS.end}
 User content after`;
       const result = removeMarkerBlock(content);
@@ -146,7 +146,7 @@ User content after`;
     it('should remove marker block and preserve content before and after', () => {
       const content = `User content before
 ${OPENSPEC_MARKERS.start}
-OpenSpec content
+OfficeSpec content
 ${OPENSPEC_MARKERS.end}
 User content after`;
       const result = removeMarkerBlock(content);
@@ -160,7 +160,7 @@ User content after`;
 
 
 ${OPENSPEC_MARKERS.start}
-OpenSpec content
+OfficeSpec content
 ${OPENSPEC_MARKERS.end}
 
 
@@ -171,7 +171,7 @@ Line 2`;
 
     it('should return empty string when only markers remain', () => {
       const content = `${OPENSPEC_MARKERS.start}
-OpenSpec content
+OfficeSpec content
 ${OPENSPEC_MARKERS.end}`;
       const result = removeMarkerBlock(content);
       expect(result).toBe('');
@@ -212,10 +212,10 @@ After content`;
   });
 
   describe('detectLegacyConfigFiles', () => {
-    it('should detect CLAUDE.md with OpenSpec markers and put in update list', async () => {
+    it('should detect CLAUDE.md with OfficeSpec markers and put in update list', async () => {
       const claudePath = path.join(testDir, 'CLAUDE.md');
       await fs.writeFile(claudePath, `${OPENSPEC_MARKERS.start}
-OpenSpec content
+OfficeSpec content
 ${OPENSPEC_MARKERS.end}`);
 
       const result = await detectLegacyConfigFiles(testDir);
@@ -228,7 +228,7 @@ ${OPENSPEC_MARKERS.end}`);
       const claudePath = path.join(testDir, 'CLAUDE.md');
       await fs.writeFile(claudePath, `User instructions here
 ${OPENSPEC_MARKERS.start}
-OpenSpec content
+OfficeSpec content
 ${OPENSPEC_MARKERS.end}`);
 
       const result = await detectLegacyConfigFiles(testDir);
@@ -236,7 +236,7 @@ ${OPENSPEC_MARKERS.end}`);
       expect(result.filesToUpdate).toContain('CLAUDE.md');
     });
 
-    it('should not detect files without OpenSpec markers', async () => {
+    it('should not detect files without OfficeSpec markers', async () => {
       const claudePath = path.join(testDir, 'CLAUDE.md');
       await fs.writeFile(claudePath, 'Plain instructions without markers');
 
@@ -461,10 +461,10 @@ ${OPENSPEC_MARKERS.end}`);
       expect(result.hasProjectMd).toBe(true);
     });
 
-    it('should detect root AGENTS.md with OpenSpec markers', async () => {
+    it('should detect root AGENTS.md with OfficeSpec markers', async () => {
       const agentsPath = path.join(testDir, 'AGENTS.md');
       await fs.writeFile(agentsPath, `${OPENSPEC_MARKERS.start}
-OpenSpec content
+OfficeSpec content
 ${OPENSPEC_MARKERS.end}`);
 
       const result = await detectLegacyStructureFiles(testDir);
@@ -544,7 +544,7 @@ ${OPENSPEC_MARKERS.end}`);
     it('should detect allowlisted global Codex prompts separately from repo-local slash commands', async () => {
       const promptDir = getCodexPromptDir();
       await fs.mkdir(promptDir, { recursive: true });
-      await fs.writeFile(path.join(promptDir, 'opsx-explore.md'), 'prompt generated by an older OpenSpec version');
+      await fs.writeFile(path.join(promptDir, 'opsx-explore.md'), 'prompt generated by an older OfficeSpec version');
       await fs.writeFile(path.join(promptDir, 'opsx-update.md'), 'legacy update prompt');
       await fs.writeFile(path.join(promptDir, 'opsx-review.md'), 'user');
       await fs.writeFile(path.join(promptDir, 'openspec-proposal.md'), 'managed');
@@ -565,7 +565,7 @@ ${OPENSPEC_MARKERS.end}`);
       await fs.mkdir(promptDir, { recursive: true });
       await fs.writeFile(
         path.join(promptDir, 'opsx-explore.md'),
-        '# custom explore prompt\n\nThis is not an OpenSpec generated Codex prompt.\n'
+        '# custom explore prompt\n\nThis is not an OfficeSpec generated Codex prompt.\n'
       );
 
       const result = await detectLegacyArtifacts(testDir);
@@ -575,7 +575,7 @@ ${OPENSPEC_MARKERS.end}`);
   });
 
   describe('cleanupLegacyArtifacts', () => {
-    it('should remove markers from config files that have only OpenSpec content (never delete)', async () => {
+    it('should remove markers from config files that have only OfficeSpec content (never delete)', async () => {
       const claudePath = path.join(testDir, 'CLAUDE.md');
       await fs.writeFile(claudePath, `${OPENSPEC_MARKERS.start}\nContent\n${OPENSPEC_MARKERS.end}`);
 
@@ -597,7 +597,7 @@ ${OPENSPEC_MARKERS.end}`);
       const claudePath = path.join(testDir, 'CLAUDE.md');
       await fs.writeFile(claudePath, `User instructions
 ${OPENSPEC_MARKERS.start}
-OpenSpec content
+OfficeSpec content
 ${OPENSPEC_MARKERS.end}`);
 
       const detection = await detectLegacyArtifacts(testDir);
@@ -685,7 +685,7 @@ ${OPENSPEC_MARKERS.end}`);
       const agentsPath = path.join(testDir, 'AGENTS.md');
       await fs.writeFile(agentsPath, `User content
 ${OPENSPEC_MARKERS.start}
-OpenSpec content
+OfficeSpec content
 ${OPENSPEC_MARKERS.end}`);
 
       const detection = await detectLegacyArtifacts(testDir);
@@ -697,9 +697,9 @@ ${OPENSPEC_MARKERS.end}`);
       expect(content).not.toContain(OPENSPEC_MARKERS.start);
     });
 
-    it('should remove markers from root AGENTS.md even when only OpenSpec content (never delete)', async () => {
+    it('should remove markers from root AGENTS.md even when only OfficeSpec content (never delete)', async () => {
       const agentsPath = path.join(testDir, 'AGENTS.md');
-      await fs.writeFile(agentsPath, `${OPENSPEC_MARKERS.start}\nOpenSpec content\n${OPENSPEC_MARKERS.end}`);
+      await fs.writeFile(agentsPath, `${OPENSPEC_MARKERS.start}\nOfficeSpec content\n${OPENSPEC_MARKERS.end}`);
 
       const detection = await detectLegacyArtifacts(testDir);
       const result = await cleanupLegacyArtifacts(testDir, detection);
@@ -834,7 +834,7 @@ ${OPENSPEC_MARKERS.end}`);
       };
 
       const summary = formatCleanupSummary(result);
-      expect(summary).toContain('✓ Removed .claude/commands/openspec/ (replaced by OpenSpec skills and commands)');
+      expect(summary).toContain('✓ Removed .claude/commands/openspec/ (replaced by OfficeSpec skills and commands)');
     });
 
     it('should format modified files', () => {
@@ -847,7 +847,7 @@ ${OPENSPEC_MARKERS.end}`);
       };
 
       const summary = formatCleanupSummary(result);
-      expect(summary).toContain('✓ Removed OpenSpec markers from AGENTS.md');
+      expect(summary).toContain('✓ Removed OfficeSpec markers from AGENTS.md');
     });
 
     it('should include migration hint for project.md', () => {
@@ -908,7 +908,7 @@ ${OPENSPEC_MARKERS.end}`);
       };
 
       const summary = formatDetectionSummary(detection);
-      expect(summary).toContain('Upgrading to the new OpenSpec');
+      expect(summary).toContain('Upgrading to the new OfficeSpec');
       expect(summary).toContain('agent skills');
       expect(summary).toContain('keeping everything working');
     });
@@ -1139,7 +1139,7 @@ ${OPENSPEC_MARKERS.end}`);
 
     it('should explain the new context section benefits', () => {
       const hint = formatProjectMdMigrationHint();
-      expect(hint).toContain('included in every OpenSpec request');
+      expect(hint).toContain('included in every OfficeSpec request');
       expect(hint).toContain('reliably');
     });
   });

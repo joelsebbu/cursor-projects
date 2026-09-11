@@ -6,7 +6,7 @@
 - [x] 1.4 Define committed workspace state versus machine-local workspace state
 - [x] 1.5 Capture that workspace setup is useful only after at least one repo or folder is linked
 - [x] 1.6 Capture that repo-owned specs and implementation remain owned by repos
-- [x] 1.7 Capture that planning can include repos or monorepo folders without repo-local OpenSpec state
+- [x] 1.7 Capture that planning can include repos or monorepo folders without repo-local OfficeSpec state
 - [x] 1.8 Capture that workspaces hold many changes and are not feature containers
 - [x] 1.9 Capture `link`/`relink` as the user-facing model instead of `add-repo`/`update-repo`
 
@@ -25,7 +25,7 @@
 
 - [x] 3.1 Define the versioned shared-state shape with workspace name and stable link map
 - [x] 3.2 Define the versioned local-state shape with stable link names mapped to local paths
-- [x] 3.3 Ensure local-state files are treated as machine-local and OpenSpec-created workspaces exclude `.openspec-workspace/local.yaml` from portable collaboration state
+- [x] 3.3 Ensure local-state files are treated as machine-local and OfficeSpec-created workspaces exclude `.openspec-workspace/local.yaml` from portable collaboration state
 - [x] 3.4 Add validation for invalid versions, invalid link names, malformed link maps, and malformed local path maps
 - [x] 3.5 Preserve native Windows and WSL2 path strings when reading and writing local path state
 - [x] 3.6 Define the versioned local registry shape with workspace names mapped to workspace roots
@@ -38,7 +38,7 @@
 - [x] 4.3 Document stable link names as the way to refer to linked repos and folders
 - [x] 4.4 Document which behavior is intentionally deferred to later workspace slices
 - [x] 4.5 Document native Windows/PowerShell and WSL2 path behavior for managed workspace storage
-- [x] 4.6 Document linked repos/folders without repo-local OpenSpec and large-monorepo planning behavior
+- [x] 4.6 Document linked repos/folders without repo-local OfficeSpec and large-monorepo planning behavior
 - [x] 4.7 Document the local workspace registry and global command model
 
 ## 5. Verification
@@ -51,6 +51,6 @@
 - [x] 5.6 Add tests or docs coverage that linked repos/folders do not require repo-local `openspec/`
 - [x] 5.7 Add tests or docs coverage for monorepo folder links under the same workspace model
 - [x] 5.8 Add tests for local registry parsing and stale registry entries
-- [x] 5.9 Add tests or docs coverage for `.openspec-workspace/local.yaml` exclusion in OpenSpec-created workspaces
+- [x] 5.9 Add tests or docs coverage for `.openspec-workspace/local.yaml` exclusion in OfficeSpec-created workspaces
 - [x] 5.10 Run `openspec validate workspace-foundation --strict`
 - [x] 5.11 Run targeted test coverage for the new workspace foundation helpers

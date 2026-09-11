@@ -62,7 +62,7 @@ describe('explore templates', () => {
   it('investigates repository facts before asking while acknowledging missing evidence (#1017)', () => {
     for (const [label, body] of bodies) {
       expect(body, label).toContain('Before asking a factual question, follow the context discovery below');
-      expect(body, label).toContain('relevant OpenSpec artifacts, source, tests, docs, and configuration');
+      expect(body, label).toContain('relevant OfficeSpec artifacts, source, tests, docs, and configuration');
       expect(body, label).toContain('Do not ask the user to repeat facts you can verify');
       expect(body, label).toContain('If evidence is missing, conflicting, or inaccessible');
       expect(body, label).toContain('ask only for the clarification needed to proceed');
@@ -113,7 +113,7 @@ describe('explore templates', () => {
   // Regression for #696: explore never loaded the project's declared
   // context, so it reasoned without the tech stack, conventions, and
   // rules every artifact-creating workflow already receives.
-  it('loads project context from the OpenSpec config at startup (#696)', () => {
+  it('loads project context from the OfficeSpec config at startup (#696)', () => {
     for (const [label, body] of bodies) {
       expect(body, label).toContain('openspec/config.yaml');
       expect(body, label).toContain('`context`: project background');
@@ -187,7 +187,7 @@ describe('explore templates', () => {
         'including `openspec new change` or another command that writes files'
       );
       expect(body, label).toContain(
-        'Creating or updating OpenSpec change artifacts within the confirmed scope is fine, writing anything else is not'
+        'Creating or updating OfficeSpec change artifacts within the confirmed scope is fine, writing anything else is not'
       );
     }
   });

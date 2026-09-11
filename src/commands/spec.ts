@@ -150,7 +150,7 @@ export class SpecCommand {
 export function registerSpecCommand(rootProgram: typeof program) {
   const specCommand = rootProgram
     .command('spec')
-    .description('Manage and view OpenSpec specifications');
+    .description('Manage and view OfficeSpec specifications');
 
   // Deprecation notice for noun-based commands
   specCommand.hook('preAction', () => {

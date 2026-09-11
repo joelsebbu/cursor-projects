@@ -10,7 +10,7 @@ Each is deterministic and fixed by converging a divergent path onto the canonica
 
 ## Background: one root cause, three commands
 
-OpenSpec sells one promise — the specs are the source of truth and the CLI tells you the truth about them. These three bugs break that promise the same way: a command that *reads* or *validates* state quietly forks its own resolution logic instead of reusing the canonical implementation a sibling command already gets right. The fork is invisible until the two paths disagree, and then the tool reports a confident falsehood (`Unknown item`, `Draft`, a clean archive of an unfinished change, a worse error message) with no signal that anything diverged.
+OfficeSpec sells one promise — the specs are the source of truth and the CLI tells you the truth about them. These three bugs break that promise the same way: a command that *reads* or *validates* state quietly forks its own resolution logic instead of reusing the canonical implementation a sibling command already gets right. The fork is invisible until the two paths disagree, and then the tool reports a confident falsehood (`Unknown item`, `Draft`, a clean archive of an unfinished change, a worse error message) with no signal that anything diverged.
 
 This proposal was hardened by tracing each path to source (anchors in `design.md`). Two framings changed during that review and are called out so reviewers can check them:
 
@@ -51,6 +51,6 @@ This proposal was hardened by tracing each path to source (anchors in `design.md
 
 ## Issues addressed
 
-- [#1182](https://github.com/Fission-AI/OpenSpec/issues/1182) — `openspec validate` cannot resolve a change that `status`/`instructions` resolve (reported for a managed workspace/store home; root cause is the `proposal.md` membership gate).
-- [#1202](https://github.com/Fission-AI/OpenSpec/issues/1202) — `openspec view` does not detect nested/glob `tasks.md`, classifying complete changes as `Draft` (and the same helper silently weakens the `archive` incomplete-task gate).
-- [#1156](https://github.com/Fission-AI/OpenSpec/issues/1156) — the 1.4.0 SHALL/MUST body-keyword hint applies to change deltas but not main specs.
+- [#1182](https://github.com/joelsebbu/OpenSpec/issues/1182) — `openspec validate` cannot resolve a change that `status`/`instructions` resolve (reported for a managed workspace/store home; root cause is the `proposal.md` membership gate).
+- [#1202](https://github.com/joelsebbu/OpenSpec/issues/1202) — `openspec view` does not detect nested/glob `tasks.md`, classifying complete changes as `Draft` (and the same helper silently weakens the `archive` incomplete-task gate).
+- [#1156](https://github.com/joelsebbu/OpenSpec/issues/1156) — the 1.4.0 SHALL/MUST body-keyword hint applies to change deltas but not main specs.

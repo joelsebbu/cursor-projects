@@ -91,7 +91,7 @@ export const WORKFLOW_PROMPT_META: Record<string, WorkflowPromptMeta> = {
   },
   onboard: {
     name: 'Onboard',
-    description: 'Guided onboarding flow for OpenSpec',
+    description: 'Guided onboarding flow for OfficeSpec',
   },
 };
 
@@ -214,7 +214,7 @@ function printConfigProfileApplyGuidance(): void {
 export function registerConfigCommand(program: Command): void {
   const configCmd = program
     .command('config')
-    .description('View and modify global OpenSpec configuration')
+    .description('View and modify global OfficeSpec configuration')
     .option('--scope <scope>', 'Config scope (only "global" supported currently)')
     .hook('preAction', (thisCommand) => {
       const opts = thisCommand.opts();
@@ -631,7 +631,7 @@ export function registerConfigCommand(program: Command): void {
         }
         saveGlobalConfig(config);
 
-        // Check if inside an OpenSpec project
+        // Check if inside an OfficeSpec project
         const projectDir = process.cwd();
         const openspecDir = path.join(projectDir, OPENSPEC_DIR_NAME);
         if (fs.existsSync(openspecDir)) {

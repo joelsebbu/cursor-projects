@@ -71,7 +71,7 @@ Workspace roadmap disposition:
 - Keep workspace-local agent guidance as local view setup, refreshed by
   `workspace update`.
 - Defer workspace apply, verify, and archive until initiatives can link to
-  repo-owned OpenSpec changes.
+  repo-owned OfficeSpec changes.
 - Defer branch/worktree orchestration, multi-repo apply, strong cross-repo
   validation, and dependency graph enforcement.
 
@@ -83,12 +83,12 @@ The primary user experience for initiatives is expected to be agent-driven:
 Using initiative billing-launch, explore the API work and create a proposal.
 ```
 
-The user should not need to know every command. OpenSpec should expose small,
+The user should not need to know every command. OfficeSpec should expose small,
 structured CLI primitives that an agent can use to:
 
 - find the intended initiative across registered context stores
 - read canonical initiative files from the context store
-- create or link a repo-local OpenSpec change
+- create or link a repo-local OfficeSpec change
 - use workspace state for local repo and folder views
 - respect edit boundaries instead of treating every opened folder as editable
 
@@ -99,7 +99,7 @@ interactive flows as the first slice.
 
 Canonical initiative context should stay in the context store. Repo-local
 changes should reference the initiative rather than checking in copied snapshots
-of initiative prose. If an agent needs a compact context pack, OpenSpec can
+of initiative prose. If an agent needs a compact context pack, OfficeSpec can
 generate that as command output from the live initiative context.
 
 ## Context Store
@@ -225,7 +225,7 @@ Initiatives should not try to become all of Jira or Confluence. The focused
 positioning is:
 
 ```text
-OpenSpec stores agreed implementation context.
+OfficeSpec stores agreed implementation context.
 Jira tracks work.
 Confluence stores broad prose.
 GitHub/GitLab store code.
@@ -233,13 +233,13 @@ GitHub/GitLab store code.
 
 ## Initiative And Change Scope
 
-An initiative can span one or many OpenSpec changes.
+An initiative can span one or many OfficeSpec changes.
 
 Those changes may live:
 
 - in the same repo as the initiative
 - in different repos
-- in multiple context stores or OpenSpec roots later
+- in multiple context stores or OfficeSpec roots later
 
 The initiative stores shared coordination context. Workspace views can associate
 that context with local repos and repo-owned changes without making the
@@ -301,7 +301,7 @@ worktrees, clones, or implementation progress.
 Repo-local changes remain the team-owned implementation plan.
 
 An engineering team should be able to pull relevant initiative context into a
-repo and create a linked OpenSpec change.
+repo and create a linked OfficeSpec change.
 
 Example:
 
@@ -358,7 +358,7 @@ Product/program/architect creates initiative
   -> initiative syncs through context store
   -> engineers open local workspace
   -> repo team pulls relevant initiative context
-  -> repo team creates linked OpenSpec change
+  -> repo team creates linked OfficeSpec change
   -> repo team implements locally
   -> workspace view surfaces local progress alongside initiative context
 ```
@@ -425,7 +425,7 @@ The UI should work no matter which collections are mounted.
 - What is the first concrete context store command surface?
 - Should stores be called `context`, `store`, or something more product-facing?
 - Where should enterprise context stores live by default: customer GitHub,
-  OpenSpec-managed Git, or later hosted cloud?
+  OfficeSpec-managed Git, or later hosted cloud?
 - How do non-technical users edit Git-backed content without feeling Git?
 - What is the minimum viable auto-sync behavior before conflict handling gets
   painful?

@@ -20,7 +20,7 @@ openspec
 ├── dist/           # Compiled JavaScript
 ├── src/            # TypeScript source
 │   ├── cli/        # Command implementations
-│   ├── core/       # Core OpenSpec logic
+│   ├── core/       # Core OfficeSpec logic
 │   └── utils/      # Shared utilities
 ├── package.json
 ├── tsconfig.json

@@ -2,11 +2,11 @@
 
 ### Requirement: Schemas command SHALL honor authoritative root selection
 
-`openspec schemas` SHALL resolve the authoritative OpenSpec root with the same precedence and diagnostics as other root-scoped commands, then list schemas using that root. The command SHALL accept `--store <id>` for explicit registered-store selection. Successful human output and successful `--json` output SHALL retain their existing formats.
+`openspec schemas` SHALL resolve the authoritative OfficeSpec root with the same precedence and diagnostics as other root-scoped commands, then list schemas using that root. The command SHALL accept `--store <id>` for explicit registered-store selection. Successful human output and successful `--json` output SHALL retain their existing formats.
 
 #### Scenario: Nearest project root supplies schemas
 
-- **GIVEN** the current directory is inside an OpenSpec root containing a project-local schema
+- **GIVEN** the current directory is inside an OfficeSpec root containing a project-local schema
 - **WHEN** the user runs `openspec schemas --json`
 - **THEN** the result SHALL include that root's project-local schema
 
@@ -25,7 +25,7 @@
 
 #### Scenario: Global default store supplies schemas
 
-- **GIVEN** no nearer OpenSpec root or pointer exists
+- **GIVEN** no nearer OfficeSpec root or pointer exists
 - **AND** global configuration declares `defaultStore: <id>`
 - **WHEN** the user runs `openspec schemas --json`
 - **THEN** the result SHALL include schemas from the default store root
@@ -44,13 +44,13 @@
 
 #### Scenario: Rootless listing remains available without registered stores
 
-- **GIVEN** no OpenSpec root, pointer, global default, or registered store exists
+- **GIVEN** no OfficeSpec root, pointer, global default, or registered store exists
 - **WHEN** the user runs `openspec schemas --json`
 - **THEN** the command SHALL list user and package schemas using the current directory as its implicit root, as before
 
 #### Scenario: Registered stores require an authoritative selection
 
-- **GIVEN** no OpenSpec root, pointer, or global default exists
+- **GIVEN** no OfficeSpec root, pointer, or global default exists
 - **AND** one or more stores are registered
 - **WHEN** the user runs `openspec schemas --json` without `--store`
 - **THEN** the command SHALL fail with the standard root-selection diagnostic that asks the user to select a registered store

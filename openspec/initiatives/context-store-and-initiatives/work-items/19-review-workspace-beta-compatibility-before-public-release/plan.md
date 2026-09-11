@@ -49,7 +49,7 @@ migration, or deprecated `change`/`spec` command aliases.
 - If a compatibility path remains, document why it exists and what would allow
   it to be removed later.
 - Keep user-owned files safe. Do not clean or rewrite ambiguous local files
-  unless OpenSpec can prove it owns them.
+  unless OfficeSpec can prove it owns them.
 - Update tests so they describe the chosen public contract rather than the
   accidental beta history.
 

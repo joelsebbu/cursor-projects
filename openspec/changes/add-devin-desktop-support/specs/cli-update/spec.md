@@ -8,7 +8,7 @@ The update command SHALL refresh existing slash command files for configured too
 
 #### Scenario: Updating slash commands for Antigravity
 - **WHEN** `.agent/workflows/` contains `openspec-proposal.md`, `openspec-apply.md`, and `openspec-archive.md`
-- **THEN** refresh the OpenSpec-managed portion of each file so the workflow copy matches other tools while preserving the existing single-field `description` frontmatter
+- **THEN** refresh the OfficeSpec-managed portion of each file so the workflow copy matches other tools while preserving the existing single-field `description` frontmatter
 - **AND** skip creating any missing workflow files during update, mirroring the behavior for Devin Desktop and other IDEs
 
 #### Scenario: Updating slash commands for Claude Code
@@ -20,7 +20,7 @@ The update command SHALL refresh existing slash command files for configured too
 - **WHEN** `.codebuddy/commands/openspec/` contains `proposal.md`, `apply.md`, and `archive.md`
 - **THEN** refresh each file using the shared CodeBuddy templates that include YAML frontmatter for the `description` and `argument-hint` fields
 - **AND** use square bracket format for `argument-hint` parameters (e.g., `[change-id]`)
-- **AND** preserve any user customizations outside the OpenSpec managed markers
+- **AND** preserve any user customizations outside the OfficeSpec managed markers
 
 #### Scenario: Updating slash commands for Cline
 - **WHEN** `.clinerules/workflows/` contains `openspec-proposal.md`, `openspec-apply.md`, and `openspec-archive.md`
@@ -36,7 +36,7 @@ The update command SHALL refresh existing slash command files for configured too
 #### Scenario: Updating slash commands for Crush
 - **WHEN** `.crush/commands/` contains `openspec/proposal.md`, `openspec/apply.md`, and `openspec/archive.md`
 - **THEN** refresh each file using shared templates
-- **AND** include Crush-specific frontmatter with OpenSpec category and tags
+- **AND** include Crush-specific frontmatter with OfficeSpec category and tags
 - **AND** ensure templates include instructions for the relevant workflow stage
 
 #### Scenario: Updating slash commands for Cursor
@@ -48,11 +48,11 @@ The update command SHALL refresh existing slash command files for configured too
 - **WHEN** `.factory/commands/` contains `openspec-proposal.md`, `openspec-apply.md`, and `openspec-archive.md`
 - **THEN** refresh each file using the shared Factory templates that include YAML frontmatter for the `description` and `argument-hint` fields
 - **AND** ensure the template body retains the `$ARGUMENTS` placeholder so user input keeps flowing into droid
-- **AND** update only the content inside the OpenSpec managed markers, leaving any unmanaged notes untouched
+- **AND** update only the content inside the OfficeSpec managed markers, leaving any unmanaged notes untouched
 - **AND** skip creating missing files during update
 
 #### Scenario: Updating slash commands for OpenCode
-- **WHEN** `.opencode/commands/` contains OpenSpec-managed `opsx-*.md` command files for the configured profile (for example `opsx-propose.md`, `opsx-apply.md`, and `opsx-archive.md`)
+- **WHEN** `.opencode/commands/` contains OfficeSpec-managed `opsx-*.md` command files for the configured profile (for example `opsx-propose.md`, `opsx-apply.md`, and `opsx-archive.md`)
 - **THEN** refresh each file using shared templates
 - **AND** transform command references to hyphen form (for example `/opsx-propose`), as for every tool whose command files are named `opsx-<id>`
 - **AND** ensure templates include instructions for the relevant workflow stage
@@ -65,7 +65,7 @@ The update command SHALL refresh existing slash command files for configured too
 
 #### Scenario: Updating slash commands for Windsurf
 - **WHEN** the legacy Windsurf location `.windsurf/workflows/`, now Devin's, contains `openspec-proposal.md`, `openspec-apply.md`, and `openspec-archive.md`
-- **THEN** refresh each file using shared templates wrapped in OpenSpec markers
+- **THEN** refresh each file using shared templates wrapped in OfficeSpec markers
 - **AND** ensure templates include instructions for the relevant workflow stage
 - **AND** skip creating missing files (the update command only refreshes what already exists)
 
@@ -78,7 +78,7 @@ The update command SHALL refresh existing slash command files for configured too
 
 #### Scenario: Updating slash commands for Kilo Code
 - **WHEN** `.kilocode/workflows/` contains `openspec-proposal.md`, `openspec-apply.md`, and `openspec-archive.md`
-- **THEN** refresh each file using shared templates wrapped in OpenSpec markers
+- **THEN** refresh each file using shared templates wrapped in OfficeSpec markers
 - **AND** ensure templates include instructions for the relevant workflow stage
 - **AND** skip creating missing files (the update command only refreshes what already exists)
 
@@ -86,13 +86,13 @@ The update command SHALL refresh existing slash command files for configured too
 - **GIVEN** the global Codex prompt directory contains `openspec-proposal.md`, `openspec-apply.md`, and `openspec-archive.md`
 - **WHEN** a user runs `openspec update`
 - **THEN** refresh each file using the shared slash-command templates (including placeholder guidance)
-- **AND** preserve any unmanaged content outside the OpenSpec marker block
+- **AND** preserve any unmanaged content outside the OfficeSpec marker block
 - **AND** skip creation when a Codex prompt file is missing
 
 #### Scenario: Updating slash commands for GitHub Copilot
 - **WHEN** `.github/prompts/` contains `openspec-proposal.prompt.md`, `openspec-apply.prompt.md`, and `openspec-archive.prompt.md`
 - **THEN** refresh each file using shared templates while preserving the YAML frontmatter
-- **AND** update only the OpenSpec-managed block between markers
+- **AND** update only the OfficeSpec-managed block between markers
 - **AND** ensure templates include instructions for the relevant workflow stage
 
 #### Scenario: Updating slash commands for Gemini CLI
@@ -105,7 +105,7 @@ The update command SHALL refresh existing slash command files for configured too
 - **WHEN** `.iflow/commands/` contains `openspec-proposal.md`, `openspec-apply.md`, and `openspec-archive.md`
 - **THEN** refresh each file using shared templates
 - **AND** preserve the YAML frontmatter with `name`, `id`, `category`, and `description` fields
-- **AND** update only the OpenSpec-managed block between markers
+- **AND** update only the OfficeSpec-managed block between markers
 - **AND** ensure templates include instructions for the relevant workflow stage
 
 #### Scenario: Missing slash command file

@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 const description =
-  'OpenSpec is a lightweight agreement layer between you and your AI. Agree on what to do before any work starts. Works with 30+ AI assistants — for software, operations, HR, finance, marketing, and every office team.';
+  'OfficeSpec is a lightweight agreement layer between you and your AI. Agree on what to do before any work starts. Works with 30+ AI assistants — for software, operations, HR, finance, marketing, and every office team.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

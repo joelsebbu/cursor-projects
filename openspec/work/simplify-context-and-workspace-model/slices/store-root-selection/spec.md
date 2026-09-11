@@ -2,21 +2,21 @@
 
 ## Outcome
 
-Normal OpenSpec commands can act on a registered standalone OpenSpec root
+Normal OfficeSpec commands can act on a registered standalone OfficeSpec root
 selected by name:
 
 ```bash
 openspec new change add-billing --store team-context
 ```
 
-Selecting a store resolves to an ordinary OpenSpec root. Everything downstream
+Selecting a store resolves to an ordinary OfficeSpec root. Everything downstream
 behaves exactly as if the command had been run from inside that root: the same
 `openspec/specs/`, `openspec/changes/`, and `openspec/changes/archive/` files,
 the same schema, the same lifecycle.
 
 This slice also retires initiative-link creation from normal change flows
 (Phase 2.1 pulled forward), so `--store` has exactly one meaning: which
-OpenSpec root should this command use.
+OfficeSpec root should this command use.
 
 ## Locked Decisions (2026-06-10)
 
@@ -32,7 +32,7 @@ OpenSpec root should this command use.
    workspace branch of the resolver is demoted during this slice's resolver
    rework instead of waiting for Phase 2.3/5.1.
 4. **No silent implicit-root scaffold when stores are registered.** When the
-   current directory has no OpenSpec root and registered stores exist, the
+   current directory has no OfficeSpec root and registered stores exist, the
    command errors with a hint naming the registered stores instead of
    scaffolding a new local root. When no stores are registered, current
    behavior is unchanged.
@@ -58,10 +58,10 @@ commands whose stdout is raw Markdown or agent-consumed instructions keep their
 normal stdout payload:
 
 ```text
-Using OpenSpec root: team-context (/Users/alice/src/team-context)
+Using OfficeSpec root: team-context (/Users/alice/src/team-context)
 ```
 
-Without `--store`, commands keep using the nearest OpenSpec root when one
+Without `--store`, commands keep using the nearest OfficeSpec root when one
 exists, including when the user is working inside the standalone repo itself.
 The flag is never required; it is how you reach a root you are not standing in.
 This slice intentionally changes only two legacy no-flag cases: leftover
@@ -75,7 +75,7 @@ In scope:
 
 - `--store <id>` on `new change`, `status`, `instructions`, `list`, `show`,
   `validate`, and `archive`, with identical semantics on each.
-- One shared OpenSpec-root resolver behind those commands, replacing the
+- One shared OfficeSpec-root resolver behind those commands, replacing the
   per-command `cwd + openspec/changes` path joins.
 - Resolved-root reporting in human stderr and JSON output for those commands.
 - `--json` on `archive` (it has none today), so the shared root block is
@@ -131,18 +131,18 @@ Out of scope:
 ### Selecting A Registered Store By Id
 
 `--store <id>` resolves the id through the local registry to the store's
-OpenSpec root and runs the command against that root.
+OfficeSpec root and runs the command against that root.
 
 #### Scenario: Creating A Change In A Selected Store
 
-- **GIVEN** a registered context store `team-context` with a healthy OpenSpec
+- **GIVEN** a registered context store `team-context` with a healthy OfficeSpec
   root
 - **AND** the current directory is a project repo without its own `openspec/`
   root
 - **WHEN** the user runs `openspec new change add-billing --store team-context`
-- **THEN** OpenSpec creates `openspec/changes/add-billing/` inside the
+- **THEN** OfficeSpec creates `openspec/changes/add-billing/` inside the
   `team-context` store root
-- **AND** OpenSpec writes no OpenSpec artifacts under the current directory
+- **AND** OfficeSpec writes no OfficeSpec artifacts under the current directory
 - **AND** the output names the resolved root id and absolute path
 
 #### Scenario: Reading And Archiving In A Selected Store
@@ -155,7 +155,7 @@ OpenSpec root and runs the command against that root.
   `openspec/specs/`
 - **AND** `archive` moves the change into the store's
   `openspec/changes/archive/`
-- **AND** no OpenSpec artifacts under the current directory are read or
+- **AND** no OfficeSpec artifacts under the current directory are read or
   written
 
 #### Scenario: Explicit Selection Wins Over The Nearest Root
@@ -163,57 +163,57 @@ OpenSpec root and runs the command against that root.
 - **GIVEN** the current directory is inside a repo that has its own
   `openspec/` root
 - **WHEN** the user runs a supported command with `--store team-context`
-- **THEN** OpenSpec uses the `team-context` store root
-- **AND** OpenSpec does not read or write the nearby local root
+- **THEN** OfficeSpec uses the `team-context` store root
+- **AND** OfficeSpec does not read or write the nearby local root
 
 #### Scenario: Rejecting An Unknown Store Id
 
 - **GIVEN** `team-context` is the only registered store
 - **WHEN** the user runs a supported command with `--store team-contxt`
-- **THEN** OpenSpec fails with an error naming the unknown id
+- **THEN** OfficeSpec fails with an error naming the unknown id
 - **AND** the error lists the registered store ids
-- **AND** OpenSpec creates no files
+- **AND** OfficeSpec creates no files
 
 #### Scenario: Rejecting An Unhealthy Store Root
 
-- **GIVEN** a registered store whose OpenSpec root is missing or incomplete
+- **GIVEN** a registered store whose OfficeSpec root is missing or incomplete
 - **WHEN** the user runs a supported command with `--store` for that id
-- **THEN** OpenSpec fails with an error describing the root problem
+- **THEN** OfficeSpec fails with an error describing the root problem
 - **AND** the error points to `context-store doctor`
-- **AND** OpenSpec does not scaffold or repair the store root
+- **AND** OfficeSpec does not scaffold or repair the store root
 
 #### Scenario: Rejecting A Mismatched Store Identity
 
 - **GIVEN** a registered store whose `.openspec-store/store.yaml` id does not
   match its registry id
 - **WHEN** the user runs a supported command with `--store` for that id
-- **THEN** OpenSpec fails with an error describing the identity mismatch
+- **THEN** OfficeSpec fails with an error describing the identity mismatch
 - **AND** the error points to `context-store doctor`
 
 #### Scenario: Path Selection Is Not Available
 
 - **WHEN** the user passes `--store-path` to a supported command
-- **THEN** OpenSpec rejects the option
+- **THEN** OfficeSpec rejects the option
 - **AND** guidance points to `context-store register` plus `--store <id>`
 - **AND** no supported command silently ignores it, including commands that
   otherwise allow unknown options for legacy parsing
 
 ### Default Resolution Without --store
 
-Without `--store`, commands resolve the nearest OpenSpec root exactly as a
+Without `--store`, commands resolve the nearest OfficeSpec root exactly as a
 user standing in that directory would expect.
 
 #### Scenario: Working Inside A Project Repo
 
 - **GIVEN** the current directory is inside a repo with an `openspec/` root
 - **WHEN** the user runs a supported command without `--store`
-- **THEN** OpenSpec uses the nearest `openspec/` root, unchanged from today
+- **THEN** OfficeSpec uses the nearest `openspec/` root, unchanged from today
 
 #### Scenario: Working Inside The Standalone Repo Itself
 
 - **GIVEN** the current directory is inside a registered store's root
 - **WHEN** the user runs a supported command without `--store`
-- **THEN** OpenSpec uses that root as a normal OpenSpec root
+- **THEN** OfficeSpec uses that root as a normal OfficeSpec root
 - **AND** no flag is required
 
 #### Scenario: No Root Anywhere And No Registered Stores
@@ -232,7 +232,7 @@ user standing in that directory would expect.
 - **GIVEN** no ancestor directory contains an `openspec/` root
 - **AND** at least one context store is registered on this machine
 - **WHEN** the user runs a supported command without `--store`
-- **THEN** OpenSpec fails without scaffolding a new local root
+- **THEN** OfficeSpec fails without scaffolding a new local root
 - **AND** the error names the registered store ids
 - **AND** the error suggests `--store <id>` or `openspec init`
 
@@ -246,38 +246,38 @@ Leftover workspace view state does not decide where these commands act.
   `.openspec-workspace-view.yaml` state
 - **AND** the current directory is inside a repo with an `openspec/` root
 - **WHEN** the user runs a supported command without `--store`
-- **THEN** OpenSpec uses the nearest `openspec/` root
-- **AND** OpenSpec does not route to a workspace-owned changes directory
-- **AND** OpenSpec does not switch to the workspace-planning schema
+- **THEN** OfficeSpec uses the nearest `openspec/` root
+- **AND** OfficeSpec does not route to a workspace-owned changes directory
+- **AND** OfficeSpec does not switch to the workspace-planning schema
 
 #### Scenario: Ignoring Workspace State When A Store Is Selected
 
 - **GIVEN** an ancestor directory contains leftover workspace view state
 - **WHEN** the user runs a supported command with `--store team-context`
-- **THEN** OpenSpec uses the `team-context` store root
+- **THEN** OfficeSpec uses the `team-context` store root
 
 #### Scenario: Workspace State Alone Is Not A Root
 
 - **GIVEN** an ancestor directory contains leftover workspace view state
 - **AND** no ancestor directory contains an `openspec/` root
 - **WHEN** the user runs a supported command without `--store`
-- **THEN** OpenSpec treats the directory as having no OpenSpec root
+- **THEN** OfficeSpec treats the directory as having no OfficeSpec root
 - **AND** "No Root Anywhere And No Registered Stores" or "No Root Here But
   Stores Are Registered" applies, depending on whether stores are registered
 
 #### Scenario: Workspace-Scoped Areas Are Rejected
 
 - **WHEN** the user runs `openspec new change add-billing --areas api`
-- **THEN** OpenSpec rejects `--areas`
-- **AND** OpenSpec does not switch to the workspace-planning schema
-- **AND** OpenSpec does not create affected workspace-link metadata
+- **THEN** OfficeSpec rejects `--areas`
+- **AND** OfficeSpec does not switch to the workspace-planning schema
+- **AND** OfficeSpec does not create affected workspace-link metadata
 
 #### Scenario: Goal Metadata Does Not Select Workspace Planning
 
 - **WHEN** the user runs `openspec new change add-billing --goal "Improve billing"`
-- **THEN** OpenSpec uses the same root resolution it would use without `--goal`
+- **THEN** OfficeSpec uses the same root resolution it would use without `--goal`
 - **AND** `--goal` may write the existing change goal metadata
-- **AND** OpenSpec does not create workspace-owned planning state
+- **AND** OfficeSpec does not create workspace-owned planning state
 
 ### Initiative Links Are Retired From Normal Change Flows
 
@@ -287,21 +287,21 @@ initiatives.
 #### Scenario: New Changes Create No Initiative Metadata
 
 - **WHEN** `new change` completes, with or without `--store`
-- **THEN** OpenSpec creates no initiative link or initiative metadata
+- **THEN** OfficeSpec creates no initiative link or initiative metadata
 
 #### Scenario: Old Initiative Options Are Gone
 
 - **WHEN** the user passes `--initiative` to `new change`
-- **THEN** OpenSpec rejects the option
+- **THEN** OfficeSpec rejects the option
 - **AND** `--store` is documented as root selection only
 
 #### Scenario: Set Change Is Removed
 
 - **WHEN** the user runs `openspec set change` or `openspec set change --help`
 - **THEN** the command is no longer available
-- **AND** OpenSpec does not print deprecated command guidance for initiative
+- **AND** OfficeSpec does not print deprecated command guidance for initiative
   linking
-- **AND** OpenSpec creates or modifies no files
+- **AND** OfficeSpec creates or modifies no files
 - **AND** initiative linking was its only behavior, so no replacement is
   provided in this slice
 
@@ -309,7 +309,7 @@ initiatives.
 
 - **GIVEN** existing changes carry initiative metadata from the beta
 - **WHEN** supported commands read or list those changes
-- **THEN** OpenSpec does not modify or delete that metadata in this slice
+- **THEN** OfficeSpec does not modify or delete that metadata in this slice
 
 ### Every Supported Command Reports Its Root
 
@@ -343,7 +343,7 @@ The human's verification signal is the output, not the command line.
 - **AND** `source` is one of `store`, `nearest`, or `implicit`
 - **AND** `store_id` is present only when a store was selected
 - **AND** `implicit` is used only for preserved no-store behavior where a
-  command is allowed to treat the current directory as an implicit OpenSpec root
+  command is allowed to treat the current directory as an implicit OfficeSpec root
 - **AND** `list --specs --json` emits JSON rather than human text so it can
   include the shared root block
 - **AND** existing JSON fields keep their current shapes; the root block is
@@ -352,8 +352,8 @@ The human's verification signal is the output, not the command line.
 #### Scenario: JSON Archive Is Non-Interactive
 
 - **WHEN** the user runs `archive --json`
-- **THEN** OpenSpec never opens an interactive picker or confirmation prompt
-- **AND** if a change id or confirmation is required, OpenSpec fails
+- **THEN** OfficeSpec never opens an interactive picker or confirmation prompt
+- **AND** if a change id or confirmation is required, OfficeSpec fails
   non-interactively with a machine-readable diagnostic and a non-zero exit
 - **AND** JSON-mode archive failures such as validation failure,
   incomplete-task refusal, and spec-update abort do not print human prose or

@@ -6,7 +6,7 @@ The update command SHALL refresh existing slash command files for configured ada
 
 #### Scenario: Updating slash commands for Antigravity
 - **WHEN** `.agent/workflows/` contains `openspec-proposal.md`, `openspec-apply.md`, and `openspec-archive.md`
-- **THEN** refresh the OpenSpec-managed portion of each file so the workflow copy matches other tools while preserving the existing single-field `description` frontmatter
+- **THEN** refresh the OfficeSpec-managed portion of each file so the workflow copy matches other tools while preserving the existing single-field `description` frontmatter
 - **AND** skip creating any missing workflow files during update, mirroring the behavior for Windsurf and other IDEs
 
 #### Scenario: Updating slash commands for Claude Code
@@ -18,7 +18,7 @@ The update command SHALL refresh existing slash command files for configured ada
 - **WHEN** `.codebuddy/commands/openspec/` contains `proposal.md`, `apply.md`, and `archive.md`
 - **THEN** refresh each file using the shared CodeBuddy templates that include YAML frontmatter for the `description` and `argument-hint` fields
 - **AND** use square bracket format for `argument-hint` parameters (e.g., `[change-id]`)
-- **AND** preserve any user customizations outside the OpenSpec managed markers
+- **AND** preserve any user customizations outside the OfficeSpec managed markers
 
 #### Scenario: Updating slash commands for Cline
 - **WHEN** `.clinerules/workflows/` contains `openspec-proposal.md`, `openspec-apply.md`, and `openspec-archive.md`
@@ -34,7 +34,7 @@ The update command SHALL refresh existing slash command files for configured ada
 #### Scenario: Updating slash commands for Crush
 - **WHEN** `.crush/commands/` contains `openspec/proposal.md`, `openspec/apply.md`, and `openspec/archive.md`
 - **THEN** refresh each file using shared templates
-- **AND** include Crush-specific frontmatter with OpenSpec category and tags
+- **AND** include Crush-specific frontmatter with OfficeSpec category and tags
 - **AND** ensure templates include instructions for the relevant workflow stage
 
 #### Scenario: Updating slash commands for Cursor
@@ -46,7 +46,7 @@ The update command SHALL refresh existing slash command files for configured ada
 - **WHEN** `.factory/commands/` contains `openspec-proposal.md`, `openspec-apply.md`, and `openspec-archive.md`
 - **THEN** refresh each file using the shared Factory templates that include YAML frontmatter for the `description` and `argument-hint` fields
 - **AND** ensure the template body retains the `$ARGUMENTS` placeholder so user input keeps flowing into droid
-- **AND** update only the content inside the OpenSpec managed markers, leaving any unmanaged notes untouched
+- **AND** update only the content inside the OfficeSpec managed markers, leaving any unmanaged notes untouched
 - **AND** skip creating missing files during update
 
 #### Scenario: Updating slash commands for OpenCode
@@ -57,27 +57,27 @@ The update command SHALL refresh existing slash command files for configured ada
 
 #### Scenario: Updating slash commands for Windsurf
 - **WHEN** `.windsurf/workflows/` contains `openspec-proposal.md`, `openspec-apply.md`, and `openspec-archive.md`
-- **THEN** refresh each file using shared templates wrapped in OpenSpec markers
+- **THEN** refresh each file using shared templates wrapped in OfficeSpec markers
 - **AND** ensure templates include instructions for the relevant workflow stage
 - **AND** skip creating missing files (the update command only refreshes what already exists)
 
 #### Scenario: Updating slash commands for Kilo Code
 - **WHEN** `.kilocode/workflows/` contains `openspec-proposal.md`, `openspec-apply.md`, and `openspec-archive.md`
-- **THEN** refresh each file using shared templates wrapped in OpenSpec markers
+- **THEN** refresh each file using shared templates wrapped in OfficeSpec markers
 - **AND** ensure templates include instructions for the relevant workflow stage
 - **AND** skip creating missing files (the update command only refreshes what already exists)
 
 #### Scenario: Codex prompt files are not refreshed
-- **GIVEN** the global Codex prompt directory contains OpenSpec-managed Codex prompt files
+- **GIVEN** the global Codex prompt directory contains OfficeSpec-managed Codex prompt files
 - **WHEN** a user runs `openspec update`
 - **THEN** the command SHALL NOT refresh Codex prompt files
 - **AND** it SHALL treat those files as legacy cleanup candidates
-- **AND** it SHALL preserve unmanaged files by deleting only exact allowlisted OpenSpec-owned filenames under the resolved global Codex prompt directory after replacement skills exist
+- **AND** it SHALL preserve unmanaged files by deleting only exact allowlisted OfficeSpec-owned filenames under the resolved global Codex prompt directory after replacement skills exist
 
 #### Scenario: Updating slash commands for GitHub Copilot
 - **WHEN** `.github/prompts/` contains `openspec-proposal.prompt.md`, `openspec-apply.prompt.md`, and `openspec-archive.prompt.md`
 - **THEN** refresh each file using shared templates while preserving the YAML frontmatter
-- **AND** update only the OpenSpec-managed block between markers
+- **AND** update only the OfficeSpec-managed block between markers
 - **AND** ensure templates include instructions for the relevant workflow stage
 
 #### Scenario: Updating slash commands for Gemini CLI
@@ -90,7 +90,7 @@ The update command SHALL refresh existing slash command files for configured ada
 - **WHEN** `.iflow/commands/` contains `openspec-proposal.md`, `openspec-apply.md`, and `openspec-archive.md`
 - **THEN** refresh each file using shared templates
 - **AND** preserve the YAML frontmatter with `name`, `id`, `category`, and `description` fields
-- **AND** update only the OpenSpec-managed block between markers
+- **AND** update only the OfficeSpec-managed block between markers
 - **AND** ensure templates include instructions for the relevant workflow stage
 
 #### Scenario: Missing slash command file
@@ -109,7 +109,7 @@ The update command SHALL refresh existing slash command files for configured ada
 - **AND** it SHALL NOT use a Codex-specific delivery predicate that duplicates command-surface capability rules
 
 ### Requirement: Codex update uses skills only
-`openspec update` SHALL refresh Codex through generated OpenSpec skills without generating or refreshing Codex custom prompt files.
+`openspec update` SHALL refresh Codex through generated OfficeSpec skills without generating or refreshing Codex custom prompt files.
 
 #### Scenario: Legacy Codex prompt migration infers workflows from the legacy filenames
 - **WHEN** `openspec update` upgrades an unconfigured Codex tool from detected exact allowlisted global legacy Codex prompt files
@@ -117,7 +117,7 @@ The update command SHALL refresh existing slash command files for configured ada
 - **AND** it SHALL use that inferred workflow subset for the replacement Codex skills instead of expanding to the current profile's full workflow set
 
 #### Scenario: Updating Codex with default delivery
-- **WHEN** a project has Codex OpenSpec skills configured
+- **WHEN** a project has Codex OfficeSpec skills configured
 - **AND** the active delivery mode is `both`
 - **THEN** `openspec update` SHALL refresh the selected Codex skill files under `.codex/skills/`
 - **AND** it SHALL NOT create or refresh Codex prompt files under `$CODEX_HOME/prompts` or the default Codex prompt directory
@@ -133,7 +133,7 @@ The update command SHALL refresh existing slash command files for configured ada
 - **WHEN** a project has Codex configured
 - **AND** the active delivery mode is `skills`
 - **THEN** `openspec update` SHALL refresh selected Codex skills
-- **AND** it SHALL treat OpenSpec-managed Codex prompt files as legacy cleanup candidates
+- **AND** it SHALL treat OfficeSpec-managed Codex prompt files as legacy cleanup candidates
 - **AND** it SHALL NOT delete global Codex prompt files through ordinary delivery reconciliation without accepted or forced cleanup
 
 ### Requirement: Codex update cleanup removes managed legacy prompts
@@ -144,7 +144,7 @@ The update command SHALL refresh existing slash command files for configured ada
 - **AND** the resolved Codex prompt directory contains exact allowlisted managed global Codex prompt files
 - **AND** replacement Codex skills exist for the workflows represented by those prompt filenames
 - **THEN** the command SHALL remove those managed Codex prompt files
-- **AND** it SHALL leave non-OpenSpec Codex prompt files unchanged
+- **AND** it SHALL leave non-OfficeSpec Codex prompt files unchanged
 
 #### Scenario: Configured Codex cleanup completes after skills refresh
 - **WHEN** an approved or forced update detects an allowlisted global Codex prompt whose configured project is missing the replacement skill

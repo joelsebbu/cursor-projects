@@ -33,5 +33,5 @@ The command SHALL generate opsx slash commands only for selected tools that have
 #### Scenario: Kimi CLI skips command-file generation
 
 - **WHEN** the user selects Kimi CLI during initialization
-- **THEN** OpenSpec SHALL treat it as a supported tool with `skillsDir: '.kimi'`
+- **THEN** OfficeSpec SHALL treat it as a supported tool with `skillsDir: '.kimi'`
 - **AND** command-file generation SHALL be skipped because no Kimi adapter is registered

@@ -9,11 +9,11 @@ This plan implements `spec.md` for slice 1.2 after the 2026-06-10 locked
 decisions. The main product move is simple:
 
 ```text
---store <id> selects an OpenSpec root.
+--store <id> selects an OfficeSpec root.
 ```
 
 A context store remains local registration and identity for a standalone
-OpenSpec repo. Normal command behavior should read and write ordinary
+OfficeSpec repo. Normal command behavior should read and write ordinary
 `openspec/specs/`, `openspec/changes/`, and `openspec/changes/archive/` files in
 the resolved root.
 
@@ -51,7 +51,7 @@ the code map come from that prerequisite work.
 
 What the human wants:
 
-- "I am in an app repo, but the OpenSpec work lives in my standalone planning
+- "I am in an app repo, but the OfficeSpec work lives in my standalone planning
   repo."
 - "Use the registered store I named, not a nearby accidental `openspec/` folder."
 - "Do not make me learn initiative or workspace planning just to put work in the
@@ -60,17 +60,17 @@ What the human wants:
 
 What the agent needs to know:
 
-- Which OpenSpec root every command resolved.
+- Which OfficeSpec root every command resolved.
 - Whether the root came from `--store`, the nearest `openspec/`, or preserved
   implicit-root behavior.
 - Whether a selected store is unknown, unhealthy, or mismatched with its
   `.openspec-store/store.yaml` identity.
-- Whether a command wrote only the selected root's OpenSpec artifacts.
+- Whether a command wrote only the selected root's OfficeSpec artifacts.
 
 How the user knows it worked:
 
 - With `--store team-context`, commands use the registered store's root.
-- Human mode writes `Using OpenSpec root: team-context (/abs/path)` to stderr.
+- Human mode writes `Using OfficeSpec root: team-context (/abs/path)` to stderr.
 - JSON mode includes an additive `root` block with the shared shape.
 - No new initiative metadata is created, and `openspec set change` is gone.
 
@@ -79,7 +79,7 @@ How the user knows it worked:
 - Add `--store <id>` to the supported top-level commands:
   `new change`, `status`, `instructions`, `list`, `show`, `validate`, and
   `archive`.
-- Route those commands through one shared OpenSpec-root resolver.
+- Route those commands through one shared OfficeSpec-root resolver.
 - Demote leftover workspace view state for those commands. A
   `.openspec-workspace-view.yaml` ancestor is not a normal command root.
 - Preserve current no-store behavior per command except where the spec calls out
@@ -113,7 +113,7 @@ Root and context-store plumbing:
   detects metadata mismatches. Its current error fix text still mentions
   `--store-path`, and unknown-store errors do not enumerate registered ids; the
   normal-command resolver must update or wrap those errors.
-- `src/core/openspec-root.ts` inspects healthy OpenSpec root shape.
+- `src/core/openspec-root.ts` inspects healthy OfficeSpec root shape.
 - `src/core/context-store/operations.ts` powers setup/register/doctor.
 - `src/commands/context-store.ts` prints setup/register human next-step output.
 
@@ -152,7 +152,7 @@ Existing tests to update or replace:
 
 ## Shared Resolver Design
 
-Add a shared resolver for normal OpenSpec commands. It can live in a new module
+Add a shared resolver for normal OfficeSpec commands. It can live in a new module
 such as `src/core/root-selection.ts`, or replace the normal-command parts of
 `planning-home.ts` if that keeps the code simpler. Prefer a new module if it
 lets workspace-specific utilities remain untouched for later cleanup.
@@ -190,7 +190,7 @@ Resolver rules:
   `openspec context-store register <path>` and then use `--store <id>`.
 - If `store` is present, resolve it through the context-store registry.
 - Unknown store errors should name the unknown id and list registered ids.
-- Selected store roots must be inspected as healthy OpenSpec roots. Do not
+- Selected store roots must be inspected as healthy OfficeSpec roots. Do not
   scaffold or repair them.
 - Selected store metadata id must match the registry id.
 - Store health and metadata errors should point to `openspec context-store
@@ -199,7 +199,7 @@ Resolver rules:
   update the registry errors directly, so this path never suggests
   `--store-path` and always includes registered ids for unknown-store failures.
 - Resolver check order is: validate store id format, read registry entry, verify
-  store metadata identity, then inspect the OpenSpec root shape. Metadata
+  store metadata identity, then inspect the OfficeSpec root shape. Metadata
   missing or mismatched errors win before root-health diagnostics.
 - If no store is selected, find the nearest ancestor containing `openspec/` and
   ignore workspace view state.
@@ -243,7 +243,7 @@ Human output:
 
 - When `--store` is selected, write exactly one root banner to stderr before or
   near the command payload:
-  `Using OpenSpec root: team-context (/abs/path)`.
+  `Using OfficeSpec root: team-context (/abs/path)`.
 - Do not write the banner to stdout. This protects raw Markdown from `show` and
   agent-consumed text from `instructions`.
 - Without `--store`, leave human output unchanged.
@@ -273,7 +273,7 @@ Path output:
 Supported commands get:
 
 - `--store <id>` with help text like `Registered context store id to use as the
-  OpenSpec root`.
+  OfficeSpec root`.
 - A deliberate `--store-path <path>` rejection path. Use a hidden/compatibility
   option if needed so Commander does not emit a generic unknown-option error.
 - Top-level `show` needs special care because it currently uses
@@ -304,7 +304,7 @@ Supported commands get:
 
 ### `new change`
 
-- Resolve the OpenSpec root before validating schema or writing files.
+- Resolve the OfficeSpec root before validating schema or writing files.
 - Remove initiative-link lookup and metadata creation.
 - Remove or replace `assertInitiativeSelectorsHaveReference` and
   `assertRepoLocalInitiativeLinkPlanningHome` usage so `--store` no longer
@@ -410,7 +410,7 @@ taxonomy silently:
 - `initiative_option_removed`: tells users that normal changes no longer attach
   to initiatives.
 - `areas_option_removed`: tells users that workspace affected areas are not part
-  of the normal OpenSpec root path.
+  of the normal OfficeSpec root path.
 
 Guardrails:
 

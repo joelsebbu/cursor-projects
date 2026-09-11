@@ -1,6 +1,6 @@
 ## Context
 
-Workspace setup already creates a planning home, records linked repos or folders, stores a preferred opener, and maintains the root open surface. For workspace change planning to work in practice, the opened agent also needs OpenSpec workflow skills available from that workspace root.
+Workspace setup already creates a planning home, records linked repos or folders, stores a preferred opener, and maintains the root open surface. For workspace change planning to work in practice, the opened agent also needs OfficeSpec workflow skills available from that workspace root.
 
 Repo-local `openspec init` and `openspec update` already provide the user model for choosing agent surfaces and generating skills. Workspace setup should feel similar, but the installation target is the workspace root rather than any linked repo or folder.
 
@@ -9,7 +9,7 @@ The existing artifact workflow assumes a change lives under a repo-local `opensp
 ## Goals / Non-Goals
 
 **Goals:**
-- Install OpenSpec agent skills into the workspace root during workspace setup.
+- Install OfficeSpec agent skills into the workspace root during workspace setup.
 - Use the active global profile to select which workflow skills are installed in the workspace.
 - Let users choose which agents receive skills with familiar `--tools` semantics.
 - Persist workspace-local agent skill selection so update can refresh the same agents later.
@@ -37,7 +37,7 @@ The existing artifact workflow assumes a change lives under a repo-local `opensp
 
 ### Use agent-skill language in workspace UX
 
-Workspace setup should ask, "Which agents should get OpenSpec skills in this workspace?" rather than using the broader "AI tools" wording. The user-visible action is installing skills for coding agents, and the target is the workspace planning home.
+Workspace setup should ask, "Which agents should get OfficeSpec skills in this workspace?" rather than using the broader "AI tools" wording. The user-visible action is installing skills for coding agents, and the target is the workspace planning home.
 
 Alternative considered: reuse the exact `init` wording. That would be familiar, but it hides the important distinction between opening a workspace and installing skills into it.
 
@@ -49,7 +49,7 @@ Alternative considered: add `--agents`. That reads better in isolation, but it c
 
 ### Let profile choose workflows and tools choose agents
 
-Workspace setup/update should use the active global profile to decide which OpenSpec workflow skills are installed. The profile answers "which actions are available?" while `--tools` answers "which agents get those actions?" Keeping those concerns separate preserves the existing profile model and avoids adding workspace-local workflow selection in this slice.
+Workspace setup/update should use the active global profile to decide which OfficeSpec workflow skills are installed. The profile answers "which actions are available?" while `--tools` answers "which agents get those actions?" Keeping those concerns separate preserves the existing profile model and avoids adding workspace-local workflow selection in this slice.
 
 If global profile is `core`, workspace skills should include the core workflow set. If global profile is `custom`, workspace skills should include only the configured custom workflows. `--tools none` should still mean no agent skills are installed, regardless of profile.
 
@@ -59,17 +59,17 @@ Alternative considered: add a workspace-local profile file. That might be useful
 
 Interactive setup should preselect the preferred opener when that opener maps to a skill-capable agent. The user can accept the default, add more agents, or deselect it.
 
-Alternative considered: install skills only for the preferred opener. That is simpler, but opener choice means "how should I open this workspace" while skill selection means "which agents should understand OpenSpec here."
+Alternative considered: install skills only for the preferred opener. That is simpler, but opener choice means "how should I open this workspace" while skill selection means "which agents should understand OfficeSpec here."
 
 ### Persist selected workspace skill agents locally
 
 Workspace setup should store the selected skill-capable agents in `.openspec-workspace/local.yaml` because agent paths and installed tool surfaces are machine-local. Workspace update should use that stored selection when the user does not pass `--tools` or make a new interactive selection.
 
-Explicit `--tools` on workspace setup/update should replace the stored selection. `--tools none` should store an empty selection and remove only known OpenSpec-managed workspace skill directories.
+Explicit `--tools` on workspace setup/update should replace the stored selection. `--tools none` should store an empty selection and remove only known OfficeSpec-managed workspace skill directories.
 
 The local state should also record enough last-applied information to support drift detection, such as the workflow IDs installed for each selected agent and the effective global profile/delivery at the time of the last successful sync. This is diagnostic state, not a second source of truth.
 
-Alternative considered: infer selected agents by scanning `.codex/skills/`, `.claude/skills/`, and similar directories. Scanning is useful as a fallback, but persisted selection gives predictable update behavior and avoids treating unrelated user-authored files as OpenSpec-managed state.
+Alternative considered: infer selected agents by scanning `.codex/skills/`, `.claude/skills/`, and similar directories. Scanning is useful as a fallback, but persisted selection gives predictable update behavior and avoids treating unrelated user-authored files as OfficeSpec-managed state.
 
 ### Keep non-interactive setup backward-compatible
 
@@ -89,23 +89,23 @@ Alternative considered: mirror `init` exactly and generate both skills and comma
 
 ### Add `workspace update` for skill refresh
 
-`openspec workspace update` should refresh, add, or remove workspace-local OpenSpec skills after setup. It should resolve the current workspace when run from inside a workspace, and also support named and non-interactive forms.
+`openspec workspace update` should refresh, add, or remove workspace-local OfficeSpec skills after setup. It should resolve the current workspace when run from inside a workspace, and also support named and non-interactive forms.
 
-Workspace update should compare the active global profile's workflow selection with the last applied workspace skill state. If they differ, update should add/remove only OpenSpec-managed workflow skill directories for the selected agents. Workspace doctor/list/status surfaces may report the drift as a warning, and `openspec config profile` no-op inside a workspace should use the same drift check for guidance.
+Workspace update should compare the active global profile's workflow selection with the last applied workspace skill state. If they differ, update should add/remove only OfficeSpec-managed workflow skill directories for the selected agents. Workspace doctor/list/status surfaces may report the drift as a warning, and `openspec config profile` no-op inside a workspace should use the same drift check for guidance.
 
 Alternative considered: reuse `openspec update` from inside the workspace. That command currently means repo/project update, while workspace update needs workspace selection, workspace JSON/status behavior, and linked-repo safety rules.
 
 ### Make `config profile` workspace-aware
 
-`openspec config profile` should remain a global configuration command. When it runs inside a repo-local OpenSpec project and the user chooses to apply changes, it should continue to run `openspec update`.
+`openspec config profile` should remain a global configuration command. When it runs inside a repo-local OfficeSpec project and the user chooses to apply changes, it should continue to run `openspec update`.
 
-When it runs inside an OpenSpec workspace and the profile or delivery settings actually change, it should prompt to apply changes to the current workspace. If confirmed, it should run `openspec workspace update` for that workspace. If declined, it should explain that the global config changed and the user can run `openspec workspace update` later.
+When it runs inside an OfficeSpec workspace and the profile or delivery settings actually change, it should prompt to apply changes to the current workspace. If confirmed, it should run `openspec workspace update` for that workspace. If declined, it should explain that the global config changed and the user can run `openspec workspace update` later.
 
 The preset shortcut `openspec config profile core` should keep its non-interactive character and not launch an apply prompt. When run from inside a workspace, it should save global config and print workspace-specific follow-up guidance to run `openspec workspace update`. When run inside a repo-local project, it should keep the existing repo-local guidance.
 
 For this slice, automatic workspace context should come from the workspace planning home and its own subdirectories. Running a command from inside a linked repo or folder should keep that location's repo-local behavior unless the user explicitly selects the workspace with a workspace command option. This avoids surprising repo-local commands merely because the repo is registered as a workspace link.
 
-If a directory is both inside a workspace planning home and inside a repo-local OpenSpec project, the nearest planning home should determine the apply prompt. This avoids applying a workspace profile change to a linked repo when the user is intentionally operating from the workspace planning home.
+If a directory is both inside a workspace planning home and inside a repo-local OfficeSpec project, the nearest planning home should determine the apply prompt. This avoids applying a workspace profile change to a linked repo when the user is intentionally operating from the workspace planning home.
 
 Alternative considered: make `openspec config profile` update all known workspaces. That would be convenient in small setups, but global config changes should not fan out into multiple planning homes without an explicit per-workspace action.
 
@@ -138,7 +138,7 @@ changes/<id>/
       <capability>/spec.md
 ```
 
-The first schema should stay intentionally close to the normal OpenSpec artifact shape: proposal, specs, design, and tasks. Area-specific requirements live under `specs/` and area-specific work can be represented as sections in `tasks.md`. This slice does not introduce another area manifest beside those normal planning artifacts.
+The first schema should stay intentionally close to the normal OfficeSpec artifact shape: proposal, specs, design, and tasks. Area-specific requirements live under `specs/` and area-specific work can be represented as sections in `tasks.md`. This slice does not introduce another area manifest beside those normal planning artifacts.
 
 Alternative considered: reuse `spec-driven` unchanged and make all workspace differences implicit in status output. That hides the fact that workspace planning needs different instructions for organizing requirements and tasks by affected area.
 
@@ -164,7 +164,7 @@ Alternative considered: create a separate context command immediately. Status is
 
 ### Keep generated skills path-agnostic
 
-Generated workflow skills should ask OpenSpec where artifacts live instead of embedding repo-local paths such as `openspec/changes/<name>`. The standard skill pattern should be:
+Generated workflow skills should ask OfficeSpec where artifacts live instead of embedding repo-local paths such as `openspec/changes/<name>`. The standard skill pattern should be:
 
 ```text
 1. Run `openspec status --change "<name>" --json`.
@@ -187,7 +187,7 @@ Alternative considered: filter unsupported workflows out of workspace skill gene
 
 ### Redirect repo update from workspace roots
 
-`openspec update` should remain the repo/project update command. When it is run from an OpenSpec workspace planning home, it should not try to treat the workspace as a repo-local project. It should fail or redirect with clear guidance to run `openspec workspace update`.
+`openspec update` should remain the repo/project update command. When it is run from an OfficeSpec workspace planning home, it should not try to treat the workspace as a repo-local project. It should fail or redirect with clear guidance to run `openspec workspace update`.
 
 Alternative considered: make `openspec update` polymorphic and perform workspace update inside workspaces. That would be convenient, but it blurs the repo/project versus workspace boundary this change is trying to make explicit.
 
@@ -221,15 +221,15 @@ The earlier product notes pointed at a richer workspace model than this slice sh
 
 - Full workspace apply should select or confirm one work focus before implementation. The first work focus should be an affected area with an allowed edit root; later work may add an optional delivery phase when a large change needs sequencing. Until that model exists, workspace apply/verify/archive skills remain guarded.
 - Workspace verify and archive should wait for a clear model of partial area completion, final whole-change completion, and how workspace-scoped specs become repo-local canonical specs.
-- Scoped plan files may eventually attach at the change, phase, affected-area, or work-focus level. This slice intentionally keeps the first workspace schema close to normal OpenSpec artifacts: proposal, specs, design, and tasks.
+- Scoped plan files may eventually attach at the change, phase, affected-area, or work-focus level. This slice intentionally keeps the first workspace schema close to normal OfficeSpec artifacts: proposal, specs, design, and tasks.
 - Affected areas can start as registered workspace link names, but future flows may refine or derive them from planning artifacts. That derivation should avoid reintroducing target-first or repo-slice language.
-- Workflow skills may later separate generic OpenSpec workflow semantics from agent-specific affordances such as asking questions, tracking todos, or delegating work. This slice only makes generated workflow skills path-agnostic.
-- OpenSpec may need a named exploratory-notes convention for preserving unsettled thinking before it is promoted into proposal, design, specs, or tasks. This cleanup keeps the current change folder focused on standard artifacts.
+- Workflow skills may later separate generic OfficeSpec workflow semantics from agent-specific affordances such as asking questions, tracking todos, or delegating work. This slice only makes generated workflow skills path-agnostic.
+- OfficeSpec may need a named exploratory-notes convention for preserving unsettled thinking before it is promoted into proposal, design, specs, or tasks. This cleanup keeps the current change folder focused on standard artifacts.
 
 ## Risks / Trade-offs
 
 - Skill generation logic may drift from `init/update` → share the same template generation and tool validation helpers where practical.
-- Removing unselected skills could remove user-modified files → remove only known OpenSpec-managed workflow skill directories by explicit workflow list.
+- Removing unselected skills could remove user-modified files → remove only known OfficeSpec-managed workflow skill directories by explicit workflow list.
 - `--tools` is less precise than `--agents` in workspace UX → keep `--tools` for CLI consistency, but use "agents" in prompts and human output.
 - Global delivery can say `commands` while workspace update remains skills-only → report this explicitly so users know command generation is deferred, not silently broken.
 - `config profile` may run from a linked repo inside an opened workspace → resolve the current planning home carefully and apply only to that home.

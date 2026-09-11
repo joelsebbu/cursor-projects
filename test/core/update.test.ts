@@ -89,7 +89,7 @@ describe('UpdateCommand', () => {
       });
 
       await expect(updateCommand.execute(testDir)).rejects.toThrow(
-        "No OpenSpec directory found. Run 'openspec init' first."
+        "No OfficeSpec directory found. Run 'openspec init' first."
       );
     });
 
@@ -212,7 +212,7 @@ Outside content
         );
 
         await expect(updateCommand.execute(testDir)).rejects.toThrow(
-          'OpenSpec update failed for: MiniMax Code'
+          'OfficeSpec update failed for: MiniMax Code'
         );
 
         expect(await fs.readFile(skillFile, 'utf-8')).toBe(oldSkillContent);
@@ -252,7 +252,7 @@ Outside content
         );
 
         await expect(updateCommand.execute(testDir)).rejects.toThrow(
-          'OpenSpec update failed for: MiniMax Code'
+          'OfficeSpec update failed for: MiniMax Code'
         );
 
         expect(await fs.readFile(skillFile, 'utf-8')).toBe(oldSkillContent);
@@ -289,7 +289,7 @@ Outside content
         );
 
         await expect(updateCommand.execute(testDir)).rejects.toThrow(
-          'OpenSpec update failed for: Claude Code'
+          'OfficeSpec update failed for: Claude Code'
         );
 
         expect(await fs.readFile(skillFile, 'utf-8')).toBe(oldSkillContent);
@@ -330,7 +330,7 @@ metadata:
         );
 
         await expect(updateCommand.execute(testDir)).rejects.toThrow(
-          'OpenSpec update failed for: Claude Code'
+          'OfficeSpec update failed for: Claude Code'
         );
 
         await expect(fs.stat(skillFile)).resolves.toBeDefined();
@@ -380,7 +380,7 @@ metadata:
       consoleSpy.mockRestore();
     });
 
-    it('should migrate OpenSpec skills from legacy .kimi to .kimi-code, preserving user files', async () => {
+    it('should migrate OfficeSpec skills from legacy .kimi to .kimi-code, preserving user files', async () => {
       // Managed skill in the legacy Kimi CLI location
       const legacySkillDir = path.join(testDir, '.kimi', 'skills', 'openspec-explore');
       await fs.mkdir(legacySkillDir, { recursive: true });
@@ -424,7 +424,7 @@ metadata:
       consoleSpy.mockRestore();
     });
 
-    it('should remove the legacy .kimi directory entirely when it only held OpenSpec skills', async () => {
+    it('should remove the legacy .kimi directory entirely when it only held OfficeSpec skills', async () => {
       const legacySkillDir = path.join(testDir, '.kimi', 'skills', 'openspec-explore');
       await fs.mkdir(legacySkillDir, { recursive: true });
       await fs.writeFile(
@@ -1459,7 +1459,7 @@ metadata:
     });
 
     it('should migrate a legacy .windsurf install to .devin, preserving user files', async () => {
-      // A project set up before the Devin Desktop rebrand: OpenSpec skills and
+      // A project set up before the Devin Desktop rebrand: OfficeSpec skills and
       // workflows under .windsurf/, alongside files the user wrote themselves.
       const legacySkillDir = path.join(testDir, '.windsurf', 'skills', 'openspec-explore');
       await fs.mkdir(legacySkillDir, { recursive: true });
@@ -1491,7 +1491,7 @@ metadata:
       expect(migratedWorkflow).not.toContain('old workflow content');
       expect(migratedWorkflow).toContain('---');
 
-      // The OpenSpec-managed originals are gone; the user's files are not
+      // The OfficeSpec-managed originals are gone; the user's files are not
       await expect(fs.access(legacySkillDir)).rejects.toThrow();
       await expect(
         fs.access(path.join(legacyWorkflows, 'opsx-explore.md'))
@@ -1518,7 +1518,7 @@ metadata:
       expect(await FileSystemUtils.fileExists(path.join(devinSkill, 'SKILL.md'))).toBe(true);
     });
 
-    it('should keep user files that live inside an OpenSpec-managed skill directory', async () => {
+    it('should keep user files that live inside an OfficeSpec-managed skill directory', async () => {
       // Both roots holding the same skill is the normal state after a rebrand.
       // A reference the user wrote beside SKILL.md is theirs and never moves.
       const devinSkill = path.join(testDir, '.devin', 'skills', 'openspec-explore');
@@ -1602,7 +1602,7 @@ metadata:
     });
 
     it('should not carry a user file into a skill directory that commands-only delivery deletes', async () => {
-      // Only SKILL.md may cross. The destination is a directory OpenSpec owns
+      // Only SKILL.md may cross. The destination is a directory OfficeSpec owns
       // and removes on its own under commands-only delivery, so moving the
       // whole legacy directory would hand the user's file to that removal.
       setMockConfig({ featureFlags: {}, profile: 'core', delivery: 'commands' });
@@ -1619,7 +1619,7 @@ metadata:
 
     it('should not carry a user file into a skill directory a deselected workflow deletes', async () => {
       // openspec-new-change is outside the core profile, so the skill
-      // directory it would land in is one OpenSpec prunes.
+      // directory it would land in is one OfficeSpec prunes.
       const legacySkill = path.join(testDir, '.windsurf', 'skills', 'openspec-new-change');
       await fs.mkdir(legacySkill, { recursive: true });
       await fs.writeFile(path.join(legacySkill, 'SKILL.md'), 'stale');
@@ -1711,7 +1711,7 @@ metadata:
       });
 
       await expect(new UpdateCommand({ force: true }).execute(testDir)).rejects.toThrow(
-        'OpenSpec update failed for: Codex'
+        'OfficeSpec update failed for: Codex'
       );
       expect(await fs.readFile(legacySkill, 'utf-8')).toBe(legacyContent);
       expect(await FileSystemUtils.fileExists(prompt)).toBe(true);
@@ -1742,7 +1742,7 @@ metadata:
       const consoleSpy = vi.spyOn(console, 'log');
 
       await expect(updateCommand.execute(testDir)).rejects.toThrow(
-        'OpenSpec update failed for: Claude Code'
+        'OfficeSpec update failed for: Claude Code'
       );
 
       // Should report failure
@@ -1788,7 +1788,7 @@ metadata:
       const consoleSpy = vi.spyOn(console, 'log');
 
       await expect(updateCommand.execute(testDir)).rejects.toThrow(
-        'OpenSpec update failed for: Claude Code'
+        'OfficeSpec update failed for: Claude Code'
       );
 
       // Cursor should still be updated - check the actual format from ora spinner
@@ -1829,7 +1829,7 @@ metadata:
       const consoleSpy = vi.spyOn(console, 'log');
 
       await expect(updateCommand.execute(testDir)).rejects.toThrow(
-        'OpenSpec update failed for: Cursor'
+        'OfficeSpec update failed for: Cursor'
       );
       expect(consoleSpy).toHaveBeenCalledWith(
         expect.stringContaining('Updated: Claude Code')
@@ -2094,7 +2094,7 @@ metadata:
       await updateCommand.execute(testDir);
 
       await expect(fs.readFile(setupStepsPath, 'utf8')).resolves.toContain('copilot-setup-steps:');
-      await expect(fs.readFile(agentPath, 'utf8')).resolves.toContain('# OpenSpec Agent');
+      await expect(fs.readFile(agentPath, 'utf8')).resolves.toContain('# OfficeSpec Agent');
     });
 
     it('should refresh managed legacy Copilot files and preserve custom files during force update', async () => {
@@ -2104,7 +2104,7 @@ metadata:
       const setupStepsPath = path.join(testDir, '.github', 'workflows', 'copilot-setup-steps.yml');
       const agentPath = path.join(testDir, '.github', 'agents', 'openspec.agent.md');
       const legacySetupSteps = generateCopilotSetupSteps().replace(
-        /^# Generated by OpenSpec for GitHub Copilot coding agent support\.\n\n/,
+        /^# Generated by OfficeSpec for GitHub Copilot coding agent support\.\n\n/,
         ''
       );
       const customAgent = 'custom Copilot agent';
@@ -2142,7 +2142,7 @@ metadata:
 
       const setupStepsPath = path.join(testDir, '.github', 'workflows', 'copilot-setup-steps.yml');
       const legacySetupSteps = generateCopilotSetupSteps().replace(
-        /^# Generated by OpenSpec for GitHub Copilot coding agent support\.\n\n/,
+        /^# Generated by OfficeSpec for GitHub Copilot coding agent support\.\n\n/,
         ''
       );
       await fs.mkdir(path.dirname(setupStepsPath), { recursive: true });
@@ -2459,9 +2459,9 @@ metadata:
         'old'
       );
 
-      // Create legacy CLAUDE.md with OpenSpec markers
+      // Create legacy CLAUDE.md with OfficeSpec markers
       const legacyContent = `${OPENSPEC_MARKERS.start}
-# OpenSpec Instructions
+# OfficeSpec Instructions
 
 These instructions are for AI assistants.
 ${OPENSPEC_MARKERS.end}
@@ -2476,12 +2476,12 @@ ${OPENSPEC_MARKERS.end}
 
       // Should show v1 upgrade message
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Upgrading to the new OpenSpec')
+        expect.stringContaining('Upgrading to the new OfficeSpec')
       );
 
       // Should show marker removal message (config files are never deleted, only have markers removed)
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Removed OpenSpec markers from CLAUDE.md')
+        expect.stringContaining('Removed OfficeSpec markers from CLAUDE.md')
       );
 
       // Config file should still exist (never deleted)
@@ -2713,7 +2713,7 @@ ${OPENSPEC_MARKERS.end}
       const promptDir = path.join(process.env.CODEX_HOME!, 'prompts');
       const managedPrompt = path.join(promptDir, 'opsx-update.md');
       await fs.mkdir(promptDir, { recursive: true });
-      await fs.writeFile(managedPrompt, 'prompt generated by OpenSpec v1.6.0');
+      await fs.writeFile(managedPrompt, 'prompt generated by OfficeSpec v1.6.0');
 
       const forceUpdateCommand = new UpdateCommand({ force: true });
       await forceUpdateCommand.execute(testDir);
@@ -2735,9 +2735,9 @@ ${OPENSPEC_MARKERS.end}
         'old'
       );
 
-      // Create legacy CLAUDE.md with OpenSpec markers
+      // Create legacy CLAUDE.md with OfficeSpec markers
       const legacyContent = `${OPENSPEC_MARKERS.start}
-# OpenSpec Instructions
+# OfficeSpec Instructions
 ${OPENSPEC_MARKERS.end}
 `;
       await fs.writeFile(path.join(testDir, 'CLAUDE.md'), legacyContent);
@@ -2749,7 +2749,7 @@ ${OPENSPEC_MARKERS.end}
 
       // Should show v1 upgrade message
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Upgrading to the new OpenSpec')
+        expect.stringContaining('Upgrading to the new OfficeSpec')
       );
 
       // Should show warning about --force
@@ -2865,14 +2865,14 @@ ${OPENSPEC_MARKERS.end}
         call.map(arg => String(arg)).join(' ')
       );
       const hasLegacyMessage = calls.some(call =>
-        call.includes('Upgrading to the new OpenSpec')
+        call.includes('Upgrading to the new OfficeSpec')
       );
       expect(hasLegacyMessage).toBe(false);
 
       consoleSpy.mockRestore();
     });
 
-    it('should remove OpenSpec marker block from mixed content files', async () => {
+    it('should remove OfficeSpec marker block from mixed content files', async () => {
       // Set up a configured tool
       const skillsDir = path.join(testDir, '.claude', 'skills');
       await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
@@ -2883,13 +2883,13 @@ ${OPENSPEC_MARKERS.end}
         'old'
       );
 
-      // Create CLAUDE.md with mixed content (user content + OpenSpec markers)
+      // Create CLAUDE.md with mixed content (user content + OfficeSpec markers)
       const mixedContent = `# My Project
 
 Some user-defined instructions here.
 
 ${OPENSPEC_MARKERS.start}
-# OpenSpec Instructions
+# OfficeSpec Instructions
 
 These instructions are for AI assistants.
 ${OPENSPEC_MARKERS.end}
@@ -2906,7 +2906,7 @@ More user content after markers.
 
       // Should show marker removal message
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Removed OpenSpec markers from CLAUDE.md')
+        expect.stringContaining('Removed OfficeSpec markers from CLAUDE.md')
       );
 
       // File should still exist
@@ -3776,7 +3776,7 @@ More user content after markers.
         path.join(skillsDir, 'openspec-explore', 'SKILL.md')
       )).toBe(false);
 
-      // The tool now has zero OpenSpec artifacts; the removal must not be
+      // The tool now has zero OfficeSpec artifacts; the removal must not be
       // silent — update prints the same configuration correction init does.
       const logCalls = consoleSpy.mock.calls.flat().map(String);
       const correction = logCalls.find((entry) => entry.includes('No skills or commands remain'));

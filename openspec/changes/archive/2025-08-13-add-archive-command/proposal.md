@@ -1,5 +1,5 @@
 ## Why
-Need a command to archive completed changes to the archive folder with proper date prefixing, following OpenSpec conventions. Currently changes must be manually moved and renamed.
+Need a command to archive completed changes to the archive folder with proper date prefixing, following OfficeSpec conventions. Currently changes must be manually moved and renamed.
 
 ## What Changes
 - Add new `archive` command to CLI that moves changes to `changes/archive/YYYY-MM-DD-[change-name]/`

@@ -63,7 +63,7 @@ function inferSharedSkillTarget(projectPath: string, skillsDir: string): string 
   return foundGenericReference ? 'agents' : undefined;
 }
 
-/** Whether the canonical shared root already contains an OpenSpec skill. */
+/** Whether the canonical shared root already contains an OfficeSpec skill. */
 function hasCurrentSkills(projectPath: string, skillsDir: string): boolean {
   return OPENSPEC_SKILL_NAMES.some((skillName) => {
     const skillFile = path.join(projectPath, skillsDir, 'skills', skillName, 'SKILL.md');

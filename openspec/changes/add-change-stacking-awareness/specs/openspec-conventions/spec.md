@@ -1,7 +1,7 @@
 ## ADDED Requirements
 
 ### Requirement: Stack-Aware Change Planning Conventions
-OpenSpec conventions SHALL define optional metadata fields for sequencing and decomposition across concurrent changes.
+OfficeSpec conventions SHALL define optional metadata fields for sequencing and decomposition across concurrent changes.
 
 #### Scenario: Declaring change dependencies
 - **WHEN** authors need to sequence related changes

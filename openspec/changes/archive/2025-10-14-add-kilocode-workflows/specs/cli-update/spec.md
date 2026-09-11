@@ -19,7 +19,7 @@ The update command SHALL refresh existing slash command files for configured too
 
 #### Scenario: Updating slash commands for Kilo Code
 - **WHEN** `.kilocode/workflows/` contains `openspec-proposal.md`, `openspec-apply.md`, and `openspec-archive.md`
-- **THEN** refresh each file using shared templates wrapped in OpenSpec markers
+- **THEN** refresh each file using shared templates wrapped in OfficeSpec markers
 - **AND** ensure templates include instructions for the relevant workflow stage
 
 #### Scenario: Missing slash command file

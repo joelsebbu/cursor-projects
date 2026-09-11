@@ -15,11 +15,11 @@ Schema resolution SHALL support the built-in workspace planning schema.
 #### Scenario: Workspace default schema for new changes
 - **GIVEN** the command creates a change in a workspace planning home
 - **AND** the user did not pass an explicit `--schema`
-- **WHEN** OpenSpec resolves the schema for the new change
+- **WHEN** OfficeSpec resolves the schema for the new change
 - **THEN** it SHALL use `workspace-planning` as the default schema
 
 #### Scenario: Explicit schema override for workspace change
 - **GIVEN** the command creates a change in a workspace planning home
 - **WHEN** the user passes an explicit `--schema <name>`
-- **THEN** OpenSpec SHALL use the explicitly requested schema
+- **THEN** OfficeSpec SHALL use the explicitly requested schema
 - **AND** it SHALL validate that schema using normal schema resolution

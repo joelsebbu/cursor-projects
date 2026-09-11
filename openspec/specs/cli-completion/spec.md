@@ -1,7 +1,7 @@
 # cli-completion Specification
 
 ## Purpose
-Provide shell completion scripts for the OpenSpec CLI, enabling tab-completion for commands, flags, and dynamic values (change IDs, spec IDs) across multiple shells. Supports Zsh, Bash, Fish, and PowerShell.
+Provide shell completion scripts for the OfficeSpec CLI, enabling tab-completion for commands, flags, and dynamic values (change IDs, spec IDs) across multiple shells. Supports Zsh, Bash, Fish, and PowerShell.
 ## Requirements
 ### Requirement: Native Shell Behavior Integration
 
@@ -143,14 +143,14 @@ The completion system SHALL provide context-aware dynamic completions for projec
 - **THEN** discover active changes from `openspec/changes/` directory
 - **AND** exclude archived changes in `openspec/changes/archive/`
 - **AND** return change IDs as completion suggestions
-- **AND** only provide suggestions when inside an OpenSpec-enabled project
+- **AND** only provide suggestions when inside an OfficeSpec-enabled project
 
 #### Scenario: Completing spec IDs
 
 - **WHEN** completing arguments for commands that accept spec names (show, validate)
 - **THEN** discover specs from `openspec/specs/` directory
 - **AND** return spec IDs as completion suggestions
-- **AND** only provide suggestions when inside an OpenSpec-enabled project
+- **AND** only provide suggestions when inside an OfficeSpec-enabled project
 
 #### Scenario: Completion caching
 
@@ -161,7 +161,7 @@ The completion system SHALL provide context-aware dynamic completions for projec
 
 #### Scenario: Project detection
 
-- **WHEN** user requests completions outside an OpenSpec project
+- **WHEN** user requests completions outside an OfficeSpec project
 - **THEN** skip dynamic change/spec ID completions
 - **AND** only suggest static commands and flags
 
@@ -313,7 +313,7 @@ The completion implementation SHALL follow clean architecture principles with Ty
 - **AND** implement methods:
   - `getChangeIds(): Promise<string[]>` - Discovers active change IDs
   - `getSpecIds(): Promise<string[]>` - Discovers spec IDs
-  - `isOpenSpecProject(): boolean` - Checks if current directory is OpenSpec-enabled
+  - `isOpenSpecProject(): boolean` - Checks if current directory is OfficeSpec-enabled
 - **AND** implement caching with 2-second TTL using class properties
 
 #### Scenario: Command registry

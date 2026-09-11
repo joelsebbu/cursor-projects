@@ -1,6 +1,6 @@
-# OpenSpec docs: the style guide
+# OfficeSpec docs: the style guide
 
-Structure, voice, tone, and language for OpenSpec's user docs. This file is the primary style authority for the docs tree. The tree's own README owns structure (the page map and which page teaches what); when this file and that README disagree, the README wins. `no-ai-slop` owns the generic slop patterns; this file owns what OpenSpec's docs specifically look and sound like.
+Structure, voice, tone, and language for OfficeSpec's user docs. This file is the primary style authority for the docs tree. The tree's own README owns structure (the page map and which page teaches what); when this file and that README disagree, the README wins. `no-ai-slop` owns the generic slop patterns; this file owns what OfficeSpec's docs specifically look and sound like.
 
 ## Six principles
 
@@ -92,7 +92,7 @@ The narrator is a colleague who has run every command on the page, hit the failu
 - Calm and specific. The reader wants the fact, the command, and the catch, in that order.
 - Confidence comes from precision, not emphasis. Never "very", "extremely", "critical", bold-for-importance, or exclamation marks.
 - Plain judgment is welcome. The docs may tell the reader what to do and what to skip: "The `openspec/` folder: pause first."
-- Address the reader as "you". OpenSpec, the CLI, and init do things. "We" appears only for project decisions ("we say skills"), never as a tour guide.
+- Address the reader as "you". OfficeSpec, the CLI, and init do things. "We" appears only for project decisions ("we say skills"), never as a tour guide.
 - Dry beats chirpy. No cheerleading, no apologizing, no drama around failures. A failure is a fact with a fix.
 
 ## Structure and tone by page type
@@ -151,11 +151,11 @@ An example illustrates one mapping, rule, or result. It doesn't become a sequenc
 
 Put the concrete default path or value in the primary slot. Put environment variables and uncommon overrides afterward.
 
-State the observable consequence of a limit. If OpenSpec ignores a misspelled field, say that validation passes and the field has no effect. If a value falls back, name the value OpenSpec uses.
+State the observable consequence of a limit. If OfficeSpec ignores a misspelled field, say that validation passes and the field has no effect. If a value falls back, name the value OfficeSpec uses.
 
 ## Two surfaces
 
-OpenSpec spans the terminal and the AI chat, and readers mix them up. Label every snippet:
+OfficeSpec spans the terminal and the AI chat, and readers mix them up. Label every snippet:
 
 ```
 In your terminal:
@@ -179,7 +179,7 @@ Pages are plain markdown; GitHub and the site both render them. JSX components (
 - Show the real command and its real output, trimmed honestly. A retouched output is a lie the reader catches on their first run.
 - No hype and no comfort adjectives: easy, simple, just, powerful, seamless, robust. Three lines that show the thing beat any adjective about it.
 - State limits plainly. A named limitation builds more trust than praise: "Your assistant does need to be able to run shell commands; a few IDE integrations can't."
-- Don't generalize. Where you're tempted to write what OpenSpec "helps" with, write what actually happens: which file appears, what the diff shows, what the agent does next.
+- Don't generalize. Where you're tempted to write what OfficeSpec "helps" with, write what actually happens: which file appears, what the diff shows, what the agent does next.
 - Don't define what you can show. An unfamiliar term whose instances explain themselves (the workflow list: propose, explore, apply...) is introduced by showing the instances with one-phrase glosses; the abstraction can wait.
 - Exact names: flags, paths, config keys, and versions as they exist in source, linked to their canonical page on first use.
 

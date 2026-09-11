@@ -63,7 +63,7 @@ function printHumanWorkingSet(workingSet: WorkingSet, declaredReferenceCount: nu
   const rootLabel = workingSet.root.store_id ?? path.basename(workingSet.root.path);
   console.log(`Working context for ${rootLabel} (${workingSet.root.path})`);
   console.log('');
-  console.log('OpenSpec root');
+  console.log('OfficeSpec root');
   console.log(`  ${rootLabel}  ${workingSet.root.path}`);
 
   const availableStores = workingSet.members.filter(
@@ -160,7 +160,7 @@ function writeCodeWorkspace(
 export function registerContextCommand(program: Command): void {
   const description =
     COMMAND_REGISTRY.find((entry) => entry.name === 'context')?.description ??
-    'Print the working context for the resolved OpenSpec root';
+    'Print the working context for the resolved OfficeSpec root';
 
   program
     .command('context')

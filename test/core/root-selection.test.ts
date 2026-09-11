@@ -120,7 +120,7 @@ describe('resolveOpenSpecRoot', () => {
     return error;
   }
 
-  it('resolves a selected store to its healthy OpenSpec root', async () => {
+  it('resolves a selected store to its healthy OfficeSpec root', async () => {
     const storeRoot = await registerStore('team-context');
 
     const root = await resolveOpenSpecRoot({ store: 'team-context', globalDataDir });

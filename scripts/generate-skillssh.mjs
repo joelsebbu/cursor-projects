@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 /**
- * Generate the static skills.sh distribution of the OpenSpec workflow skills.
+ * Generate the static skills.sh distribution of the OfficeSpec workflow skills.
  *
  * skills.sh installs skills by reading committed `SKILL.md` files straight from
- * a GitHub repo (`npx skills add Fission-AI/OpenSpec`). OpenSpec normally
+ * a GitHub repo (`npx skills add joelsebbu/OpenSpec`). OfficeSpec normally
  * *generates* these skills into a user's project via `openspec init`, so this
  * script mirrors that same output into a committed `skills/<name>/SKILL.md`
  * tree that skills.sh can discover.

@@ -2,12 +2,12 @@
 
 ### Requirement: OPSX Onboard Skill
 
-The system SHALL provide an `/opsx:onboard` skill that guides users through their first complete OpenSpec workflow cycle with narration and real codebase work.
+The system SHALL provide an `/opsx:onboard` skill that guides users through their first complete OfficeSpec workflow cycle with narration and real codebase work.
 
 #### Scenario: Skill invocation
 
 - **WHEN** user invokes `/opsx:onboard`
-- **THEN** agent checks if OpenSpec is initialized
+- **THEN** agent checks if OfficeSpec is initialized
 - **AND** if not initialized, prompts user to run `openspec init` first
 - **AND** if initialized, proceeds with onboarding flow
 
