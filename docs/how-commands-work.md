@@ -3,9 +3,9 @@
 **The one thing to know: OfficeSpec has two kinds of commands, and they run in two different places.**
 
 - `openspec ...` commands run in your **terminal**. (Example: `openspec init`.)
-- `/opsx:...` commands run in your **AI assistant's chat**. (Example: `/opsx:propose`.)
+- `/ofsx:...` commands run in your **AI assistant's chat**. (Example: `/ofsx:propose`.)
 
-If you ever type `/opsx:propose` into your terminal and nothing happens, this page is why. You are talking to the wrong half of OfficeSpec. Slash commands are not terminal commands. They are instructions you give to your AI AI assistant, in the same chat box where you'd normally type "add a login form."
+If you ever type `/ofsx:propose` into your terminal and nothing happens, this page is why. You are talking to the wrong half of OfficeSpec. Slash commands are not terminal commands. They are instructions you give to your AI AI assistant, in the same chat box where you'd normally type "add a login form."
 
 That single distinction is the most common stumbling block for new users, so let's make it crystal clear.
 
@@ -21,12 +21,12 @@ openspec list        # see active changes
 openspec view        # open the interactive dashboard
 ```
 
-**The slash commands (chat half).** Short commands like `/opsx:propose` and `/opsx:apply` that you type into your AI assistant. These tell the AI to follow the OfficeSpec workflow: draft a proposal, write specs, build from the task list, archive when done. You type these into Claude Code, Cursor, Devin Desktop, Copilot, or whichever assistant you use.
+**The slash commands (chat half).** Short commands like `/ofsx:propose` and `/ofsx:apply` that you type into your AI assistant. These tell the AI to follow the OfficeSpec workflow: draft a proposal, write specs, build from the task list, archive when done. You type these into Claude Code, Cursor, Devin Desktop, Copilot, or whichever assistant you use.
 
 ```text
-/opsx:propose improve-expense-approvals    (typed in your AI chat)
-/opsx:apply                    (typed in your AI chat)
-/opsx:archive                  (typed in your AI chat)
+/ofsx:propose improve-expense-approvals    (typed in your AI chat)
+/ofsx:apply                    (typed in your AI chat)
+/ofsx:archive                  (typed in your AI chat)
 ```
 
 Here's the mental model in one picture:
@@ -34,11 +34,11 @@ Here's the mental model in one picture:
 ```text
         YOUR TERMINAL                         YOUR AI ASSISTANT'S CHAT
    ┌──────────────────────┐               ┌──────────────────────────────┐
-   │  $ openspec init     │   installs    │  /opsx:propose improve-expense-approvals  │
-   │  $ openspec list     │  ──────────►  │  /opsx:apply                  │
-   │  $ openspec view     │   commands    │  /opsx:archive                │
+   │  $ openspec init     │   installs    │  /ofsx:propose improve-expense-approvals  │
+   │  $ openspec list     │  ──────────►  │  /ofsx:apply                  │
+   │  $ openspec view     │   commands    │  /ofsx:archive                │
    └──────────────────────┘    & skills   └──────────────────────────────┘
-        run openspec here                       run /opsx:* here
+        run openspec here                       run /ofsx:* here
 ```
 
 Notice the arrow. Running `openspec init` in your terminal is what *installs* the slash commands into your AI tool. The terminal half sets up the chat half. After that, day-to-day driving mostly happens in chat.
@@ -52,8 +52,8 @@ You don't enter a special OfficeSpec mode. You just open your AI AI assistant li
 So the real instructions are:
 
 1. Open your AI AI assistant (Claude Code, Cursor, Devin Desktop, and so on) in your work.
-2. Type `/opsx:propose` in its chat, the same place you type any other request.
-3. Watch the autocomplete: if OfficeSpec is installed, you'll see `/opsx:propose`, `/opsx:apply`, and friends appear as you type the slash.
+2. Type `/ofsx:propose` in its chat, the same place you type any other request.
+3. Watch the autocomplete: if OfficeSpec is installed, you'll see `/ofsx:propose`, `/ofsx:apply`, and friends appear as you type the slash.
 
 That's it. No mode to toggle, no daemon to launch, no separate window.
 
@@ -65,7 +65,7 @@ It's worth understanding, because it explains why OfficeSpec works with 30+ diff
 
 The CLI is the **engine**. It knows the rules: what a change folder looks like, which artifacts depend on which, how to merge a delta spec into your source of truth. It's the same everywhere.
 
-The slash commands are the **steering wheel**, and every AI tool has a slightly different one. Claude Code calls them commands. Cursor and Devin Desktop have their own formats. Some tools call them skills. When you run `openspec init`, OfficeSpec generates the right kind of file for each tool you selected, so the same `/opsx:propose` intent works no matter which assistant you prefer.
+The slash commands are the **steering wheel**, and every AI tool has a slightly different one. Claude Code calls them commands. Cursor and Devin Desktop have their own formats. Some tools call them skills. When you run `openspec init`, OfficeSpec generates the right kind of file for each tool you selected, so the same `/ofsx:propose` intent works no matter which assistant you prefer.
 
 The strength of this design: you learn the workflow once and carry it across tools. The tradeoff: the exact syntax of a command can differ slightly between tools, which is the next section.
 
@@ -75,25 +75,25 @@ The intent is identical everywhere. The spelling follows the file your tool load
 
 | Your tool's command file | How you type it | Example tools |
 |--------------------------|-----------------|---------------|
-| `.../commands/opsx/<id>.*` | `/opsx:propose` | Claude Code, Gemini CLI, Crush |
-| `.../opsx-<id>.*` | `/opsx-propose` | Cursor, GitHub Copilot (IDE), Devin Desktop, Trae, Oh My Pi |
-| `.amazonq/prompts/opsx-<id>.md` | `@opsx-propose` | Amazon Q Team member |
-| none — skills only | `/openspec-propose` | CodeArts, ForgeCode, Hermes, Mistral Vibe, Zed Agent, shared `.agents` |
-| none — Kimi Code | `/skill:openspec-propose` | Kimi Code |
-| none — Codex CLI | `$openspec-propose` | Codex |
+| `.../commands/ofsx/<id>.*` | `/ofsx:propose` | Claude Code, Gemini CLI, Crush |
+| `.../ofsx-<id>.*` | `/ofsx-propose` | Cursor, GitHub Copilot (IDE), Devin Desktop, Trae, Oh My Pi |
+| `.amazonq/prompts/ofsx-<id>.md` | `@ofsx-propose` | Amazon Q Team member |
+| none — skills only | `/officespec-propose` | CodeArts, ForgeCode, Hermes, Mistral Vibe, Zed Agent, shared `.agents` |
+| none — Kimi Code | `/skill:officespec-propose` | Kimi Code |
+| none — Codex CLI | `$officespec-propose` | Codex |
 
 Devin is the one tool that spans two rows. Devin Desktop reads
-`.devin/workflows/`, so `/opsx-propose` works there; [Devin Local does
+`.devin/workflows/`, so `/ofsx-propose` works there; [Devin Local does
 not](https://docs.devin.ai/desktop/devin-local), so on that agent use the
-`/openspec-propose` skill instead. The skills OfficeSpec writes to
+`/officespec-propose` skill instead. The skills OfficeSpec writes to
 `.devin/skills/` work on both, which is why they reference each other by skill
 name.
 
 Every tool is listed in [How To Invoke](supported-tools.md#how-to-invoke) — that
 table is the authoritative one. Two rows are not slash commands at all: Amazon Q
 loads its files into a prompt library invoked with `@`, and the last three rows
-use the *skill* name, which is not the command id (`/opsx:apply` is the
-`openspec-apply-change` skill).
+use the *skill* name, which is not the command id (`/ofsx:apply` is the
+`officespec-apply-change` skill).
 
 When in doubt, read the "Getting started" line `openspec init` printed: it already
 uses the form your tools registered. Typing a slash and watching the autocomplete
@@ -104,7 +104,7 @@ works too, for the tools that surface slash commands at all.
 When you run `openspec init` (or `openspec update`), OfficeSpec writes small files into your work so your AI tool can find the workflow. Depending on your tool and settings, these are **skills**, **commands**, or both.
 
 - **Skills** live in places like `.claude/skills/openspec-*/SKILL.md`. They're the emerging cross-tool standard: a folder of instructions your assistant auto-detects.
-- **Commands** live in places like `.cursor/commands/opsx-<id>.md` or `.claude/commands/opsx/<id>.md` — the layout is the tool's, and it decides how you type the command. They're the older per-tool slash command files. Codex does not get generated command files; use `.agents/skills/openspec-*`.
+- **Commands** live in places like `.cursor/commands/ofsx-<id>.md` or `.claude/commands/ofsx/<id>.md` — the layout is the tool's, and it decides how you type the command. They're the older per-tool slash command files. Codex does not get generated command files; use `.agents/skills/openspec-*`.
 
 You don't have to care which one your tool uses. You just type the slash command and it works. But knowing these files exist helps when something goes wrong: if your commands vanish, it usually means these files are missing or stale, and `openspec update` regenerates them.
 
@@ -123,18 +123,18 @@ Quick checks, fastest first:
 
 By default, OfficeSpec installs the **core** set of slash commands:
 
-- `/opsx:explore`: think through an idea with the AI before committing to a change (great first step when you're unsure)
-- `/opsx:propose`: create a change and draft all its planning artifacts in one step
-- `/opsx:apply`: build the change by working through its task list
-- `/opsx:update`: revise a change's planning artifacts and keep them coherent
-- `/opsx:sync`: merge a change's spec updates into your main specs (usually automatic)
-- `/opsx:archive`: finish a change and file it away
+- `/ofsx:explore`: think through an idea with the AI before committing to a change (great first step when you're unsure)
+- `/ofsx:propose`: create a change and draft all its planning artifacts in one step
+- `/ofsx:apply`: build the change by working through its task list
+- `/ofsx:update`: revise a change's planning artifacts and keep them coherent
+- `/ofsx:sync`: merge a change's spec updates into your main specs (usually automatic)
+- `/ofsx:archive`: finish a change and file it away
 
 A good default rhythm: `explore` when you're figuring out what to do, then `propose`, `apply`, `archive`. The [Explore First](explore.md) guide explains why that opening step pays off.
 
-There's also an **expanded** set for people who want finer control (`/opsx:new`, `/opsx:continue`, `/opsx:ff`, `/opsx:verify`, `/opsx:bulk-archive`, `/opsx:onboard`). You turn it on with `openspec config profile`, then apply it with `openspec update`.
+There's also an **expanded** set for people who want finer control (`/ofsx:new`, `/ofsx:continue`, `/ofsx:ff`, `/ofsx:verify`, `/ofsx:bulk-archive`, `/ofsx:onboard`). You turn it on with `openspec config profile`, then apply it with `openspec update`.
 
-New to all of this? `/opsx:onboard` (in the expanded set) walks you through a complete change on your own workspace, narrating each step. It's the friendliest possible introduction.
+New to all of this? `/ofsx:onboard` (in the expanded set) walks you through a complete change on your own workspace, narrating each step. It's the friendliest possible introduction.
 
 For what each command does in detail, see [Commands](commands.md). For when to reach for which, see [Workflows](workflows.md).
 
@@ -148,16 +148,16 @@ TERMINAL   $ cd your-work-folder
 TERMINAL   $ openspec init
               (installs slash commands into your AI tool)
 
-AI CHAT      /opsx:explore
+AI CHAT      /ofsx:explore
               (optional: think the idea through with the AI first)
 
-AI CHAT      /opsx:propose improve-expense-approvals
+AI CHAT      /ofsx:propose improve-expense-approvals
               (AI drafts proposal, specs, plan, tasks)
 
-AI CHAT      /opsx:apply
+AI CHAT      /ofsx:apply
               (AI builds it, checking off tasks)
 
-AI CHAT      /opsx:archive
+AI CHAT      /ofsx:archive
               (change is merged into your specs and filed away)
 ```
 

@@ -1,6 +1,6 @@
 # CLI Reference
 
-The OfficeSpec CLI (`openspec`) provides terminal commands for project setup, validation, status inspection, and management. These commands complement the AI slash commands (like `/opsx:propose`) documented in [Commands](commands.md).
+The OfficeSpec CLI (`openspec`) provides terminal commands for project setup, validation, status inspection, and management. These commands complement the AI slash commands (like `/ofsx:propose`) documented in [Commands](commands.md).
 
 ## Summary
 
@@ -153,7 +153,7 @@ openspec/
 
 .claude/skills/         # Claude Code skills (if claude selected)
 .cursor/skills/         # Cursor skills (if cursor selected)
-.cursor/commands/       # Cursor OPSX commands (if delivery includes commands)
+.cursor/commands/       # Cursor OFSX commands (if delivery includes commands)
 .agents/skills/         # Shared skills for AGENTS.md-compatible tools (if agents selected)
 ... (other tool configs)
 ```
@@ -702,7 +702,7 @@ you passed. Pass `--yes` (and the change name) up front to skip the round trip.
 
 ## Workflow Commands
 
-These commands support the artifact-driven OPSX workflow. They're useful for both humans checking progress and agents determining next steps.
+These commands support the artifact-driven OFSX workflow. They're useful for both humans checking progress and agents determining next steps.
 
 ### `openspec new change`
 
@@ -1336,7 +1336,7 @@ suppress that tip entirely.
 
 ## Related Documentation
 
-- [Commands](commands.md) - AI slash commands (`/opsx:propose`, `/opsx:apply`, etc.)
+- [Commands](commands.md) - AI slash commands (`/ofsx:propose`, `/ofsx:apply`, etc.)
 - [Workflows](workflows.md) - Common patterns and when to use each command
 - [Customization](customization.md) - Create custom schemas and templates
 - [Getting Started](getting-started.md) - First-time setup guide

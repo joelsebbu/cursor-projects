@@ -1,5 +1,5 @@
 ---
-name: openspec-continue-change
+name: officespec-continue-change
 description: Continue working on an OfficeSpec change by creating the next artifact. Use when the user wants to progress their change, create the next artifact, or continue their workflow.
 allowed-tools: Bash(openspec:*)
 license: MIT
@@ -32,7 +32,7 @@ Continue working on a change by creating the next artifact.
 
    Mark the most recently modified change as "(Recommended)" since it's likely what the user wants to continue.
 
-   Always announce: "Using change: <name>" and how to override (e.g., `/openspec-continue-change <other>`).
+   Always announce: "Using change: <name>" and how to override (e.g., `/officespec-continue-change <other>`).
 
 2. **Check current status**
    ```bash

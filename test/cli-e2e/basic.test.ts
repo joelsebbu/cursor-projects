@@ -243,11 +243,11 @@ describe('openspec CLI e2e basics', () => {
       expect(result.stdout).toContain('OfficeSpec Setup Complete');
 
       // Check that skills were created for multiple tools
-      const claudeSkillPath = path.join(emptyProjectDir, '.claude/skills/openspec-explore/SKILL.md');
-      const cursorSkillPath = path.join(emptyProjectDir, '.cursor/skills/openspec-explore/SKILL.md');
+      const claudeSkillPath = path.join(emptyProjectDir, '.claude/skills/officespec-explore/SKILL.md');
+      const cursorSkillPath = path.join(emptyProjectDir, '.cursor/skills/officespec-explore/SKILL.md');
       const minimaxSkillPath = path.join(
         testHome,
-        '.minimax/skills/openspec-explore/SKILL.md'
+        '.minimax/skills/officespec-explore/SKILL.md'
       );
       expect(await fileExists(claudeSkillPath)).toBe(true);
       expect(await fileExists(cursorSkillPath)).toBe(true);
@@ -265,8 +265,8 @@ describe('openspec CLI e2e basics', () => {
       expect(result.stdout).toContain('Claude Code');
 
       // New init creates skills, not CLAUDE.md
-      const claudeSkillPath = path.join(emptyProjectDir, '.claude/skills/openspec-explore/SKILL.md');
-      const cursorSkillPath = path.join(emptyProjectDir, '.cursor/skills/openspec-explore/SKILL.md');
+      const claudeSkillPath = path.join(emptyProjectDir, '.claude/skills/officespec-explore/SKILL.md');
+      const cursorSkillPath = path.join(emptyProjectDir, '.cursor/skills/officespec-explore/SKILL.md');
       expect(await fileExists(claudeSkillPath)).toBe(true);
       expect(await fileExists(cursorSkillPath)).toBe(false); // Not selected
     });
@@ -280,7 +280,7 @@ describe('openspec CLI e2e basics', () => {
       expect(result.exitCode).toBe(0);
       expect(result.stdout).toContain('OfficeSpec Setup Complete');
 
-      const skillPath = path.join(emptyProjectDir, '.agents', 'skills', 'openspec-explore', 'SKILL.md');
+      const skillPath = path.join(emptyProjectDir, '.agents', 'skills', 'officespec-explore', 'SKILL.md');
       expect(await fileExists(skillPath)).toBe(true);
     });
 
@@ -295,7 +295,7 @@ describe('openspec CLI e2e basics', () => {
       expect(result.stdout).toContain('Zed Agent');
       expect(result.stdout).not.toContain('Restart your IDE');
 
-      const skillPath = path.join(emptyProjectDir, '.agents', 'skills', 'openspec-explore', 'SKILL.md');
+      const skillPath = path.join(emptyProjectDir, '.agents', 'skills', 'officespec-explore', 'SKILL.md');
       expect(await fileExists(skillPath)).toBe(true);
       expect(await fs.readFile(
         path.join(emptyProjectDir, '.agents', 'skills', '.openspec-target'),
@@ -309,8 +309,8 @@ describe('openspec CLI e2e basics', () => {
         'utf-8'
       )).toBe('zed\n');
       const updatedSkill = await fs.readFile(skillPath, 'utf-8');
-      expect(updatedSkill).toContain('/openspec-explore');
-      expect(updatedSkill).not.toContain('$openspec-explore');
+      expect(updatedSkill).toContain('/officespec-explore');
+      expect(updatedSkill).not.toContain('$officespec-explore');
     });
 
     it('initializes with --tools none option', async () => {
@@ -323,8 +323,8 @@ describe('openspec CLI e2e basics', () => {
       expect(result.stdout).toContain('OfficeSpec Setup Complete');
 
       // With --tools none, no tool skills should be created
-      const claudeSkillPath = path.join(emptyProjectDir, '.claude/skills/openspec-explore/SKILL.md');
-      const cursorSkillPath = path.join(emptyProjectDir, '.cursor/skills/openspec-explore/SKILL.md');
+      const claudeSkillPath = path.join(emptyProjectDir, '.claude/skills/officespec-explore/SKILL.md');
+      const cursorSkillPath = path.join(emptyProjectDir, '.cursor/skills/officespec-explore/SKILL.md');
 
       expect(await fileExists(claudeSkillPath)).toBe(false);
       expect(await fileExists(cursorSkillPath)).toBe(false);

@@ -1,5 +1,5 @@
 ---
-name: openspec-onboard
+name: officespec-onboard
 description: Guided onboarding for OfficeSpec - walk through a complete workflow cycle with narration and real work.
 allowed-tools: Bash(openspec:*)
 license: MIT
@@ -27,7 +27,7 @@ openspec --version 2>&1 || echo "CLI_NOT_INSTALLED"
 ```
 
 **If CLI not installed:**
-> OfficeSpec CLI is not installed. Install it first, then come back to `/openspec-onboard`.
+> OfficeSpec CLI is not installed. Install it first, then come back to `/officespec-onboard`.
 
 Stop here if not installed.
 
@@ -154,7 +154,7 @@ Spend 1-2 minutes investigating the relevant code:
 │   [Optional: ASCII diagram if helpful]  │
 └─────────────────────────────────────────┘
 
-Explore mode (`/openspec-explore`) is for this kind of thinking—investigating before implementing. You can use it anytime you need to think through a problem.
+Explore mode (`/officespec-explore`) is for this kind of thinking—investigating before implementing. You can use it anytime you need to think through a problem.
 
 Now let's create a change to hold our work.
 ```
@@ -476,25 +476,25 @@ This same rhythm works for any size change—a small fix or a major feature.
 
  | Command           | What it does                               |
  |-------------------|--------------------------------------------|
- | `/openspec-propose` | Create a change and generate all artifacts |
- | `/openspec-explore` | Think through problems before/during work  |
- | `/openspec-apply-change`   | Implement tasks from a change              |
- | `/openspec-archive-change` | Archive a completed change                 |
+ | `/officespec-propose` | Create a change and generate all artifacts |
+ | `/officespec-explore` | Think through problems before/during work  |
+ | `/officespec-apply-change`   | Implement tasks from a change              |
+ | `/officespec-archive-change` | Archive a completed change                 |
 
 **Additional commands** (only if installed - availability depends on your profile):
 
  | Command            | What it does                                             |
  |--------------------|----------------------------------------------------------|
- | `/openspec-new-change`      | Start a new change, step through artifacts one at a time |
- | `/openspec-continue-change` | Continue working on an existing change                   |
- | `/openspec-ff-change`       | Fast-forward: create all artifacts at once               |
- | `/openspec-verify-change`   | Verify work matches artifacts                  |
+ | `/officespec-new-change`      | Start a new change, step through artifacts one at a time |
+ | `/officespec-continue-change` | Continue working on an existing change                   |
+ | `/officespec-ff-change`       | Fast-forward: create all artifacts at once               |
+ | `/officespec-verify-change`   | Verify work matches artifacts                  |
 
 ---
 
 ## What's Next?
 
-Try `/openspec-propose` on something you actually want to build. You've got the rhythm now!
+Try `/officespec-propose` on something you actually want to build. You've got the rhythm now!
 ```
 
 ---
@@ -509,8 +509,8 @@ If the user says they need to stop, want to pause, or seem disengaged:
 No problem! Your change is saved at the `changeRoot` reported by `openspec status --change "<name>" --json`.
 
 To pick up where we left off later:
-- `/openspec-continue-change <name>` - Resume artifact creation (if installed; otherwise `openspec status --change "<name>" --json` shows the next artifact)
-- `/openspec-apply-change <name>` - Jump to implementation (if tasks exist)
+- `/officespec-continue-change <name>` - Resume artifact creation (if installed; otherwise `openspec status --change "<name>" --json` shows the next artifact)
+- `/officespec-apply-change <name>` - Jump to implementation (if tasks exist)
 
 The work won't be lost. Come back whenever you're ready.
 ```
@@ -528,21 +528,21 @@ If the user says they just want to see the commands or skip the tutorial:
 
  | Command                  | What it does                               |
  |--------------------------|--------------------------------------------|
- | `/openspec-propose <name>` | Create a change and generate all artifacts |
- | `/openspec-explore`        | Think through problems (no code changes)   |
- | `/openspec-apply-change <name>`   | Implement tasks                            |
- | `/openspec-archive-change <name>` | Archive when done                          |
+ | `/officespec-propose <name>` | Create a change and generate all artifacts |
+ | `/officespec-explore`        | Think through problems (no code changes)   |
+ | `/officespec-apply-change <name>`   | Implement tasks                            |
+ | `/officespec-archive-change <name>` | Archive when done                          |
 
 **Additional commands** (only if installed - availability depends on your profile):
 
  | Command                   | What it does                        |
  |---------------------------|-------------------------------------|
- | `/openspec-new-change <name>`      | Start a new change, step by step    |
- | `/openspec-continue-change <name>` | Continue an existing change         |
- | `/openspec-ff-change <name>`       | Fast-forward: all artifacts at once |
- | `/openspec-verify-change <name>`   | Verify the work               |
+ | `/officespec-new-change <name>`      | Start a new change, step by step    |
+ | `/officespec-continue-change <name>` | Continue an existing change         |
+ | `/officespec-ff-change <name>`       | Fast-forward: all artifacts at once |
+ | `/officespec-verify-change <name>`   | Verify the work               |
 
-Try `/openspec-propose` to start your first change.
+Try `/officespec-propose` to start your first change.
 ```
 
 Exit gracefully.

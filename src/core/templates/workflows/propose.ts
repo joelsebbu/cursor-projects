@@ -7,9 +7,9 @@
 import type { SkillTemplate, CommandTemplate } from '../types.js';
 import { STORE_SELECTION_GUIDANCE } from './store-selection.js';
 
-export function getOpsxProposeSkillTemplate(): SkillTemplate {
+export function getOfsxProposeSkillTemplate(): SkillTemplate {
   return {
-    name: 'openspec-propose',
+    name: 'officespec-propose',
     description: 'Propose a new change with all artifacts generated in one step. Use when the user wants to quickly describe what they want to do and get a complete proposal with plan, specs, and tasks ready to do the work.',
     instructions: `Propose a new change - create the change and generate all artifacts in one step.
 
@@ -142,7 +142,7 @@ After completing all artifacts, summarize:
 - Change name and location
 - List of artifacts created with brief descriptions, plus any conditional artifact you skipped and why
 - What's ready: "All artifacts needed to do the work are ready."
-- Prompt: "The artifacts are ready for review. When you are ready, run \`/opsx:apply\` or ask me to apply this change."
+- Prompt: "The artifacts are ready for review. When you are ready, run \`/ofsx:apply\` or ask me to apply this change."
 
 **Artifact Creation Guidelines**
 
@@ -168,9 +168,9 @@ After completing all artifacts, summarize:
   };
 }
 
-export function getOpsxProposeCommandTemplate(): CommandTemplate {
+export function getOfsxProposeCommandTemplate(): CommandTemplate {
   return {
-    name: 'OPSX: Propose',
+    name: 'OFSX: Propose',
     description: 'Propose a new change - create it and generate all artifacts in one step',
     category: 'Workflow',
     tags: ['workflow', 'artifacts', 'experimental'],
@@ -192,7 +192,7 @@ When the user is ready to implement, they must start the apply workflow explicit
 
 ${STORE_SELECTION_GUIDANCE}
 
-**Input**: The argument after \`/opsx:propose\` is the change name (kebab-case), OR a description of what the user wants to do.
+**Input**: The argument after \`/ofsx:propose\` is the change name (kebab-case), OR a description of what the user wants to do.
 
 **Steps**
 
@@ -305,7 +305,7 @@ After completing all artifacts, summarize:
 - Change name and location
 - List of artifacts created with brief descriptions, plus any conditional artifact you skipped and why
 - What's ready: "All artifacts needed to do the work are ready."
-- Prompt: "The artifacts are ready for review. When you are ready, run \`/opsx:apply\`."
+- Prompt: "The artifacts are ready for review. When you are ready, run \`/ofsx:apply\`."
 
 **Artifact Creation Guidelines**
 

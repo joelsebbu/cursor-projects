@@ -128,12 +128,12 @@ describe('UpdateCommand', () => {
     it('should update skill files for configured Claude tool', async () => {
       // Set up a configured Claude tool by creating skill directories
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      const exploreSkillDir = path.join(skillsDir, 'openspec-explore');
+      const exploreSkillDir = path.join(skillsDir, 'officespec-explore');
       await fs.mkdir(exploreSkillDir, { recursive: true });
 
       // Create an existing skill file
       const oldSkillContent = `---
-name: openspec-explore (old)
+name: officespec-explore (old)
 description: Old description
 license: MIT
 compatibility: Requires openspec CLI.
@@ -158,7 +158,7 @@ Old instructions content
         path.join(exploreSkillDir, 'SKILL.md'),
         'utf-8'
       );
-      expect(updatedSkill).toContain('name: openspec-explore');
+      expect(updatedSkill).toContain('name: officespec-explore');
       expect(updatedSkill).not.toContain('Old instructions content');
       expect(updatedSkill).toContain('license: MIT');
 
@@ -172,7 +172,7 @@ Old instructions content
 
     it('should update MiniMax Code skills without touching unrelated global skills', async () => {
       const skillsDir = path.join(testDir, 'home', '.minimax', 'skills');
-      const exploreSkill = path.join(skillsDir, 'openspec-explore', 'SKILL.md');
+      const exploreSkill = path.join(skillsDir, 'officespec-explore', 'SKILL.md');
       const customSkill = path.join(skillsDir, 'my-custom-skill', 'SKILL.md');
       await fs.mkdir(path.dirname(exploreSkill), { recursive: true });
       await fs.writeFile(exploreSkill, 'old content');
@@ -181,7 +181,7 @@ Old instructions content
 
       await updateCommand.execute(testDir);
 
-      expect(await fs.readFile(exploreSkill, 'utf-8')).toContain('name: openspec-explore');
+      expect(await fs.readFile(exploreSkill, 'utf-8')).toContain('name: officespec-explore');
       expect(await fs.readFile(customSkill, 'utf-8')).toBe('custom content');
       expect(await FileSystemUtils.directoryExists(path.join(testDir, '.minimax'))).toBe(false);
       expect(await FileSystemUtils.directoryExists(path.join(testDir, '.mavis'))).toBe(false);
@@ -190,10 +190,10 @@ Old instructions content
     it('should not update MiniMax skills through a linked directory outside the global skills root', async () => {
       const outsideDir = await fs.mkdtemp(path.join(os.tmpdir(), 'openspec-minimax-outside-'));
       const skillsRoot = path.join(testDir, 'home', '.minimax', 'skills');
-      const linkedSkillDir = path.join(skillsRoot, 'openspec-explore');
+      const linkedSkillDir = path.join(skillsRoot, 'officespec-explore');
       const skillFile = path.join(outsideDir, 'SKILL.md');
       const oldSkillContent = `---
-name: openspec-explore
+name: officespec-explore
 metadata:
   author: openspec
   version: "0.9"
@@ -230,10 +230,10 @@ Outside content
       });
       const outsideDir = await fs.mkdtemp(path.join(os.tmpdir(), 'openspec-minimax-outside-'));
       const skillsRoot = path.join(testDir, 'home', '.minimax', 'skills');
-      const linkedSkillDir = path.join(skillsRoot, 'openspec-explore');
+      const linkedSkillDir = path.join(skillsRoot, 'officespec-explore');
       const skillFile = path.join(outsideDir, 'SKILL.md');
       const oldSkillContent = `---
-name: openspec-explore
+name: officespec-explore
 metadata:
   author: openspec
   version: "0.9"
@@ -266,11 +266,11 @@ Outside content
       const skillFile = path.join(
         outsideDir,
         'skills',
-        'openspec-explore',
+        'officespec-explore',
         'SKILL.md'
       );
       const oldSkillContent = `---
-name: openspec-explore
+name: officespec-explore
 metadata:
   author: openspec
   version: "0.9"
@@ -294,7 +294,7 @@ Outside content
 
         expect(await fs.readFile(skillFile, 'utf-8')).toBe(oldSkillContent);
         expect(await fs.readdir(path.join(outsideDir, 'skills'))).toEqual([
-          'openspec-explore',
+          'officespec-explore',
         ]);
       } finally {
         await fs.rm(outsideDir, { recursive: true, force: true });
@@ -307,14 +307,14 @@ Outside content
       const skillFile = path.join(
         outsideDir,
         'skills',
-        'openspec-explore',
+        'officespec-explore',
         'SKILL.md'
       );
       await fs.mkdir(path.dirname(skillFile), { recursive: true });
       await fs.writeFile(
         skillFile,
         `---
-name: openspec-explore
+name: officespec-explore
 metadata:
   author: openspec
   version: "0.9"
@@ -340,11 +340,11 @@ metadata:
     });
 
     it('should show the Hermes setup note when updating a configured Hermes tool', async () => {
-      const exploreSkillDir = path.join(testDir, '.hermes', 'skills', 'openspec-explore');
+      const exploreSkillDir = path.join(testDir, '.hermes', 'skills', 'officespec-explore');
       await fs.mkdir(exploreSkillDir, { recursive: true });
       await fs.writeFile(
         path.join(exploreSkillDir, 'SKILL.md'),
-        `---\nname: openspec-explore\nmetadata:\n  author: openspec\n  version: "0.9"\n---\n\nOld instructions content\n`
+        `---\nname: officespec-explore\nmetadata:\n  author: openspec\n  version: "0.9"\n---\n\nOld instructions content\n`
       );
 
       const consoleSpy = vi.spyOn(console, 'log');
@@ -382,11 +382,11 @@ metadata:
 
     it('should migrate OfficeSpec skills from legacy .kimi to .kimi-code, preserving user files', async () => {
       // Managed skill in the legacy Kimi CLI location
-      const legacySkillDir = path.join(testDir, '.kimi', 'skills', 'openspec-explore');
+      const legacySkillDir = path.join(testDir, '.kimi', 'skills', 'officespec-explore');
       await fs.mkdir(legacySkillDir, { recursive: true });
       await fs.writeFile(
         path.join(legacySkillDir, 'SKILL.md'),
-        `---\nname: openspec-explore\nmetadata:\n  author: openspec\n  version: "0.9"\n---\n\nOld instructions content\n`
+        `---\nname: officespec-explore\nmetadata:\n  author: openspec\n  version: "0.9"\n---\n\nOld instructions content\n`
       );
 
       // User-owned files in the legacy location that must be preserved
@@ -401,17 +401,17 @@ metadata:
 
       // Managed skill migrated to .kimi-code and refreshed by the update
       const migratedSkill = await fs.readFile(
-        path.join(testDir, '.kimi-code', 'skills', 'openspec-explore', 'SKILL.md'),
+        path.join(testDir, '.kimi-code', 'skills', 'officespec-explore', 'SKILL.md'),
         'utf-8'
       );
-      expect(migratedSkill).toContain('name: openspec-explore');
+      expect(migratedSkill).toContain('name: officespec-explore');
       expect(migratedSkill).not.toContain('Old instructions content');
       // Kimi Code has no command adapter, so the refreshed skill must use
-      // its documented /skill:<name> invocations, never /opsx:* commands
+      // its documented /skill:<name> invocations, never /ofsx:* commands
       // that were not generated
-      expect(migratedSkill).not.toContain('/opsx:');
-      expect(migratedSkill).not.toContain('/opsx-');
-      expect(migratedSkill).toContain('/skill:openspec-');
+      expect(migratedSkill).not.toContain('/ofsx:');
+      expect(migratedSkill).not.toContain('/ofsx-');
+      expect(migratedSkill).toContain('/skill:officespec-');
 
       // Legacy managed skill is gone; user files stay where they were
       await expect(fs.access(legacySkillDir)).rejects.toThrow();
@@ -425,17 +425,17 @@ metadata:
     });
 
     it('should remove the legacy .kimi directory entirely when it only held OfficeSpec skills', async () => {
-      const legacySkillDir = path.join(testDir, '.kimi', 'skills', 'openspec-explore');
+      const legacySkillDir = path.join(testDir, '.kimi', 'skills', 'officespec-explore');
       await fs.mkdir(legacySkillDir, { recursive: true });
       await fs.writeFile(
         path.join(legacySkillDir, 'SKILL.md'),
-        `---\nname: openspec-explore\nmetadata:\n  author: openspec\n  version: "0.9"\n---\n\nOld instructions content\n`
+        `---\nname: officespec-explore\nmetadata:\n  author: openspec\n  version: "0.9"\n---\n\nOld instructions content\n`
       );
 
       await updateCommand.execute(testDir);
 
       await expect(fs.access(path.join(testDir, '.kimi'))).rejects.toThrow();
-      const migratedSkill = path.join(testDir, '.kimi-code', 'skills', 'openspec-explore', 'SKILL.md');
+      const migratedSkill = path.join(testDir, '.kimi-code', 'skills', 'officespec-explore', 'SKILL.md');
       await expect(fs.access(migratedSkill)).resolves.toBeUndefined();
     });
 
@@ -456,12 +456,12 @@ metadata:
         testDir,
         '.agents',
         'skills',
-        'openspec-propose',
+        'officespec-propose',
         'SKILL.md'
       );
-      expect(await fs.readFile(currentSkill, 'utf-8')).toContain('$openspec-apply-change');
+      expect(await fs.readFile(currentSkill, 'utf-8')).toContain('$officespec-apply-change');
       await expect(
-        fs.access(path.join(testDir, '.codex', 'skills', 'openspec-propose', 'SKILL.md'))
+        fs.access(path.join(testDir, '.codex', 'skills', 'officespec-propose', 'SKILL.md'))
       ).rejects.toThrow();
       expect(await fs.readFile(userSkill, 'utf-8')).toBe('user skill');
       expect(await fs.readFile(path.join(testDir, '.codex', 'config.toml'), 'utf-8')).toBe(
@@ -482,12 +482,12 @@ metadata:
       await fs.rm(path.join(legacySkills, '.openspec-target'));
 
       for (const entry of await fs.readdir(legacySkills, { withFileTypes: true })) {
-        if (!entry.isDirectory() || !entry.name.startsWith('openspec-')) continue;
+        if (!entry.isDirectory() || !entry.name.startsWith('officespec-')) continue;
         const skillFile = path.join(legacySkills, entry.name, 'SKILL.md');
         const legacyContent = (await fs.readFile(skillFile, 'utf-8'))
           .replace(
-            /\$openspec-([a-z0-9-]+) \(Codex\) or \/openspec-\1 \(other agents\)/g,
-            '$openspec-$1'
+            /\$officespec-([a-z0-9-]+) \(Codex\) or \/officespec-\1 \(other agents\)/g,
+            '$officespec-$1'
           )
           .replace(/generatedBy:\s*"[^"]+"/, 'generatedBy: "0.1.0"')
           .replace(/\n/g, '\r\n');
@@ -497,12 +497,12 @@ metadata:
       await updateCommand.execute(testDir);
 
       await expect(
-        fs.access(path.join(legacySkills, 'openspec-propose', 'SKILL.md'))
+        fs.access(path.join(legacySkills, 'officespec-propose', 'SKILL.md'))
       ).rejects.toThrow();
       expect(await fs.readFile(
-        path.join(canonicalSkills, 'openspec-propose', 'SKILL.md'),
+        path.join(canonicalSkills, 'officespec-propose', 'SKILL.md'),
         'utf-8'
-      )).toContain('$openspec-apply-change');
+      )).toContain('$officespec-apply-change');
     });
 
     it('should preserve and report a divergent legacy Codex skill', async () => {
@@ -513,7 +513,7 @@ metadata:
         testDir,
         '.codex',
         'skills',
-        'openspec-propose',
+        'officespec-propose',
         'SKILL.md'
       );
       await fs.appendFile(legacySkill, '\nUser edit\n');
@@ -550,17 +550,17 @@ metadata:
 
       expect(
         await FileSystemUtils.fileExists(
-          path.join(testDir, '.agents', 'skills', 'openspec-explore', 'SKILL.md')
+          path.join(testDir, '.agents', 'skills', 'officespec-explore', 'SKILL.md')
         )
       ).toBe(true);
       expect(
         await FileSystemUtils.fileExists(
-          path.join(testDir, '.agents', 'skills', 'openspec-apply-change', 'SKILL.md')
+          path.join(testDir, '.agents', 'skills', 'officespec-apply-change', 'SKILL.md')
         )
       ).toBe(false);
       expect(
         await FileSystemUtils.fileExists(
-          path.join(testDir, '.codex', 'skills', 'openspec-apply-change', 'SKILL.md')
+          path.join(testDir, '.codex', 'skills', 'officespec-apply-change', 'SKILL.md')
         )
       ).toBe(true);
 
@@ -578,11 +578,11 @@ metadata:
       await new UpdateCommand({ force: true }).execute(testDir);
 
       const proposeSkill = await fs.readFile(
-        path.join(testDir, '.agents', 'skills', 'openspec-propose', 'SKILL.md'),
+        path.join(testDir, '.agents', 'skills', 'officespec-propose', 'SKILL.md'),
         'utf-8'
       );
-      expect(proposeSkill).toContain('$openspec-apply-change');
-      expect(proposeSkill).toContain('/openspec-apply-change');
+      expect(proposeSkill).toContain('$officespec-apply-change');
+      expect(proposeSkill).toContain('/officespec-apply-change');
       expect(
         consoleSpy.mock.calls.flat().map(String).some((entry) =>
           entry.includes('Force updating 1 tool(s): codex')
@@ -598,13 +598,13 @@ metadata:
       const skillsDir = path.join(testDir, '.agents', 'skills');
       expect(await fs.readFile(path.join(skillsDir, '.openspec-target'), 'utf-8')).toBe('codex\n');
       const proposeSkill = await fs.readFile(
-        path.join(skillsDir, 'openspec-propose', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-propose', 'SKILL.md'),
         'utf-8'
       );
-      expect(proposeSkill).toContain('$openspec-apply-change');
-      expect(proposeSkill).toContain('/openspec-apply-change');
+      expect(proposeSkill).toContain('$officespec-apply-change');
+      expect(proposeSkill).toContain('/officespec-apply-change');
       await expect(
-        fs.access(path.join(testDir, '.agents', 'workflows', 'opsx-propose.md'))
+        fs.access(path.join(testDir, '.agents', 'workflows', 'ofsx-propose.md'))
       ).resolves.toBeUndefined();
       expect(getConfiguredToolsForProfileSync(testDir)).toEqual([
         'antigravity',
@@ -614,10 +614,10 @@ metadata:
 
     it('should upgrade legacy Antigravity workflows beside Codex-owned shared skills', async () => {
       await new InitCommand({ tools: 'antigravity', force: true }).execute(testDir);
-      const legacyWorkflow = path.join(testDir, '.agent', 'workflows', 'opsx-propose.md');
+      const legacyWorkflow = path.join(testDir, '.agent', 'workflows', 'ofsx-propose.md');
       await fs.mkdir(path.dirname(legacyWorkflow), { recursive: true });
       await fs.copyFile(
-        path.join(testDir, '.agents', 'workflows', 'opsx-propose.md'),
+        path.join(testDir, '.agents', 'workflows', 'ofsx-propose.md'),
         legacyWorkflow
       );
       await fs.cp(
@@ -633,10 +633,10 @@ metadata:
       const skillsDir = path.join(testDir, '.agents', 'skills');
       expect(await fs.readFile(path.join(skillsDir, '.openspec-target'), 'utf-8')).toBe('codex\n');
       expect(
-        await fs.readFile(path.join(skillsDir, 'openspec-propose', 'SKILL.md'), 'utf-8')
-      ).toContain('$openspec-apply-change');
+        await fs.readFile(path.join(skillsDir, 'officespec-propose', 'SKILL.md'), 'utf-8')
+      ).toContain('$officespec-apply-change');
       await expect(
-        fs.access(path.join(testDir, '.agents', 'workflows', 'opsx-propose.md'))
+        fs.access(path.join(testDir, '.agents', 'workflows', 'ofsx-propose.md'))
       ).resolves.toBeUndefined();
       await expect(fs.access(legacyWorkflow)).rejects.toThrow();
     });
@@ -646,7 +646,7 @@ metadata:
       await fs.rename(path.join(testDir, '.agents'), path.join(testDir, '.codex'));
       await fs.rm(path.join(testDir, '.codex', 'skills', '.openspec-target'));
       await fs.appendFile(
-        path.join(testDir, '.codex', 'skills', 'openspec-propose', 'SKILL.md'),
+        path.join(testDir, '.codex', 'skills', 'officespec-propose', 'SKILL.md'),
         '\nUser edit\n'
       );
       await new InitCommand({ tools: 'agents', force: true }).execute(testDir);
@@ -656,11 +656,11 @@ metadata:
       const skillsDir = path.join(testDir, '.agents', 'skills');
       expect(await fs.readFile(path.join(skillsDir, '.openspec-target'), 'utf-8')).toBe('agents\n');
       expect(
-        await fs.readFile(path.join(skillsDir, 'openspec-propose', 'SKILL.md'), 'utf-8')
-      ).toContain('/openspec-apply-change');
+        await fs.readFile(path.join(skillsDir, 'officespec-propose', 'SKILL.md'), 'utf-8')
+      ).toContain('/officespec-apply-change');
       expect(
         await fs.readFile(
-          path.join(testDir, '.codex', 'skills', 'openspec-propose', 'SKILL.md'),
+          path.join(testDir, '.codex', 'skills', 'officespec-propose', 'SKILL.md'),
           'utf-8'
         )
       ).toContain('User edit');
@@ -698,13 +698,13 @@ metadata:
       const skillsDir = path.join(testDir, '.agents', 'skills');
       // Ownership marker is not flipped to codex...
       expect(await fs.readFile(path.join(skillsDir, '.openspec-target'), 'utf-8')).toBe('agents\n');
-      // ...and the tree keeps generic `/openspec-` syntax, never Codex `$openspec-`.
+      // ...and the tree keeps generic `/officespec-` syntax, never Codex `$officespec-`.
       const propose = await fs.readFile(
-        path.join(skillsDir, 'openspec-propose', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-propose', 'SKILL.md'),
         'utf-8'
       );
-      expect(propose).not.toContain('$openspec-');
-      expect(propose).toContain('/openspec-');
+      expect(propose).not.toContain('$officespec-');
+      expect(propose).toContain('/officespec-');
       // Generation AND configuration are skipped: Codex is never recorded as a
       // configured tool, so a stray global prompt cannot flip ownership later.
       const configured = getConfiguredToolsForProfileSync(testDir);
@@ -736,12 +736,12 @@ metadata:
       // The codex marker is written (writeSharedSkillTarget on the non-owned path).
       expect(await fs.readFile(path.join(skillsDir, '.openspec-target'), 'utf-8')).toBe('codex\n');
       // A single opsx-explore prompt infers only the `explore` workflow, and the
-      // generated skill carries Codex `$openspec-` syntax.
+      // generated skill carries Codex `$officespec-` syntax.
       const explore = await fs.readFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'utf-8'
       );
-      expect(explore).toContain('$openspec-');
+      expect(explore).toContain('$officespec-');
       // Codex is now recorded as configured (mirrors the negative check above).
       expect(getConfiguredToolsForProfileSync(testDir)).toContain('codex');
     });
@@ -777,11 +777,11 @@ metadata:
       const skillsDir = path.join(testDir, '.agents', 'skills');
       expect(await fs.readFile(path.join(skillsDir, '.openspec-target'), 'utf-8')).toBe('codex\n');
       const proposeSkill = await fs.readFile(
-        path.join(skillsDir, 'openspec-propose', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-propose', 'SKILL.md'),
         'utf-8'
       );
-      expect(proposeSkill).toContain('$openspec-apply-change');
-      expect(proposeSkill).toContain('/openspec-apply-change');
+      expect(proposeSkill).toContain('$officespec-apply-change');
+      expect(proposeSkill).toContain('/officespec-apply-change');
     });
 
     it('should consolidate an existing unmarked agents tree with legacy Codex skills', async () => {
@@ -794,7 +794,7 @@ metadata:
         testDir,
         '.codex',
         'skills',
-        'openspec-propose',
+        'officespec-propose',
         'SKILL.md'
       );
       await fs.writeFile(
@@ -810,13 +810,13 @@ metadata:
       const skillsDir = path.join(testDir, '.agents', 'skills');
       expect(await fs.readFile(path.join(skillsDir, '.openspec-target'), 'utf-8')).toBe('codex\n');
       const proposeSkill = await fs.readFile(
-        path.join(skillsDir, 'openspec-propose', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-propose', 'SKILL.md'),
         'utf-8'
       );
-      expect(proposeSkill).toContain('$openspec-apply-change');
-      expect(proposeSkill).toContain('/openspec-apply-change');
+      expect(proposeSkill).toContain('$officespec-apply-change');
+      expect(proposeSkill).toContain('/officespec-apply-change');
       await expect(
-        fs.access(path.join(testDir, '.codex', 'skills', 'openspec-propose', 'SKILL.md'))
+        fs.access(path.join(testDir, '.codex', 'skills', 'officespec-propose', 'SKILL.md'))
       ).rejects.toThrow();
     });
 
@@ -829,11 +829,11 @@ metadata:
 
       expect(await fs.readFile(path.join(skillsDir, '.openspec-target'), 'utf-8')).toBe('codex\n');
       const proposeSkill = await fs.readFile(
-        path.join(skillsDir, 'openspec-propose', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-propose', 'SKILL.md'),
         'utf-8'
       );
-      expect(proposeSkill).toContain('$openspec-apply-change');
-      expect(proposeSkill).toContain('/openspec-apply-change');
+      expect(proposeSkill).toContain('$officespec-apply-change');
+      expect(proposeSkill).toContain('/officespec-apply-change');
     });
 
     it('should preserve agents ownership when it switches to commands-only', async () => {
@@ -845,7 +845,7 @@ metadata:
       const skillsDir = path.join(testDir, '.agents', 'skills');
       expect(await fs.readFile(path.join(skillsDir, '.openspec-target'), 'utf-8')).toBe('agents\n');
       await expect(
-        fs.access(path.join(skillsDir, 'openspec-propose', 'SKILL.md'))
+        fs.access(path.join(skillsDir, 'officespec-propose', 'SKILL.md'))
       ).rejects.toThrow();
     });
 
@@ -855,7 +855,7 @@ metadata:
       const legacySkills = path.join(testDir, '.codex', 'skills');
       await fs.cp(canonicalSkills, legacySkills, { recursive: true });
       await fs.writeFile(
-        path.join(legacySkills, 'openspec-propose', 'SKILL.md'),
+        path.join(legacySkills, 'officespec-propose', 'SKILL.md'),
         'divergent legacy Codex skill\n'
       );
       setMockConfig({ featureFlags: {}, profile: 'core', delivery: 'commands' });
@@ -867,10 +867,10 @@ metadata:
         'agents\n'
       );
       await expect(
-        fs.access(path.join(canonicalSkills, 'openspec-propose', 'SKILL.md'))
+        fs.access(path.join(canonicalSkills, 'officespec-propose', 'SKILL.md'))
       ).rejects.toThrow();
       expect(
-        await fs.readFile(path.join(legacySkills, 'openspec-propose', 'SKILL.md'), 'utf-8')
+        await fs.readFile(path.join(legacySkills, 'officespec-propose', 'SKILL.md'), 'utf-8')
       ).toBe('divergent legacy Codex skill\n');
     });
 
@@ -885,13 +885,13 @@ metadata:
       const skillsDir = path.join(testDir, '.agents', 'skills');
       expect(await fs.readFile(path.join(skillsDir, '.openspec-target'), 'utf-8')).toBe('codex\n');
       const proposeSkill = await fs.readFile(
-        path.join(skillsDir, 'openspec-propose', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-propose', 'SKILL.md'),
         'utf-8'
       );
-      expect(proposeSkill).toContain('$openspec-apply-change');
-      expect(proposeSkill).toContain('/openspec-apply-change');
+      expect(proposeSkill).toContain('$officespec-apply-change');
+      expect(proposeSkill).toContain('/officespec-apply-change');
       await expect(
-        fs.access(path.join(testDir, '.codex', 'skills', 'openspec-propose', 'SKILL.md'))
+        fs.access(path.join(testDir, '.codex', 'skills', 'officespec-propose', 'SKILL.md'))
       ).rejects.toThrow();
     });
 
@@ -902,12 +902,12 @@ metadata:
         const outsideSkill = path.join(
           outsideDir,
           'skills',
-          'openspec-propose',
+          'officespec-propose',
           'SKILL.md'
         );
         await fs.mkdir(path.dirname(outsideSkill), { recursive: true });
         await fs.copyFile(
-          path.join(testDir, '.agents', 'skills', 'openspec-propose', 'SKILL.md'),
+          path.join(testDir, '.agents', 'skills', 'officespec-propose', 'SKILL.md'),
           outsideSkill
         );
         await fs.symlink(
@@ -920,7 +920,7 @@ metadata:
         await new UpdateCommand({ force: true }).execute(testDir);
 
         await expect(fs.readFile(outsideSkill, 'utf-8')).resolves.toContain(
-          'name: openspec-propose'
+          'name: officespec-propose'
         );
         expect(
           warningSpy.mock.calls.flat().map(String).some((entry) =>
@@ -940,14 +940,14 @@ metadata:
         await new InitCommand({ tools: 'codex', force: true }).execute(testDir);
         const outsideSkill = path.join(outsideDir, 'SKILL.md');
         await fs.copyFile(
-          path.join(testDir, '.agents', 'skills', 'openspec-propose', 'SKILL.md'),
+          path.join(testDir, '.agents', 'skills', 'officespec-propose', 'SKILL.md'),
           outsideSkill
         );
         const legacySkillsDir = path.join(testDir, '.codex', 'skills');
         await fs.mkdir(legacySkillsDir, { recursive: true });
         await fs.symlink(
           outsideDir,
-          path.join(legacySkillsDir, 'openspec-propose'),
+          path.join(legacySkillsDir, 'officespec-propose'),
           process.platform === 'win32' ? 'junction' : 'dir'
         );
         const warningSpy = vi.spyOn(console, 'warn');
@@ -955,7 +955,7 @@ metadata:
         await new UpdateCommand({ force: true }).execute(testDir);
 
         await expect(fs.readFile(outsideSkill, 'utf-8')).resolves.toContain(
-          'name: openspec-propose'
+          'name: officespec-propose'
         );
         expect(
           warningSpy.mock.calls.flat().map(String).some((entry) =>
@@ -972,11 +972,11 @@ metadata:
       const skillsDir = path.join(testDir, '.claude', 'skills');
 
       // Create at least one skill to mark tool as configured
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'old content'
       );
 
@@ -984,12 +984,12 @@ metadata:
 
       // Verify core profile skill files were created/updated (propose, explore, apply, update, sync, archive)
       const coreSkillNames = [
-        'openspec-explore',
-        'openspec-apply-change',
-        'openspec-update-change',
-        'openspec-sync-specs',
-        'openspec-archive-change',
-        'openspec-propose',
+        'officespec-explore',
+        'officespec-apply-change',
+        'officespec-update-change',
+        'officespec-sync-specs',
+        'officespec-archive-change',
+        'officespec-propose',
       ];
 
       for (const skillName of coreSkillNames) {
@@ -1005,11 +1005,11 @@ metadata:
 
       // Verify non-core skills are NOT created
       const nonCoreSkillNames = [
-        'openspec-new-change',
-        'openspec-continue-change',
-        'openspec-ff-change',
-        'openspec-bulk-archive-change',
-        'openspec-verify-change',
+        'officespec-new-change',
+        'officespec-continue-change',
+        'officespec-ff-change',
+        'officespec-bulk-archive-change',
+        'officespec-verify-change',
       ];
 
       for (const skillName of nonCoreSkillNames) {
@@ -1021,7 +1021,7 @@ metadata:
 
     it('should update skill files for configured shared agents target', async () => {
       const skillsDir = path.join(testDir, '.agents', 'skills');
-      const exploreSkillDir = path.join(skillsDir, 'openspec-explore');
+      const exploreSkillDir = path.join(skillsDir, 'officespec-explore');
       await fs.mkdir(exploreSkillDir, { recursive: true });
       await fs.writeFile(path.join(exploreSkillDir, 'SKILL.md'), 'old content');
 
@@ -1031,44 +1031,44 @@ metadata:
         path.join(exploreSkillDir, 'SKILL.md'),
         'utf-8'
       );
-      expect(updatedSkill).toContain('name: openspec-explore');
+      expect(updatedSkill).toContain('name: officespec-explore');
     });
   });
 
   describe('command updates', () => {
     it('heals stale colon references for a filename-invoked tool (cursor)', async () => {
       // The headline upgrade path for #1307: a project generated before the
-      // fix carries /opsx: references that Cursor's palette never registers.
+      // fix carries /ofsx: references that Cursor's palette never registers.
       // `openspec update` must rewrite both the command bodies and the skills.
       const initCommand = new InitCommand({ tools: 'cursor', force: true });
       await initCommand.execute(testDir);
 
-      const commandFile = path.join(testDir, '.cursor', 'commands', 'opsx-apply.md');
+      const commandFile = path.join(testDir, '.cursor', 'commands', 'ofsx-apply.md');
       const skillFile = path.join(
         testDir,
         '.cursor',
         'skills',
-        'openspec-apply-change',
+        'officespec-apply-change',
         'SKILL.md'
       );
       for (const file of [commandFile, skillFile]) {
-        const stale = (await fs.readFile(file, 'utf-8')).replace(/\/opsx-/g, '/opsx:');
+        const stale = (await fs.readFile(file, 'utf-8')).replace(/\/ofsx-/g, '/ofsx:');
         await fs.writeFile(file, stale);
       }
-      expect(await fs.readFile(commandFile, 'utf-8')).toContain('/opsx:apply');
-      expect(await fs.readFile(skillFile, 'utf-8')).toContain('/opsx:apply');
+      expect(await fs.readFile(commandFile, 'utf-8')).toContain('/ofsx:apply');
+      expect(await fs.readFile(skillFile, 'utf-8')).toContain('/ofsx:apply');
 
       await new UpdateCommand({ force: true }).execute(testDir);
 
       const command = await fs.readFile(commandFile, 'utf-8');
-      expect(command).toContain('/opsx-archive');
-      expect(command).not.toContain('/opsx:');
+      expect(command).toContain('/ofsx-archive');
+      expect(command).not.toContain('/ofsx:');
 
       const skill = await fs.readFile(skillFile, 'utf-8');
       // Positive assertion too: a skill that simply dropped every reference
       // would satisfy the negative one.
-      expect(skill).toContain('/opsx-apply');
-      expect(skill).not.toContain('/opsx:');
+      expect(skill).toContain('/ofsx-apply');
+      expect(skill).not.toContain('/ofsx:');
     });
 
     it('keeps namespaced references for claude while hyphenating qwen in one run', async () => {
@@ -1078,54 +1078,54 @@ metadata:
       await new UpdateCommand({ force: true }).execute(testDir);
 
       const claudeCommand = await fs.readFile(
-        path.join(testDir, '.claude', 'commands', 'opsx', 'apply.md'),
+        path.join(testDir, '.claude', 'commands', 'ofsx', 'apply.md'),
         'utf-8'
       );
-      expect(claudeCommand).toContain('/opsx:archive');
-      expect(claudeCommand).not.toContain('/opsx-archive');
+      expect(claudeCommand).toContain('/ofsx:archive');
+      expect(claudeCommand).not.toContain('/ofsx-archive');
 
       const qwenCommand = await fs.readFile(
-        path.join(testDir, '.qwen', 'commands', 'opsx-apply.md'),
+        path.join(testDir, '.qwen', 'commands', 'ofsx-apply.md'),
         'utf-8'
       );
-      expect(qwenCommand).toContain('/opsx-archive');
-      expect(qwenCommand).not.toContain('/opsx:');
+      expect(qwenCommand).toContain('/ofsx-archive');
+      expect(qwenCommand).not.toContain('/ofsx:');
 
       const qwenSkill = await fs.readFile(
-        path.join(testDir, '.qwen', 'skills', 'openspec-apply-change', 'SKILL.md'),
+        path.join(testDir, '.qwen', 'skills', 'officespec-apply-change', 'SKILL.md'),
         'utf-8'
       );
-      expect(qwenSkill).toContain('/opsx-apply');
-      expect(qwenSkill).not.toContain('/opsx:');
+      expect(qwenSkill).toContain('/ofsx-apply');
+      expect(qwenSkill).not.toContain('/ofsx:');
 
       const claudeSkill = await fs.readFile(
-        path.join(testDir, '.claude', 'skills', 'openspec-apply-change', 'SKILL.md'),
+        path.join(testDir, '.claude', 'skills', 'officespec-apply-change', 'SKILL.md'),
         'utf-8'
       );
-      expect(claudeSkill).toContain('/opsx:apply');
-      expect(claudeSkill).not.toContain('/opsx-');
+      expect(claudeSkill).toContain('/ofsx:apply');
+      expect(claudeSkill).not.toContain('/ofsx-');
     });
 
     it('heals stale slash references for a prompt-library tool (amazon-q)', async () => {
       // Amazon Q registers no slash command at all: .amazonq/prompts files are
       // its prompt library, invoked with @. A project generated before this fix
-      // carries /opsx: references that Amazon Q answers to under no spelling.
+      // carries /ofsx: references that Amazon Q answers to under no spelling.
       const initCommand = new InitCommand({ tools: 'amazon-q', force: true });
       await initCommand.execute(testDir);
 
-      const promptFile = path.join(testDir, '.amazonq', 'prompts', 'opsx-apply.md');
+      const promptFile = path.join(testDir, '.amazonq', 'prompts', 'ofsx-apply.md');
       const skillFile = path.join(
         testDir,
         '.amazonq',
         'skills',
-        'openspec-apply-change',
+        'officespec-apply-change',
         'SKILL.md'
       );
       for (const file of [promptFile, skillFile]) {
-        const stale = (await fs.readFile(file, 'utf-8')).replace(/@opsx-/g, '/opsx:');
+        const stale = (await fs.readFile(file, 'utf-8')).replace(/@ofsx-/g, '/ofsx:');
         await fs.writeFile(file, stale);
       }
-      expect(await fs.readFile(promptFile, 'utf-8')).toContain('/opsx:apply');
+      expect(await fs.readFile(promptFile, 'utf-8')).toContain('/ofsx:apply');
 
       await new UpdateCommand({ force: true }).execute(testDir);
 
@@ -1133,29 +1133,29 @@ metadata:
         const refreshed = await fs.readFile(file, 'utf-8');
         // Positive assertion too: dropping every reference would satisfy the
         // negative ones. And no stray slash may survive the rewrite.
-        expect(refreshed).toContain('@opsx-apply');
-        expect(refreshed).not.toContain('/opsx:');
-        expect(refreshed).not.toContain('/opsx-');
+        expect(refreshed).toContain('@ofsx-apply');
+        expect(refreshed).not.toContain('/ofsx:');
+        expect(refreshed).not.toContain('/ofsx-');
       }
       // The prompt body cross-references other prompts; those move too.
-      expect(await fs.readFile(promptFile, 'utf-8')).toContain('@opsx-archive');
+      expect(await fs.readFile(promptFile, 'utf-8')).toContain('@ofsx-archive');
     });
 
     it('should update opsx commands for configured Claude tool', async () => {
       // Set up a configured Claude tool
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'old content'
       );
 
       await updateCommand.execute(testDir);
 
       // Check opsx command files were created
-      const commandsDir = path.join(testDir, '.claude', 'commands', 'opsx');
+      const commandsDir = path.join(testDir, '.claude', 'commands', 'ofsx');
       const exploreCmd = path.join(commandsDir, 'explore.md');
       const exists = await FileSystemUtils.fileExists(exploreCmd);
       expect(exists).toBe(true);
@@ -1171,16 +1171,16 @@ metadata:
     it('should generate ZCode commands under .zcode without creating .agents', async () => {
       // Mark ZCode as configured with an outdated generatedBy so update picks it up
       const skillsDir = path.join(testDir, '.zcode', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), { recursive: true });
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), { recursive: true });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         '---\nmetadata:\n  generatedBy: "0.0.1"\n---\nold content\n'
       );
 
       await updateCommand.execute(testDir);
 
       // Commands regenerated under .zcode/commands/opsx
-      const exploreCmd = path.join(testDir, '.zcode', 'commands', 'opsx', 'explore.md');
+      const exploreCmd = path.join(testDir, '.zcode', 'commands', 'ofsx', 'explore.md');
       expect(await FileSystemUtils.fileExists(exploreCmd)).toBe(true);
 
       const cmdContent = await fs.readFile(exploreCmd, 'utf-8');
@@ -1192,7 +1192,7 @@ metadata:
 
       // Skill refreshed under .zcode
       const refreshedSkill = await fs.readFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'utf-8'
       );
       expect(refreshedSkill).not.toContain('old content');
@@ -1204,11 +1204,11 @@ metadata:
     it('should update core profile opsx commands when tool is configured', async () => {
       // Set up a configured tool
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'old content'
       );
 
@@ -1216,7 +1216,7 @@ metadata:
 
       // Verify core profile commands were created (propose, explore, apply, update, sync, archive)
       const coreCommandIds = ['explore', 'apply', 'update', 'sync', 'archive', 'propose'];
-      const commandsDir = path.join(testDir, '.claude', 'commands', 'opsx');
+      const commandsDir = path.join(testDir, '.claude', 'commands', 'ofsx');
       for (const cmdId of coreCommandIds) {
         const cmdFile = path.join(commandsDir, `${cmdId}.md`);
         const exists = await FileSystemUtils.fileExists(cmdFile);
@@ -1235,30 +1235,30 @@ metadata:
     it('should refresh both Devin Desktop surfaces with the right invocation syntax', async () => {
       // Set up Devin Desktop directory with a skill to indicate it's configured
       const skillsDir = path.join(testDir, '.devin', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-apply-change'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-apply-change'), {
         recursive: true,
       });
-      const skillFile = path.join(skillsDir, 'openspec-apply-change', 'SKILL.md');
+      const skillFile = path.join(skillsDir, 'officespec-apply-change', 'SKILL.md');
       await fs.writeFile(skillFile, 'old content');
 
       await updateCommand.execute(testDir);
 
-      // Workflows are invoked by filename, so their bodies use `/opsx-*`.
-      const workflow = path.join(testDir, '.devin', 'workflows', 'opsx-apply.md');
+      // Workflows are invoked by filename, so their bodies use `/ofsx-*`.
+      const workflow = path.join(testDir, '.devin', 'workflows', 'ofsx-apply.md');
       expect(await FileSystemUtils.fileExists(workflow)).toBe(true);
 
       const workflowContent = await fs.readFile(workflow, 'utf-8');
       expect(workflowContent).toMatch(/^---\nname: "/);
-      expect(workflowContent).toContain('/opsx-');
-      expect(workflowContent).not.toContain('/opsx:');
+      expect(workflowContent).toContain('/ofsx-');
+      expect(workflowContent).not.toContain('/ofsx:');
 
       // Skills are refreshed too, and point at skills — the Devin Local agent
       // has no workflows to point at.
       const skillContent = await fs.readFile(skillFile, 'utf-8');
       expect(skillContent).not.toContain('old content');
-      expect(skillContent).toContain('/openspec-apply-change');
-      expect(skillContent).not.toContain('/opsx:');
-      expect(skillContent).not.toContain('/opsx-');
+      expect(skillContent).toContain('/officespec-apply-change');
+      expect(skillContent).not.toContain('/ofsx:');
+      expect(skillContent).not.toContain('/ofsx-');
     });
 
     it.each(['both', 'commands'] as const)(
@@ -1267,8 +1267,8 @@ metadata:
         setMockConfig({ featureFlags: {}, profile: 'core', delivery });
         const commandsDir = path.join(testDir, '.codeassistant', 'commands');
         await fs.mkdir(commandsDir, { recursive: true });
-        await fs.writeFile(path.join(commandsDir, 'opsx-apply.md'), 'old command content');
-        const skillFile = path.join(testDir, '.codeassistant', 'skills', 'openspec-apply-change', 'SKILL.md');
+        await fs.writeFile(path.join(commandsDir, 'ofsx-apply.md'), 'old command content');
+        const skillFile = path.join(testDir, '.codeassistant', 'skills', 'officespec-apply-change', 'SKILL.md');
         if (delivery === 'both') {
           await fs.mkdir(path.dirname(skillFile), { recursive: true });
           await fs.writeFile(skillFile, 'old skill content');
@@ -1276,17 +1276,17 @@ metadata:
 
         await updateCommand.execute(testDir);
 
-        const commandContent = await fs.readFile(path.join(commandsDir, 'opsx-apply.md'), 'utf-8');
+        const commandContent = await fs.readFile(path.join(commandsDir, 'ofsx-apply.md'), 'utf-8');
         expect(commandContent).toMatch(/^---\ndescription: /);
-        expect(commandContent).toContain('/opsx-archive');
-        expect(commandContent).not.toContain('/opsx:');
-        expect(await FileSystemUtils.fileExists(path.join(commandsDir, 'opsx-propose.md'))).toBe(true);
+        expect(commandContent).toContain('/ofsx-archive');
+        expect(commandContent).not.toContain('/ofsx:');
+        expect(await FileSystemUtils.fileExists(path.join(commandsDir, 'ofsx-propose.md'))).toBe(true);
 
         expect(await FileSystemUtils.fileExists(skillFile)).toBe(delivery === 'both');
         if (delivery === 'both') {
           const skillContent = await fs.readFile(skillFile, 'utf-8');
-          expect(skillContent).toContain('/opsx-archive');
-          expect(skillContent).not.toContain('/opsx:');
+          expect(skillContent).toContain('/ofsx-archive');
+          expect(skillContent).not.toContain('/ofsx:');
         }
 
         const consoleSpy = vi.spyOn(console, 'log');
@@ -1297,7 +1297,7 @@ metadata:
 
     it('should update command files when tool is configured via commands-only delivery without skills', async () => {
       setMockConfig({ featureFlags: {}, profile: 'core', delivery: 'commands' });
-      const commandsDir = path.join(testDir, '.claude', 'commands', 'opsx');
+      const commandsDir = path.join(testDir, '.claude', 'commands', 'ofsx');
       await fs.mkdir(commandsDir, { recursive: true });
       const coreCommandIds = ['explore', 'apply', 'update', 'sync', 'archive', 'propose'];
       for (const cmdId of coreCommandIds) {
@@ -1318,21 +1318,21 @@ metadata:
     it('should update multiple configured tools', async () => {
       // Set up Claude
       const claudeSkillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(claudeSkillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(claudeSkillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(claudeSkillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(claudeSkillsDir, 'officespec-explore', 'SKILL.md'),
         'old'
       );
 
       // Set up Cursor
       const cursorSkillsDir = path.join(testDir, '.cursor', 'skills');
-      await fs.mkdir(path.join(cursorSkillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(cursorSkillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(cursorSkillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(cursorSkillsDir, 'officespec-explore', 'SKILL.md'),
         'old'
       );
 
@@ -1347,17 +1347,17 @@ metadata:
 
       // Verify Claude skills updated
       const claudeSkill = await fs.readFile(
-        path.join(claudeSkillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(claudeSkillsDir, 'officespec-explore', 'SKILL.md'),
         'utf-8'
       );
-      expect(claudeSkill).toContain('name: openspec-explore');
+      expect(claudeSkill).toContain('name: officespec-explore');
 
       // Verify Cursor skills updated
       const cursorSkill = await fs.readFile(
-        path.join(cursorSkillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(cursorSkillsDir, 'officespec-explore', 'SKILL.md'),
         'utf-8'
       );
-      expect(cursorSkill).toContain('name: openspec-explore');
+      expect(cursorSkill).toContain('name: officespec-explore');
 
       consoleSpy.mockRestore();
     });
@@ -1365,22 +1365,22 @@ metadata:
     it('should update Qwen tool with correct command format', async () => {
       // Set up Qwen
       const qwenSkillsDir = path.join(testDir, '.qwen', 'skills');
-      await fs.mkdir(path.join(qwenSkillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(qwenSkillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(qwenSkillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(qwenSkillsDir, 'officespec-explore', 'SKILL.md'),
         'old'
       );
 
       await updateCommand.execute(testDir);
 
-      // Check Qwen command format (Markdown) - Qwen uses flat path structure: opsx-<id>.md
+      // Check Qwen command format (Markdown) - Qwen uses flat path structure: ofsx-<id>.md
       const qwenCmd = path.join(
         testDir,
         '.qwen',
         'commands',
-        'opsx-explore.md'
+        'ofsx-explore.md'
       );
       const exists = await FileSystemUtils.fileExists(qwenCmd);
       expect(exists).toBe(true);
@@ -1393,22 +1393,22 @@ metadata:
     it('should update Command Code tool and regenerate its flat command', async () => {
       // A configured Command Code install is detected by its skills dir
       const commandCodeSkillsDir = path.join(testDir, '.commandcode', 'skills');
-      await fs.mkdir(path.join(commandCodeSkillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(commandCodeSkillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(commandCodeSkillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(commandCodeSkillsDir, 'officespec-explore', 'SKILL.md'),
         'old'
       );
 
       await updateCommand.execute(testDir);
 
-      // Adapter-backed: update regenerates .commandcode/commands/opsx-<id>.md
+      // Adapter-backed: update regenerates .commandcode/commands/ofsx-<id>.md
       const commandCodeCmd = path.join(
         testDir,
         '.commandcode',
         'commands',
-        'opsx-explore.md'
+        'ofsx-explore.md'
       );
       expect(await FileSystemUtils.fileExists(commandCodeCmd)).toBe(true);
 
@@ -1432,7 +1432,7 @@ metadata:
       await fs.mkdir(commandsDir, { recursive: true });
       for (const commandId of coreCommandIds) {
         await fs.writeFile(
-          path.join(commandsDir, `opsx-${commandId}.md`),
+          path.join(commandsDir, `ofsx-${commandId}.md`),
           'old command without arguments'
         );
       }
@@ -1441,7 +1441,7 @@ metadata:
 
       for (const commandId of coreCommandIds) {
         const content = await fs.readFile(
-          path.join(commandsDir, `opsx-${commandId}.md`),
+          path.join(commandsDir, `ofsx-${commandId}.md`),
           'utf-8'
         );
         expect(content.match(/\$ARGUMENTS/g)).toHaveLength(1);
@@ -1461,13 +1461,13 @@ metadata:
     it('should migrate a legacy .windsurf install to .devin, preserving user files', async () => {
       // A project set up before the Devin Desktop rebrand: OfficeSpec skills and
       // workflows under .windsurf/, alongside files the user wrote themselves.
-      const legacySkillDir = path.join(testDir, '.windsurf', 'skills', 'openspec-explore');
+      const legacySkillDir = path.join(testDir, '.windsurf', 'skills', 'officespec-explore');
       await fs.mkdir(legacySkillDir, { recursive: true });
       await fs.writeFile(path.join(legacySkillDir, 'SKILL.md'), 'old skill content');
 
       const legacyWorkflows = path.join(testDir, '.windsurf', 'workflows');
       await fs.mkdir(legacyWorkflows, { recursive: true });
-      await fs.writeFile(path.join(legacyWorkflows, 'opsx-explore.md'), 'old workflow content');
+      await fs.writeFile(path.join(legacyWorkflows, 'ofsx-explore.md'), 'old workflow content');
 
       // User-owned content that must survive untouched
       const userSkillDir = path.join(testDir, '.windsurf', 'skills', 'my-custom-skill');
@@ -1480,12 +1480,12 @@ metadata:
 
       // Both surfaces now live under .devin and were refreshed
       const migratedSkill = await fs.readFile(
-        path.join(testDir, '.devin', 'skills', 'openspec-explore', 'SKILL.md'),
+        path.join(testDir, '.devin', 'skills', 'officespec-explore', 'SKILL.md'),
         'utf-8'
       );
       expect(migratedSkill).not.toContain('old skill content');
       const migratedWorkflow = await fs.readFile(
-        path.join(testDir, '.devin', 'workflows', 'opsx-explore.md'),
+        path.join(testDir, '.devin', 'workflows', 'ofsx-explore.md'),
         'utf-8'
       );
       expect(migratedWorkflow).not.toContain('old workflow content');
@@ -1494,7 +1494,7 @@ metadata:
       // The OfficeSpec-managed originals are gone; the user's files are not
       await expect(fs.access(legacySkillDir)).rejects.toThrow();
       await expect(
-        fs.access(path.join(legacyWorkflows, 'opsx-explore.md'))
+        fs.access(path.join(legacyWorkflows, 'ofsx-explore.md'))
       ).rejects.toThrow();
       expect(await fs.readFile(path.join(userSkillDir, 'SKILL.md'), 'utf-8')).toBe('user skill');
       expect(
@@ -1507,7 +1507,7 @@ metadata:
       // Source and destination are then the same file, so a naive
       // "destination exists, drop the legacy copy" would delete the original.
       await updateCommand.execute(testDir);
-      const devinSkill = path.join(testDir, '.devin', 'skills', 'openspec-explore');
+      const devinSkill = path.join(testDir, '.devin', 'skills', 'officespec-explore');
       await fs.mkdir(devinSkill, { recursive: true });
       await fs.writeFile(path.join(devinSkill, 'SKILL.md'), 'real content');
       await fs.symlink('.devin', path.join(testDir, '.windsurf'));
@@ -1521,11 +1521,11 @@ metadata:
     it('should keep user files that live inside an OfficeSpec-managed skill directory', async () => {
       // Both roots holding the same skill is the normal state after a rebrand.
       // A reference the user wrote beside SKILL.md is theirs and never moves.
-      const devinSkill = path.join(testDir, '.devin', 'skills', 'openspec-explore');
+      const devinSkill = path.join(testDir, '.devin', 'skills', 'officespec-explore');
       await fs.mkdir(devinSkill, { recursive: true });
       await fs.writeFile(path.join(devinSkill, 'SKILL.md'), 'current');
 
-      const legacySkill = path.join(testDir, '.windsurf', 'skills', 'openspec-explore');
+      const legacySkill = path.join(testDir, '.windsurf', 'skills', 'officespec-explore');
       await fs.mkdir(legacySkill, { recursive: true });
       await fs.writeFile(path.join(legacySkill, 'SKILL.md'), 'current');
       await fs.writeFile(path.join(legacySkill, 'reference.md'), 'my notes');
@@ -1541,19 +1541,19 @@ metadata:
       // Every legacy file differs from its counterpart, so there is no move to
       // make. Staying silent would leave two divergent copies the user never
       // hears about, so the result is reported rather than dropped.
-      const devinSkill = path.join(testDir, '.devin', 'skills', 'openspec-explore');
+      const devinSkill = path.join(testDir, '.devin', 'skills', 'officespec-explore');
       await fs.mkdir(devinSkill, { recursive: true });
       await fs.writeFile(path.join(devinSkill, 'SKILL.md'), 'current');
       const devinWorkflows = path.join(testDir, '.devin', 'workflows');
       await fs.mkdir(devinWorkflows, { recursive: true });
-      await fs.writeFile(path.join(devinWorkflows, 'opsx-explore.md'), 'current');
+      await fs.writeFile(path.join(devinWorkflows, 'ofsx-explore.md'), 'current');
 
-      const legacySkill = path.join(testDir, '.windsurf', 'skills', 'openspec-explore');
+      const legacySkill = path.join(testDir, '.windsurf', 'skills', 'officespec-explore');
       await fs.mkdir(legacySkill, { recursive: true });
       await fs.writeFile(path.join(legacySkill, 'SKILL.md'), 'mine');
       const legacyWorkflows = path.join(testDir, '.windsurf', 'workflows');
       await fs.mkdir(legacyWorkflows, { recursive: true });
-      await fs.writeFile(path.join(legacyWorkflows, 'opsx-explore.md'), 'mine');
+      await fs.writeFile(path.join(legacyWorkflows, 'ofsx-explore.md'), 'mine');
 
       const consoleSpy = vi.spyOn(console, 'log');
       await updateCommand.execute(testDir);
@@ -1570,33 +1570,33 @@ metadata:
       expect(logCalls.some((entry) => entry.includes('Migrated 0'))).toBe(false);
       // ...and nothing was touched
       expect(await fs.readFile(path.join(legacySkill, 'SKILL.md'), 'utf-8')).toBe('mine');
-      expect(await fs.readFile(path.join(legacyWorkflows, 'opsx-explore.md'), 'utf-8')).toBe('mine');
+      expect(await fs.readFile(path.join(legacyWorkflows, 'ofsx-explore.md'), 'utf-8')).toBe('mine');
     });
 
     it('should keep a legacy SKILL.md the user edited, matching how command files are treated', async () => {
       // Skills and commands must follow one rule. An earlier draft compared
       // content for commands and not for skills, so the same situation
       // destroyed a user's edited skill while preserving their edited command.
-      const devinSkill = path.join(testDir, '.devin', 'skills', 'openspec-explore');
+      const devinSkill = path.join(testDir, '.devin', 'skills', 'officespec-explore');
       await fs.mkdir(devinSkill, { recursive: true });
       await fs.writeFile(path.join(devinSkill, 'SKILL.md'), 'current');
       const devinWorkflows = path.join(testDir, '.devin', 'workflows');
       await fs.mkdir(devinWorkflows, { recursive: true });
-      await fs.writeFile(path.join(devinWorkflows, 'opsx-explore.md'), 'current');
+      await fs.writeFile(path.join(devinWorkflows, 'ofsx-explore.md'), 'current');
 
-      const legacySkill = path.join(testDir, '.windsurf', 'skills', 'openspec-explore');
+      const legacySkill = path.join(testDir, '.windsurf', 'skills', 'officespec-explore');
       await fs.mkdir(legacySkill, { recursive: true });
       await fs.writeFile(path.join(legacySkill, 'SKILL.md'), 'my edited skill');
       const legacyWorkflows = path.join(testDir, '.windsurf', 'workflows');
       await fs.mkdir(legacyWorkflows, { recursive: true });
-      await fs.writeFile(path.join(legacyWorkflows, 'opsx-explore.md'), 'my edited command');
+      await fs.writeFile(path.join(legacyWorkflows, 'ofsx-explore.md'), 'my edited command');
 
       await updateCommand.execute(testDir);
 
       expect(await fs.readFile(path.join(legacySkill, 'SKILL.md'), 'utf-8')).toBe(
         'my edited skill'
       );
-      expect(await fs.readFile(path.join(legacyWorkflows, 'opsx-explore.md'), 'utf-8')).toBe(
+      expect(await fs.readFile(path.join(legacyWorkflows, 'ofsx-explore.md'), 'utf-8')).toBe(
         'my edited command'
       );
     });
@@ -1606,7 +1606,7 @@ metadata:
       // and removes on its own under commands-only delivery, so moving the
       // whole legacy directory would hand the user's file to that removal.
       setMockConfig({ featureFlags: {}, profile: 'core', delivery: 'commands' });
-      const legacySkill = path.join(testDir, '.windsurf', 'skills', 'openspec-explore');
+      const legacySkill = path.join(testDir, '.windsurf', 'skills', 'officespec-explore');
       await fs.mkdir(legacySkill, { recursive: true });
       await fs.writeFile(path.join(legacySkill, 'SKILL.md'), 'stale');
       await fs.writeFile(path.join(legacySkill, 'reference.md'), 'my notes');
@@ -1618,9 +1618,9 @@ metadata:
     });
 
     it('should not carry a user file into a skill directory a deselected workflow deletes', async () => {
-      // openspec-new-change is outside the core profile, so the skill
+      // officespec-new-change is outside the core profile, so the skill
       // directory it would land in is one OfficeSpec prunes.
-      const legacySkill = path.join(testDir, '.windsurf', 'skills', 'openspec-new-change');
+      const legacySkill = path.join(testDir, '.windsurf', 'skills', 'officespec-new-change');
       await fs.mkdir(legacySkill, { recursive: true });
       await fs.writeFile(path.join(legacySkill, 'SKILL.md'), 'stale');
       await fs.writeFile(path.join(legacySkill, 'reference.md'), 'my notes');
@@ -1633,7 +1633,7 @@ metadata:
     it('should still fully vacate a legacy skill directory that holds only SKILL.md', async () => {
       // The safety rule must not leave empty scaffolding behind in the
       // ordinary case, where there is nothing of the user's to preserve.
-      const legacySkill = path.join(testDir, '.windsurf', 'skills', 'openspec-explore');
+      const legacySkill = path.join(testDir, '.windsurf', 'skills', 'officespec-explore');
       await fs.mkdir(legacySkill, { recursive: true });
       await fs.writeFile(path.join(legacySkill, 'SKILL.md'), 'stale');
 
@@ -1641,7 +1641,7 @@ metadata:
 
       expect(
         await FileSystemUtils.fileExists(
-          path.join(testDir, '.devin', 'skills', 'openspec-explore', 'SKILL.md')
+          path.join(testDir, '.devin', 'skills', 'officespec-explore', 'SKILL.md')
         )
       ).toBe(true);
       await expect(fs.access(path.join(testDir, '.windsurf'))).rejects.toThrow();
@@ -1650,28 +1650,28 @@ metadata:
     it('should keep a legacy command file the user edited, and drop an identical one', async () => {
       const devinWorkflows = path.join(testDir, '.devin', 'workflows');
       await fs.mkdir(devinWorkflows, { recursive: true });
-      await fs.writeFile(path.join(devinWorkflows, 'opsx-explore.md'), 'generated');
-      await fs.writeFile(path.join(devinWorkflows, 'opsx-apply.md'), 'generated');
+      await fs.writeFile(path.join(devinWorkflows, 'ofsx-explore.md'), 'generated');
+      await fs.writeFile(path.join(devinWorkflows, 'ofsx-apply.md'), 'generated');
 
       const legacyWorkflows = path.join(testDir, '.windsurf', 'workflows');
       await fs.mkdir(legacyWorkflows, { recursive: true });
       // Edited by the user — deleting it would throw the edit away
-      await fs.writeFile(path.join(legacyWorkflows, 'opsx-explore.md'), 'my edits');
+      await fs.writeFile(path.join(legacyWorkflows, 'ofsx-explore.md'), 'my edits');
       // Byte-identical — nothing is lost by dropping it
-      await fs.writeFile(path.join(legacyWorkflows, 'opsx-apply.md'), 'generated');
+      await fs.writeFile(path.join(legacyWorkflows, 'ofsx-apply.md'), 'generated');
 
       await updateCommand.execute(testDir);
 
-      expect(await fs.readFile(path.join(legacyWorkflows, 'opsx-explore.md'), 'utf-8')).toBe(
+      expect(await fs.readFile(path.join(legacyWorkflows, 'ofsx-explore.md'), 'utf-8')).toBe(
         'my edits'
       );
-      await expect(fs.access(path.join(legacyWorkflows, 'opsx-apply.md'))).rejects.toThrow();
+      await expect(fs.access(path.join(legacyWorkflows, 'ofsx-apply.md'))).rejects.toThrow();
     });
 
     it('should leave a migrated project alone on the next run', async () => {
       // The move must be idempotent: once .windsurf/ holds nothing of ours,
       // a second update has nothing to migrate and nothing to announce.
-      const legacySkillDir = path.join(testDir, '.windsurf', 'skills', 'openspec-explore');
+      const legacySkillDir = path.join(testDir, '.windsurf', 'skills', 'officespec-explore');
       await fs.mkdir(legacySkillDir, { recursive: true });
       await fs.writeFile(path.join(legacySkillDir, 'SKILL.md'), 'old');
 
@@ -1691,7 +1691,7 @@ metadata:
         testDir,
         '.codex',
         'skills',
-        'openspec-explore',
+        'officespec-explore',
         'SKILL.md'
       );
       const legacyContent = 'legacy Codex skill';
@@ -1720,11 +1720,11 @@ metadata:
     it('should report tool update failures to automation', async () => {
       // Set up a configured tool
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'old'
       );
 
@@ -1757,20 +1757,20 @@ metadata:
     it('should continue updating other tools when one fails', async () => {
       // Set up Claude and Cursor
       const claudeSkillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(claudeSkillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(claudeSkillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(claudeSkillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(claudeSkillsDir, 'officespec-explore', 'SKILL.md'),
         'old'
       );
 
       const cursorSkillsDir = path.join(testDir, '.cursor', 'skills');
-      await fs.mkdir(path.join(cursorSkillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(cursorSkillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(cursorSkillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(cursorSkillsDir, 'officespec-explore', 'SKILL.md'),
         'old'
       );
 
@@ -1811,8 +1811,8 @@ metadata:
     });
 
     it('should not suggest an IDE restart when only the IDE tool fails', async () => {
-      const claudeSkill = path.join(testDir, '.claude', 'skills', 'openspec-explore', 'SKILL.md');
-      const cursorSkill = path.join(testDir, '.cursor', 'skills', 'openspec-explore', 'SKILL.md');
+      const claudeSkill = path.join(testDir, '.claude', 'skills', 'officespec-explore', 'SKILL.md');
+      const cursorSkill = path.join(testDir, '.cursor', 'skills', 'officespec-explore', 'SKILL.md');
       await fs.mkdir(path.dirname(claudeSkill), { recursive: true });
       await fs.mkdir(path.dirname(cursorSkill), { recursive: true });
       await fs.writeFile(claudeSkill, 'old');
@@ -1864,7 +1864,7 @@ metadata:
         testDir,
         '.claude',
         'skills',
-        'openspec-archive-change'
+        'officespec-archive-change'
       );
       await fs.mkdir(skillDir, { recursive: true });
       await fs.writeFile(path.join(skillDir, 'SKILL.md'), 'old');
@@ -1886,18 +1886,18 @@ metadata:
     it('should generate valid YAML frontmatter in skill files', async () => {
       // Set up a configured tool
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'old'
       );
 
       await updateCommand.execute(testDir);
 
       const skillContent = await fs.readFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'utf-8'
       );
 
@@ -1916,18 +1916,18 @@ metadata:
     it('should include proper instructions in skill files', async () => {
       // Set up a configured tool with apply-change skill (which is in core profile)
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-apply-change'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-apply-change'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-apply-change', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-apply-change', 'SKILL.md'),
         'old'
       );
 
       await updateCommand.execute(testDir);
 
       const skillContent = await fs.readFile(
-        path.join(skillsDir, 'openspec-apply-change', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-apply-change', 'SKILL.md'),
         'utf-8'
       );
 
@@ -1940,11 +1940,11 @@ metadata:
     it('should display success message with tool name', async () => {
       // Set up a configured tool
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'old'
       );
 
@@ -1963,11 +1963,11 @@ metadata:
     it('should not suggest an IDE restart for CLI-only tools', async () => {
       // Set up a configured CLI tool
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'old'
       );
 
@@ -1989,11 +1989,11 @@ metadata:
     ] as const)('should name the generated IDE surface with %s delivery', async (delivery, surface) => {
       setMockConfig({ featureFlags: {}, profile: 'core', delivery });
       const skillsDir = path.join(testDir, '.cursor', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'old'
       );
 
@@ -2005,10 +2005,10 @@ metadata:
         expect.stringContaining(`Restart your IDE to refresh ${surface}.`)
       );
       expect(await FileSystemUtils.fileExists(
-        path.join(testDir, '.cursor', 'commands', 'opsx-explore.md')
+        path.join(testDir, '.cursor', 'commands', 'ofsx-explore.md')
       )).toBe(delivery !== 'skills');
       expect(await FileSystemUtils.fileExists(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md')
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md')
       )).toBe(delivery !== 'commands');
 
       consoleSpy.mockClear();
@@ -2031,10 +2031,10 @@ metadata:
         await updateCommand.execute(testDir);
 
         expect(await FileSystemUtils.fileExists(
-          path.join(testDir, '.cursor', 'commands', 'opsx-explore.md')
+          path.join(testDir, '.cursor', 'commands', 'ofsx-explore.md')
         )).toBe(false);
         expect(await FileSystemUtils.fileExists(
-          path.join(testDir, '.cursor', 'skills', 'openspec-explore', 'SKILL.md')
+          path.join(testDir, '.cursor', 'skills', 'officespec-explore', 'SKILL.md')
         )).toBe(false);
         const surface = delivery === 'skills' ? 'skills' : 'commands';
         expect(consoleSpy).toHaveBeenCalledWith(
@@ -2049,7 +2049,7 @@ metadata:
     it('should not suggest an IDE restart when only a CLI tool needs updating', async () => {
       await new InitCommand({ tools: 'claude,cursor', force: true }).execute(testDir);
       await fs.writeFile(
-        path.join(testDir, '.claude', 'skills', 'openspec-explore', 'SKILL.md'),
+        path.join(testDir, '.claude', 'skills', 'officespec-explore', 'SKILL.md'),
         'old'
       );
       const consoleSpy = vi.spyOn(console, 'log');
@@ -2199,13 +2199,13 @@ metadata:
     it('should detect update needed when generatedBy is missing', async () => {
       // Set up a configured tool without generatedBy
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         `---
-name: openspec-explore
+name: officespec-explore
 metadata:
   author: openspec
   version: "1.0"
@@ -2230,13 +2230,13 @@ Legacy content without generatedBy
     it('should detect update needed when version differs', async () => {
       // Set up a configured tool with old version
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         `---
-name: openspec-explore
+name: officespec-explore
 metadata:
   generatedBy: "0.1.0"
 ---
@@ -2260,18 +2260,18 @@ Old version content
     it('should embed generatedBy in updated skill files', async () => {
       // Set up a configured tool without generatedBy
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'old content without version'
       );
 
       await updateCommand.execute(testDir);
 
       const updatedContent = await fs.readFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'utf-8'
       );
 
@@ -2284,13 +2284,13 @@ Old version content
     it('should update when force is true even if up to date', async () => {
       // Set up a configured tool with current version
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), {
         recursive: true,
       });
 
       const { version } = await import('../../package.json');
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         `---
 metadata:
   generatedBy: "${version}"
@@ -2321,11 +2321,11 @@ Content
     it('should not show --force hint when force is used', async () => {
       // Set up a configured tool
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'old content'
       );
 
@@ -2349,7 +2349,7 @@ Content
     it('should update all tools when force is used with mixed versions', async () => {
       // Set up Claude with current version
       const { version } = await import('../../package.json');
-      const claudeSkillDir = path.join(testDir, '.claude', 'skills', 'openspec-explore');
+      const claudeSkillDir = path.join(testDir, '.claude', 'skills', 'officespec-explore');
       await fs.mkdir(claudeSkillDir, { recursive: true });
       await fs.writeFile(
         path.join(claudeSkillDir, 'SKILL.md'),
@@ -2361,7 +2361,7 @@ metadata:
       );
 
       // Set up Cursor with old version
-      const cursorSkillDir = path.join(testDir, '.cursor', 'skills', 'openspec-explore');
+      const cursorSkillDir = path.join(testDir, '.cursor', 'skills', 'officespec-explore');
       await fs.mkdir(cursorSkillDir, { recursive: true });
       await fs.writeFile(
         path.join(cursorSkillDir, 'SKILL.md'),
@@ -2390,11 +2390,11 @@ metadata:
     it('should show version in success message', async () => {
       // Set up a configured tool
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'old'
       );
 
@@ -2417,7 +2417,7 @@ metadata:
       await initCommand.execute(testDir);
 
       // Make Claude stale to force a version update.
-      const claudeSkillFile = path.join(testDir, '.claude', 'skills', 'openspec-explore', 'SKILL.md');
+      const claudeSkillFile = path.join(testDir, '.claude', 'skills', 'officespec-explore', 'SKILL.md');
       const claudeContent = await fs.readFile(claudeSkillFile, 'utf-8');
       await fs.writeFile(
         claudeSkillFile,
@@ -2451,11 +2451,11 @@ metadata:
     it('should detect and auto-cleanup legacy files with --force flag', async () => {
       // Set up a configured tool
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'old'
       );
 
@@ -2507,11 +2507,11 @@ ${OPENSPEC_MARKERS.end}
 
       const skillsDir = path.join(testDir, '.agents', 'skills');
       await markCodexTarget(skillsDir);
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'old'
       );
 
@@ -2542,10 +2542,10 @@ ${OPENSPEC_MARKERS.end}
       expect(await FileSystemUtils.fileExists(legacyPrompt)).toBe(true);
       expect(await FileSystemUtils.fileExists(unmanagedPrompt)).toBe(true);
 
-      const skillFile = path.join(skillsDir, 'openspec-explore', 'SKILL.md');
+      const skillFile = path.join(skillsDir, 'officespec-explore', 'SKILL.md');
       expect(await FileSystemUtils.fileExists(skillFile)).toBe(true);
       const skillContent = await fs.readFile(skillFile, 'utf-8');
-      expect(skillContent).toContain('name: openspec-explore');
+      expect(skillContent).toContain('name: officespec-explore');
 
       consoleSpy.mockRestore();
     });
@@ -2567,19 +2567,19 @@ ${OPENSPEC_MARKERS.end}
 
       expect(await FileSystemUtils.fileExists(managedPrompt)).toBe(false);
       expect(await FileSystemUtils.fileExists(
-        path.join(testDir, '.agents', 'skills', 'openspec-explore', 'SKILL.md')
+        path.join(testDir, '.agents', 'skills', 'officespec-explore', 'SKILL.md')
       )).toBe(true);
       expect(await FileSystemUtils.fileExists(
-        path.join(testDir, '.agents', 'skills', 'openspec-apply-change', 'SKILL.md')
+        path.join(testDir, '.agents', 'skills', 'officespec-apply-change', 'SKILL.md')
       )).toBe(false);
       expect(await FileSystemUtils.fileExists(
-        path.join(testDir, '.agents', 'skills', 'openspec-archive-change', 'SKILL.md')
+        path.join(testDir, '.agents', 'skills', 'officespec-archive-change', 'SKILL.md')
       )).toBe(false);
     });
 
     it.each([
-      ['opsx-archive.md', 'openspec-archive-change'],
-      ['opsx-bulk-archive.md', 'openspec-bulk-archive-change'],
+      ['opsx-archive.md', 'officespec-archive-change'],
+      ['opsx-bulk-archive.md', 'officespec-bulk-archive-change'],
     ])('should include sync when replacing legacy Codex %s', async (promptName, archiveSkill) => {
       setMockConfig({
         featureFlags: {},
@@ -2600,7 +2600,7 @@ ${OPENSPEC_MARKERS.end}
         path.join(testDir, '.agents', 'skills', archiveSkill, 'SKILL.md')
       )).toBe(true);
       expect(await FileSystemUtils.fileExists(
-        path.join(testDir, '.agents', 'skills', 'openspec-sync-specs', 'SKILL.md')
+        path.join(testDir, '.agents', 'skills', 'officespec-sync-specs', 'SKILL.md')
       )).toBe(true);
     });
 
@@ -2613,7 +2613,7 @@ ${OPENSPEC_MARKERS.end}
 
       // Legacy managed Codex prompt with codex not yet configured: the
       // upgrade newly configures codex, whose onboarding menu must not
-      // advertise /opsx:* commands (codex has no slash surface).
+      // advertise /ofsx:* commands (codex has no slash surface).
       // The prompt is opsx-new.md so the inferred workflow ('new') is one the
       // onboarding menu actually lists — the menu is now filtered to the
       // workflows the upgrade installed.
@@ -2631,10 +2631,10 @@ ${OPENSPEC_MARKERS.end}
       expect(logCalls.some((entry) => entry.includes('Getting started'))).toBe(true);
       const menuLines = logCalls.filter((entry) => entry.includes('Scaffold a change'));
       expect(menuLines).toHaveLength(1);
-      expect(menuLines[0]).toContain('$openspec-new-change');
-      expect(logCalls.some((entry) => entry.includes('/opsx:new'))).toBe(false);
-      expect(logCalls.some((entry) => entry.includes('/opsx:continue'))).toBe(false);
-      expect(logCalls.some((entry) => entry.includes('/opsx:apply'))).toBe(false);
+      expect(menuLines[0]).toContain('$officespec-new-change');
+      expect(logCalls.some((entry) => entry.includes('/ofsx:new'))).toBe(false);
+      expect(logCalls.some((entry) => entry.includes('/ofsx:continue'))).toBe(false);
+      expect(logCalls.some((entry) => entry.includes('/ofsx:apply'))).toBe(false);
       // Only the inferred workflow is advertised, not the rest of the profile
       expect(logCalls.some((entry) => entry.includes('Next artifact'))).toBe(false);
       expect(logCalls.some((entry) => entry.includes('Implement tasks'))).toBe(false);
@@ -2649,7 +2649,7 @@ ${OPENSPEC_MARKERS.end}
 
       // A pre-opsx Cursor project: legacy .cursor/commands/openspec-*.md files
       // make the upgrade newly configure cursor, whose menu must name the
-      // commands its palette registers (/opsx-propose), not /opsx:propose.
+      // commands its palette registers (/ofsx-propose), not /ofsx:propose.
       const legacyDir = path.join(testDir, '.cursor', 'commands');
       await fs.mkdir(legacyDir, { recursive: true });
       await fs.writeFile(path.join(legacyDir, 'openspec-proposal.md'), 'legacy proposal command');
@@ -2661,8 +2661,8 @@ ${OPENSPEC_MARKERS.end}
 
       const menuLines = logCalls.filter((entry) => entry.includes('Start a change'));
       expect(menuLines).toHaveLength(1);
-      expect(menuLines[0]).toContain('/opsx-propose');
-      expect(logCalls.some((entry) => entry.includes('/opsx:propose'))).toBe(false);
+      expect(menuLines[0]).toContain('/ofsx-propose');
+      expect(logCalls.some((entry) => entry.includes('/ofsx:propose'))).toBe(false);
       // The hint names what was generated, the same sentence init prints, rather
       // than update's older generic "changes".
       expect(
@@ -2681,11 +2681,11 @@ ${OPENSPEC_MARKERS.end}
 
       const skillsDir = path.join(testDir, '.agents', 'skills');
       await markCodexTarget(skillsDir);
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), { recursive: true });
-      await fs.writeFile(path.join(skillsDir, 'openspec-explore', 'SKILL.md'), 'old');
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), { recursive: true });
+      await fs.writeFile(path.join(skillsDir, 'officespec-explore', 'SKILL.md'), 'old');
 
       const promptDir = path.join(process.env.CODEX_HOME!, 'prompts');
-      const managedPrompt = path.join(promptDir, 'opsx-onboard.md');
+      const managedPrompt = path.join(promptDir, 'ofsx-onboard.md');
       await fs.mkdir(promptDir, { recursive: true });
       await fs.writeFile(managedPrompt, 'legacy onboard prompt');
 
@@ -2694,7 +2694,7 @@ ${OPENSPEC_MARKERS.end}
 
       expect(await FileSystemUtils.fileExists(managedPrompt)).toBe(true);
       expect(await FileSystemUtils.fileExists(
-        path.join(testDir, '.agents', 'skills', 'openspec-onboard', 'SKILL.md')
+        path.join(testDir, '.agents', 'skills', 'officespec-onboard', 'SKILL.md')
       )).toBe(false);
     });
 
@@ -2707,8 +2707,8 @@ ${OPENSPEC_MARKERS.end}
 
       const skillsDir = path.join(testDir, '.agents', 'skills');
       await markCodexTarget(skillsDir);
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), { recursive: true });
-      await fs.writeFile(path.join(skillsDir, 'openspec-explore', 'SKILL.md'), 'old');
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), { recursive: true });
+      await fs.writeFile(path.join(skillsDir, 'officespec-explore', 'SKILL.md'), 'old');
 
       const promptDir = path.join(process.env.CODEX_HOME!, 'prompts');
       const managedPrompt = path.join(promptDir, 'opsx-update.md');
@@ -2719,7 +2719,7 @@ ${OPENSPEC_MARKERS.end}
       await forceUpdateCommand.execute(testDir);
 
       expect(await FileSystemUtils.fileExists(
-        path.join(skillsDir, 'openspec-update-change', 'SKILL.md')
+        path.join(skillsDir, 'officespec-update-change', 'SKILL.md')
       )).toBe(true);
       expect(await FileSystemUtils.fileExists(managedPrompt)).toBe(false);
     });
@@ -2727,11 +2727,11 @@ ${OPENSPEC_MARKERS.end}
     it('should warn but continue with update when legacy files found in non-interactive mode', async () => {
       // Set up a configured tool
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'old'
       );
 
@@ -2774,11 +2774,11 @@ ${OPENSPEC_MARKERS.end}
     it('should cleanup legacy slash command directories with --force', async () => {
       // Set up a configured tool
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'old'
       );
 
@@ -2811,11 +2811,11 @@ ${OPENSPEC_MARKERS.end}
     it('should cleanup legacy openspec/AGENTS.md with --force', async () => {
       // Set up a configured tool
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'old'
       );
 
@@ -2848,11 +2848,11 @@ ${OPENSPEC_MARKERS.end}
     it('should not show legacy cleanup messages when no legacy files exist', async () => {
       // Set up a configured tool with no legacy files
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'old'
       );
 
@@ -2875,11 +2875,11 @@ ${OPENSPEC_MARKERS.end}
     it('should remove OfficeSpec marker block from mixed content files', async () => {
       // Set up a configured tool
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), {
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), {
         recursive: true,
       });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'old'
       );
 
@@ -2962,17 +2962,17 @@ More user content after markers.
         expect.stringContaining('Getting started')
       );
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('/opsx:propose')
+        expect.stringContaining('/ofsx:propose')
       );
       const gettingStartedCalls = consoleSpy.mock.calls
         .map((call) => call.map((arg) => String(arg)).join(' '))
         .join('\n');
-      expect(gettingStartedCalls).not.toContain('/opsx:new');
-      expect(gettingStartedCalls).not.toContain('/opsx:continue');
+      expect(gettingStartedCalls).not.toContain('/ofsx:new');
+      expect(gettingStartedCalls).not.toContain('/ofsx:continue');
       expect(gettingStartedCalls).not.toContain('Restart your IDE');
 
       // Skills should be created
-      const skillFile = path.join(testDir, '.claude', 'skills', 'openspec-explore', 'SKILL.md');
+      const skillFile = path.join(testDir, '.claude', 'skills', 'officespec-explore', 'SKILL.md');
       const skillExists = await FileSystemUtils.fileExists(skillFile);
       expect(skillExists).toBe(true);
 
@@ -3009,8 +3009,8 @@ More user content after markers.
       );
 
       // Both tools should have skills created
-      const claudeSkillFile = path.join(testDir, '.claude', 'skills', 'openspec-explore', 'SKILL.md');
-      const cursorSkillFile = path.join(testDir, '.cursor', 'skills', 'openspec-explore', 'SKILL.md');
+      const claudeSkillFile = path.join(testDir, '.claude', 'skills', 'officespec-explore', 'SKILL.md');
+      const cursorSkillFile = path.join(testDir, '.cursor', 'skills', 'officespec-explore', 'SKILL.md');
 
       expect(await FileSystemUtils.fileExists(claudeSkillFile)).toBe(true);
       expect(await FileSystemUtils.fileExists(cursorSkillFile)).toBe(true);
@@ -3036,22 +3036,22 @@ More user content after markers.
       const skillsDir = path.join(testDir, '.agents', 'skills');
       expect(await fs.readFile(path.join(skillsDir, '.openspec-target'), 'utf-8')).toBe('codex\n');
       const proposeSkill = await fs.readFile(
-        path.join(skillsDir, 'openspec-propose', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-propose', 'SKILL.md'),
         'utf-8'
       );
-      expect(proposeSkill).toContain('$openspec-apply-change');
-      expect(proposeSkill).toContain('/openspec-apply-change');
+      expect(proposeSkill).toContain('$officespec-apply-change');
+      expect(proposeSkill).toContain('/officespec-apply-change');
       await expect(
-        fs.access(path.join(testDir, '.agents', 'workflows', 'opsx-propose.md'))
+        fs.access(path.join(testDir, '.agents', 'workflows', 'ofsx-propose.md'))
       ).resolves.toBeUndefined();
     });
 
     it('should not upgrade legacy tools already configured', async () => {
       // Set up a configured Claude tool with skills
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), { recursive: true });
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), { recursive: true });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'existing skill'
       );
 
@@ -3094,9 +3094,9 @@ More user content after markers.
     it('should upgrade only unconfigured legacy tools when mixed', async () => {
       // Set up configured Claude tool with skills
       const claudeSkillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(claudeSkillsDir, 'openspec-explore'), { recursive: true });
+      await fs.mkdir(path.join(claudeSkillsDir, 'officespec-explore'), { recursive: true });
       await fs.writeFile(
-        path.join(claudeSkillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(claudeSkillsDir, 'officespec-explore', 'SKILL.md'),
         'existing skill'
       );
 
@@ -3125,7 +3125,7 @@ More user content after markers.
       );
 
       // Cursor skills should be created
-      const cursorSkillFile = path.join(testDir, '.cursor', 'skills', 'openspec-explore', 'SKILL.md');
+      const cursorSkillFile = path.join(testDir, '.cursor', 'skills', 'officespec-explore', 'SKILL.md');
       expect(await FileSystemUtils.fileExists(cursorSkillFile)).toBe(true);
 
       // Should show "Getting started" for newly configured Cursor
@@ -3158,9 +3158,9 @@ More user content after markers.
       const output = consoleSpy.mock.calls
         .map((call) => call.map((arg) => String(arg)).join(' '))
         .join('\n');
-      expect(output).toContain('/opsx:new');
-      expect(output).toContain('/opsx:continue');
-      expect(output).not.toContain('/opsx:propose');
+      expect(output).toContain('/ofsx:new');
+      expect(output).toContain('/ofsx:continue');
+      expect(output).not.toContain('/ofsx:propose');
 
       consoleSpy.mockRestore();
     });
@@ -3168,9 +3168,9 @@ More user content after markers.
     it('should not show getting started message when no new tools configured', async () => {
       // Set up a configured tool (no legacy artifacts)
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), { recursive: true });
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), { recursive: true });
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'old skill'
       );
 
@@ -3204,11 +3204,11 @@ More user content after markers.
 
       // Default profile is core, so only core workflows should be generated.
       const skillNames = [
-        'openspec-propose',
-        'openspec-explore',
-        'openspec-apply-change',
-        'openspec-sync-specs',
-        'openspec-archive-change',
+        'officespec-propose',
+        'officespec-explore',
+        'officespec-apply-change',
+        'officespec-sync-specs',
+        'officespec-archive-change',
       ];
 
       const skillsDir = path.join(testDir, '.claude', 'skills');
@@ -3218,7 +3218,7 @@ More user content after markers.
         expect(exists).toBe(true);
       }
 
-      const nonCoreSkill = path.join(skillsDir, 'openspec-new-change', 'SKILL.md');
+      const nonCoreSkill = path.join(skillsDir, 'officespec-new-change', 'SKILL.md');
       expect(await FileSystemUtils.fileExists(nonCoreSkill)).toBe(false);
     });
 
@@ -3235,7 +3235,7 @@ More user content after markers.
       await forceUpdateCommand.execute(testDir);
 
       // New opsx commands should be created
-      const commandsDir = path.join(testDir, '.claude', 'commands', 'opsx');
+      const commandsDir = path.join(testDir, '.claude', 'commands', 'ofsx');
       const exploreCmd = path.join(commandsDir, 'explore.md');
       const exists = await FileSystemUtils.fileExists(exploreCmd);
       expect(exists).toBe(true);
@@ -3260,13 +3260,13 @@ More user content after markers.
 
       const skillsDir = path.join(testDir, '.claude', 'skills');
       expect(await FileSystemUtils.fileExists(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md')
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md')
       )).toBe(true);
       expect(await FileSystemUtils.fileExists(
-        path.join(skillsDir, 'openspec-propose', 'SKILL.md')
+        path.join(skillsDir, 'officespec-propose', 'SKILL.md')
       )).toBe(false);
 
-      const commandsDir = path.join(testDir, '.claude', 'commands', 'opsx');
+      const commandsDir = path.join(testDir, '.claude', 'commands', 'ofsx');
       expect(await FileSystemUtils.fileExists(
         path.join(commandsDir, 'explore.md')
       )).toBe(true);
@@ -3288,25 +3288,25 @@ More user content after markers.
 
       // Set up a configured tool
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), { recursive: true });
-      await fs.writeFile(path.join(skillsDir, 'openspec-explore', 'SKILL.md'), 'old');
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), { recursive: true });
+      await fs.writeFile(path.join(skillsDir, 'officespec-explore', 'SKILL.md'), 'old');
 
       await updateCommand.execute(testDir);
 
       // Should create explore and new skills
       expect(await FileSystemUtils.fileExists(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md')
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md')
       )).toBe(true);
       expect(await FileSystemUtils.fileExists(
-        path.join(skillsDir, 'openspec-new-change', 'SKILL.md')
+        path.join(skillsDir, 'officespec-new-change', 'SKILL.md')
       )).toBe(true);
 
       // Should NOT create non-profile skills
       expect(await FileSystemUtils.fileExists(
-        path.join(skillsDir, 'openspec-apply-change', 'SKILL.md')
+        path.join(skillsDir, 'officespec-apply-change', 'SKILL.md')
       )).toBe(false);
       expect(await FileSystemUtils.fileExists(
-        path.join(skillsDir, 'openspec-propose', 'SKILL.md')
+        path.join(skillsDir, 'officespec-propose', 'SKILL.md')
       )).toBe(false);
     });
 
@@ -3324,14 +3324,14 @@ More user content after markers.
           testDir,
           '.claude',
           'skills',
-          'openspec-archive-change',
+          'officespec-archive-change',
           'SKILL.md'
         );
         const archiveCommand = path.join(
           testDir,
           '.claude',
           'commands',
-          'opsx',
+          'ofsx',
           'archive.md'
         );
         if (delivery !== 'commands') {
@@ -3358,10 +3358,10 @@ More user content after markers.
         )).toBe(true);
 
         expect(await FileSystemUtils.fileExists(
-          path.join(testDir, '.claude', 'skills', 'openspec-sync-specs', 'SKILL.md')
+          path.join(testDir, '.claude', 'skills', 'officespec-sync-specs', 'SKILL.md')
         )).toBe(delivery !== 'commands');
         expect(await FileSystemUtils.fileExists(
-          path.join(testDir, '.claude', 'commands', 'opsx', 'sync.md')
+          path.join(testDir, '.claude', 'commands', 'ofsx', 'sync.md')
         )).toBe(delivery !== 'skills');
 
         consoleSpy.mockRestore();
@@ -3527,40 +3527,40 @@ More user content after markers.
       });
 
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), { recursive: true });
-      await fs.writeFile(path.join(skillsDir, 'openspec-explore', 'SKILL.md'), 'old');
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), { recursive: true });
+      await fs.writeFile(path.join(skillsDir, 'officespec-explore', 'SKILL.md'), 'old');
 
       await updateCommand.execute(testDir);
 
       // Skills should be created
       expect(await FileSystemUtils.fileExists(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md')
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md')
       )).toBe(true);
 
       // Commands should NOT be created
-      const commandsDir = path.join(testDir, '.claude', 'commands', 'opsx');
+      const commandsDir = path.join(testDir, '.claude', 'commands', 'ofsx');
       expect(await FileSystemUtils.fileExists(
         path.join(commandsDir, 'explore.md')
       )).toBe(false);
 
       // Skill content should reference skills, not commands that were never generated
       const skillContent = await fs.readFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         'utf-8'
       );
-      expect(skillContent).not.toContain('/opsx:');
-      expect(skillContent).not.toContain('/opsx-');
-      expect(skillContent).toContain('/openspec-');
+      expect(skillContent).not.toContain('/ofsx:');
+      expect(skillContent).not.toContain('/ofsx-');
+      expect(skillContent).toContain('/officespec-');
 
       // update-change references several other workflows; a command missing
-      // from the reference map would leave a raw /opsx: reference behind
+      // from the reference map would leave a raw /ofsx: reference behind
       const updateSkillContent = await fs.readFile(
-        path.join(skillsDir, 'openspec-update-change', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-update-change', 'SKILL.md'),
         'utf-8'
       );
-      expect(updateSkillContent).not.toContain('/opsx:');
-      expect(updateSkillContent).not.toContain('/opsx-');
-      expect(updateSkillContent).toContain('/openspec-');
+      expect(updateSkillContent).not.toContain('/ofsx:');
+      expect(updateSkillContent).not.toContain('/ofsx-');
+      expect(updateSkillContent).toContain('/officespec-');
     });
 
     it.each(['skills', 'commands'] as const)(
@@ -3568,7 +3568,7 @@ More user content after markers.
       async (delivery) => {
         await new InitCommand({ tools: 'codeassistant', force: true }).execute(testDir);
         const toolDir = path.join(testDir, '.codeassistant');
-        const customCommand = path.join(toolDir, 'commands', 'opsx-custom.md');
+        const customCommand = path.join(toolDir, 'commands', 'ofsx-custom.md');
         const customSkill = path.join(toolDir, 'skills', 'custom-review', 'SKILL.md');
         await fs.mkdir(path.dirname(customSkill), { recursive: true });
         await fs.writeFile(customCommand, 'custom command');
@@ -3577,14 +3577,14 @@ More user content after markers.
         setMockConfig({ featureFlags: {}, profile: 'core', delivery });
         await updateCommand.execute(testDir);
 
-        expect(await FileSystemUtils.fileExists(path.join(toolDir, 'commands', 'opsx-apply.md'))).toBe(delivery === 'commands');
-        const skillFile = path.join(toolDir, 'skills', 'openspec-apply-change', 'SKILL.md');
+        expect(await FileSystemUtils.fileExists(path.join(toolDir, 'commands', 'ofsx-apply.md'))).toBe(delivery === 'commands');
+        const skillFile = path.join(toolDir, 'skills', 'officespec-apply-change', 'SKILL.md');
         expect(await FileSystemUtils.fileExists(skillFile)).toBe(delivery === 'skills');
         if (delivery === 'skills') {
           const skillContent = await fs.readFile(skillFile, 'utf-8');
-          expect(skillContent).toContain('the openspec-archive-change skill');
+          expect(skillContent).toContain('the officespec-archive-change skill');
           expect(skillContent).not.toContain('/openspec-');
-          expect(skillContent).not.toContain('/opsx-');
+          expect(skillContent).not.toContain('/ofsx-');
         }
         expect(await fs.readFile(customCommand, 'utf-8')).toBe('custom command');
         expect(await fs.readFile(customSkill, 'utf-8')).toBe('custom skill');
@@ -3599,20 +3599,20 @@ More user content after markers.
       });
 
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), { recursive: true });
-      await fs.writeFile(path.join(skillsDir, 'openspec-explore', 'SKILL.md'), 'old');
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), { recursive: true });
+      await fs.writeFile(path.join(skillsDir, 'officespec-explore', 'SKILL.md'), 'old');
 
       await updateCommand.execute(testDir);
 
       // Commands should be created
-      const commandsDir = path.join(testDir, '.claude', 'commands', 'opsx');
+      const commandsDir = path.join(testDir, '.claude', 'commands', 'ofsx');
       expect(await FileSystemUtils.fileExists(
         path.join(commandsDir, 'explore.md')
       )).toBe(true);
 
       // Skills should be removed for commands-only delivery
       expect(await FileSystemUtils.fileExists(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md')
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md')
       )).toBe(false);
     });
 
@@ -3624,8 +3624,8 @@ More user content after markers.
       });
 
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), { recursive: true });
-      await fs.writeFile(path.join(skillsDir, 'openspec-explore', 'SKILL.md'), 'old');
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), { recursive: true });
+      await fs.writeFile(path.join(skillsDir, 'officespec-explore', 'SKILL.md'), 'old');
 
       // First run updates commands and removes skills
       await updateCommand.execute(testDir);
@@ -3653,17 +3653,17 @@ More user content after markers.
 
         const skillsDir = path.join(testDir, '.agents', 'skills');
         await markCodexTarget(skillsDir);
-        await fs.mkdir(path.join(skillsDir, 'openspec-explore'), { recursive: true });
-        await fs.writeFile(path.join(skillsDir, 'openspec-explore', 'SKILL.md'), 'old');
+        await fs.mkdir(path.join(skillsDir, 'officespec-explore'), { recursive: true });
+        await fs.writeFile(path.join(skillsDir, 'officespec-explore', 'SKILL.md'), 'old');
 
         await updateCommand.execute(testDir);
 
-        const skillFile = path.join(skillsDir, 'openspec-explore', 'SKILL.md');
+        const skillFile = path.join(skillsDir, 'officespec-explore', 'SKILL.md');
         expect(await FileSystemUtils.fileExists(skillFile)).toBe(true);
         const skillContent = await fs.readFile(skillFile, 'utf-8');
-        expect(skillContent).toContain('name: openspec-explore');
+        expect(skillContent).toContain('name: officespec-explore');
 
-        const promptFile = path.join(process.env.CODEX_HOME!, 'prompts', 'opsx-explore.md');
+        const promptFile = path.join(process.env.CODEX_HOME!, 'prompts', 'ofsx-explore.md');
         expect(await FileSystemUtils.fileExists(promptFile)).toBe(false);
       }
     );
@@ -3677,8 +3677,8 @@ More user content after markers.
 
       const skillsDir = path.join(testDir, '.agents', 'skills');
       await markCodexTarget(skillsDir);
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), { recursive: true });
-      await fs.writeFile(path.join(skillsDir, 'openspec-explore', 'SKILL.md'), 'old');
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), { recursive: true });
+      await fs.writeFile(path.join(skillsDir, 'officespec-explore', 'SKILL.md'), 'old');
 
       const consoleSpy = vi.spyOn(console, 'log');
 
@@ -3703,8 +3703,8 @@ More user content after markers.
 
       const skillsDir = path.join(testDir, '.agents', 'skills');
       await markCodexTarget(skillsDir);
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), { recursive: true });
-      await fs.writeFile(path.join(skillsDir, 'openspec-explore', 'SKILL.md'), 'old');
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), { recursive: true });
+      await fs.writeFile(path.join(skillsDir, 'officespec-explore', 'SKILL.md'), 'old');
 
       const promptDir = path.join(process.env.CODEX_HOME!, 'prompts');
       const managedPrompt = path.join(promptDir, 'opsx-explore.md');
@@ -3715,7 +3715,7 @@ More user content after markers.
 
       expect(await FileSystemUtils.fileExists(managedPrompt)).toBe(true);
       expect(await FileSystemUtils.fileExists(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md')
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md')
       )).toBe(true);
     });
 
@@ -3731,7 +3731,7 @@ More user content after markers.
         'home',
         '.minimax',
         'skills',
-        'openspec-explore',
+        'officespec-explore',
         'SKILL.md'
       );
       await fs.mkdir(path.dirname(skillFile), { recursive: true });
@@ -3766,14 +3766,14 @@ More user content after markers.
       }
 
       const skillsDir = path.join(testDir, adapterlessTool.skillsDir, 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), { recursive: true });
-      await fs.writeFile(path.join(skillsDir, 'openspec-explore', 'SKILL.md'), 'old');
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), { recursive: true });
+      await fs.writeFile(path.join(skillsDir, 'officespec-explore', 'SKILL.md'), 'old');
 
       const consoleSpy = vi.spyOn(console, 'log');
       await expect(updateCommand.execute(testDir)).resolves.toBeUndefined();
 
       expect(await FileSystemUtils.fileExists(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md')
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md')
       )).toBe(false);
 
       // The tool now has zero OfficeSpec artifacts; the removal must not be
@@ -3792,13 +3792,13 @@ More user content after markers.
       });
 
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), { recursive: true });
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), { recursive: true });
       const packageJsonPath = path.join(process.cwd(), 'package.json');
       const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf-8')) as { version: string };
       await fs.writeFile(
-        path.join(skillsDir, 'openspec-explore', 'SKILL.md'),
+        path.join(skillsDir, 'officespec-explore', 'SKILL.md'),
         `---
-name: openspec-explore
+name: officespec-explore
 metadata:
   generatedBy: "${packageJson.version}"
 ---
@@ -3806,7 +3806,7 @@ content
 `
       );
 
-      const commandsDir = path.join(testDir, '.claude', 'commands', 'opsx');
+      const commandsDir = path.join(testDir, '.claude', 'commands', 'ofsx');
       await fs.mkdir(commandsDir, { recursive: true });
       await fs.writeFile(path.join(commandsDir, 'explore.md'), 'old command');
 
@@ -3825,7 +3825,7 @@ content
         delivery: 'commands',
       });
 
-      const commandsDir = path.join(testDir, '.claude', 'commands', 'opsx');
+      const commandsDir = path.join(testDir, '.claude', 'commands', 'ofsx');
       await fs.mkdir(commandsDir, { recursive: true });
       await fs.writeFile(path.join(commandsDir, 'explore.md'), 'existing command');
 
@@ -3860,13 +3860,13 @@ content
 
       // Set up tool with extra workflows beyond core profile
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), { recursive: true });
-      await fs.writeFile(path.join(skillsDir, 'openspec-explore', 'SKILL.md'), 'old');
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), { recursive: true });
+      await fs.writeFile(path.join(skillsDir, 'officespec-explore', 'SKILL.md'), 'old');
 
       // Add a non-core workflow
-      await fs.mkdir(path.join(skillsDir, 'openspec-new-change'), { recursive: true });
-      await fs.writeFile(path.join(skillsDir, 'openspec-new-change', 'SKILL.md'), 'old');
-      const extraCommandFile = path.join(testDir, '.claude', 'commands', 'opsx', 'new.md');
+      await fs.mkdir(path.join(skillsDir, 'officespec-new-change'), { recursive: true });
+      await fs.writeFile(path.join(skillsDir, 'officespec-new-change', 'SKILL.md'), 'old');
+      const extraCommandFile = path.join(testDir, '.claude', 'commands', 'ofsx', 'new.md');
       await fs.mkdir(path.dirname(extraCommandFile), { recursive: true });
       await fs.writeFile(extraCommandFile, 'old');
 
@@ -3876,7 +3876,7 @@ content
 
       // Deselected workflow artifacts should be removed for both delivery surfaces.
       expect(await FileSystemUtils.fileExists(
-        path.join(skillsDir, 'openspec-new-change', 'SKILL.md')
+        path.join(skillsDir, 'officespec-new-change', 'SKILL.md')
       )).toBe(false);
       expect(await FileSystemUtils.fileExists(extraCommandFile)).toBe(false);
 
@@ -3897,8 +3897,8 @@ content
     it('should detect new tool directories not currently configured', async () => {
       // Set up a configured Claude tool
       const claudeSkillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(claudeSkillsDir, 'openspec-explore'), { recursive: true });
-      await fs.writeFile(path.join(claudeSkillsDir, 'openspec-explore', 'SKILL.md'), 'old');
+      await fs.mkdir(path.join(claudeSkillsDir, 'officespec-explore'), { recursive: true });
+      await fs.writeFile(path.join(claudeSkillsDir, 'officespec-explore', 'SKILL.md'), 'old');
 
       // Create a Cursor directory (not configured — no skills)
       await fs.mkdir(path.join(testDir, '.cursor'), { recursive: true });
@@ -3922,8 +3922,8 @@ content
     it('should consolidate multiple new tools into one message', async () => {
       // Set up a configured Claude tool
       const claudeSkillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(claudeSkillsDir, 'openspec-explore'), { recursive: true });
-      await fs.writeFile(path.join(claudeSkillsDir, 'openspec-explore', 'SKILL.md'), 'old');
+      await fs.mkdir(path.join(claudeSkillsDir, 'officespec-explore'), { recursive: true });
+      await fs.writeFile(path.join(claudeSkillsDir, 'officespec-explore', 'SKILL.md'), 'old');
 
       // Create two unconfigured tool directories
       await fs.mkdir(path.join(testDir, '.github'), { recursive: true });
@@ -3957,8 +3957,8 @@ content
     it('should not show new tool message when no new tools detected', async () => {
       // Set up a configured tool (only Claude, no other tool directories)
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), { recursive: true });
-      await fs.writeFile(path.join(skillsDir, 'openspec-explore', 'SKILL.md'), 'old');
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), { recursive: true });
+      await fs.writeFile(path.join(skillsDir, 'officespec-explore', 'SKILL.md'), 'old');
 
       const consoleSpy = vi.spyOn(console, 'log');
 
@@ -3980,10 +3980,10 @@ content
     it('should detect installed workflows across tools', async () => {
       // Create skills for Claude
       const claudeSkillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(claudeSkillsDir, 'openspec-explore'), { recursive: true });
-      await fs.writeFile(path.join(claudeSkillsDir, 'openspec-explore', 'SKILL.md'), 'content');
-      await fs.mkdir(path.join(claudeSkillsDir, 'openspec-apply-change'), { recursive: true });
-      await fs.writeFile(path.join(claudeSkillsDir, 'openspec-apply-change', 'SKILL.md'), 'content');
+      await fs.mkdir(path.join(claudeSkillsDir, 'officespec-explore'), { recursive: true });
+      await fs.writeFile(path.join(claudeSkillsDir, 'officespec-explore', 'SKILL.md'), 'content');
+      await fs.mkdir(path.join(claudeSkillsDir, 'officespec-apply-change'), { recursive: true });
+      await fs.writeFile(path.join(claudeSkillsDir, 'officespec-apply-change', 'SKILL.md'), 'content');
 
       const workflows = scanInstalledWorkflows(testDir, ['claude']);
       expect(workflows).toContain('explore');
@@ -3994,13 +3994,13 @@ content
     it('should return union of workflows across multiple tools', async () => {
       // Claude has explore
       const claudeSkillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(claudeSkillsDir, 'openspec-explore'), { recursive: true });
-      await fs.writeFile(path.join(claudeSkillsDir, 'openspec-explore', 'SKILL.md'), 'content');
+      await fs.mkdir(path.join(claudeSkillsDir, 'officespec-explore'), { recursive: true });
+      await fs.writeFile(path.join(claudeSkillsDir, 'officespec-explore', 'SKILL.md'), 'content');
 
       // Cursor has apply
       const cursorSkillsDir = path.join(testDir, '.cursor', 'skills');
-      await fs.mkdir(path.join(cursorSkillsDir, 'openspec-apply-change'), { recursive: true });
-      await fs.writeFile(path.join(cursorSkillsDir, 'openspec-apply-change', 'SKILL.md'), 'content');
+      await fs.mkdir(path.join(cursorSkillsDir, 'officespec-apply-change'), { recursive: true });
+      await fs.writeFile(path.join(cursorSkillsDir, 'officespec-apply-change', 'SKILL.md'), 'content');
 
       const workflows = scanInstalledWorkflows(testDir, ['claude', 'cursor']);
       expect(workflows).toContain('explore');
@@ -4023,7 +4023,7 @@ content
     });
 
     it('should detect installed workflows from managed command files', async () => {
-      const commandsDir = path.join(testDir, '.claude', 'commands', 'opsx');
+      const commandsDir = path.join(testDir, '.claude', 'commands', 'ofsx');
       await fs.mkdir(commandsDir, { recursive: true });
       await fs.writeFile(path.join(commandsDir, 'explore.md'), 'content');
 
@@ -4035,8 +4035,8 @@ content
   describe('tools output', () => {
     it('should list affected tools in output', async () => {
       const skillsDir = path.join(testDir, '.claude', 'skills');
-      await fs.mkdir(path.join(skillsDir, 'openspec-explore'), { recursive: true });
-      await fs.writeFile(path.join(skillsDir, 'openspec-explore', 'SKILL.md'), 'old');
+      await fs.mkdir(path.join(skillsDir, 'officespec-explore'), { recursive: true });
+      await fs.writeFile(path.join(skillsDir, 'officespec-explore', 'SKILL.md'), 'old');
 
       const consoleSpy = vi.spyOn(console, 'log');
 

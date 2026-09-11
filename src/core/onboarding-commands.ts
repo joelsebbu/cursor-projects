@@ -32,10 +32,10 @@ export const DESCRIPTION_BUDGET = 17;
  * then do.
  */
 const ONBOARDING_COMMANDS: readonly OnboardingCommand[] = [
-  { workflow: 'propose', command: '/opsx:propose', description: 'Start a change' },
-  { workflow: 'new', command: '/opsx:new', description: 'Scaffold a change' },
-  { workflow: 'continue', command: '/opsx:continue', description: 'Next artifact' },
-  { workflow: 'apply', command: '/opsx:apply', description: 'Do tasks' },
+  { workflow: 'propose', command: '/ofsx:propose', description: 'Start a change' },
+  { workflow: 'new', command: '/ofsx:new', description: 'Scaffold a change' },
+  { workflow: 'continue', command: '/ofsx:continue', description: 'Next artifact' },
+  { workflow: 'apply', command: '/ofsx:apply', description: 'Do tasks' },
 ];
 
 /**
@@ -55,7 +55,7 @@ export function getOnboardingCommands(
  *
  * Setup output otherwise never names the workflows that exist but were not
  * installed, so a user on the default profile has no way to learn that
- * `/opsx:ff` and friends are one command away. The docs say it; nobody reads
+ * `/ofsx:ff` and friends are one command away. The docs say it; nobody reads
  * the docs before typing a command that isn't there.
  */
 export function formatOptionalWorkflowsNote(

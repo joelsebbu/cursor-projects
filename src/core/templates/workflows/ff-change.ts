@@ -9,7 +9,7 @@ import { STORE_SELECTION_GUIDANCE } from './store-selection.js';
 
 export function getFfChangeSkillTemplate(): SkillTemplate {
   return {
-    name: 'openspec-ff-change',
+    name: 'officespec-ff-change',
     description: 'Fast-forward through OfficeSpec artifact creation. Use when the user wants to quickly create all artifacts needed to do the work without stepping through each one individually.',
     instructions: `Fast-forward through artifact creation - generate everything needed to start the work in one go.
 
@@ -97,7 +97,7 @@ After completing all artifacts, summarize:
 - Change name and location
 - List of artifacts created with brief descriptions, plus any conditional artifact you skipped and why
 - What's ready: "All artifacts needed to do the work are ready."
-- Prompt: "Run \`/opsx:apply\` or ask me to implement to start working on the tasks."
+- Prompt: "Run \`/ofsx:apply\` or ask me to implement to start working on the tasks."
 
 **Artifact Creation Guidelines**
 
@@ -122,9 +122,9 @@ After completing all artifacts, summarize:
   };
 }
 
-export function getOpsxFfCommandTemplate(): CommandTemplate {
+export function getOfsxFfCommandTemplate(): CommandTemplate {
   return {
-    name: 'OPSX: Fast Forward',
+    name: 'OFSX: Fast Forward',
     description: 'Create a change and generate all artifacts needed to do the work in one go',
     category: 'Workflow',
     tags: ['workflow', 'artifacts', 'experimental'],
@@ -132,7 +132,7 @@ export function getOpsxFfCommandTemplate(): CommandTemplate {
 
 ${STORE_SELECTION_GUIDANCE}
 
-**Input**: The argument after \`/opsx:ff\` is the change name (kebab-case), OR a description of what the user wants to do.
+**Input**: The argument after \`/ofsx:ff\` is the change name (kebab-case), OR a description of what the user wants to do.
 
 **Steps**
 
@@ -214,7 +214,7 @@ After completing all artifacts, summarize:
 - Change name and location
 - List of artifacts created with brief descriptions, plus any conditional artifact you skipped and why
 - What's ready: "All artifacts needed to do the work are ready."
-- Prompt: "Run \`/opsx:apply\` to start implementing."
+- Prompt: "Run \`/ofsx:apply\` to start implementing."
 
 **Artifact Creation Guidelines**
 

@@ -1,5 +1,5 @@
 ---
-name: openspec-explore
+name: officespec-explore
 description: Enter explore mode - a thinking partner for exploring ideas, investigating problems, and clarifying requirements. Use when the user wants to think through something before or during a change.
 allowed-tools: Bash(openspec:*)
 license: MIT
@@ -254,7 +254,7 @@ You: [reviews workspace]
 
 **User is stuck mid-work:**
 ```
-User: /openspec-explore add-auth-system
+User: /officespec-explore add-auth-system
       The OAuth integration is more complex than expected
 
 You: [reads change artifacts]

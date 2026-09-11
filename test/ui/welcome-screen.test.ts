@@ -91,10 +91,10 @@ describe('welcome screen', () => {
 
     const output = writtenOutput();
 
-    expect(output).toContain('/opsx:propose');
-    expect(output).toContain('/opsx:apply');
-    expect(output).not.toContain('/opsx:new');
-    expect(output).not.toContain('/opsx:continue');
+    expect(output).toContain('/ofsx:propose');
+    expect(output).toContain('/ofsx:apply');
+    expect(output).not.toContain('/ofsx:new');
+    expect(output).not.toContain('/ofsx:continue');
   });
 
   it('advertises expanded commands when a custom profile installs them', async () => {
@@ -105,9 +105,9 @@ describe('welcome screen', () => {
 
     const output = writtenOutput();
 
-    expect(output).toContain('/opsx:new');
-    expect(output).toContain('/opsx:continue');
-    expect(output).not.toContain('/opsx:propose');
+    expect(output).toContain('/ofsx:new');
+    expect(output).toContain('/ofsx:continue');
+    expect(output).not.toContain('/ofsx:propose');
   });
 
   it('omits the quick start block when no onboarding workflow is installed', async () => {
@@ -143,13 +143,13 @@ describe('welcome screen', () => {
     renderStatically();
 
     // The quick start shows canonical names, but this screen renders one
-    // prompt before tools are picked — an Amazon Q user types @opsx-propose
-    // and a Codex user $openspec-propose, neither of which is shown here.
+    // prompt before tools are picked — an Amazon Q user types @ofsx-propose
+    // and a Codex user $officespec-propose, neither of which is shown here.
     await showWelcomeScreen(['propose']);
 
     const output = writtenOutput();
 
-    expect(output).toContain('/opsx:propose');
+    expect(output).toContain('/ofsx:propose');
     expect(output).toContain('spelling varies by tool');
   });
 

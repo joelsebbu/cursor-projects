@@ -245,7 +245,7 @@ openspec new change implement-checkout-promo-ui
 The reference index in each repo's instructions supplies the store spec's
 summary and exact `openspec show ... --store team-plans` fetch command. Each
 local proposal cites that shared contract, and its tasks describe only work
-in that component. Then run `/opsx:apply` in each repo separately; root
+in that component. Then run `/ofsx:apply` in each repo separately; root
 resolution keeps the artifacts and implementation edits scoped to that repo.
 The service and frontend changes can now be tested, reviewed, merged, and
 archived independently.

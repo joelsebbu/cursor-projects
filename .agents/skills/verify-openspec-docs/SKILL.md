@@ -32,7 +32,7 @@ Read first:
 
 Then check, in this order:
 
-1. Facts. Every command, flag, path, config key, output block, default, and behavior claim. Re-run the terminal commands shown: read-only commands anywhere, anything that mutates state in a scratch directory or not at all. Commands for the AI chat surface (like /opsx:propose) can't run in a shell; verify their names and behavior against the skill sources this repo ships. Check names against src/ and the CLI's own --help. An output block must match what the command actually prints.
+1. Facts. Every command, flag, path, config key, output block, default, and behavior claim. Re-run the terminal commands shown: read-only commands anywhere, anything that mutates state in a scratch directory or not at all. Commands for the AI chat surface (like /ofsx:propose) can't run in a shell; verify their names and behavior against the skill sources this repo ships. Check names against src/ and the CLI's own --help. An output block must match what the command actually prints.
 2. Examples. Any example spec or change must pass `openspec validate`. Run it when the example exists on disk.
 3. Structure. Flag anything that re-explains a topic whose canonical home is another page, or breaks a rule the docs tree's README states.
 4. Job fit. Does the unit serve the page's stated job (the one-line statement under the title, if present)? Does the arriving reader get what they came for quickly?

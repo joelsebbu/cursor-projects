@@ -1,5 +1,5 @@
 ---
-name: openspec-ff-change
+name: officespec-ff-change
 description: Fast-forward through OfficeSpec artifact creation. Use when the user wants to quickly create all artifacts needed to do the work without stepping through each one individually.
 allowed-tools: Bash(openspec:*)
 license: MIT
@@ -95,7 +95,7 @@ After completing all artifacts, summarize:
 - Change name and location
 - List of artifacts created with brief descriptions, plus any conditional artifact you skipped and why
 - What's ready: "All artifacts needed to do the work are ready."
-- Prompt: "Run `/openspec-apply-change` or ask me to implement to start working on the tasks."
+- Prompt: "Run `/officespec-apply-change` or ask me to implement to start working on the tasks."
 
 **Artifact Creation Guidelines**
 

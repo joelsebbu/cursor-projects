@@ -1,10 +1,10 @@
-# OPSX Workflow
+# OFSX Workflow
 
 > Feedback welcome on [Discord](https://discord.gg/YctCnvvshC).
 
 ## What Is It?
 
-OPSX is now the standard workflow for OfficeSpec.
+OFSX is now the standard workflow for OfficeSpec.
 
 It's a **fluid, iterative workflow** for OfficeSpec changes. No more rigid phases — just actions you can take anytime.
 
@@ -17,7 +17,7 @@ The legacy OfficeSpec workflow works, but it's **locked down**:
 - **Fixed structure** — same workflow for everyone, no customization
 - **Black box** — when AI output is bad, you can't tweak the prompts
 
-**OPSX opens it up.** Now anyone can:
+**OFSX opens it up.** Now anyone can:
 
 1. **Experiment with instructions** — edit a template, see if the AI does better
 2. **Test granularly** — validate each artifact's instructions independently
@@ -25,7 +25,7 @@ The legacy OfficeSpec workflow works, but it's **locked down**:
 4. **Iterate quickly** — change a template, test immediately, no rebuild
 
 ```
-Legacy workflow:                      OPSX:
+Legacy workflow:                      OFSX:
 ┌────────────────────────┐           ┌────────────────────────┐
 │  Hardcoded in package  │           │  schema.yaml           │◄── You edit this
 │  (can't change)        │           │  templates/*.md        │◄── Or this
@@ -41,14 +41,14 @@ Legacy workflow:                      OPSX:
 - **Power users** — tweak prompts to get better AI outputs for your workspace
 - **OfficeSpec contributors** — experiment with new approaches without releases
 
-We're all still learning what works best. OPSX lets us learn together.
+We're all still learning what works best. OFSX lets us learn together.
 
 ## The User Experience
 
 **The problem with linear workflows:**
 You're "in planning phase", then "in implementation phase", then "done". But real work doesn't work that way. You implement something, realize your design was wrong, need to update specs, continue implementing. Linear phases fight against how work actually happens.
 
-**OPSX approach:**
+**OFSX approach:**
 - **Actions, not phases** — create, implement, update, archive — do any of them anytime
 - **Dependencies are enablers** — they show what's possible, not what's required next
 
@@ -157,73 +157,73 @@ rules:
 
 | Command | What it does |
 |---------|--------------|
-| `/opsx:propose` | Create a change and generate planning artifacts in one step (default quick path) |
-| `/opsx:explore` | Think through ideas, investigate problems, clarify requirements |
-| `/opsx:new` | Start a new change scaffold (expanded workflow) |
-| `/opsx:continue` | Create the next artifact (expanded workflow) |
-| `/opsx:ff` | Fast-forward planning artifacts (expanded workflow) |
-| `/opsx:apply` | Implement tasks, updating artifacts as needed |
-| `/opsx:update` | Revise a change's planning artifacts and keep them coherent |
-| `/opsx:verify` | Validate implementation against artifacts (expanded workflow) |
-| `/opsx:sync` | Merge delta specs into main specs (optional) |
-| `/opsx:archive` | Archive when done |
-| `/opsx:bulk-archive` | Archive multiple completed changes (expanded workflow) |
-| `/opsx:onboard` | Guided walkthrough of an end-to-end change (expanded workflow) |
+| `/ofsx:propose` | Create a change and generate planning artifacts in one step (default quick path) |
+| `/ofsx:explore` | Think through ideas, investigate problems, clarify requirements |
+| `/ofsx:new` | Start a new change scaffold (expanded workflow) |
+| `/ofsx:continue` | Create the next artifact (expanded workflow) |
+| `/ofsx:ff` | Fast-forward planning artifacts (expanded workflow) |
+| `/ofsx:apply` | Implement tasks, updating artifacts as needed |
+| `/ofsx:update` | Revise a change's planning artifacts and keep them coherent |
+| `/ofsx:verify` | Validate implementation against artifacts (expanded workflow) |
+| `/ofsx:sync` | Merge delta specs into main specs (optional) |
+| `/ofsx:archive` | Archive when done |
+| `/ofsx:bulk-archive` | Archive multiple completed changes (expanded workflow) |
+| `/ofsx:onboard` | Guided walkthrough of an end-to-end change (expanded workflow) |
 
 ## Usage
 
 ### Explore an idea
 ```
-/opsx:explore
+/ofsx:explore
 ```
-Think through ideas, investigate problems, compare options. No structure required - just a thinking partner. When insights crystallize, transition to `/opsx:propose` (default) or `/opsx:new`/`/opsx:ff` (expanded).
+Think through ideas, investigate problems, compare options. No structure required - just a thinking partner. When insights crystallize, transition to `/ofsx:propose` (default) or `/ofsx:new`/`/ofsx:ff` (expanded).
 
 ### Start a new change
 ```
-/opsx:propose
+/ofsx:propose
 ```
 Creates the change and generates planning artifacts needed before implementation.
 
 If you've enabled expanded workflows, you can instead use:
 
 ```text
-/opsx:new        # scaffold only
-/opsx:continue   # create one artifact at a time
-/opsx:ff         # create all planning artifacts at once
+/ofsx:new        # scaffold only
+/ofsx:continue   # create one artifact at a time
+/ofsx:ff         # create all planning artifacts at once
 ```
 
 ### Create artifacts
 ```
-/opsx:continue
+/ofsx:continue
 ```
 Shows what's ready to create based on dependencies, then creates one artifact. Use repeatedly to build up your change incrementally.
 
 ```
-/opsx:ff add-dark-mode
+/ofsx:ff add-dark-mode
 ```
 Creates all planning artifacts at once. Use when you have a clear picture of what you're building.
 
 ### Implement (the fluid part)
 ```
-/opsx:apply
+/ofsx:apply
 ```
-Works through tasks, checking them off as you go. If you're juggling multiple changes, you can run `/opsx:apply <name>`; otherwise it should infer from the conversation and prompt you to choose if it can't tell.
+Works through tasks, checking them off as you go. If you're juggling multiple changes, you can run `/ofsx:apply <name>`; otherwise it should infer from the conversation and prompt you to choose if it can't tell.
 
 ### Updating a change
 ```
-/opsx:update add-dark-mode - we're storing the theme in a cookie now
+/ofsx:update add-dark-mode - we're storing the theme in a cookie now
 ```
-Revises the change's existing planning artifacts and keeps them coherent - in any direction (a design edit may ripple back to the proposal). Planning artifacts only: it never edits code, and it never creates missing artifacts (that's `/opsx:continue`). Every edit is confirmed with you first. If the change was already implemented, it recommends `/opsx:apply` so the code catches up with the revised plan. If your revision changes the change's *intent*, start fresh instead - see [When to Update vs. Start Fresh](#when-to-update-vs-start-fresh).
+Revises the change's existing planning artifacts and keeps them coherent - in any direction (a design edit may ripple back to the proposal). Planning artifacts only: it never edits code, and it never creates missing artifacts (that's `/ofsx:continue`). Every edit is confirmed with you first. If the change was already implemented, it recommends `/ofsx:apply` so the code catches up with the revised plan. If your revision changes the change's *intent*, start fresh instead - see [When to Update vs. Start Fresh](#when-to-update-vs-start-fresh).
 
 ### Sync delta specs
 ```text
-/opsx:sync
+/ofsx:sync
 ```
 Merges the current change's delta specs into your main `openspec/specs/` without archiving — the change stays active. It applies the whole delta: a requirement under `## REMOVED` is deleted from the main spec and a renamed one is retitled in place, while content the delta doesn't mention is left untouched. Syncing is optional — archive prompts you to sync first if you haven't. Reach for it when you want main specs updated before archiving, when a parallel change needs to build on specs this one just added, or when you want to review the merged main spec before archiving.
 
 ### Finish up
 ```
-/opsx:archive   # Move to archive when done (prompts to sync specs if needed)
+/ofsx:archive   # Move to archive when done (prompts to sync specs if needed)
 ```
 
 ## When to Update vs. Start Fresh
@@ -314,18 +314,18 @@ Think of it like git branches:
 
 ## What's Different?
 
-| | Legacy (`/openspec:proposal`) | OPSX (`/opsx:*`) |
+| | Legacy (`/openspec:proposal`) | OFSX (`/ofsx:*`) |
 |---|---|---|
 | **Structure** | One big proposal document | Discrete artifacts with dependencies |
 | **Workflow** | Linear phases: plan → implement → archive | Fluid actions — do anything anytime |
 | **Iteration** | Awkward to go back | Update artifacts as you learn |
 | **Customization** | Fixed structure | Schema-driven (define your own artifacts) |
 
-**The key insight:** work isn't linear. OPSX stops pretending it is.
+**The key insight:** work isn't linear. OFSX stops pretending it is.
 
 ## Architecture Deep Dive
 
-This section explains how OPSX works under the hood and how it compares to the legacy workflow.
+This section explains how OFSX works under the hood and how it compares to the legacy workflow.
 Examples in this section use the expanded command set (`new`, `continue`, etc.); default `core` users can map the same flow to `propose → apply → sync → archive`.
 
 ### Philosophy: Phases vs Actions
@@ -352,7 +352,7 @@ Examples in this section use the expanded command set (`new`, `continue`, etc.);
 
 
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                            OPSX WORKFLOW                                     │
+│                            OFSX WORKFLOW                                     │
 │                      (Fluid Actions, Iterative)                             │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
@@ -395,11 +395,11 @@ Examples in this section use the expanded command set (`new`, `continue`, etc.);
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-**OPSX** uses external schemas and a dependency graph engine:
+**OFSX** uses external schemas and a dependency graph engine:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                         OPSX COMPONENTS                                      │
+│                         OFSX COMPONENTS                                      │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
 │   Schema Definitions (YAML)                                                 │
@@ -423,7 +423,7 @@ Examples in this section use the expanded command set (`new`, `continue`, etc.);
 │   └─────────────────────────────────────────────────────────────────────┘   │
 │                    │                                                        │
 │                    ▼                                                        │
-│   Skill Files (.claude/skills/openspec-*/SKILL.md)                          │
+│   Skill Files (.claude/skills/officespec-*/SKILL.md)                          │
 │                                                                             │
 │   • Cross-editor compatible (Claude Code, Cursor, Devin)                    │
 │   • Skills query CLI for structured data                                    │
@@ -494,10 +494,10 @@ Artifacts form a directed acyclic graph (DAG). Dependencies are **enablers**, no
   Agent creates ALL artifacts in one go
 ```
 
-**OPSX** — agent queries for rich context:
+**OFSX** — agent queries for rich context:
 
 ```
-  User: "/opsx:continue"
+  User: "/ofsx:continue"
            │
            ▼
   ┌──────────────────────────────────────────────────────────────────────────┐
@@ -552,10 +552,10 @@ Artifacts form a directed acyclic graph (DAG). Dependencies are **enablers**, no
        └── Creates ALL artifacts at once
 ```
 
-**OPSX** — natural iteration:
+**OFSX** — natural iteration:
 
 ```
-  /opsx:new ───► /opsx:continue ───► /opsx:apply ───► /opsx:archive
+  /ofsx:new ───► /ofsx:continue ───► /ofsx:apply ───► /ofsx:archive
       │                │                  │
       │                │                  ├── "The design is wrong"
       │                │                  │
@@ -564,7 +564,7 @@ Artifacts form a directed acyclic graph (DAG). Dependencies are **enablers**, no
       │                │            and continue!
       │                │                  │
       │                │                  ▼
-      │                │         /opsx:apply picks up
+      │                │         /ofsx:apply picks up
       │                │         where you left off
       │                │
       │                └── Creates ONE artifact, shows what's unlocked
@@ -626,7 +626,7 @@ artifacts:
 
 ### Summary
 
-| Aspect | Legacy | OPSX |
+| Aspect | Legacy | OFSX |
 |--------|----------|------|
 | **Templates** | Hardcoded TypeScript | External YAML + Markdown |
 | **Dependencies** | None (all at once) | DAG with topological sort |
@@ -660,9 +660,9 @@ openspec schema validate my-workflow
 
 ## Tips
 
-- Use `/opsx:explore` to think through an idea before committing to a change
-- `/opsx:ff` when you know what you want, `/opsx:continue` when exploring
-- During `/opsx:apply`, if something's wrong — fix the artifact, then continue
+- Use `/ofsx:explore` to think through an idea before committing to a change
+- `/ofsx:ff` when you know what you want, `/ofsx:continue` when exploring
+- During `/ofsx:apply`, if something's wrong — fix the artifact, then continue
 - Tasks track progress via checkboxes in `tasks.md`
 - Check status anytime: `openspec status --change "name"`
 

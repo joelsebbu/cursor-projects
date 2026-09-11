@@ -31,7 +31,7 @@ adding a service to operate; shared state would need a separate sync design.
 
 export function getExploreSkillTemplate(): SkillTemplate {
   return {
-    name: 'openspec-explore',
+    name: 'officespec-explore',
     description: 'Enter explore mode - a thinking partner for exploring ideas, investigating problems, and clarifying requirements. Use when the user wants to think through something before or during a change.',
     instructions: `Enter explore mode. Think deeply. Visualize freely. Follow the conversation wherever it goes.
 
@@ -258,7 +258,7 @@ You: [reviews workspace]
 
 **User is stuck mid-work:**
 \`\`\`
-User: /opsx:explore add-auth-system
+User: /ofsx:explore add-auth-system
       The OAuth integration is more complex than expected
 
 You: [reads change artifacts]
@@ -350,9 +350,9 @@ But this summary is optional. Sometimes the thinking IS the value.
   };
 }
 
-export function getOpsxExploreCommandTemplate(): CommandTemplate {
+export function getOfsxExploreCommandTemplate(): CommandTemplate {
   return {
-    name: 'OPSX: Explore',
+    name: 'OFSX: Explore',
     description: 'Enter explore mode - think through ideas, investigate problems, clarify requirements',
     category: 'Workflow',
     tags: ['workflow', 'explore', 'experimental', 'thinking'],
@@ -364,7 +364,7 @@ export function getOpsxExploreCommandTemplate(): CommandTemplate {
 
 ${STORE_SELECTION_GUIDANCE}
 
-**Input**: The argument after \`/opsx:explore\` is whatever the user wants to think about. Could be:
+**Input**: The argument after \`/ofsx:explore\` is whatever the user wants to think about. Could be:
 - A vague idea: "real-time collaboration"
 - A specific problem: "the auth system is getting unwieldy"
 - A change name: "add-dark-mode" (to explore in context of that change)

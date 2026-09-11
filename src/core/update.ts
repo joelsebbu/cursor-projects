@@ -52,6 +52,7 @@ import {
   WORKFLOW_TO_SKILL_DIR,
   getConfiguredToolsForProfileSync,
   getToolsNeedingProfileSync,
+  legacySkillDirForWorkflow,
 } from './profile-sync-drift.js';
 import {
   scanInstalledWorkflows as scanInstalledWorkflowsShared,
@@ -152,7 +153,7 @@ export class UpdateCommand {
     }
     const declinedMigrations = await this.offerConsentedLegacyMigrations(resolvedProjectPath);
 
-    // Use detected tool directories to preserve existing opsx skills/commands.
+    // Use detected tool directories to preserve existing ofsx skills/commands.
     const detectedTools = getAvailableTools(resolvedProjectPath);
     migrateIfNeededShared(resolvedProjectPath, detectedTools);
 
@@ -284,6 +285,7 @@ export class UpdateCommand {
     let removedSkillCount = 0;
     let removedDeselectedCommandCount = 0;
     let removedDeselectedSkillCount = 0;
+    let removedLegacySkillCount = 0;
 
     for (const toolId of toolsToUpdate) {
       const tool = AI_TOOLS.find((t) => t.value === toolId);
@@ -323,6 +325,10 @@ export class UpdateCommand {
             skillsRoot,
             skillsDir,
             toolWorkflows
+          );
+          removedLegacySkillCount += await this.removeLegacySkillDirs(
+            skillsRoot,
+            skillsDir
           );
         }
 
@@ -433,6 +439,9 @@ export class UpdateCommand {
     if (removedDeselectedSkillCount > 0) {
       console.log(chalk.dim(`Removed: ${removedDeselectedSkillCount} skill directories (deselected workflows)`));
     }
+    if (removedLegacySkillCount > 0) {
+      console.log(chalk.dim(`Removed: ${removedLegacySkillCount} skill directories (previous openspec-* naming)`));
+    }
 
     // 12. Show onboarding message for newly configured tools from legacy upgrade.
     // Command tools get the command name their files answer to, skill-only
@@ -445,7 +454,7 @@ export class UpdateCommand {
           newlyConfiguredTools.map((toolId) => {
             if (shouldGenerateCommandsForTool(toolId, delivery)) {
               // Name the command the tool's files actually answer to:
-              // /opsx-<id> where the filename is the command name.
+              // /ofsx-<id> where the filename is the command name.
               const transformer = getTransformerForTool(
                 toolId,
                 delivery,
@@ -766,6 +775,44 @@ export class UpdateCommand {
       } catch {
         // Ignore errors
       }
+
+      // Drop the pre-rename sibling too: the OfficeSpec rename moved skill
+      // directories from `openspec-*` to `officespec-*`, and a re-run must
+      // not leave both copies behind.
+      const legacyDirName = legacySkillDirForWorkflow(workflow);
+      if (legacyDirName) {
+        removed += await this.removeDirIfPresent(skillsRoot, path.join(skillsDir, legacyDirName));
+      }
+    }
+
+    return removed;
+  }
+
+  private async removeDirIfPresent(skillsRoot: string, dir: string): Promise<number> {
+    if (!fs.existsSync(dir)) return 0;
+    FileSystemUtils.assertPathWithin(skillsRoot, dir);
+    try {
+      await fs.promises.rm(dir, { recursive: true, force: true });
+      return 1;
+    } catch {
+      // Ignore errors
+      return 0;
+    }
+  }
+
+  /**
+   * Removes pre-rename (`openspec-*`) skill directories left beside the
+   * current (`officespec-*`) ones. Runs after skills are generated so a
+   * re-run upgrades the tree instead of doubling every skill.
+   * Returns the number of directories removed.
+   */
+  private async removeLegacySkillDirs(skillsRoot: string, skillsDir: string): Promise<number> {
+    let removed = 0;
+
+    for (const workflow of ALL_WORKFLOWS) {
+      const legacyDirName = legacySkillDirForWorkflow(workflow);
+      if (!legacyDirName) continue;
+      removed += await this.removeDirIfPresent(skillsRoot, path.join(skillsDir, legacyDirName));
     }
 
     return removed;

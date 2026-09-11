@@ -1,5 +1,5 @@
 ---
-name: openspec-verify-change
+name: officespec-verify-change
 description: Verify work matches change artifacts. Use when the user wants to validate that implementation is complete, correct, and coherent before archiving.
 allowed-tools: Bash(openspec:*)
 license: MIT
@@ -28,7 +28,7 @@ Verify that an work matches the change artifacts (specs, tasks, design).
    Include the schema used for each change if available.
    Mark changes with incomplete tasks as "(In Progress)".
 
-   Always announce: "Using change: <name>" and how to override (e.g., `/openspec-verify-change <other>`).
+   Always announce: "Using change: <name>" and how to override (e.g., `/officespec-verify-change <other>`).
 
 2. **Check status to understand the schema**
    ```bash

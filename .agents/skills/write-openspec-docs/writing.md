@@ -162,7 +162,7 @@ In your terminal:
   openspec init
 
 In your AI chat:
-  /opsx:propose add-rate-limit
+  /ofsx:propose add-rate-limit
 ```
 
 Where the reader could doubt it worked (a fresh install, a first run, a command with no output of its own), end with the concrete success signal: the line the command prints, the file that now exists, what the agent says next. Where the outcome is obvious, stop; an unneeded success line is noise.
@@ -187,7 +187,7 @@ Pages are plain markdown; GitHub and the site both render them. JSX components (
 
 - One term per concept, the glossary's term if the tree has one; today that means "skills", never "slash commands".
 - No invented taxonomy. Product terms (spec, change, delta, profile, store) name real things; use them freely. Any other organizing word in a heading or goal ("layers", "levers", "pillars") must pass one test: would a reader use it to ask their own question? If not, write the reader's question or the plain enumeration ("What you can customize", never "The three layers").
-- Examples invoke workflows by skill: the ask that triggers it ("ask your agent to propose a change") or the skill's name (`openspec-propose`), which is the same in every tool. A command spelling (`/opsx:propose`) appears only as a labeled per-tool example, never as the generic instruction; commands are headed for deprecation and their spellings vary per tool.
+- Examples invoke workflows by skill: the ask that triggers it ("ask your agent to propose a change") or the skill's name (`officespec-propose`), which is the same in every tool. A command spelling (`/ofsx:propose`) appears only as a labeled per-tool example, never as the generic instruction; commands are headed for deprecation and their spellings vary per tool.
 - Prefer the shared `.agents/` folder in file-path examples; a tool-specific folder (`.claude/`) appears only when the example is about that tool.
 - Headings lead with a verb when the section is something the reader does ("Initialize your project"). Found content takes a plain noun phrase ("Install methods"). Never a vague verb ("Understand it") and never a pun.
 - If the page carries a one-line job statement under the title (docs-lab uses a `>` blockquote the site lifts into the page description), keep it plain, concrete, and true of the finished page.

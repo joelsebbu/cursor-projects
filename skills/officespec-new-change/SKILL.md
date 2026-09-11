@@ -1,5 +1,5 @@
 ---
-name: openspec-new-change
+name: officespec-new-change
 description: Start a new OfficeSpec change using the experimental artifact workflow. Use when the user wants to create a new feature, fix, or modification with a structured step-by-step approach.
 allowed-tools: Bash(openspec:*)
 license: MIT

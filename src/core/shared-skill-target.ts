@@ -53,8 +53,10 @@ function inferSharedSkillTarget(projectPath: string, skillsDir: string): string 
     try {
       FileSystemUtils.assertProjectArtifactPath(projectPath, skillFile);
       const content = fs.readFileSync(skillFile, 'utf-8');
-      if (content.includes('$openspec-')) return 'codex';
-      if (content.includes('/openspec-')) foundGenericReference = true;
+      // Match both current (`$officespec-*`) and pre-rename (`$openspec-*`)
+      // renderings so trees written before the OfficeSpec rename keep their owner.
+      if (content.includes('$officespec-') || content.includes('$openspec-')) return 'codex';
+      if (content.includes('/officespec-') || content.includes('/openspec-')) foundGenericReference = true;
     } catch {
       // Missing, unreadable, or out-of-project files provide no ownership signal.
     }

@@ -9,7 +9,7 @@ import { STORE_SELECTION_GUIDANCE } from './store-selection.js';
 
 export function getNewChangeSkillTemplate(): SkillTemplate {
   return {
-    name: 'openspec-new-change',
+    name: 'officespec-new-change',
     description: 'Start a new OfficeSpec change using the experimental artifact workflow. Use when the user wants to create a new feature, fix, or modification with a structured step-by-step approach.',
     instructions: `Start a new change using the experimental artifact-driven approach.
 
@@ -82,17 +82,17 @@ After completing the steps, summarize:
   };
 }
 
-export function getOpsxNewCommandTemplate(): CommandTemplate {
+export function getOfsxNewCommandTemplate(): CommandTemplate {
   return {
-    name: 'OPSX: New',
-    description: 'Start a new change using the experimental artifact workflow (OPSX)',
+    name: 'OFSX: New',
+    description: 'Start a new change using the experimental artifact workflow (OFSX)',
     category: 'Workflow',
     tags: ['workflow', 'artifacts', 'experimental'],
     content: `Start a new change using the experimental artifact-driven approach.
 
 ${STORE_SELECTION_GUIDANCE}
 
-**Input**: The argument after \`/opsx:new\` is the change name (kebab-case), OR a description of what the user wants to do.
+**Input**: The argument after \`/ofsx:new\` is the change name (kebab-case), OR a description of what the user wants to do.
 
 **Steps**
 
@@ -144,13 +144,13 @@ After completing the steps, summarize:
 - Schema/workflow being used and its artifact sequence
 - Current status (0/N artifacts complete)
 - The template for the first artifact
-- Prompt: "Ready to create the first artifact? Run \`/opsx:continue\` or just describe what this change is about and I'll draft it."
+- Prompt: "Ready to create the first artifact? Run \`/ofsx:continue\` or just describe what this change is about and I'll draft it."
 
 **Guardrails**
 - Do NOT create any artifacts yet - just show the instructions
 - Do NOT advance beyond showing the first artifact template
 - If the name is invalid (not kebab-case), ask for a valid name
-- If a change with that name already exists, suggest using \`/opsx:continue\` instead
+- If a change with that name already exists, suggest using \`/ofsx:continue\` instead
 - Pass --schema if using a non-default workflow`
   };
 }

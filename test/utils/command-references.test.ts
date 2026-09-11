@@ -12,31 +12,31 @@ const FLAT_SLASH: CommandInvocation = { style: 'flat', prefix: '/' };
 const FLAT_AT: CommandInvocation = { style: 'flat', prefix: '@' };
 const NAMESPACED_SLASH: CommandInvocation = { style: 'namespaced', prefix: '/' };
 
-/** The `/opsx-<id>` case, which most flat tools use. */
+/** The `/ofsx-<id>` case, which most flat tools use. */
 const transformToHyphenCommands = (text: string): string =>
   transformCommandInvocations(text, FLAT_SLASH);
 
 describe('transformCommandInvocations', () => {
   describe('basic transformations', () => {
     it('should transform single command reference', () => {
-      expect(transformToHyphenCommands('/opsx:new')).toBe('/opsx-new');
+      expect(transformToHyphenCommands('/ofsx:new')).toBe('/ofsx-new');
     });
 
     it('should transform multiple command references', () => {
-      const input = '/opsx:new and /opsx:apply';
-      const expected = '/opsx-new and /opsx-apply';
+      const input = '/ofsx:new and /ofsx:apply';
+      const expected = '/ofsx-new and /ofsx-apply';
       expect(transformToHyphenCommands(input)).toBe(expected);
     });
 
     it('should transform command reference in context', () => {
-      const input = 'Use /opsx:apply to implement tasks';
-      const expected = 'Use /opsx-apply to implement tasks';
+      const input = 'Use /ofsx:apply to implement tasks';
+      const expected = 'Use /ofsx-apply to implement tasks';
       expect(transformToHyphenCommands(input)).toBe(expected);
     });
 
     it('should handle backtick-quoted commands', () => {
-      const input = 'Run `/opsx:continue` to proceed';
-      const expected = 'Run `/opsx-continue` to proceed';
+      const input = 'Run `/ofsx:continue` to proceed';
+      const expected = 'Run `/ofsx-continue` to proceed';
       expect(transformToHyphenCommands(input)).toBe(expected);
     });
   });
@@ -57,33 +57,33 @@ describe('transformCommandInvocations', () => {
     });
 
     it('should handle multiple occurrences on same line', () => {
-      const input = '/opsx:new /opsx:continue /opsx:apply';
-      const expected = '/opsx-new /opsx-continue /opsx-apply';
+      const input = '/ofsx:new /ofsx:continue /ofsx:apply';
+      const expected = '/ofsx-new /ofsx-continue /ofsx-apply';
       expect(transformToHyphenCommands(input)).toBe(expected);
     });
 
     it('should leave unknown command references unchanged', () => {
       // Mirrors transformToSkillReferences: an invented id is left as written
       // rather than reshaped into a command that does not exist either.
-      const input = 'Try /opsx:unknown-command here';
+      const input = 'Try /ofsx:unknown-command here';
       expect(transformToHyphenCommands(input)).toBe(input);
     });
 
     it('should rewrite only the known id on a mixed line', () => {
-      expect(transformToHyphenCommands('/opsx:apply and /opsx:bogus')).toBe(
-        '/opsx-apply and /opsx:bogus'
+      expect(transformToHyphenCommands('/ofsx:apply and /ofsx:bogus')).toBe(
+        '/ofsx-apply and /ofsx:bogus'
       );
     });
   });
 
   describe('multiline content', () => {
     it('should transform references across multiple lines', () => {
-      const input = `Use /opsx:new to start
-Then /opsx:continue to proceed
-Finally /opsx:apply to implement`;
-      const expected = `Use /opsx-new to start
-Then /opsx-continue to proceed
-Finally /opsx-apply to implement`;
+      const input = `Use /ofsx:new to start
+Then /ofsx:continue to proceed
+Finally /ofsx:apply to implement`;
+      const expected = `Use /ofsx-new to start
+Then /ofsx-continue to proceed
+Finally /ofsx-apply to implement`;
       expect(transformToHyphenCommands(input)).toBe(expected);
     });
   });
@@ -104,30 +104,30 @@ Finally /opsx-apply to implement`;
     ];
 
     for (const cmd of commands) {
-      it(`should transform /opsx:${cmd}`, () => {
-        expect(transformToHyphenCommands(`/opsx:${cmd}`)).toBe(`/opsx-${cmd}`);
+      it(`should transform /ofsx:${cmd}`, () => {
+        expect(transformToHyphenCommands(`/ofsx:${cmd}`)).toBe(`/ofsx-${cmd}`);
       });
     }
   });
 
   describe('non-slash prefixes', () => {
     it("spells Amazon Q's prompt library form, replacing the slash", () => {
-      // The whole `/opsx:` is consumed, so no stray slash survives: it is
-      // `@opsx-apply`, never `/@opsx-apply` or `@/opsx-apply`.
-      expect(transformCommandInvocations('/opsx:apply', FLAT_AT)).toBe('@opsx-apply');
-      expect(transformCommandInvocations('Run `/opsx:archive` when done.', FLAT_AT)).toBe(
-        'Run `@opsx-archive` when done.'
+      // The whole `/ofsx:` is consumed, so no stray slash survives: it is
+      // `@ofsx-apply`, never `/@ofsx-apply` or `@/ofsx-apply`.
+      expect(transformCommandInvocations('/ofsx:apply', FLAT_AT)).toBe('@ofsx-apply');
+      expect(transformCommandInvocations('Run `/ofsx:archive` when done.', FLAT_AT)).toBe(
+        'Run `@ofsx-archive` when done.'
       );
     });
 
     it('leaves unknown ids alone under a non-slash prefix too', () => {
-      expect(transformCommandInvocations('/opsx:apply and /opsx:bogus', FLAT_AT)).toBe(
-        '@opsx-apply and /opsx:bogus'
+      expect(transformCommandInvocations('/ofsx:apply and /ofsx:bogus', FLAT_AT)).toBe(
+        '@ofsx-apply and /ofsx:bogus'
       );
     });
 
     it('is a no-op for the canonical namespaced slash form', () => {
-      const input = 'Use /opsx:new then /opsx:apply';
+      const input = 'Use /ofsx:new then /ofsx:apply';
       expect(transformCommandInvocations(input, NAMESPACED_SLASH)).toBe(input);
     });
   });
@@ -136,51 +136,51 @@ Finally /opsx-apply to implement`;
 describe('transformToSkillReferences', () => {
   describe('all known commands', () => {
     const mappings: Array<[string, string]> = [
-      ['explore', '/openspec-explore'],
-      ['new', '/openspec-new-change'],
-      ['continue', '/openspec-continue-change'],
-      ['apply', '/openspec-apply-change'],
-      ['update', '/openspec-update-change'],
-      ['ff', '/openspec-ff-change'],
-      ['sync', '/openspec-sync-specs'],
-      ['archive', '/openspec-archive-change'],
-      ['bulk-archive', '/openspec-bulk-archive-change'],
-      ['verify', '/openspec-verify-change'],
-      ['onboard', '/openspec-onboard'],
-      ['propose', '/openspec-propose'],
+      ['explore', '/officespec-explore'],
+      ['new', '/officespec-new-change'],
+      ['continue', '/officespec-continue-change'],
+      ['apply', '/officespec-apply-change'],
+      ['update', '/officespec-update-change'],
+      ['ff', '/officespec-ff-change'],
+      ['sync', '/officespec-sync-specs'],
+      ['archive', '/officespec-archive-change'],
+      ['bulk-archive', '/officespec-bulk-archive-change'],
+      ['verify', '/officespec-verify-change'],
+      ['onboard', '/officespec-onboard'],
+      ['propose', '/officespec-propose'],
     ];
 
     for (const [cmd, skillRef] of mappings) {
-      it(`should transform /opsx:${cmd} to ${skillRef}`, () => {
-        expect(transformToSkillReferences(`/opsx:${cmd}`)).toBe(skillRef);
+      it(`should transform /ofsx:${cmd} to ${skillRef}`, () => {
+        expect(transformToSkillReferences(`/ofsx:${cmd}`)).toBe(skillRef);
       });
     }
   });
 
   describe('basic transformations', () => {
     it('should transform command reference in context', () => {
-      const input = 'Use /opsx:apply to implement tasks';
-      const expected = 'Use /openspec-apply-change to implement tasks';
+      const input = 'Use /ofsx:apply to implement tasks';
+      const expected = 'Use /officespec-apply-change to implement tasks';
       expect(transformToSkillReferences(input)).toBe(expected);
     });
 
     it('should transform multiple command references', () => {
-      const input = 'Run /opsx:apply then /opsx:archive';
-      const expected = 'Run /openspec-apply-change then /openspec-archive-change';
+      const input = 'Run /ofsx:apply then /ofsx:archive';
+      const expected = 'Run /officespec-apply-change then /officespec-archive-change';
       expect(transformToSkillReferences(input)).toBe(expected);
     });
 
     it('should handle backtick-quoted commands', () => {
-      const input = 'Run `/opsx:continue` to proceed';
-      const expected = 'Run `/openspec-continue-change` to proceed';
+      const input = 'Run `/ofsx:continue` to proceed';
+      const expected = 'Run `/officespec-continue-change` to proceed';
       expect(transformToSkillReferences(input)).toBe(expected);
     });
 
     it('should transform references across multiple lines', () => {
-      const input = `Use /opsx:new to start
-Then /opsx:apply to implement`;
-      const expected = `Use /openspec-new-change to start
-Then /openspec-apply-change to implement`;
+      const input = `Use /ofsx:new to start
+Then /ofsx:apply to implement`;
+      const expected = `Use /officespec-new-change to start
+Then /officespec-apply-change to implement`;
       expect(transformToSkillReferences(input)).toBe(expected);
     });
   });
@@ -196,7 +196,7 @@ Then /openspec-apply-change to implement`;
     });
 
     it('should leave unknown command references unchanged', () => {
-      const input = 'Try /opsx:unknown-command here';
+      const input = 'Try /ofsx:unknown-command here';
       expect(transformToSkillReferences(input)).toBe(input);
     });
 
@@ -206,8 +206,8 @@ Then /openspec-apply-change to implement`;
     });
 
     it('should transform longest matching command (bulk-archive vs archive)', () => {
-      const input = '/opsx:bulk-archive and /opsx:archive';
-      const expected = '/openspec-bulk-archive-change and /openspec-archive-change';
+      const input = '/ofsx:bulk-archive and /ofsx:archive';
+      const expected = '/officespec-bulk-archive-change and /officespec-archive-change';
       expect(transformToSkillReferences(input)).toBe(expected);
     });
   });
@@ -216,33 +216,33 @@ Then /openspec-apply-change to implement`;
 describe('getSkillReferenceTransformer', () => {
   it('uses the default /<name> form for tools without a custom prefix', () => {
     expect(getSkillReferenceTransformer('vibe')).toBe(transformToSkillReferences);
-    expect(getSkillReferenceTransformer('hermes')('/opsx:apply')).toBe('/openspec-apply-change');
+    expect(getSkillReferenceTransformer('hermes')('/ofsx:apply')).toBe('/officespec-apply-change');
   });
 
   it('uses /skill:<name> for Kimi Code, per its documented invocation syntax', () => {
     const transformer = getSkillReferenceTransformer('kimi');
-    expect(transformer('/opsx:propose')).toBe('/skill:openspec-propose');
-    expect(transformer('Run `/opsx:apply` then /opsx:archive')).toBe(
-      'Run `/skill:openspec-apply-change` then /skill:openspec-archive-change'
+    expect(transformer('/ofsx:propose')).toBe('/skill:officespec-propose');
+    expect(transformer('Run `/ofsx:apply` then /ofsx:archive')).toBe(
+      'Run `/skill:officespec-apply-change` then /skill:officespec-archive-change'
     );
-    expect(transformer('/opsx:unknown-command')).toBe('/opsx:unknown-command');
+    expect(transformer('/ofsx:unknown-command')).toBe('/ofsx:unknown-command');
   });
 
   it('uses $<name> for direct Codex invocation hints', () => {
     const transformer = getSkillReferenceTransformer('codex');
-    expect(transformer('/opsx:propose')).toBe('$openspec-propose');
-    expect(transformer('/opsx:unknown-command')).toBe('/opsx:unknown-command');
+    expect(transformer('/ofsx:propose')).toBe('$officespec-propose');
+    expect(transformer('/ofsx:unknown-command')).toBe('/ofsx:unknown-command');
   });
 
   it.each(['rovodev', 'codeassistant'])('uses natural-language skill references for %s', (toolId) => {
     const transformer = getSkillReferenceTransformer(toolId);
-    expect(transformer('/opsx:propose')).toBe('the openspec-propose skill');
-    expect(transformer('Run `/opsx:apply` then /opsx:archive')).toBe(
-      'Run `the openspec-apply-change skill` then the openspec-archive-change skill'
+    expect(transformer('/ofsx:propose')).toBe('the officespec-propose skill');
+    expect(transformer('Run `/ofsx:apply` then /ofsx:archive')).toBe(
+      'Run `the officespec-apply-change skill` then the officespec-archive-change skill'
     );
     // No `/openspec-*` or other slash-command form is ever emitted.
-    expect(transformer('/opsx:propose')).not.toMatch(/\/openspec-/);
-    expect(transformer('/opsx:unknown-command')).toBe('/opsx:unknown-command');
+    expect(transformer('/ofsx:propose')).not.toMatch(/\/openspec-/);
+    expect(transformer('/ofsx:unknown-command')).toBe('/ofsx:unknown-command');
   });
 });
 
@@ -259,23 +259,23 @@ describe('getTransformerForTool', () => {
 
   it('selects skill references for tools without a command surface, regardless of delivery', () => {
     // Tools like Kimi Code or Mistral Vibe have no command adapter, so their
-    // skills must never reference /opsx:* commands that were not generated.
+    // skills must never reference /ofsx:* commands that were not generated.
     expect(getTransformerForTool('vibe', 'both', 'none', undefined)).toBe(transformToSkillReferences);
     expect(getTransformerForTool('hermes', 'both', 'none', undefined)).toBe(transformToSkillReferences);
     // Kimi Code documents /skill:<name> invocations (docs/supported-tools.md)
     for (const delivery of ['both', 'commands', 'skills'] as const) {
       const transformer = getTransformerForTool('kimi', delivery, 'none', undefined);
-      expect(transformer?.('/opsx:propose')).toBe('/skill:openspec-propose');
+      expect(transformer?.('/ofsx:propose')).toBe('/skill:officespec-propose');
     }
   });
 
   it('selects hyphen commands for every flat-invocation tool when commands are generated', () => {
-    // These tools invoke commands by filename (/opsx-<id>), so skills must
+    // These tools invoke commands by filename (/ofsx-<id>), so skills must
     // reference the hyphen form their command files actually answer to.
     for (const toolId of ['bob', 'cursor', 'github-copilot', 'oh-my-pi', 'opencode', 'pi', 'qwen'] as const) {
       for (const delivery of ['both', 'commands'] as const) {
         const transformer = getTransformerForTool(toolId, delivery, 'adapter-backed', FLAT_SLASH);
-        expect(transformer?.('/opsx:apply'), `${toolId} ${delivery}`).toBe('/opsx-apply');
+        expect(transformer?.('/ofsx:apply'), `${toolId} ${delivery}`).toBe('/ofsx-apply');
       }
       // ...but must not fall back to hyphen commands when no commands are generated
       expect(getTransformerForTool(toolId, 'skills', 'adapter-backed', FLAT_SLASH)).toBe(transformToSkillReferences);
@@ -296,16 +296,16 @@ describe('getTransformerForTool', () => {
     // Under commands-only delivery no Devin skills exist to point at, so the
     // hint falls back to the workflow name Devin registers.
     const commandsOnly = getTransformerForTool('devin', 'commands', 'adapter-backed', FLAT_SLASH);
-    expect(commandsOnly?.('/opsx:propose')).toBe('/opsx-propose');
+    expect(commandsOnly?.('/ofsx:propose')).toBe('/ofsx-propose');
   });
 
   it("selects Amazon Q's @-prefixed prompt form when commands are generated", () => {
-    // Amazon Q loads .amazonq/prompts/opsx-<id>.md into its prompt library,
+    // Amazon Q loads .amazonq/prompts/ofsx-<id>.md into its prompt library,
     // which is invoked with @ — it registers no slash command at all.
     for (const delivery of ['both', 'commands'] as const) {
       const transformer = getTransformerForTool('amazon-q', delivery, 'adapter-backed', FLAT_AT);
-      expect(transformer?.('/opsx:apply'), delivery).toBe('@opsx-apply');
-      expect(transformer?.('Run /opsx:archive next'), delivery).toBe('Run @opsx-archive next');
+      expect(transformer?.('/ofsx:apply'), delivery).toBe('@ofsx-apply');
+      expect(transformer?.('Run /ofsx:archive next'), delivery).toBe('Run @ofsx-archive next');
     }
     // Skills-only delivery generates no prompt files, so point at the skill.
     expect(getTransformerForTool('amazon-q', 'skills', 'adapter-backed', FLAT_AT)).toBe(
@@ -323,36 +323,36 @@ describe('getTransformerForTool', () => {
     // .agents tree need /<name>. Keep both explicit so neither target breaks.
     for (const delivery of ['both', 'commands', 'skills'] as const) {
       const transformer = getTransformerForTool('codex', delivery, 'skills-invocable', undefined);
-      expect(transformer?.('/opsx:propose')).toBe(
-        '$openspec-propose (Codex) or /openspec-propose (other agents)'
+      expect(transformer?.('/ofsx:propose')).toBe(
+        '$officespec-propose (Codex) or /officespec-propose (other agents)'
       );
-      expect(transformer?.('Run /opsx:apply next')).toBe(
-        'Run $openspec-apply-change (Codex) or /openspec-apply-change (other agents) next'
+      expect(transformer?.('Run /ofsx:apply next')).toBe(
+        'Run $officespec-apply-change (Codex) or /officespec-apply-change (other agents) next'
       );
     }
   });
 });
 
 // Regression for #1153/#1514: the apply skill template must author its
-// continue/apply/archive references as canonical /opsx:* tokens so the
-// generator can rewrite them per target. Bare "openspec-continue-change"
+// continue/apply/archive references as canonical /ofsx:* tokens so the
+// generator can rewrite them per target. Bare "officespec-continue-change"
 // prose is invisible to the transformers, which left skills.sh, Codex, and
 // Kimi with dead text and no archive/input invocation after a naive revert.
 describe('apply skill template generates valid per-target invocations', () => {
   const skill = getApplyChangeSkillTemplate().instructions;
 
-  it('authors invocation references as transformable /opsx:* tokens', () => {
-    expect(skill).toContain('/opsx:apply add-auth');
-    expect(skill).toContain('suggest using `/opsx:continue`');
-    expect(skill).toContain('archive this change with `/opsx:archive`');
+  it('authors invocation references as transformable /ofsx:* tokens', () => {
+    expect(skill).toContain('/ofsx:apply add-auth');
+    expect(skill).toContain('suggest using `/ofsx:continue`');
+    expect(skill).toContain('archive this change with `/ofsx:archive`');
     // No bare, non-transformable skill-name prose remains.
-    expect(skill).not.toContain('suggest using openspec-continue-change');
+    expect(skill).not.toContain('suggest using officespec-continue-change');
   });
 
   const cases = [
-    { tool: 'default (skills.sh)', transform: transformToSkillReferences, cont: '/openspec-continue-change', arch: '/openspec-archive-change', apply: '/openspec-apply-change' },
-    { tool: 'codex', transform: getSkillReferenceTransformer('codex'), cont: '$openspec-continue-change', arch: '$openspec-archive-change', apply: '$openspec-apply-change' },
-    { tool: 'kimi', transform: getSkillReferenceTransformer('kimi'), cont: '/skill:openspec-continue-change', arch: '/skill:openspec-archive-change', apply: '/skill:openspec-apply-change' },
+    { tool: 'default (skills.sh)', transform: transformToSkillReferences, cont: '/officespec-continue-change', arch: '/officespec-archive-change', apply: '/officespec-apply-change' },
+    { tool: 'codex', transform: getSkillReferenceTransformer('codex'), cont: '$officespec-continue-change', arch: '$officespec-archive-change', apply: '$officespec-apply-change' },
+    { tool: 'kimi', transform: getSkillReferenceTransformer('kimi'), cont: '/skill:officespec-continue-change', arch: '/skill:officespec-archive-change', apply: '/skill:officespec-apply-change' },
   ];
 
   for (const { tool, transform, cont, arch, apply } of cases) {
@@ -362,7 +362,7 @@ describe('apply skill template generates valid per-target invocations', () => {
       expect(out).toContain(arch);
       expect(out).toContain(`${apply} add-auth`);
       // No canonical token survives the rewrite.
-      expect(out).not.toMatch(/\/opsx:(continue|apply|archive)/);
+      expect(out).not.toMatch(/\/ofsx:(continue|apply|archive)/);
     });
   }
 });

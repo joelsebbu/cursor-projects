@@ -2,11 +2,11 @@ import { describe, expect, it } from 'vitest';
 
 import {
   getExploreSkillTemplate,
-  getOpsxExploreCommandTemplate,
+  getOfsxExploreCommandTemplate,
 } from '../../../src/core/templates/skill-templates.js';
 
 const skill = getExploreSkillTemplate();
-const command = getOpsxExploreCommandTemplate();
+const command = getOfsxExploreCommandTemplate();
 
 // Both delivery surfaces must carry the same contract; every behavioral
 // assertion below runs against each body.

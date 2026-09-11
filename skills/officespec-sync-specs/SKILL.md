@@ -1,5 +1,5 @@
 ---
-name: openspec-sync-specs
+name: officespec-sync-specs
 description: Sync delta specs from a change to main specs. Use when the user wants to update main specs with changes from a delta spec, without archiving the change.
 allowed-tools: Bash(openspec:*)
 license: MIT
@@ -30,7 +30,7 @@ This is an **agent-driven** operation - you will read delta specs and directly e
 
    When prompting, show changes that have delta specs (under `specs/` directory).
 
-   Always announce: "Using change: <name>" and how to override (e.g., `/openspec-sync-specs <other>`).
+   Always announce: "Using change: <name>" and how to override (e.g., `/officespec-sync-specs <other>`).
 
 2. **Resolve change context**
 

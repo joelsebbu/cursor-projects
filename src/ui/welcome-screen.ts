@@ -31,7 +31,7 @@ function getWelcomeText(workflows: readonly string[]): string[] {
       quickStart.push(`  ${chalk.yellow(command.padEnd(commandWidth + 1))} ${chalk.dim(description)}`);
     }
     // These are the canonical names. How each tool spells them differs
-    // (/opsx-propose, @opsx-propose, $openspec-propose ...) and cannot be known
+    // (/ofsx-propose, @ofsx-propose, $officespec-propose ...) and cannot be known
     // until tools are picked, one prompt later — so flag it rather than let the
     // canonical form read as the literal thing to type. "Getting started"
     // prints the real spelling once the selection is known.
@@ -45,7 +45,7 @@ function getWelcomeText(workflows: readonly string[]): string[] {
     '',
     chalk.white('This setup will configure:'),
     chalk.dim('  • Agent Skills for AI tools'),
-    // Not "opsx slash commands": this screen runs before tool selection, and
+    // Not "ofsx slash commands": this screen runs before tool selection, and
     // skills-only tools (Codex, Kimi Code, ...) correctly get no command files
     // at all. The exact spelling per tool is printed in "Getting started".
     chalk.dim('  • Workflow commands, if supported'),

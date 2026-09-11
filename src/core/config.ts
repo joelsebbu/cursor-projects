@@ -1,18 +1,18 @@
 export const OPENSPEC_DIR_NAME = 'openspec';
 
 export const OPENSPEC_SKILL_NAMES = [
-  'openspec-explore',
-  'openspec-new-change',
-  'openspec-continue-change',
-  'openspec-apply-change',
-  'openspec-update-change',
-  'openspec-ff-change',
-  'openspec-sync-specs',
-  'openspec-archive-change',
-  'openspec-bulk-archive-change',
-  'openspec-verify-change',
-  'openspec-onboard',
-  'openspec-propose',
+  'officespec-explore',
+  'officespec-new-change',
+  'officespec-continue-change',
+  'officespec-apply-change',
+  'officespec-update-change',
+  'officespec-ff-change',
+  'officespec-sync-specs',
+  'officespec-archive-change',
+  'officespec-bulk-archive-change',
+  'officespec-verify-change',
+  'officespec-onboard',
+  'officespec-propose',
 ] as const;
 
 export const OPENSPEC_MARKERS = {

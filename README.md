@@ -36,18 +36,18 @@ Our philosophy:
 > [!TIP]
 > **New workflow now available!** We've rebuilt OfficeSpec with a new artifact-guided workflow.
 >
-> Run `/opsx:propose "your idea"` to get started. → [Learn more here](docs/opsx.md)
+> Run `/ofsx:propose "your idea"` to get started. → [Learn more here](docs/ofsx.md)
 
 <p align="center">
   Follow <a href="https://x.com/0xTab">@0xTab on X</a> for updates · Join the <a href="https://discord.gg/YctCnvvshC">OfficeSpec Discord</a> for help and questions.
 </p>
 
-<!-- TODO: Add GIF demo of /opsx:propose → /opsx:archive workflow -->
+<!-- TODO: Add GIF demo of /ofsx:propose → /ofsx:archive workflow -->
 
 ## See it in action
 
 ```text
-You: /opsx:explore
+You: /ofsx:explore
 AI:  What would you like to explore?
 You: Our expense approvals take too long and nobody knows the status.
 AI:  Let me look at your current process and docs...
@@ -55,7 +55,7 @@ AI:  Let me look at your current process and docs...
      with status visible to everyone. No new tools needed. Scope it?
 You: Yes, let's do it.
 
-You: /opsx:propose improve-expense-approvals
+You: /ofsx:propose improve-expense-approvals
 AI:  Created openspec/changes/improve-expense-approvals/
      ✓ proposal.md — why we're doing this, what's changing
      ✓ specs/       — requirements and scenarios
@@ -63,7 +63,7 @@ AI:  Created openspec/changes/improve-expense-approvals/
      ✓ tasks.md     — action checklist
      Ready to do the work!
 
-You: /opsx:apply
+You: /ofsx:apply
 AI:  Working through tasks...
      ✓ 1.1 Draft new expense request form
      ✓ 1.2 Define approval steps and owners
@@ -71,7 +71,7 @@ AI:  Working through tasks...
      ✓ 2.2 Set up status tracking
      All tasks complete!
 
-You: /opsx:archive
+You: /ofsx:archive
 AI:  Archived to openspec/changes/archive/2025-01-23-improve-expense-approvals/
      Specs updated. Ready for the next change.
 ```
@@ -130,7 +130,7 @@ Install OfficeSpec globally:
 npm install -g officespec@latest
 ```
 
-> **Name compatibility:** the product is now **OfficeSpec**, but the technical names stay `openspec` so existing setups keep working — the `openspec/` folder, the `openspec` CLI (also installed as `officespec`; both run the same tool), the `/opsx:` slash commands, and the `openspec-*` skills are all unchanged.
+> **Name compatibility:** the product is now **OfficeSpec**, but the technical names stay `openspec` so existing setups keep working — the `openspec/` folder, the `openspec` CLI (also installed as `officespec`; both run the same tool), the `/ofsx:` slash commands, and the `openspec-*` skills are all unchanged.
 
 Then navigate to your work folder and initialize:
 
@@ -143,12 +143,12 @@ openspec init
 
 Now talk to your AI:
 
-- **Not sure what to do yet?** Start with `/opsx:explore`, a no-stakes thinking partner that reviews your files and docs, weighs options, and shapes a plan before anything is done. ([Explore guide](docs/explore.md))
-- **Already know what you want?** Go straight to `/opsx:propose <what-you-want-to-do>`.
+- **Not sure what to do yet?** Start with `/ofsx:explore`, a no-stakes thinking partner that reviews your files and docs, weighs options, and shapes a plan before anything is done. ([Explore guide](docs/explore.md))
+- **Already know what you want?** Go straight to `/ofsx:propose <what-you-want-to-do>`.
 
-Both are in the default profile. If you want the expanded workflow (`/opsx:new`, `/opsx:continue`, `/opsx:ff`, `/opsx:verify`, `/opsx:bulk-archive`, `/opsx:onboard`), select it with `openspec config profile` and apply with `openspec update`.
+Both are in the default profile. If you want the expanded workflow (`/ofsx:new`, `/ofsx:continue`, `/ofsx:ff`, `/ofsx:verify`, `/ofsx:bulk-archive`, `/ofsx:onboard`), select it with `openspec config profile` and apply with `openspec update`.
 
-`/opsx:propose` is the canonical name; your tool may spell it `/opsx-propose` (Cursor, GitHub Copilot), `@opsx-propose` (Amazon Q) or `$openspec-propose` (Codex). `openspec init` prints the right form for the tools you picked — see [How To Invoke](docs/supported-tools.md#how-to-invoke).
+`/ofsx:propose` is the canonical name; your tool may spell it `/ofsx-propose` (Cursor, GitHub Copilot), `@ofsx-propose` (Amazon Q) or `$officespec-propose` (Codex). `openspec init` prints the right form for the tools you picked — see [How To Invoke](docs/supported-tools.md#how-to-invoke).
 
 > [!NOTE]
 > Not sure if your tool is supported? [View the full list](docs/supported-tools.md) – we support 30+ tools and growing.
@@ -157,10 +157,10 @@ Both are in the default profile. If you want the expanded workflow (`/opsx:new`,
 
 ## Docs
 
-**Start here:** the **[Documentation Home](docs/README.md)** maps everything. New to OfficeSpec? Read [Getting Started](docs/getting-started.md), then [How Commands Work](docs/how-commands-work.md) (where you actually type `/opsx:propose`).
+**Start here:** the **[Documentation Home](docs/README.md)** maps everything. New to OfficeSpec? Read [Getting Started](docs/getting-started.md), then [How Commands Work](docs/how-commands-work.md) (where you actually type `/ofsx:propose`).
 
 → **[Getting Started](docs/getting-started.md)**: first steps<br>
-→ **[Explore First](docs/explore.md)**: think it through with `/opsx:explore` before you commit<br>
+→ **[Explore First](docs/explore.md)**: think it through with `/ofsx:explore` before you commit<br>
 → **[How Commands Work](docs/how-commands-work.md)**: where slash commands run vs the CLI<br>
 → **[Core Concepts at a Glance](docs/overview.md)**: the whole mental model, one page<br>
 → **[Examples & Recipes](docs/examples.md)**: real changes, start to finish<br>

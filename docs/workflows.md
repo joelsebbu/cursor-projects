@@ -6,7 +6,7 @@ This guide covers common workflow patterns for OfficeSpec and when to use each o
 
 Traditional workflows force you through phases: planning, then implementation, then done. But real work doesn't fit neatly into boxes.
 
-OPSX takes a different approach:
+OFSX takes a different approach:
 
 ```text
 Traditional (phase-locked):
@@ -16,7 +16,7 @@ Traditional (phase-locked):
       │   "Can't go back"  │
       └────────────────────┘
 
-OPSX (fluid actions):
+OFSX (fluid actions):
 
   proposal ──► specs ──► design ──► tasks ──► do
 ```
@@ -26,7 +26,7 @@ OPSX (fluid actions):
 - **Actions, not phases** - Commands are things you can do, not stages you're stuck in
 - **Dependencies are enablers** - They show what's possible, not what's required next
 
-> **Customization:** OPSX workflows are driven by schemas that define artifact sequences. See [Customization](customization.md) for details on creating custom schemas.
+> **Customization:** OFSX workflows are driven by schemas that define artifact sequences. See [Customization](customization.md) for details on creating custom schemas.
 
 ## Workflow at a Glance
 
@@ -35,17 +35,17 @@ you can update planning artifacts whenever doing the work reveals something new.
 
 ```mermaid
 flowchart TD
-    Idea["Idea or problem"] --> Explore["/opsx:explore<br/>(optional)"]
-    Idea --> Propose["/opsx:propose"]
+    Idea["Idea or problem"] --> Explore["/ofsx:explore<br/>(optional)"]
+    Idea --> Propose["/ofsx:propose"]
     Explore --> Propose
     Propose --> Review{"Planning artifacts<br/>ready?"}
-    Review -->|"Refine"| Update["/opsx:update"]
+    Review -->|"Refine"| Update["/ofsx:update"]
     Update --> Review
-    Review -->|"Implement"| Apply["/opsx:apply"]
+    Review -->|"Implement"| Apply["/ofsx:apply"]
     Apply -->|"Plan changed"| Update
-    Apply --> Archive["/opsx:archive"]
-    Apply --> Verify["/opsx:verify<br/>(optional, custom selection)"]
-    Apply --> Sync["/opsx:sync<br/>(optional before archive)"]
+    Apply --> Archive["/ofsx:archive"]
+    Apply --> Verify["/ofsx:verify<br/>(optional, custom selection)"]
+    Apply --> Sync["/ofsx:sync<br/>(optional before archive)"]
     Verify --> Verified{"Ready to archive?"}
     Verified -->|"Fix implementation"| Apply
     Verified -->|"Revise plan"| Update
@@ -64,7 +64,7 @@ sequenceDiagram
     participant CLI as OfficeSpec CLI
     participant Files as Planning and implementation files
 
-    Human->>Assistant: /opsx:propose "change"
+    Human->>Assistant: /ofsx:propose "change"
     Assistant->>CLI: openspec new change
     CLI->>Files: Scaffold change metadata
     Assistant->>CLI: Request status and artifact instructions
@@ -72,13 +72,13 @@ sequenceDiagram
     Assistant->>Files: Write schema-defined planning artifacts
     Assistant-->>Human: Present artifacts for review
 
-    Human->>Assistant: /opsx:apply
+    Human->>Assistant: /ofsx:apply
     Assistant->>CLI: Request apply instructions
     CLI-->>Assistant: Context files and task state
     Assistant->>Files: Implement tasks and update checkboxes
     Assistant-->>Human: Report implementation status
 
-    Human->>Assistant: /opsx:archive
+    Human->>Assistant: /ofsx:archive
     Assistant->>CLI: Request archive inputs and artifact status
     CLI-->>Assistant: Planning paths and artifact completion
     Assistant->>Files: Read task state and compare delta specs
@@ -102,26 +102,26 @@ sequenceDiagram
 ### Default Quick Path (`core` profile)
 
 New installs default to `core`, which provides:
-- `/opsx:explore`
-- `/opsx:propose`
-- `/opsx:apply`
-- `/opsx:update`
-- `/opsx:sync`
-- `/opsx:archive`
+- `/ofsx:explore`
+- `/ofsx:propose`
+- `/ofsx:apply`
+- `/ofsx:update`
+- `/ofsx:sync`
+- `/ofsx:archive`
 
 Typical flow:
 
 ```text
-/opsx:explore ──► /opsx:propose ──► /opsx:apply ──► /opsx:sync ──► /opsx:archive
+/ofsx:explore ──► /ofsx:propose ──► /ofsx:apply ──► /ofsx:sync ──► /ofsx:archive
   (optional)
 ```
 
 #### Start by exploring (the habit worth forming)
 
-`/opsx:explore` is part of the default profile, not an advanced add-on. It's the move to make whenever you have a problem but not yet a plan, which, with an AI assistant, is most of the time.
+`/ofsx:explore` is part of the default profile, not an advanced add-on. It's the move to make whenever you have a problem but not yet a plan, which, with an AI assistant, is most of the time.
 
 ```text
-You: /opsx:explore
+You: /ofsx:explore
 
 AI:  What would you like to explore?
 
@@ -137,14 +137,14 @@ AI:  Let me look... [reads the search service and cache layer]
 
 You: Yes.
 
-You: /opsx:propose rebuild-search-index-on-write
+You: /ofsx:propose rebuild-search-index-on-write
 ```
 
-Explore creates no artifacts and writes no code. It's a free, no-stakes conversation that turns a vague worry into a precise change, so the proposal that follows is sharp. Already know exactly what you want? Skip it and go straight to `/opsx:propose`. Full guide: [Explore First](explore.md).
+Explore creates no artifacts and writes no code. It's a free, no-stakes conversation that turns a vague worry into a precise change, so the proposal that follows is sharp. Already know exactly what you want? Skip it and go straight to `/ofsx:propose`. Full guide: [Explore First](explore.md).
 
 ### Expanded/Full Workflow (custom selection)
 
-If you want explicit scaffold-and-build commands (`/opsx:new`, `/opsx:continue`, `/opsx:ff`, `/opsx:verify`, `/opsx:bulk-archive`, `/opsx:onboard`), enable them with:
+If you want explicit scaffold-and-build commands (`/ofsx:new`, `/ofsx:continue`, `/ofsx:ff`, `/ofsx:verify`, `/ofsx:bulk-archive`, `/ofsx:onboard`), enable them with:
 
 ```bash
 openspec config profile
@@ -158,18 +158,18 @@ openspec update
 When you know what you want to build and just need to execute:
 
 ```text
-/opsx:new ──► /opsx:ff ──► /opsx:apply ──► /opsx:verify ──► /opsx:archive
+/ofsx:new ──► /ofsx:ff ──► /ofsx:apply ──► /ofsx:verify ──► /ofsx:archive
 ```
 
 **Example conversation:**
 
 ```text
-You: /opsx:new add-logout-button
+You: /ofsx:new add-logout-button
 
 AI:  Created openspec/changes/add-expense-checklist/
      Ready to create: proposal
 
-You: /opsx:ff
+You: /ofsx:ff
 
 AI:  Creating all planning artifacts...
      ✓ proposal.md
@@ -178,7 +178,7 @@ AI:  Creating all planning artifacts...
      ✓ tasks.md
      Ready to do the work!
 
-You: /opsx:apply
+You: /ofsx:apply
 
 AI:  Working through tasks...
      ✓ Added logout button to header
@@ -186,7 +186,7 @@ AI:  Working through tasks...
      ✓ Added confirmation dialog
      All tasks complete!
 
-You: /opsx:archive
+You: /ofsx:archive
 
 AI:  ✓ Merged specs
      ✓ Archived change
@@ -199,13 +199,13 @@ AI:  ✓ Merged specs
 When requirements are unclear or you need to investigate first:
 
 ```text
-/opsx:explore ──► /opsx:new ──► /opsx:continue ──► ... ──► /opsx:apply
+/ofsx:explore ──► /ofsx:new ──► /ofsx:continue ──► ... ──► /ofsx:apply
 ```
 
 **Example conversation:**
 
 ```text
-You: /opsx:explore
+You: /ofsx:explore
 
 AI:  What would you like to explore?
 
@@ -225,11 +225,11 @@ AI:  Let me help investigate...
 
 You: Let's tackle the data fetching issue.
 
-You: /opsx:new optimize-product-list-fetching
+You: /ofsx:new optimize-product-list-fetching
 
 AI:  Created change. Ready to create: proposal
 
-You: /opsx:continue
+You: /ofsx:continue
 
 AI:  Creating proposal based on our exploration...
      [Writes proposal incorporating investigation insights]
@@ -237,7 +237,7 @@ AI:  Creating proposal based on our exploration...
      Ready to create: specs, design
      Which would you like next?
 
-You: /opsx:continue
+You: /ofsx:continue
 
 AI:  Creating specs...
 ```
@@ -249,11 +249,11 @@ AI:  Creating specs...
 Work on multiple changes at once:
 
 ```text
-Change A: /opsx:new ──► /opsx:ff ──► /opsx:apply (in progress)
+Change A: /ofsx:new ──► /ofsx:ff ──► /ofsx:apply (in progress)
                                          │
                                     context switch
                                          │
-Change B: /opsx:new ──► /opsx:ff ──────► /opsx:apply
+Change B: /ofsx:new ──► /ofsx:ff ──────► /ofsx:apply
 ```
 
 **Example conversation:**
@@ -261,27 +261,27 @@ Change B: /opsx:new ──► /opsx:ff ──────► /opsx:apply
 ```text
 You: I'm working on add-dark-mode but got pulled into a bug fix
 
-You: /opsx:new fix-login-redirect
+You: /ofsx:new fix-login-redirect
 
 AI:  Created openspec/changes/fix-login-redirect/
 
-You: /opsx:ff
+You: /ofsx:ff
 
 AI:  ✓ Created planning artifacts
 
-You: /opsx:apply
+You: /ofsx:apply
 
 AI:  Working on fix-login-redirect...
      [Implements the fix]
      All tasks complete!
 
-You: /opsx:archive
+You: /ofsx:archive
 
 AI:  ✓ Archived fix-login-redirect
 
 You: Let's get back to dark mode
 
-You: /opsx:apply improve-expense-approvals
+You: /ofsx:apply improve-expense-approvals
 
 AI:  Resuming add-dark-mode...
      Picking up at task 2.3: Update Header...
@@ -289,10 +289,10 @@ AI:  Resuming add-dark-mode...
 
 **Best for:** Parallel work streams, urgent interrupts, team collaboration.
 
-When you have multiple completed changes, use `/opsx:bulk-archive`:
+When you have multiple completed changes, use `/ofsx:bulk-archive`:
 
 ```text
-You: /opsx:bulk-archive
+You: /ofsx:bulk-archive
 
 AI:  Found 3 completed changes:
      - add-dark-mode (all tasks done)
@@ -322,7 +322,7 @@ Bulk archive detects when multiple changes touch the same specs and resolves con
 The recommended completion flow:
 
 ```text
-/opsx:apply ──► /opsx:verify ──► /opsx:archive
+/ofsx:apply ──► /ofsx:verify ──► /ofsx:archive
                     │                 │
               validates          prompts to sync
               implementation     if needed
@@ -330,10 +330,10 @@ The recommended completion flow:
 
 #### Verify: Check Your Work
 
-`/opsx:verify` validates implementation against your artifacts across three dimensions:
+`/ofsx:verify` validates implementation against your artifacts across three dimensions:
 
 ```text
-You: /opsx:verify
+You: /ofsx:verify
 
 AI:  Verifying add-auth...
 
@@ -375,10 +375,10 @@ Verify won't block archive, but it surfaces issues you might want to address fir
 
 #### Archive: Finalize the Change
 
-`/opsx:archive` completes the change and moves it to the archive:
+`/ofsx:archive` completes the change and moves it to the archive:
 
 ```text
-You: /opsx:archive
+You: /ofsx:archive
 
 AI:  Archiving add-auth...
 
@@ -403,17 +403,17 @@ Archive will prompt if specs aren't synced. It won't block on incomplete tasks, 
 
 ## When to Use What
 
-### `/opsx:ff` vs `/opsx:continue`
+### `/ofsx:ff` vs `/ofsx:continue`
 
 | Situation | Use |
 |-----------|-----|
-| Clear requirements, ready to build | `/opsx:ff` |
-| Exploring, want to review each step | `/opsx:continue` |
-| Want to iterate on proposal before specs | `/opsx:continue` |
-| Time pressure, need to move fast | `/opsx:ff` |
-| Complex change, want control | `/opsx:continue` |
+| Clear requirements, ready to build | `/ofsx:ff` |
+| Exploring, want to review each step | `/ofsx:continue` |
+| Want to iterate on proposal before specs | `/ofsx:continue` |
+| Time pressure, need to move fast | `/ofsx:ff` |
+| Complex change, want control | `/ofsx:continue` |
 
-**Rule of thumb:** If you can describe the full scope upfront, use `/opsx:ff`. If you're figuring it out as you go, use `/opsx:continue`.
+**Rule of thumb:** If you can describe the full scope upfront, use `/ofsx:ff`. If you're figuring it out as you go, use `/ofsx:continue`.
 
 ### When to Update vs Start Fresh
 
@@ -471,12 +471,12 @@ One logical unit of work per change. If you're doing "add feature X and also ref
 - Can ship independently
 - Simpler rollback if needed
 
-### Use `/opsx:explore` for Unclear Requirements
+### Use `/ofsx:explore` for Unclear Requirements
 
 Before committing to a change, explore the problem space:
 
 ```text
-You: /opsx:explore
+You: /ofsx:explore
 
 AI:  What would you like to explore?
 
@@ -497,10 +497,10 @@ Exploration clarifies thinking before you create artifacts.
 
 ### Verify Before Archiving
 
-Use `/opsx:verify` to check implementation matches artifacts:
+Use `/ofsx:verify` to check implementation matches artifacts:
 
 ```text
-You: /opsx:verify
+You: /ofsx:verify
 
 AI:  Verifying add-dark-mode...
 
@@ -531,16 +531,16 @@ For full command details and options, see [Commands](commands.md).
 
 | Command | Purpose | When to Use |
 |---------|---------|-------------|
-| `/opsx:propose` | Create change + planning artifacts | Fast default path (`core` profile) |
-| `/opsx:explore` | Think through ideas with the AI | Start here when unsure: unclear requirements, investigation, comparing options |
-| `/opsx:new` | Start a change scaffold | Expanded mode, explicit artifact control |
-| `/opsx:continue` | Create next artifact | Expanded mode, step-by-step artifact creation |
-| `/opsx:ff` | Create all planning artifacts | Expanded mode, clear scope |
-| `/opsx:apply` | Implement tasks | Ready to do the work |
-| `/opsx:verify` | Validate implementation | Expanded mode, before archiving |
-| `/opsx:sync` | Merge delta specs | Expanded mode, optional |
-| `/opsx:archive` | Complete the change | All work finished |
-| `/opsx:bulk-archive` | Archive multiple changes | Expanded mode, parallel work |
+| `/ofsx:propose` | Create change + planning artifacts | Fast default path (`core` profile) |
+| `/ofsx:explore` | Think through ideas with the AI | Start here when unsure: unclear requirements, investigation, comparing options |
+| `/ofsx:new` | Start a change scaffold | Expanded mode, explicit artifact control |
+| `/ofsx:continue` | Create next artifact | Expanded mode, step-by-step artifact creation |
+| `/ofsx:ff` | Create all planning artifacts | Expanded mode, clear scope |
+| `/ofsx:apply` | Implement tasks | Ready to do the work |
+| `/ofsx:verify` | Validate implementation | Expanded mode, before archiving |
+| `/ofsx:sync` | Merge delta specs | Expanded mode, optional |
+| `/ofsx:archive` | Complete the change | All work finished |
+| `/ofsx:bulk-archive` | Archive multiple changes | Expanded mode, parallel work |
 
 ## Next Steps
 

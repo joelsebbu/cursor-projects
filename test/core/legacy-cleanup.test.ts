@@ -391,6 +391,54 @@ ${OPENSPEC_MARKERS.end}`);
       expect(result.files).toContain('.opencode/command/openspec-new.md');
     });
 
+    it('should detect previous-naming Cursor command files but not current ones', async () => {
+      const dirPath = path.join(testDir, '.cursor', 'commands');
+      await fs.mkdir(dirPath, { recursive: true });
+      await fs.writeFile(path.join(dirPath, 'opsx-propose.md'), 'content');
+      await fs.writeFile(path.join(dirPath, 'ofsx-propose.md'), 'content');
+
+      const result = await detectLegacySlashCommands(testDir);
+      expect(result.files).toContain('.cursor/commands/opsx-propose.md');
+      expect(result.files).not.toContain('.cursor/commands/ofsx-propose.md');
+    });
+
+    it('should detect previous-naming namespaced directories but not current ones', async () => {
+      const legacyDir = path.join(testDir, '.claude', 'commands', 'opsx');
+      const currentDir = path.join(testDir, '.claude', 'commands', 'ofsx');
+      await fs.mkdir(legacyDir, { recursive: true });
+      await fs.mkdir(currentDir, { recursive: true });
+      await fs.writeFile(path.join(legacyDir, 'propose.md'), 'content');
+      await fs.writeFile(path.join(currentDir, 'propose.md'), 'content');
+
+      const result = await detectLegacySlashCommands(testDir);
+      expect(result.directories).toContain('.claude/commands/opsx');
+      expect(result.directories).not.toContain('.claude/commands/ofsx');
+    });
+
+    it('should detect previous-naming OpenCode command files under the current directory', async () => {
+      const dirPath = path.join(testDir, '.opencode', 'commands');
+      await fs.mkdir(dirPath, { recursive: true });
+      await fs.writeFile(path.join(dirPath, 'opsx-propose.md'), 'content');
+      await fs.writeFile(path.join(dirPath, 'ofsx-propose.md'), 'content');
+
+      const result = await detectLegacySlashCommands(testDir);
+      expect(result.files).toContain('.opencode/commands/opsx-propose.md');
+      expect(result.files).not.toContain('.opencode/commands/ofsx-propose.md');
+    });
+
+    it('should detect previous-naming files for tools that never had openspec-* files', async () => {
+      const junieDir = path.join(testDir, '.junie', 'commands');
+      const zcodeDir = path.join(testDir, '.zcode', 'commands', 'opsx');
+      await fs.mkdir(junieDir, { recursive: true });
+      await fs.mkdir(zcodeDir, { recursive: true });
+      await fs.writeFile(path.join(junieDir, 'opsx-propose.md'), 'content');
+      await fs.writeFile(path.join(zcodeDir, 'propose.md'), 'content');
+
+      const result = await detectLegacySlashCommands(testDir);
+      expect(result.files).toContain('.junie/commands/opsx-propose.md');
+      expect(result.directories).toContain('.zcode/commands/opsx');
+    });
+
     it('should detect legacy CoStrict command files without claiming their directory', async () => {
       const dirPath = path.join(testDir, '.cospec', 'openspec', 'commands');
       await fs.mkdir(dirPath, { recursive: true });
@@ -640,9 +688,11 @@ ${OPENSPEC_MARKERS.end}`);
       const dirPath = path.join(testDir, '.cospec', 'openspec', 'commands');
       await fs.mkdir(dirPath, { recursive: true });
       const legacyFile = path.join(dirPath, 'openspec-proposal.md');
-      const currentFile = path.join(dirPath, 'opsx-propose.md');
+      const previousFile = path.join(dirPath, 'opsx-propose.md');
+      const currentFile = path.join(dirPath, 'ofsx-propose.md');
       const userFile = path.join(dirPath, 'my-team-command.md');
       await fs.writeFile(legacyFile, 'content');
+      await fs.writeFile(previousFile, 'content');
       await fs.writeFile(currentFile, 'content');
       await fs.writeFile(userFile, 'content');
 
@@ -650,8 +700,10 @@ ${OPENSPEC_MARKERS.end}`);
       const result = await cleanupLegacyArtifacts(testDir, detection);
 
       expect(result.deletedFiles).toContain('.cospec/openspec/commands/openspec-proposal.md');
+      expect(result.deletedFiles).toContain('.cospec/openspec/commands/opsx-propose.md');
       expect(result.deletedDirs).not.toContain('.cospec/openspec/commands');
       await expect(fs.access(legacyFile)).rejects.toThrow();
+      await expect(fs.access(previousFile)).rejects.toThrow();
       await expect(fs.access(currentFile)).resolves.not.toThrow();
       await expect(fs.access(userFile)).resolves.not.toThrow();
     });
@@ -1161,17 +1213,17 @@ ${OPENSPEC_MARKERS.end}`);
     it('should include expected tool patterns', () => {
       expect(LEGACY_SLASH_COMMAND_PATHS['claude']).toEqual({
         type: 'directory',
-        path: '.claude/commands/openspec',
+        path: ['.claude/commands/opsx', '.claude/commands/openspec'],
       });
 
       expect(LEGACY_SLASH_COMMAND_PATHS['cursor']).toEqual({
         type: 'files',
-        pattern: '.cursor/commands/openspec-*.md',
+        pattern: ['.cursor/commands/opsx-*.md', '.cursor/commands/openspec-*.md'],
       });
 
       expect(LEGACY_SLASH_COMMAND_PATHS['devin']).toEqual({
         type: 'files',
-        pattern: '.windsurf/workflows/openspec-*.md',
+        pattern: ['.devin/workflows/opsx-*.md', '.windsurf/workflows/openspec-*.md'],
       });
     });
 
@@ -1182,10 +1234,16 @@ ${OPENSPEC_MARKERS.end}`);
         expect(registeredTools.has(tool) || resolveCommandSurfaceCapability(tool) === 'skills-invocable').toBe(true);
       }
 
-      // Pi was never a pre-1.0 legacy tool
-      expect(LEGACY_SLASH_COMMAND_PATHS).not.toHaveProperty('pi');
-      // Junie support landed after the opsx rename; it never had openspec-* files
-      expect(LEGACY_SLASH_COMMAND_PATHS).not.toHaveProperty('junie');
+      // Tools that landed after the opsx rename have no `openspec-*` era, only
+      // the previous `opsx-*` naming can be stale.
+      expect(LEGACY_SLASH_COMMAND_PATHS['pi']).toEqual({
+        type: 'files',
+        pattern: '.pi/prompts/opsx-*.md',
+      });
+      expect(LEGACY_SLASH_COMMAND_PATHS['junie']).toEqual({
+        type: 'files',
+        pattern: '.junie/commands/opsx-*.md',
+      });
     });
 
     it('should use the repo-local compatibility glob pattern for Codex prompt detection', () => {

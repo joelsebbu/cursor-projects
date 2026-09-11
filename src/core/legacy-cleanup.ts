@@ -32,44 +32,58 @@ export const LEGACY_CONFIG_FILES = [
  * Some tools used a directory structure, others used individual files.
  */
 export const LEGACY_SLASH_COMMAND_PATHS: Record<string, LegacySlashCommandPattern> = {
-  // Directory-based: .tooldir/commands/openspec/ or .tooldir/commands/openspec/*.md
-  'claude': { type: 'directory', path: '.claude/commands/openspec' },
-  'codebuddy': { type: 'directory', path: '.codebuddy/commands/openspec' },
-  'qoder': { type: 'directory', path: '.qoder/commands/openspec' },
-  'lingma': { type: 'directory', path: '.lingma/commands/openspec' },
-  'crush': { type: 'directory', path: '.crush/commands/openspec' },
-  'gemini': { type: 'directory', path: '.gemini/commands/openspec' },
+  // Directory-based: .tooldir/commands/opsx/ (previous naming) or
+  // .tooldir/commands/openspec/ (pre-opsx naming)
+  'claude': { type: 'directory', path: ['.claude/commands/opsx', '.claude/commands/openspec'] },
+  'codebuddy': { type: 'directory', path: ['.codebuddy/commands/opsx', '.codebuddy/commands/openspec'] },
+  'qoder': { type: 'directory', path: ['.qoder/commands/opsx', '.qoder/commands/openspec'] },
+  'lingma': { type: 'directory', path: ['.lingma/commands/opsx', '.lingma/commands/openspec'] },
+  'crush': { type: 'directory', path: ['.crush/commands/opsx', '.crush/commands/openspec'] },
+  'gemini': { type: 'directory', path: ['.gemini/commands/opsx', '.gemini/commands/openspec'] },
+  'zcode': { type: 'directory', path: '.zcode/commands/opsx' },
 
-  // File-based: individual openspec-*.md files in a commands/workflows/prompts folder
-  'cursor': { type: 'files', pattern: '.cursor/commands/openspec-*.md' },
+  // File-based: individual opsx-*.md (previous naming) and openspec-*.md
+  // (pre-opsx naming) files in a commands/workflows/prompts folder
+  'cursor': { type: 'files', pattern: ['.cursor/commands/opsx-*.md', '.cursor/commands/openspec-*.md'] },
   // Keyed by the tool id these map back to, so the pre-opsx Windsurf files
-  // belong to `devin` — the id Windsurf became. Only `.windsurf/` is listed:
-  // `.devin/` postdates the opsx rename and never held `openspec-*` files.
-  'devin': { type: 'files', pattern: '.windsurf/workflows/openspec-*.md' },
-  'kilocode': { type: 'files', pattern: '.kilocode/workflows/openspec-*.md' },
-  'kiro': { type: 'files', pattern: '.kiro/prompts/openspec-*.prompt.md' },
-  'github-copilot': { type: 'files', pattern: '.github/prompts/openspec-*.prompt.md' },
-  'amazon-q': { type: 'files', pattern: '.amazonq/prompts/openspec-*.md' },
-  'cline': { type: 'files', pattern: '.clinerules/workflows/openspec-*.md' },
-  'roocode': { type: 'files', pattern: '.roo/commands/openspec-*.md' },
-  'auggie': { type: 'files', pattern: '.augment/commands/openspec-*.md' },
-  'factory': { type: 'files', pattern: '.factory/commands/openspec-*.md' },
-  'opencode': { type: 'files', pattern: ['.opencode/command/opsx-*.md', '.opencode/command/openspec-*.md'] },
-  'continue': { type: 'files', pattern: '.continue/prompts/openspec-*.prompt' },
+  // belong to `devin` — the id Windsurf became. The `.devin/` entry covers the
+  // previous naming, which postdates the opsx rename: `.devin/` never held
+  // `openspec-*` files, only `opsx-*` ones.
+  'devin': { type: 'files', pattern: ['.devin/workflows/opsx-*.md', '.windsurf/workflows/openspec-*.md'] },
+  'kilocode': { type: 'files', pattern: ['.kilocode/workflows/opsx-*.md', '.kilocode/workflows/openspec-*.md'] },
+  'kiro': { type: 'files', pattern: ['.kiro/prompts/opsx-*.prompt.md', '.kiro/prompts/openspec-*.prompt.md'] },
+  'github-copilot': { type: 'files', pattern: ['.github/prompts/opsx-*.prompt.md', '.github/prompts/openspec-*.prompt.md'] },
+  'amazon-q': { type: 'files', pattern: ['.amazonq/prompts/opsx-*.md', '.amazonq/prompts/openspec-*.md'] },
+  'cline': { type: 'files', pattern: ['.clinerules/workflows/opsx-*.md', '.clinerules/workflows/openspec-*.md'] },
+  'roocode': { type: 'files', pattern: ['.roo/commands/opsx-*.md', '.roo/commands/openspec-*.md'] },
+  'auggie': { type: 'files', pattern: ['.augment/commands/opsx-*.md', '.augment/commands/openspec-*.md'] },
+  'factory': { type: 'files', pattern: ['.factory/commands/opsx-*.md', '.factory/commands/openspec-*.md'] },
+  'opencode': { type: 'files', pattern: ['.opencode/commands/opsx-*.md', '.opencode/command/opsx-*.md', '.opencode/command/openspec-*.md'] },
+  'continue': { type: 'files', pattern: ['.continue/prompts/opsx-*.prompt', '.continue/prompts/openspec-*.prompt'] },
   // Scoped to the pre-opsx filenames under Antigravity's former `.agent` root.
-  // The current `.agents/workflows/opsx-*.md` files postdate that rename, and
+  // The current `.agents/workflows/ofsx-*.md` files postdate that rename, and
   // the `.agent` copies of them are relocated by LEGACY_TOOL_ROOTS, which
-  // preserves a customized file instead of deleting it. These patterns are
-  // matched in every project, so a shared root like `.agents` is not listed:
-  // OfficeSpec never wrote `openspec-*` files there, and a user might have.
-  'antigravity': { type: 'files', pattern: '.agent/workflows/openspec-*.md' },
-  'iflow': { type: 'files', pattern: '.iflow/commands/openspec-*.md' },
+  // preserves a customized file instead of deleting it. The `.agents` entry
+  // below covers only the previous naming, which OfficeSpec itself wrote
+  // there — a user file there would have to share a managed `opsx-*` name to
+  // match, and every match is confirmed before deletion.
+  'antigravity': { type: 'files', pattern: ['.agents/workflows/opsx-*.md', '.agent/workflows/openspec-*.md'] },
+  'iflow': { type: 'files', pattern: ['.iflow/commands/opsx-*.md', '.iflow/commands/openspec-*.md'] },
   'qwen': { type: 'files', pattern: ['.qwen/commands/opsx-*.toml', '.qwen/commands/openspec-*.toml'] },
   'codex': { type: 'files', pattern: '.codex/prompts/openspec-*.md' },
-  // Keep this file-scoped: the CoStrict adapter writes `opsx-*.md` into the
+  // Keep this file-scoped: the CoStrict adapter writes `ofsx-*.md` into the
   // same folder, so a directory entry removes the live command files — and
   // anything else the user keeps there — on every run.
-  'costrict': { type: 'files', pattern: '.cospec/openspec/commands/openspec-*.md' },
+  'costrict': { type: 'files', pattern: ['.cospec/openspec/commands/opsx-*.md', '.cospec/openspec/commands/openspec-*.md'] },
+  // Tools that landed after the opsx rename have no `openspec-*` era; only
+  // the previous `opsx-*` naming can be stale.
+  'junie': { type: 'files', pattern: '.junie/commands/opsx-*.md' },
+  'trae': { type: 'files', pattern: '.trae/commands/opsx-*.md' },
+  'command-code': { type: 'files', pattern: '.commandcode/commands/opsx-*.md' },
+  'codeassistant': { type: 'files', pattern: '.codeassistant/commands/opsx-*.md' },
+  'bob': { type: 'files', pattern: '.bob/commands/opsx-*.md' },
+  'oh-my-pi': { type: 'files', pattern: '.omp/commands/opsx-*.md' },
+  'pi': { type: 'files', pattern: '.pi/prompts/opsx-*.md' },
 };
 
 /**
@@ -109,7 +123,7 @@ export const LEGACY_GLOBAL_SLASH_COMMAND_PATHS: Record<string, LegacyGlobalPromp
  */
 export interface LegacySlashCommandPattern {
   type: 'directory' | 'files';
-  path?: string; // For directory type
+  path?: string | string[]; // For directory type (one path per naming era)
   pattern?: string | string[]; // For files type (glob pattern or array of patterns)
 }
 
@@ -319,9 +333,12 @@ export async function detectLegacySlashCommands(
 
   for (const pattern of Object.values(LEGACY_SLASH_COMMAND_PATHS)) {
     if (pattern.type === 'directory' && pattern.path) {
-      const dirPath = FileSystemUtils.joinPath(projectPath, pattern.path);
-      if (await FileSystemUtils.directoryExists(dirPath)) {
-        directories.push(pattern.path);
+      const paths = Array.isArray(pattern.path) ? pattern.path : [pattern.path];
+      for (const p of paths) {
+        const dirPath = FileSystemUtils.joinPath(projectPath, p);
+        if (await FileSystemUtils.directoryExists(dirPath)) {
+          directories.push(p);
+        }
       }
     } else if (pattern.type === 'files' && pattern.pattern) {
       const patterns = Array.isArray(pattern.pattern) ? pattern.pattern : [pattern.pattern];
@@ -827,7 +844,9 @@ export function getToolsFromLegacyArtifacts(detection: LegacyDetectionResult): s
 /** The tool that owns a repo-local legacy slash-command directory, if any. */
 function legacyToolIdForDir(dir: string): string | undefined {
   for (const [toolId, pattern] of Object.entries(LEGACY_SLASH_COMMAND_PATHS)) {
-    if (pattern.type === 'directory' && pattern.path === dir) return toolId;
+    if (pattern.type !== 'directory' || !pattern.path) continue;
+    const paths = Array.isArray(pattern.path) ? pattern.path : [pattern.path];
+    if (paths.includes(dir)) return toolId;
   }
   return undefined;
 }

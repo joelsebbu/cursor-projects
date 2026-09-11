@@ -1,7 +1,7 @@
 /**
  * Init Command
  *
- * Sets up OfficeSpec with Agent Skills and /opsx:* slash commands.
+ * Sets up OfficeSpec with Agent Skills and /ofsx:* slash commands.
  * This is the unified setup command that replaces both the old init and experimental commands.
  */
 
@@ -68,6 +68,7 @@ import {
   writeSharedSkillTarget,
 } from './shared-skill-target.js';
 import { migrateIfNeeded, migrateLegacyToolDirs, describeLegacyMigration, keptInPlaceNotice, hasMovableContent, scanInstalledWorkflows as scanInstalledWorkflowsShared } from './migration.js';
+import { legacySkillDirForWorkflow } from './profile-sync-drift.js';
 import {
   resolveCommandSurfaceCapability,
   resolveCommandInvocation,
@@ -109,18 +110,18 @@ const PROGRESS_SPINNER = {
 };
 
 const WORKFLOW_TO_SKILL_DIR: Record<string, string> = {
-  'explore': 'openspec-explore',
-  'new': 'openspec-new-change',
-  'continue': 'openspec-continue-change',
-  'apply': 'openspec-apply-change',
-  'update': 'openspec-update-change',
-  'ff': 'openspec-ff-change',
-  'sync': 'openspec-sync-specs',
-  'archive': 'openspec-archive-change',
-  'bulk-archive': 'openspec-bulk-archive-change',
-  'verify': 'openspec-verify-change',
-  'onboard': 'openspec-onboard',
-  'propose': 'openspec-propose',
+  'explore': 'officespec-explore',
+  'new': 'officespec-new-change',
+  'continue': 'officespec-continue-change',
+  'apply': 'officespec-apply-change',
+  'update': 'officespec-update-change',
+  'ff': 'officespec-ff-change',
+  'sync': 'officespec-sync-specs',
+  'archive': 'officespec-archive-change',
+  'bulk-archive': 'officespec-bulk-archive-change',
+  'verify': 'officespec-verify-change',
+  'onboard': 'officespec-onboard',
+  'propose': 'officespec-propose',
 };
 
 // -----------------------------------------------------------------------------
@@ -919,6 +920,7 @@ export class InitCommand {
     skillsInvocableCommandSkips: string[];
     removedCommandCount: number;
     removedSkillCount: number;
+    removedLegacySkillCount: number;
   }> {
     const createdTools: typeof tools = [];
     const refreshedTools: typeof tools = [];
@@ -927,6 +929,7 @@ export class InitCommand {
     const skillsInvocableCommandSkips: string[] = [];
     let removedCommandCount = 0;
     let removedSkillCount = 0;
+    let removedLegacySkillCount = 0;
 
     // Read global config for profile and delivery settings (use --profile override if set)
     const globalConfig = getGlobalConfig();
@@ -967,6 +970,7 @@ export class InitCommand {
             FileSystemUtils.assertPathWithin(tool.skillsRoot, skillFile);
             await FileSystemUtils.writeFile(skillFile, skillContent);
           }
+          removedLegacySkillCount += await this.removeLegacySkillDirs(tool.skillsRoot, tool.skillsPath);
           writeSharedSkillTarget(projectPath, tool.value);
         }
         if (
@@ -1040,6 +1044,7 @@ export class InitCommand {
       skillsInvocableCommandSkips,
       removedCommandCount,
       removedSkillCount,
+      removedLegacySkillCount,
     };
   }
 
@@ -1150,6 +1155,7 @@ export class InitCommand {
       skillsInvocableCommandSkips: string[];
       removedCommandCount: number;
       removedSkillCount: number;
+      removedLegacySkillCount: number;
     },
     configStatus: 'created' | 'exists' | 'skipped',
     copilot: {
@@ -1264,6 +1270,9 @@ export class InitCommand {
     if (results.removedSkillCount > 0) {
       console.log(chalk.dim(`Removed: ${results.removedSkillCount} skill directories (delivery: commands)`));
     }
+    if (results.removedLegacySkillCount > 0) {
+      console.log(chalk.dim(`Removed: ${results.removedLegacySkillCount} skill directories (previous openspec-* naming)`));
+    }
 
     // GitHub Copilot cloud files are opt-in — report what is actually on disk:
     // list the managed files that now exist (never files we didn't write), flag
@@ -1315,17 +1324,17 @@ export class InitCommand {
 
     // Getting started (task 7.6: show propose if in profile)
     const activeWorkflows = this.getActiveWorkflows();
-    // When no tool got /opsx:* commands, point at the skill instead of a
+    // When no tool got /ofsx:* commands, point at the skill instead of a
     // command that does not exist.
     const activeDelivery: Delivery = getGlobalConfig().delivery ?? 'both';
     const commandsGenerated = successfulTools.some((tool) => shouldGenerateCommandsForTool(tool.value, activeDelivery));
     const skillsGenerated = successfulTools.some((tool) => shouldGenerateSkillsForTool(tool.value, activeDelivery));
     // Each hint line must be a usable instruction for the tool it serves.
     // Tools that generated commands are told the command name their files
-    // answer to (/opsx:* when namespaced under opsx/, /opsx-* when the
+    // answer to (/ofsx:* when namespaced under ofsx/, /ofsx-* when the
     // filename is the command); tools that only got skills are told their
-    // documented skill invocation (Kimi Code: /skill:openspec-*; Codex CLI:
-    // $openspec-*; others: /openspec-*). Tools that got no artifacts are
+    // documented skill invocation (Kimi Code: /skill:officespec-*; Codex CLI:
+    // $officespec-*; others: /officespec-*). Tools that got no artifacts are
     // covered by the configuration correction instead. When the selection
     // disagrees, print one line per distinct instruction, labeled with the
     // tools it applies to.
@@ -1344,7 +1353,7 @@ export class InitCommand {
         } else if (shouldGenerateSkillsForTool(tool.value, activeDelivery)) {
           const skillReference = getSkillReferenceTransformer(tool.value)(command);
           // Tools with no slash surface (e.g. Rovo Dev) reference skills as
-          // prose ("the openspec-propose skill"); phrase the hint so it reads
+          // prose ("the officespec-propose skill"); phrase the hint so it reads
           // as an instruction rather than a dead command with an argument.
           hint = usesNaturalLanguageSkillReferences(tool.value)
             ? `Start your first change: ask ${tool.name} to use ${skillReference} with "your idea"`
@@ -1395,9 +1404,9 @@ export class InitCommand {
       // whole story, so don't advertise an invocation that doesn't exist.
       advertisedAnInvocation = false;
     } else if (activeWorkflows.includes('propose')) {
-      printStartHints('/opsx:propose');
+      printStartHints('/ofsx:propose');
     } else if (activeWorkflows.includes('new')) {
-      printStartHints('/opsx:new');
+      printStartHints('/ofsx:new');
     } else {
       console.log("Done. Run 'openspec config profile' to configure your workflows.");
       advertisedAnInvocation = false;
@@ -1465,6 +1474,44 @@ export class InitCommand {
       } catch {
         // Ignore errors
       }
+
+      // Drop the pre-rename sibling too: the OfficeSpec rename moved skill
+      // directories from `openspec-*` to `officespec-*`, and a re-run must
+      // not leave both copies behind.
+      const legacyDirName = legacySkillDirForWorkflow(workflow);
+      if (legacyDirName) {
+        removed += await this.removeDirIfPresent(skillsRoot, path.join(skillsDir, legacyDirName));
+      }
+    }
+
+    return removed;
+  }
+
+  private async removeDirIfPresent(skillsRoot: string, dir: string): Promise<number> {
+    if (!fs.existsSync(dir)) return 0;
+    FileSystemUtils.assertPathWithin(skillsRoot, dir);
+    try {
+      await fs.promises.rm(dir, { recursive: true, force: true });
+      return 1;
+    } catch {
+      // Ignore errors
+      return 0;
+    }
+  }
+
+  /**
+   * Removes pre-rename (`openspec-*`) skill directories left beside the
+   * current (`officespec-*`) ones. Runs after skills are generated so a
+   * re-run upgrades the tree instead of doubling every skill.
+   * Returns the number of directories removed.
+   */
+  private async removeLegacySkillDirs(skillsRoot: string, skillsDir: string): Promise<number> {
+    let removed = 0;
+
+    for (const workflow of ALL_WORKFLOWS) {
+      const legacyDirName = legacySkillDirForWorkflow(workflow);
+      if (!legacyDirName) continue;
+      removed += await this.removeDirIfPresent(skillsRoot, path.join(skillsDir, legacyDirName));
     }
 
     return removed;

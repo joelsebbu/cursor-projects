@@ -50,10 +50,10 @@ order, and stop where a step tells you to stop.
    from `openspec init --help` (Copilot is `github-copilot`, Zoo Code is
    `roocode`). `--tools` takes a comma-separated list, so name all of them.
    `openspec init --tools <ids>` deletes leftovers from older OfficeSpec versions
-   automatically, without asking — including `opsx-*.md` prompt files in my home
+   automatically, without asking — including `ofsx-*.md` prompt files in my home
    directory (Codex keeps them in ~/.codex/prompts). Before you run it, look for
    those: `.../commands/openspec/` folders, OfficeSpec marker blocks in files like
-   CLAUDE.md or AGENTS.md, and home-directory `opsx-*.md` prompts. List whatever
+   CLAUDE.md or AGENTS.md, and home-directory `ofsx-*.md` prompts. List whatever
    you find and wait for my go-ahead; if you find nothing, say so and carry on
    without asking. An existing `openspec/` folder is not a problem — init
    refreshes it and leaves my specs and changes alone.
@@ -68,10 +68,10 @@ order, and stop where a step tells you to stop.
    not a failure on its own. If init said nothing was generated, relay the fix
    it suggested instead of retrying. Finish by telling me how to invoke OfficeSpec
    in my tool, and take the exact spelling from the files init created rather
-   than from its summary line: the punctuation differs per tool (/opsx:propose
-   in some, /opsx-propose in others, @opsx-propose in Amazon Q), and tools that
-   get skills instead of commands are invoked by skill name (/openspec-propose,
-   or $openspec-propose in Codex, or /skill:openspec-propose in Kimi Code).
+   than from its summary line: the punctuation differs per tool (/ofsx:propose
+   in some, /ofsx-propose in others, @ofsx-propose in Amazon Q), and tools that
+   get skills instead of commands are invoked by skill name (/officespec-propose,
+   or $officespec-propose in Codex, or /skill:officespec-propose in Kimi Code).
 ```
 
 Nothing in the prompt is vendor-specific: it's plain instructions plus the same commands documented on this page. It works on macOS, Linux, and Windows, and it deliberately stops rather than improvising when a step needs your permission. Your assistant does need to be able to run shell commands — a few IDE integrations can't.
@@ -190,7 +190,7 @@ rm -rf openspec/
 
 Think before you do this: `openspec/specs/` and `openspec/changes/archive/` are your record of how the process behaves and why it changed. If you might want that history, keep the folder (or keep it in git) even after uninstalling.
 
-**3. Remove generated AI tool files (optional).** OfficeSpec writes skill and command files into per-tool directories like `.claude/skills/openspec-*/`, `.cursor/commands/opsx-*`, and so on. Delete the `openspec-*` skills and `opsx-*` commands for whichever tools you configured. The exact paths per tool are listed in [Supported Tools](supported-tools.md).
+**3. Remove generated AI tool files (optional).** OfficeSpec writes skill and command files into per-tool directories like `.claude/skills/openspec-*/`, `.cursor/commands/ofsx-*`, and so on. Delete the `openspec-*` skills and `ofsx-*` commands for whichever tools you configured. The exact paths per tool are listed in [Supported Tools](supported-tools.md).
 
 If you also have OfficeSpec marker blocks in files like `CLAUDE.md` or `AGENTS.md`, remove those blocks by hand; your own content in those files is yours to keep.
 

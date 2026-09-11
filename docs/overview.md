@@ -49,14 +49,14 @@ Two folders. `specs/` is what's true. `changes/` is what you're proposing. Archi
 In the default setup, your day looks like this. Optionally think it through first; then one command drafts the plan, you read it, the next helps you do it, and the last files it away.
 
 ```text
-/opsx:explore                            →  (optional) think it through with the AI first
-/opsx:propose improve-expense-approvals   →  AI drafts proposal, specs, design, tasks
+/ofsx:explore                            →  (optional) think it through with the AI first
+/ofsx:propose improve-expense-approvals   →  AI drafts proposal, specs, design, tasks
         (you read and adjust the plan)
-/opsx:apply                              →  AI helps you do it, checking off tasks
-/opsx:archive                            →  specs updated, change archived
+/ofsx:apply                              →  AI helps you do it, checking off tasks
+/ofsx:archive                            →  specs updated, change archived
 ```
 
-**When in doubt, start by exploring.** `/opsx:explore` is a no-stakes thinking partner: it reviews your files and docs, lays out options, and turns a fuzzy idea into a concrete plan before any artifact exists. It's the best antidote to an AI that will otherwise do *something* from a vague prompt. Already know exactly what you want? Skip straight to `/opsx:propose`. Either way, explore ships in the default profile, so it's always there. See the [Explore guide](explore.md).
+**When in doubt, start by exploring.** `/ofsx:explore` is a no-stakes thinking partner: it reviews your files and docs, lays out options, and turns a fuzzy idea into a concrete plan before any artifact exists. It's the best antidote to an AI that will otherwise do *something* from a vague prompt. Already know exactly what you want? Skip straight to `/ofsx:propose`. Either way, explore ships in the default profile, so it's always there. See the [Explore guide](explore.md).
 
 Those are slash commands, typed in your AI assistant's chat. Setup (`openspec init`) happens in your terminal. If that split is new to you, read [How Commands Work](how-commands-work.md) first; it's the most common point of confusion.
 
