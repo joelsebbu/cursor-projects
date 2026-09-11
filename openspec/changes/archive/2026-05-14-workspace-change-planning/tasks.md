@@ -1,14 +1,14 @@
 ## Phase 1: Workspace Setup Skills
 
-User-testable outcome: A user can run workspace setup, choose which agents get the active profile's OpenSpec skills, and verify the selected skills are generated in the workspace root only.
+User-testable outcome: A user can run workspace setup, choose which agents get the active profile's OfficeSpec skills, and verify the selected skills are generated in the workspace root only.
 
-- [x] 1.1 Add an interactive workspace setup step named "Install agent skills" that asks which agents should get OpenSpec skills in this workspace.
+- [x] 1.1 Add an interactive workspace setup step named "Install agent skills" that asks which agents should get OfficeSpec skills in this workspace.
 - [x] 1.2 Preselect the preferred opener when that opener supports skills, while allowing users to choose different or additional agents.
 - [x] 1.3 Support non-interactive agent selection with the existing `--tools all|none|<ids>` style.
 - [x] 1.4 Validate workspace setup tool IDs using the same supported skill-generation tool set as repo initialization.
 - [x] 1.5 Resolve the active global profile and use it to choose which workflow skills workspace setup installs.
-- [x] 1.6 Ensure `openspec workspace setup` generates or refreshes OpenSpec agent skills in the workspace root for the selected agents.
-- [x] 1.7 Keep setup-time skill generation scoped to the workspace planning home; do not write skills or OpenSpec artifacts into linked repos or folders during workspace setup.
+- [x] 1.6 Ensure `openspec workspace setup` generates or refreshes OfficeSpec agent skills in the workspace root for the selected agents.
+- [x] 1.7 Keep setup-time skill generation scoped to the workspace planning home; do not write skills or OfficeSpec artifacts into linked repos or folders during workspace setup.
 - [x] 1.8 Keep workspace setup skill generation skills-only for this slice; do not generate slash commands or global command files even when global delivery includes commands.
 - [x] 1.9 Define how setup reports generated, refreshed, skipped, failed, and skills-only delivery work in human and JSON output.
 - [x] 1.10 Store the selected workspace skill agents and last-applied workflow IDs in workspace-local machine state.
@@ -20,11 +20,11 @@ User-testable outcome: A user can run workspace setup, choose which agents get t
 
 User-testable outcome: A user can change the global profile, run workspace update in an existing workspace, and see workspace-local skills refresh to the selected workflows with clear human and JSON output.
 
-- [x] 2.1 Add a workspace update flow that refreshes, adds, or removes OpenSpec agent skills in an existing workspace.
+- [x] 2.1 Add a workspace update flow that refreshes, adds, or removes OfficeSpec agent skills in an existing workspace.
 - [x] 2.2 Let `openspec workspace update` resolve the current workspace when run from inside a workspace.
 - [x] 2.3 Support named and selected-workspace update forms such as `openspec workspace update platform` and `openspec workspace update --workspace platform`.
 - [x] 2.4 Support non-interactive update forms such as `openspec workspace update platform --tools codex,claude`.
-- [x] 2.5 Remove only known OpenSpec-managed workflow skill directories for agents that are no longer selected.
+- [x] 2.5 Remove only known OfficeSpec-managed workflow skill directories for agents that are no longer selected.
 - [x] 2.6 Sync workspace-local workflow skill directories to the current global profile selection.
 - [x] 2.7 Keep workspace update skills-only for this slice; do not generate slash commands or global command files even when global delivery includes commands.
 - [x] 2.8 Define how update reports refreshed, added, removed, skipped, failed, and skills-only delivery work in human and JSON output.
@@ -37,7 +37,7 @@ User-testable outcome: A user can change the global profile, run workspace updat
 
 User-testable outcome: A user can run `openspec config profile` inside a workspace and choose whether to apply the changed global profile to that workspace now.
 
-- [x] 3.1 Detect when `openspec config profile` runs from inside an OpenSpec workspace.
+- [x] 3.1 Detect when `openspec config profile` runs from inside an OfficeSpec workspace.
 - [x] 3.2 After an actual profile or delivery change inside a workspace, prompt to apply changes to the current workspace now.
 - [x] 3.3 When confirmed, run `openspec workspace update` for the current workspace instead of repo-local `openspec update`.
 - [x] 3.4 When declined, report that global config changed and that `openspec workspace update` applies it later.
@@ -58,7 +58,7 @@ User-testable outcome: A user can create a workspace-level change from the coord
 - [x] 4.5 Store workspace-level changes under the workspace planning path rather than under linked repos or folders.
 - [x] 4.6 Capture the product goal once at the workspace change level.
 - [x] 4.7 Record or validate affected area names through workspace-scoped specs or task sections using registered workspace link names where applicable.
-- [x] 4.8 Ensure creating a workspace change does not create repo-local OpenSpec artifacts or edit linked repos.
+- [x] 4.8 Ensure creating a workspace change does not create repo-local OfficeSpec artifacts or edit linked repos.
 - [x] 4.9 Preserve repo-local change creation behavior outside workspaces.
 - [x] 4.10 Manually create a workspace change from a coordination root and verify the generated artifacts, workspace-scoped specs/tasks, affected areas, and untouched linked repos.
 - [x] 4.11 Review the change creation UX: goal capture, affected-area identification, artifact paths, and next-step guidance feel clear.

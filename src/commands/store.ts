@@ -306,7 +306,7 @@ async function confirmSetup(
   const { confirm } = await import('@inquirer/prompts');
 
   console.log('');
-  console.log('OpenSpec will create:');
+  console.log('OfficeSpec will create:');
   console.log('');
   console.log(`  Store: ${prepared.id}`);
   console.log(`  Location: ${formatPathForHuman(prepared.root)}`);
@@ -399,13 +399,13 @@ function printMutationHuman(
 
   console.log(`${title}: ${payload.store.id}`);
   console.log(`Location: ${formatPathForHuman(payload.store.root)}`);
-  console.log('OpenSpec root: ready');
+  console.log('OfficeSpec root: ready');
   console.log(`Registry: ${payload.registry.already_registered ? 'already registered' : 'registered'}`);
   for (const status of payload.status) {
     console.log(`${status.severity === 'error' ? 'Issue' : 'Note'}: ${status.message}`);
   }
   console.log('');
-  console.log('Next: run normal OpenSpec commands against this store, for example:');
+  console.log('Next: run normal OfficeSpec commands against this store, for example:');
   console.log(`  openspec new change <change-id> --store ${payload.store.id}`);
   if (payload.git.is_repository) {
     const shareRemote = remotes?.canonical ?? remotes?.observed;
@@ -447,7 +447,7 @@ function printListHuman(payload: StoreListOutput): void {
     return;
   }
 
-  console.log(`OpenSpec stores (${payload.stores.length})`);
+  console.log(`OfficeSpec stores (${payload.stores.length})`);
   console.log('');
   console.log(`${'ID'.padEnd(16)}Location`);
   for (const store of payload.stores) {
@@ -490,7 +490,7 @@ function printDoctorHuman(payload: StoreDoctorOutput): void {
     console.log('');
     console.log(store.id);
     console.log(`  Location: ${store.root}`);
-    console.log(`  OpenSpec root: ${formatOpenSpecRootHuman(store)}`);
+    console.log(`  OfficeSpec root: ${formatOpenSpecRootHuman(store)}`);
     console.log(`  Metadata: ${formatMetadataHuman(store)}`);
     const remoteLine = store.metadata.remote ?? store.git.origin_url;
     if (remoteLine) {
@@ -664,7 +664,7 @@ export function registerStoreCommand(program: Command): void {
   // entry, which shell completion scripts also consume.
   const storeGroupDescription =
     COMMAND_REGISTRY.find((entry) => entry.name === 'store')?.description ??
-    'Create and manage stores - standalone OpenSpec collections you register on this machine';
+    'Create and manage stores - standalone OfficeSpec collections you register on this machine';
   const store = program.command('store').description(storeGroupDescription);
 
   store
@@ -683,7 +683,7 @@ export function registerStoreCommand(program: Command): void {
     .command('register [path]')
     .description('Register an existing local store')
     .option('--id <id>', 'Store id; defaults to metadata or folder name')
-    .option('--yes', 'Confirm creating store identity metadata for a healthy OpenSpec root')
+    .option('--yes', 'Confirm creating store identity metadata for a healthy OfficeSpec root')
     .option('--json', 'Output as JSON')
     .action(async (inputPath: string | undefined, options: StoreRegisterOptions) => {
       await storeCommand.register(inputPath, options);

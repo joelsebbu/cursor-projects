@@ -1,12 +1,12 @@
 ## Why
 
-`.agents/skills` has become the shared, vendor-neutral location modern agent tools read. OpenSpec already carried an `agents` entry in `AI_TOOLS`, but with `available: false` and no `skillsDir` it was unreachable — every real gate keys off `skillsDir`. Teams running several agents on one repo, or a tool with no first-class integration yet, had to generate for some other tool and move the files by hand (#1480), or pick a vendor target they do not use (#1104, #653).
+`.agents/skills` has become the shared, vendor-neutral location modern agent tools read. OfficeSpec already carried an `agents` entry in `AI_TOOLS`, but with `available: false` and no `skillsDir` it was unreachable — every real gate keys off `skillsDir`. Teams running several agents on one repo, or a tool with no first-class integration yet, had to generate for some other tool and move the files by hand (#1480), or pick a vendor target they do not use (#1104, #653).
 
 ## What Changes
 
 - Enable `agents` in `AI_TOOLS` with `skillsDir: '.agents'`, making it selectable interactively and via `--tools agents`.
 - Scope detection to `detectionPaths: ['.agents/skills']` so a bare `.agents/` written by another framework does not select — or silently install into — the target.
-- Rename the entry to `Shared .agents skills`. The old label said "AGENTS.md", but OpenSpec writes no `AGENTS.md` — it strips its markers out of one.
+- Rename the entry to `Shared .agents skills`. The old label said "AGENTS.md", but OfficeSpec writes no `AGENTS.md` — it strips its markers out of one.
 - Document the target, including when to prefer it over a tool-specific integration.
 
 ## Capabilities

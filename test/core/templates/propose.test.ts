@@ -3,10 +3,10 @@ import { fileURLToPath } from 'url';
 import { describe, expect, it } from 'vitest';
 
 import {
-  getOpsxProposeSkillTemplate,
-  getOpsxProposeCommandTemplate,
+  getOfsxProposeSkillTemplate,
+  getOfsxProposeCommandTemplate,
   getFfChangeSkillTemplate,
-  getOpsxFfCommandTemplate,
+  getOfsxFfCommandTemplate,
 } from '../../../src/core/templates/skill-templates.js';
 import { generateSkillContent } from '../../../src/core/shared/skill-generation.js';
 import { loadSchema } from '../../../src/core/artifact-graph/schema.js';
@@ -19,18 +19,18 @@ import {
 import { getCommandContents } from '../../../src/core/shared/skill-generation.js';
 import { MAX_CONTEXT_SIZE } from '../../../src/core/project-config.js';
 
-const proposeSkillBody = getOpsxProposeSkillTemplate().instructions;
-const proposeCommandBody = getOpsxProposeCommandTemplate().content;
+const proposeSkillBody = getOfsxProposeSkillTemplate().instructions;
+const proposeCommandBody = getOfsxProposeCommandTemplate().content;
 const proposeBodies: Array<[string, string]> = [
-  ['propose skill', generateSkillContent(getOpsxProposeSkillTemplate(), 'TEST')],
-  ['propose command', getOpsxProposeCommandTemplate().content],
+  ['propose skill', generateSkillContent(getOfsxProposeSkillTemplate(), 'TEST')],
+  ['propose command', getOfsxProposeCommandTemplate().content],
 ];
 
 // ff runs the byte-identical artifact loop, so it carries the identical guards.
 const loopBodies: Array<[string, string]> = [
   ...proposeBodies,
   ['ff skill', getFfChangeSkillTemplate().instructions],
-  ['ff command', getOpsxFfCommandTemplate().content],
+  ['ff command', getOfsxFfCommandTemplate().content],
 ];
 
 const repoRoot = path.resolve(fileURLToPath(new URL('.', import.meta.url)), '../../..');
@@ -150,7 +150,7 @@ describe('propose project context', () => {
       const section = contextSection(body);
       expect(section, label).toContain('For any other context failure, stop');
       expect(section, label).toContain('do not fall back to the current directory');
-      expect(section, label).toContain('run later OpenSpec commands without the selected store');
+      expect(section, label).toContain('run later OfficeSpec commands without the selected store');
     }
   });
 
@@ -267,12 +267,12 @@ describe('propose implementation boundary', () => {
   });
 
   it('hands command-only tools to apply instead of advertising direct coding (#258)', () => {
-    expect(proposeCommandBody).toContain('When you are ready, run `/opsx:apply`.');
+    expect(proposeCommandBody).toContain('When you are ready, run `/ofsx:apply`.');
     expect(proposeCommandBody).not.toContain('ask me to implement');
     expect(proposeCommandBody).not.toContain('ask me to apply this change');
 
     expect(proposeSkillBody).toContain(
-      'run `/opsx:apply` or ask me to apply this change'
+      'run `/ofsx:apply` or ask me to apply this change'
     );
     expect(proposeSkillBody).not.toContain('ask me to implement');
   });
@@ -330,7 +330,7 @@ describe('propose schema selection', () => {
         /^\s*openspec new change "<name>" --schema "<schema-name>"\s*$/m
       );
       expect(createSection, label).toContain(
-        'If a registered store is selected, append `--store "<store-id>"` to that command and each later OpenSpec command shown below that accepts `--store`'
+        'If a registered store is selected, append `--store "<store-id>"` to that command and each later OfficeSpec command shown below that accepts `--store`'
       );
       expect(createSection, label).not.toContain('every follow-up command');
     }

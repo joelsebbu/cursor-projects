@@ -44,7 +44,7 @@ The delta spec format already categorizes requirements by operation (`## ADDED`,
 - **Implement from scratch** — Unified diff is well-specified but subtle (context lines, hunk headers). A library avoids bugs and maintenance burden.
 - **Shell out to `diff` command** — Not cross-platform (Windows lacks `diff` by default). Violates the project's cross-platform requirements.
 
-The `diff` package provides `structuredPatch()`, which generates structured unified-diff hunks from two strings. OpenSpec renders those hunks without synthetic file headers.
+The `diff` package provides `structuredPatch()`, which generates structured unified-diff hunks from two strings. OfficeSpec renders those hunks without synthetic file headers.
 
 ### 3. Requirement block extraction
 

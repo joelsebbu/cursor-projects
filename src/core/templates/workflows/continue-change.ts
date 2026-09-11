@@ -9,8 +9,8 @@ import { STORE_SELECTION_GUIDANCE } from './store-selection.js';
 
 export function getContinueChangeSkillTemplate(): SkillTemplate {
   return {
-    name: 'openspec-continue-change',
-    description: 'Continue working on an OpenSpec change by creating the next artifact. Use when the user wants to progress their change, create the next artifact, or continue their workflow.',
+    name: 'officespec-continue-change',
+    description: 'Continue working on an OfficeSpec change by creating the next artifact. Use when the user wants to progress their change, create the next artifact, or continue their workflow.',
     instructions: `Continue working on a change by creating the next artifact.
 
 ${STORE_SELECTION_GUIDANCE}
@@ -34,7 +34,7 @@ ${STORE_SELECTION_GUIDANCE}
 
    Mark the most recently modified change as "(Recommended)" since it's likely what the user wants to continue.
 
-   Always announce: "Using change: <name>" and how to override (e.g., \`/opsx:continue <other>\`).
+   Always announce: "Using change: <name>" and how to override (e.g., \`/ofsx:continue <other>\`).
 
 2. **Check current status**
    \`\`\`bash
@@ -123,9 +123,9 @@ If the \`instruction\` field directs you to use a specific skill or command to c
   };
 }
 
-export function getOpsxContinueCommandTemplate(): CommandTemplate {
+export function getOfsxContinueCommandTemplate(): CommandTemplate {
   return {
-    name: 'OPSX: Continue',
+    name: 'OFSX: Continue',
     description: 'Continue working on a change - create the next artifact (Experimental)',
     category: 'Workflow',
     tags: ['workflow', 'artifacts', 'experimental'],
@@ -133,7 +133,7 @@ export function getOpsxContinueCommandTemplate(): CommandTemplate {
 
 ${STORE_SELECTION_GUIDANCE}
 
-**Input**: Optionally specify a change name after \`/opsx:continue\` (e.g., \`/opsx:continue add-auth\`). If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
+**Input**: Optionally specify a change name after \`/ofsx:continue\` (e.g., \`/ofsx:continue add-auth\`). If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
 
 **Steps**
 
@@ -152,7 +152,7 @@ ${STORE_SELECTION_GUIDANCE}
 
    Mark the most recently modified change as "(Recommended)" since it's likely what the user wants to continue.
 
-   Always announce: "Using change: <name>" and how to override (e.g., \`/opsx:continue <other>\`).
+   Always announce: "Using change: <name>" and how to override (e.g., \`/ofsx:continue <other>\`).
 
 2. **Check current status**
    \`\`\`bash
@@ -171,7 +171,7 @@ ${STORE_SELECTION_GUIDANCE}
    **If all planning artifacts are complete (\`isPlanningComplete: true\`, or legacy \`isComplete: true\`)**:
    - Congratulate the user
    - Show final status including the schema used
-   - Suggest: "Planning is complete! You can now implement this change with \`/opsx:apply\`. Once the work and any tracked tasks are complete, archive it with \`/opsx:archive\`."
+   - Suggest: "Planning is complete! You can now implement this change with \`/ofsx:apply\`. Once the work and any tracked tasks are complete, archive it with \`/ofsx:archive\`."
    - STOP
 
    ---
@@ -217,7 +217,7 @@ After each invocation, show:
 - Schema workflow being used
 - Current progress (N/M complete)
 - What artifacts are now unlocked
-- Prompt: "Run \`/opsx:continue\` to create the next artifact"
+- Prompt: "Run \`/ofsx:continue\` to create the next artifact"
 
 **Artifact Creation Guidelines**
 

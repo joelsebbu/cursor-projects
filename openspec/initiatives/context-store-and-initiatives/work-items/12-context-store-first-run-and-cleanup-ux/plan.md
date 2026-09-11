@@ -66,9 +66,9 @@ Locked decisions from the product pass:
   `Context store name`, `Where should this context store live?`,
   `Initialize Git in this context store?`, then a final
   `Create this context store?` confirmation after showing the resolved summary.
-- The default location should be the managed OpenSpec context-store directory,
+- The default location should be the managed OfficeSpec context-store directory,
   not the current working directory. Users can still choose any explicit safe
-  local path; OpenSpec stores that machine-local path in the local registry, not
+  local path; OfficeSpec stores that machine-local path in the local registry, not
   in shared context-store metadata.
 - Setup should be protective around risky paths: create missing paths, accept
   empty directories, treat matching context-store metadata as idempotent, stop
@@ -88,14 +88,14 @@ Locked decisions from the product pass:
   `status: []` can be preserved where existing JSON compatibility needs it, but
   new behavior should not rely on blank status arrays for meaning.
 - Git initialization is an optional local convenience only. When requested,
-  OpenSpec may run `git init`, but it must not stage, commit, push, create
+  OfficeSpec may run `git init`, but it must not stage, commit, push, create
   remotes, create branches, or define team Git policy.
 
 Interactive setup should cover the minimum choices:
 
 ```text
 Store id
-Target path, defaulting to the managed OpenSpec context-store location
+Target path, defaulting to the managed OfficeSpec context-store location
 Whether to initialize Git
 ```
 

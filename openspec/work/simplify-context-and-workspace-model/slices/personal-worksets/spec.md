@@ -560,7 +560,7 @@ Out of scope (pinned):
 - **GIVEN** two isolated global data dirs (two users) and one shared
   planning-root checkout
 - **WHEN** each composes a different workset over that root — one
-  adding an unrelated plain folder (no OpenSpec anything), one a
+  adding an unrelated plain folder (no OfficeSpec anything), one a
   single-member workset
 - **THEN** each list shows only its own views; neither machine's
   commands see or affect the other's state, and the shared checkout

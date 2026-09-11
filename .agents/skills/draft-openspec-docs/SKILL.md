@@ -1,10 +1,10 @@
 ---
 name: draft-openspec-docs
-description: Collaborative page-drafting mode for the OpenSpec docs. Builds a scratch plan inside the target page (purpose, structure, numbered draft steps), iterates on it with the user, then drafts one section per approved step and cleans up after itself. Use when a page needs a from-scratch rewrite or a new page is being shaped with the user in the loop.
+description: Collaborative page-drafting mode for the OfficeSpec docs. Builds a scratch plan inside the target page (purpose, structure, numbered draft steps), iterates on it with the user, then drafts one section per approved step and cleans up after itself. Use when a page needs a from-scratch rewrite or a new page is being shaped with the user in the loop.
 argument-hint: target page
 ---
 
-# Draft OpenSpec docs (scratch-plan workflow)
+# Draft OfficeSpec docs (scratch-plan workflow)
 
 You are shaping a docs page with the user in the loop. The page is planned and reviewed inside the page itself, then drafted one section at a time. Load `write-openspec-docs` (the style authority) and `no-ai-slop` before drafting anything.
 

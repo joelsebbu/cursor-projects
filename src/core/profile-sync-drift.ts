@@ -26,19 +26,33 @@ type WorkflowId = (typeof ALL_WORKFLOWS)[number];
  * Maps workflow IDs to their skill directory names.
  */
 export const WORKFLOW_TO_SKILL_DIR: Record<WorkflowId, string> = {
-  'explore': 'openspec-explore',
-  'new': 'openspec-new-change',
-  'continue': 'openspec-continue-change',
-  'apply': 'openspec-apply-change',
-  'update': 'openspec-update-change',
-  'ff': 'openspec-ff-change',
-  'sync': 'openspec-sync-specs',
-  'archive': 'openspec-archive-change',
-  'bulk-archive': 'openspec-bulk-archive-change',
-  'verify': 'openspec-verify-change',
-  'onboard': 'openspec-onboard',
-  'propose': 'openspec-propose',
+  'explore': 'officespec-explore',
+  'new': 'officespec-new-change',
+  'continue': 'officespec-continue-change',
+  'apply': 'officespec-apply-change',
+  'update': 'officespec-update-change',
+  'ff': 'officespec-ff-change',
+  'sync': 'officespec-sync-specs',
+  'archive': 'officespec-archive-change',
+  'bulk-archive': 'officespec-bulk-archive-change',
+  'verify': 'officespec-verify-change',
+  'onboard': 'officespec-onboard',
+  'propose': 'officespec-propose',
 };
+
+/**
+ * Pre-rename skill directory for a workflow, if it differs from the current one.
+ *
+ * The OfficeSpec rename moved skill directories from `openspec-*` to
+ * `officespec-*`. Sync removes the stale directory when it rewrites a tool's
+ * skills so a re-run does not leave two copies of every skill behind.
+ */
+export function legacySkillDirForWorkflow(workflow: WorkflowId): string | undefined {
+  const dirName = WORKFLOW_TO_SKILL_DIR[workflow];
+  if (!dirName) return undefined;
+  const legacy = dirName.replace(/^officespec-/, 'openspec-');
+  return legacy === dirName ? undefined : legacy;
+}
 
 function toKnownWorkflows(workflows: readonly string[]): WorkflowId[] {
   return workflows.filter(

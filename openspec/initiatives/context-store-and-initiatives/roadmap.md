@@ -133,7 +133,7 @@ Ship:
 
 Done when:
 
-- OpenSpec can create and manipulate files inside a local context store without
+- OfficeSpec can create and manipulate files inside a local context store without
   the core store layer knowing what those files mean. Pull, push, watch,
   remote creation, and conflict handling are tracked as future sync work.
 
@@ -526,7 +526,7 @@ Preserve for future exploration:
   or nothing beyond deterministic paths.
 - Whether direct path fields like `created_paths` are a small standalone receipt
   improvement rather than part of a broader handoff model.
-- How delivery wording should distinguish baseline OpenSpec guidance from
+- How delivery wording should distinguish baseline OfficeSpec guidance from
   workflow entrypoints without coupling it to this handoff item.
 
 ## 14. Workspaces Beta Guide Split
@@ -537,7 +537,7 @@ Goal: make the beta docs reflect the intended division of labor:
 
 ```text
 Users make local choices.
-Agents run OpenSpec work commands.
+Agents run OfficeSpec work commands.
 ```
 
 Ship:
@@ -558,7 +558,7 @@ Done when:
 
 ## 15. Context Store Project Roots And Schema-Led Initiatives
 
-Goal: let context stores behave like OpenSpec roots for shared planning config
+Goal: let context stores behave like OfficeSpec roots for shared planning config
 and schemas, while keeping implementation changes repo-owned by default.
 
 Work item:
@@ -575,7 +575,7 @@ Product decision to confirm:
 
 Ship:
 
-- Context-store setup that creates or supports store-local OpenSpec config.
+- Context-store setup that creates or supports store-local OfficeSpec config.
 - A default initiative schema for high-level requirements and design artifacts.
 - Sparse initiative creation: `initiative.yaml` plus a short `brief.md`, with no
   `TBD` placeholders and no default `tasks.md`.
@@ -609,7 +609,7 @@ Ship:
 
 ```text
 This appears to span multiple owned areas.
-OpenSpec can upgrade it into a coordinated initiative and carry the current
+OfficeSpec can upgrade it into a coordinated initiative and carry the current
 planning context forward.
 ```
 
@@ -655,7 +655,7 @@ Done when:
 ## 18. Explore Initiative-Hosted Target-Bound Change Artifacts
 
 Goal: decide whether shared initiative artifacts can graduate into executable
-OpenSpec changes only after they are bound to a target repo or spec root,
+OfficeSpec changes only after they are bound to a target repo or spec root,
 without blurring initiative coordination, repo ownership, and workspace
 local-view boundaries.
 

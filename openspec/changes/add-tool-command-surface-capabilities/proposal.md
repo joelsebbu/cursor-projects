@@ -1,8 +1,8 @@
 ## Why
 
-OpenSpec currently assumes command delivery maps directly to command adapters. That assumption does not hold for all tools.
+OfficeSpec currently assumes command delivery maps directly to command adapters. That assumption does not hold for all tools.
 
-Some tools expose OpenSpec workflows via skill entries rather than adapter-generated command files. Kimi CLI is a concrete example: it invokes skills with forms such as `/skill:openspec-new-change`. In this model, skills are the command surface.
+Some tools expose OfficeSpec workflows via skill entries rather than adapter-generated command files. Kimi CLI is a concrete example: it invokes skills with forms such as `/skill:openspec-new-change`. In this model, skills are the command surface.
 
 Today, this creates a behavior gap:
 
@@ -20,7 +20,7 @@ Add an optional field in tool metadata to describe how a tool exposes commands:
 
 - `adapter`: command files are generated through a command adapter
 - `skills-invocable`: skills are directly invocable as commands
-- `none`: no OpenSpec command surface
+- `none`: no OfficeSpec command surface
 
 Field should be optional. Default behavior is inferred from adapter registry presence: tools with a registered adapter resolve to `adapter`; tools with no adapter registration and no explicit annotation resolve to `none`.
 Capability values use kebab-case string tokens for consistency with serialized metadata conventions.

@@ -1,5 +1,5 @@
 ---
-name: openspec-verify-change
+name: officespec-verify-change
 description: Verify work matches change artifacts. Use when the user wants to validate that implementation is complete, correct, and coherent before archiving.
 allowed-tools: Bash(openspec:*)
 license: MIT
@@ -11,7 +11,7 @@ metadata:
 
 Verify that an work matches the change artifacts (specs, tasks, design).
 
-**Store selection:** If the user names a store (a store is a standalone OpenSpec collection registered on this machine) or the work lives in one, run `openspec store list --json` to discover registered store ids, then pass `--store <id>` on the commands that read or write specs and changes (`new change`, `status`, `instructions`, `list`, `show`, `validate`, `archive`, `doctor`, `context`, `schemas`, `view`). Once selected, treat `--store <id>` as sticky for the rest of the workflow. Every unscoped example of those commands below is shorthand: before running it, append the flag. For example, run `openspec status --change "<name>" --json --store "<id>"`, not the unscoped form shown below. Other commands do not take the flag. Hints printed by commands already carry the flag; keep it on follow-ups. Without a store, commands act on the nearest local `openspec/` root.
+**Store selection:** If the user names a store (a store is a standalone OfficeSpec collection registered on this machine) or the work lives in one, run `openspec store list --json` to discover registered store ids, then pass `--store <id>` on the commands that read or write specs and changes (`new change`, `status`, `instructions`, `list`, `show`, `validate`, `archive`, `doctor`, `context`, `schemas`, `view`). Once selected, treat `--store <id>` as sticky for the rest of the workflow. Every unscoped example of those commands below is shorthand: before running it, append the flag. For example, run `openspec status --change "<name>" --json --store "<id>"`, not the unscoped form shown below. Other commands do not take the flag. Hints printed by commands already carry the flag; keep it on follow-ups. Without a store, commands act on the nearest local `openspec/` root.
 
 **Input**: Optionally specify a change name. If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
 
@@ -28,7 +28,7 @@ Verify that an work matches the change artifacts (specs, tasks, design).
    Include the schema used for each change if available.
    Mark changes with incomplete tasks as "(In Progress)".
 
-   Always announce: "Using change: <name>" and how to override (e.g., `/openspec-verify-change <other>`).
+   Always announce: "Using change: <name>" and how to override (e.g., `/officespec-verify-change <other>`).
 
 2. **Check status to understand the schema**
    ```bash

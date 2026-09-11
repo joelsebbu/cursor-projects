@@ -87,11 +87,11 @@ describe('profile sync drift detection', () => {
       'home',
       '.minimax',
       'skills',
-      'openspec-explore',
+      'officespec-explore',
       'SKILL.md'
     );
     fs.mkdirSync(path.dirname(skillPath), { recursive: true });
-    fs.writeFileSync(skillPath, 'name: openspec-explore\n');
+    fs.writeFileSync(skillPath, 'name: officespec-explore\n');
 
     expect(hasProjectConfigDrift(tempDir, CORE_WORKFLOWS, 'commands')).toBe(false);
   });
@@ -136,12 +136,12 @@ describe('profile sync drift detection', () => {
 
   it('reports an equal distinct legacy Codex copy that migration can remove', () => {
     const skillsDir = setupCodexCoreSkills(tempDir);
-    const currentSkill = path.join(skillsDir, 'openspec-explore', 'SKILL.md');
+    const currentSkill = path.join(skillsDir, 'officespec-explore', 'SKILL.md');
     const legacySkill = path.join(
       tempDir,
       '.codex',
       'skills',
-      'openspec-explore',
+      'officespec-explore',
       'SKILL.md'
     );
     fs.mkdirSync(path.dirname(legacySkill), { recursive: true });
@@ -154,22 +154,22 @@ describe('profile sync drift detection', () => {
 
   it('reports generated-only Codex differences that migration can remove', () => {
     const skillsDir = setupCodexCoreSkills(tempDir);
-    const currentSkill = path.join(skillsDir, 'openspec-explore', 'SKILL.md');
+    const currentSkill = path.join(skillsDir, 'officespec-explore', 'SKILL.md');
     const legacySkill = path.join(
       tempDir,
       '.codex',
       'skills',
-      'openspec-explore',
+      'officespec-explore',
       'SKILL.md'
     );
     fs.writeFileSync(
       currentSkill,
-      '---\nmetadata:\n  generatedBy: "1.7.0"\n---\nUse $openspec-apply-change (Codex) or /openspec-apply-change (other agents).\n'
+      '---\nmetadata:\n  generatedBy: "1.7.0"\n---\nUse $officespec-apply-change (Codex) or /officespec-apply-change (other agents).\n'
     );
     fs.mkdirSync(path.dirname(legacySkill), { recursive: true });
     fs.writeFileSync(
       legacySkill,
-      '\uFEFF---\r\nmetadata:\r\n  generatedBy: "0.1.0"\r\n---\r\nUse $openspec-apply-change.\r\n'
+      '\uFEFF---\r\nmetadata:\r\n  generatedBy: "0.1.0"\r\n---\r\nUse $officespec-apply-change.\r\n'
     );
 
     expect(
@@ -183,7 +183,7 @@ describe('profile sync drift detection', () => {
       tempDir,
       '.codex',
       'skills',
-      'openspec-explore',
+      'officespec-explore',
       'SKILL.md'
     );
     fs.mkdirSync(path.dirname(legacySkill), { recursive: true });

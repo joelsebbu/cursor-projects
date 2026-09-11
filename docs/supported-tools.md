@@ -1,17 +1,17 @@
 # Supported Tools
 
-OpenSpec works with many AI assistants. When you run `openspec init`, OpenSpec configures selected tools using your active profile/workflow selection and delivery mode.
+OfficeSpec works with many AI assistants. When you run `openspec init`, OfficeSpec configures selected tools using your active profile/workflow selection and delivery mode.
 
 ## How It Works
 
-For each selected tool, OpenSpec can install:
+For each selected tool, OfficeSpec can install:
 
-1. **Skills** (if delivery includes skills): `.../skills/openspec-*/SKILL.md`
-2. **Commands** (if delivery includes commands): tool-specific `opsx-*` command files
+1. **Skills** (if delivery includes skills): `.../skills/officespec-*/SKILL.md`
+2. **Commands** (if delivery includes commands): tool-specific `ofsx-*` command files
 
-Codex is skills-only: OpenSpec installs `.agents/skills/openspec-*/SKILL.md` for Codex even when delivery is set to `commands`, and it does not generate Codex custom prompt files. Existing OpenSpec-managed skills under the legacy `.codex/skills` path are reconciled after their replacements are written; custom and divergent files are preserved.
+Codex is skills-only: OfficeSpec installs `.agents/skills/officespec-*/SKILL.md` for Codex even when delivery is set to `commands`, and it does not generate Codex custom prompt files. Existing OfficeSpec-managed skills under the legacy `.codex/skills` path are reconciled after their replacements are written; custom and divergent files are preserved.
 
-By default, OpenSpec uses the `core` profile, which includes:
+By default, OfficeSpec uses the `core` profile, which includes:
 - `propose`
 - `explore`
 - `apply`
@@ -23,40 +23,40 @@ You can enable expanded workflows (`new`, `continue`, `ff`, `verify`, `bulk-arch
 
 ## How To Invoke
 
-These docs use `/opsx:propose` as the canonical name, but each tool spells it the
-way it loads the file OpenSpec wrote. Find your tool's command path in the
+These docs use `/ofsx:propose` as the canonical name, but each tool spells it the
+way it loads the file OfficeSpec wrote. Find your tool's command path in the
 [Tool Directory Reference](#tool-directory-reference) below, then match its shape here.
 
-| Command file OpenSpec writes | You type | Tools |
+| Command file OfficeSpec writes | You type | Tools |
 |------------------------------|----------|-------|
-| `.../commands/opsx/<id>.*` — an `opsx/` folder namespaces it | `/opsx:<id>` | Claude Code, CodeBuddy, Crush, Gemini CLI, Lingma, Qoder, ZCode |
-| `.../opsx-<id>.*` — the filename is the command | `/opsx-<id>` | Every other tool with generated command files, except Amazon Q and Devin |
-| `.devin/workflows/opsx-<id>.md` — read by only one of Devin's two agents | `/opsx-<id>` on Devin Desktop, `/openspec-<skill>` on Devin Local | Devin Desktop\*\*\*\* |
-| `.amazonq/prompts/opsx-<id>.md` — a prompt, not a command | `@opsx-<id>` | Amazon Q Team member |
-| none — skills only | `/openspec-<skill>` | CodeArts, ForgeCode, Hermes, MiniMax Code, Mistral Vibe, Zed Agent, shared `.agents` |
-| none — Kimi Code | `/skill:openspec-<skill>` | Kimi Code |
-| none — Codex CLI | `$openspec-<skill>` | Codex ([`/openspec-<skill>` is not recognized](https://github.com/openai/codex/issues/11817)) |
+| `.../commands/ofsx/<id>.*` — an `ofsx/` folder namespaces it | `/ofsx:<id>` | Claude Code, CodeBuddy, Crush, Gemini CLI, Lingma, Qoder, ZCode |
+| `.../ofsx-<id>.*` — the filename is the command | `/ofsx-<id>` | Every other tool with generated command files, except Amazon Q and Devin |
+| `.devin/workflows/ofsx-<id>.md` — read by only one of Devin's two agents | `/ofsx-<id>` on Devin Desktop, `/officespec-<skill>` on Devin Local | Devin Desktop\*\*\*\* |
+| `.amazonq/prompts/ofsx-<id>.md` — a prompt, not a command | `@ofsx-<id>` | Amazon Q Team member |
+| none — skills only | `/officespec-<skill>` | CodeArts, ForgeCode, Hermes, MiniMax Code, Mistral Vibe, Zed Agent, shared `.agents` |
+| none — Kimi Code | `/skill:officespec-<skill>` | Kimi Code |
+| none — Codex CLI | `$officespec-<skill>` | Codex ([`/officespec-<skill>` is not recognized](https://github.com/openai/codex/issues/11817)) |
 
-So `/opsx:propose` is `/opsx-propose` in Cursor, `@opsx-propose` in Amazon Q, and
-`$openspec-propose` in Codex.
+So `/ofsx:propose` is `/ofsx-propose` in Cursor, `@ofsx-propose` in Amazon Q, and
+`$officespec-propose` in Codex.
 
 Two things vary independently, which is why the rows do not collapse:
 
 - **The name.** Rows 1–2 differ only in how the file names the command, and the
-  `opsx-<id>` / `opsx:<id>` stem is the same for every tool with generated
+  `ofsx-<id>` / `opsx:<id>` stem is the same for every tool with generated
   command files.
 - **The wrapper.** Amazon Q loads its files into a prompt library invoked with
   `@`. Skills-only tools generate no command files at all, so their last three
   rows use *skill* names — listed under
   [Generated Skill Names](#generated-skill-names) — which do not map one-to-one
-  onto command ids (`/opsx:apply` is the `openspec-apply-change` skill).
+  onto command ids (`/ofsx:apply` is the `officespec-apply-change` skill).
 
 The command path patterns above are extension-neutral (`.*`) on purpose: the
 extension is the tool's (`.toml` for Gemini CLI, `.prompt` for Continue,
 `.prompt.md` for Kiro and GitHub Copilot), and a few tools show the name with
 its extension in the picker. Match the directory shape, not the extension.
 
-The files OpenSpec generates, and the "Getting started" hint printed after setup,
+The files OfficeSpec generates, and the "Getting started" hint printed after setup,
 already use the right form for the tools you selected — so the fastest answer is
 to read the hint.
 
@@ -64,69 +64,69 @@ to read the hint.
 
 | Tool (ID) | Skills path pattern | Command path pattern |
 |-----------|---------------------|----------------------|
-| Amazon Q Team member (`amazon-q`) | `.amazonq/skills/openspec-*/SKILL.md` | `.amazonq/prompts/opsx-<id>.md` |
-| Antigravity (`antigravity`) | `.agent/skills/openspec-*/SKILL.md` | `.agent/workflows/opsx-<id>.md` |
-| Auggie (`auggie`) | `.augment/skills/openspec-*/SKILL.md` | `.augment/commands/opsx-<id>.md` |
-| IBM Bob Shell (`bob`) | `.bob/skills/openspec-*/SKILL.md` | `.bob/commands/opsx-<id>.md` |
-| Claude Code (`claude`) | `.claude/skills/openspec-*/SKILL.md` | `.claude/commands/opsx/<id>.md` |
-| Cline (`cline`) | `.cline/skills/openspec-*/SKILL.md` | `.clinerules/workflows/opsx-<id>.md` |
-| Command Code (`command-code`) | `.commandcode/skills/openspec-*/SKILL.md` | `.commandcode/commands/opsx-<id>.md` |
-| CodeArts (`codeartsagent`) | `.codeartsdoer/skills/openspec-*/SKILL.md` | Not generated (no command adapter; use skill-based `/openspec-*` invocations) |
-| CodeBuddy (`codebuddy`) | `.codebuddy/skills/openspec-*/SKILL.md` | `.codebuddy/commands/opsx/<id>.md` |
-| Codex (`codex`) | `.agents/skills/openspec-*/SKILL.md` | Not generated (skills-only; use `$openspec-*`) |
-| Devin Desktop, formerly Windsurf (`devin`) | `.devin/skills/openspec-*/SKILL.md` | `.devin/workflows/opsx-<id>.md`\*\*\*\* |
-| ForgeCode (`forgecode`) | `.forge/skills/openspec-*/SKILL.md` | Not generated (no command adapter; use skill-based `/openspec-*` invocations) |
-| Continue (`continue`) | `.continue/skills/openspec-*/SKILL.md` | `.continue/prompts/opsx-<id>.prompt` |
-| CoStrict (`costrict`) | `.cospec/skills/openspec-*/SKILL.md` | `.cospec/openspec/commands/opsx-<id>.md` |
-| Crush (`crush`) | `.crush/skills/openspec-*/SKILL.md` | `.crush/commands/opsx/<id>.md` |
-| Cursor (`cursor`) | `.cursor/skills/openspec-*/SKILL.md` | `.cursor/commands/opsx-<id>.md` |
-| Factory Droid (`factory`) | `.factory/skills/openspec-*/SKILL.md` | `.factory/commands/opsx-<id>.md` |
-| Gemini CLI (`gemini`) | `.gemini/skills/openspec-*/SKILL.md` | `.gemini/commands/opsx/<id>.toml` |
-| GitHub Copilot (`github-copilot`) | `.github/skills/openspec-*/SKILL.md` | `.github/prompts/opsx-<id>.prompt.md`\*\* |
-| Hermes Agent (`hermes`) | `.hermes/skills/openspec-*/SKILL.md`\*\*\* | Not generated (no command adapter; use skill-based `/openspec-*` invocations) |
-| iFlow (`iflow`) | `.iflow/skills/openspec-*/SKILL.md` | `.iflow/commands/opsx-<id>.md` |
-| Junie (`junie`) | `.junie/skills/openspec-*/SKILL.md` | `.junie/commands/opsx-<id>.md` |
-| Kilo Code (`kilocode`) | `.kilocode/skills/openspec-*/SKILL.md` | `.kilocode/workflows/opsx-<id>.md` |
-| Kimi Code (`kimi`) | `.kimi-code/skills/openspec-*/SKILL.md` | Not generated (no command adapter; use skill-based `/skill:openspec-*` invocations) |
-| Kiro (`kiro`) | `.kiro/skills/openspec-*/SKILL.md` | `.kiro/prompts/opsx-<id>.prompt.md` |
-| Lingma (`lingma`) | `.lingma/skills/openspec-*/SKILL.md` | `.lingma/commands/opsx/<id>.md` |
-| MiniMax Code (`minimax-code`) | `~/.minimax/skills/openspec-*/SKILL.md` | Not generated (no command adapter; use MiniMax Code skills) |
-| Mistral Vibe (`vibe`) | `.vibe/skills/openspec-*/SKILL.md` | Not generated (no command adapter; use skill-based `/openspec-*` invocations) |
-| Oh My Pi (`oh-my-pi`) | `.omp/skills/openspec-*/SKILL.md` | `.omp/commands/opsx-<id>.md` |
-| OpenCode (`opencode`) | `.opencode/skills/openspec-*/SKILL.md` | `.opencode/commands/opsx-<id>.md` |
-| Pi (`pi`) | `.pi/skills/openspec-*/SKILL.md` | `.pi/prompts/opsx-<id>.md` |
-| SourceCraft Code Assistant for VS Code (`codeassistant`) | `.codeassistant/skills/openspec-*/SKILL.md` | `.codeassistant/commands/opsx-<id>.md` |
-| Qoder (`qoder`) | `.qoder/skills/openspec-*/SKILL.md` | `.qoder/commands/opsx/<id>.md` |
-| Qwen Code (`qwen`) | `.qwen/skills/openspec-*/SKILL.md` | `.qwen/commands/opsx-<id>.md` |
-| [Rovo Dev CLI](https://support.atlassian.com/rovo/docs/use-rovo-dev-cli/) (`rovodev`) | `.rovodev/skills/openspec-*/SKILL.md` | Not generated. Rovo has no slash-command surface — it matches skills automatically or by prompt (e.g. "use the openspec-propose skill"); `/skills` only manages them. Generated content references skills by name, never as `/openspec-*` commands. |
-| [Zoo Code](https://github.com/Zoo-Code-Org/Zoo-Code) (`roocode`) | `.roo/skills/openspec-*/SKILL.md` | `.roo/commands/opsx-<id>.md` |
-| Trae (`trae`) | `.trae/skills/openspec-*/SKILL.md` | `.trae/commands/opsx-<id>.md` |
-| [Zed Agent](https://zed.dev/docs/ai/skills) (`zed`) | `.agents/skills/openspec-*/SKILL.md` | Not generated (skills-only; use `/openspec-*` or `@openspec-*`) |
-| ZCode (`zcode`) | `.zcode/skills/openspec-*/SKILL.md` | `.zcode/commands/opsx/<id>.md` |
-| Shared `.agents` skills (`agents`) | `.agents/skills/openspec-*/SKILL.md` | Not generated (no command adapter; use skill-based `/openspec-*` invocations) |
+| Amazon Q Team member (`amazon-q`) | `.amazonq/skills/officespec-*/SKILL.md` | `.amazonq/prompts/ofsx-<id>.md` |
+| Antigravity (`antigravity`) | `.agent/skills/officespec-*/SKILL.md` | `.agent/workflows/ofsx-<id>.md` |
+| Auggie (`auggie`) | `.augment/skills/officespec-*/SKILL.md` | `.augment/commands/ofsx-<id>.md` |
+| IBM Bob Shell (`bob`) | `.bob/skills/officespec-*/SKILL.md` | `.bob/commands/ofsx-<id>.md` |
+| Claude Code (`claude`) | `.claude/skills/officespec-*/SKILL.md` | `.claude/commands/ofsx/<id>.md` |
+| Cline (`cline`) | `.cline/skills/officespec-*/SKILL.md` | `.clinerules/workflows/ofsx-<id>.md` |
+| Command Code (`command-code`) | `.commandcode/skills/officespec-*/SKILL.md` | `.commandcode/commands/ofsx-<id>.md` |
+| CodeArts (`codeartsagent`) | `.codeartsdoer/skills/officespec-*/SKILL.md` | Not generated (no command adapter; use skill-based `/officespec-*` invocations) |
+| CodeBuddy (`codebuddy`) | `.codebuddy/skills/officespec-*/SKILL.md` | `.codebuddy/commands/ofsx/<id>.md` |
+| Codex (`codex`) | `.agents/skills/officespec-*/SKILL.md` | Not generated (skills-only; use `$officespec-*`) |
+| Devin Desktop, formerly Windsurf (`devin`) | `.devin/skills/officespec-*/SKILL.md` | `.devin/workflows/ofsx-<id>.md`\*\*\*\* |
+| ForgeCode (`forgecode`) | `.forge/skills/officespec-*/SKILL.md` | Not generated (no command adapter; use skill-based `/officespec-*` invocations) |
+| Continue (`continue`) | `.continue/skills/officespec-*/SKILL.md` | `.continue/prompts/ofsx-<id>.prompt` |
+| CoStrict (`costrict`) | `.cospec/skills/officespec-*/SKILL.md` | `.cospec/openspec/commands/ofsx-<id>.md` |
+| Crush (`crush`) | `.crush/skills/officespec-*/SKILL.md` | `.crush/commands/ofsx/<id>.md` |
+| Cursor (`cursor`) | `.cursor/skills/officespec-*/SKILL.md` | `.cursor/commands/ofsx-<id>.md` |
+| Factory Droid (`factory`) | `.factory/skills/officespec-*/SKILL.md` | `.factory/commands/ofsx-<id>.md` |
+| Gemini CLI (`gemini`) | `.gemini/skills/officespec-*/SKILL.md` | `.gemini/commands/ofsx/<id>.toml` |
+| GitHub Copilot (`github-copilot`) | `.github/skills/officespec-*/SKILL.md` | `.github/prompts/ofsx-<id>.prompt.md`\*\* |
+| Hermes Agent (`hermes`) | `.hermes/skills/officespec-*/SKILL.md`\*\*\* | Not generated (no command adapter; use skill-based `/officespec-*` invocations) |
+| iFlow (`iflow`) | `.iflow/skills/officespec-*/SKILL.md` | `.iflow/commands/ofsx-<id>.md` |
+| Junie (`junie`) | `.junie/skills/officespec-*/SKILL.md` | `.junie/commands/ofsx-<id>.md` |
+| Kilo Code (`kilocode`) | `.kilocode/skills/officespec-*/SKILL.md` | `.kilocode/workflows/ofsx-<id>.md` |
+| Kimi Code (`kimi`) | `.kimi-code/skills/officespec-*/SKILL.md` | Not generated (no command adapter; use skill-based `/skill:officespec-*` invocations) |
+| Kiro (`kiro`) | `.kiro/skills/officespec-*/SKILL.md` | `.kiro/prompts/ofsx-<id>.prompt.md` |
+| Lingma (`lingma`) | `.lingma/skills/officespec-*/SKILL.md` | `.lingma/commands/ofsx/<id>.md` |
+| MiniMax Code (`minimax-code`) | `~/.minimax/skills/officespec-*/SKILL.md` | Not generated (no command adapter; use MiniMax Code skills) |
+| Mistral Vibe (`vibe`) | `.vibe/skills/officespec-*/SKILL.md` | Not generated (no command adapter; use skill-based `/officespec-*` invocations) |
+| Oh My Pi (`oh-my-pi`) | `.omp/skills/officespec-*/SKILL.md` | `.omp/commands/ofsx-<id>.md` |
+| OpenCode (`opencode`) | `.opencode/skills/officespec-*/SKILL.md` | `.opencode/commands/ofsx-<id>.md` |
+| Pi (`pi`) | `.pi/skills/officespec-*/SKILL.md` | `.pi/prompts/ofsx-<id>.md` |
+| SourceCraft Code Assistant for VS Code (`codeassistant`) | `.codeassistant/skills/officespec-*/SKILL.md` | `.codeassistant/commands/ofsx-<id>.md` |
+| Qoder (`qoder`) | `.qoder/skills/officespec-*/SKILL.md` | `.qoder/commands/ofsx/<id>.md` |
+| Qwen Code (`qwen`) | `.qwen/skills/officespec-*/SKILL.md` | `.qwen/commands/ofsx-<id>.md` |
+| [Rovo Dev CLI](https://support.atlassian.com/rovo/docs/use-rovo-dev-cli/) (`rovodev`) | `.rovodev/skills/officespec-*/SKILL.md` | Not generated. Rovo has no slash-command surface — it matches skills automatically or by prompt (e.g. "use the officespec-propose skill"); `/skills` only manages them. Generated content references skills by name, never as `/officespec-*` commands. |
+| [Zoo Code](https://github.com/Zoo-Code-Org/Zoo-Code) (`roocode`) | `.roo/skills/officespec-*/SKILL.md` | `.roo/commands/ofsx-<id>.md` |
+| Trae (`trae`) | `.trae/skills/officespec-*/SKILL.md` | `.trae/commands/ofsx-<id>.md` |
+| [Zed Agent](https://zed.dev/docs/ai/skills) (`zed`) | `.agents/skills/officespec-*/SKILL.md` | Not generated (skills-only; use `/officespec-*` or `@officespec-*`) |
+| ZCode (`zcode`) | `.zcode/skills/officespec-*/SKILL.md` | `.zcode/commands/ofsx/<id>.md` |
+| Shared `.agents` skills (`agents`) | `.agents/skills/officespec-*/SKILL.md` | Not generated (no command adapter; use skill-based `/officespec-*` invocations) |
 
 \*\* GitHub Copilot prompt files are recognized as custom slash commands in IDE extensions (VS Code, JetBrains, Visual Studio). Copilot CLI does not currently consume `.github/prompts/*.prompt.md` directly. Selecting `github-copilot` can also set up the GitHub-hosted **cloud AI assistant** — see [GitHub Copilot cloud AI assistant](#github-copilot-cloud-coding-agent) below.
 
-\*\*\* Hermes loads skills from `~/.hermes/skills/` by default. To use project-local OpenSpec skills, add the project `.hermes/skills/` directory to `skills.external_dirs` in `~/.hermes/config.yaml`; Hermes then exposes skills with user-facing slash invocations such as `/openspec-propose`.
+\*\*\* Hermes loads skills from `~/.hermes/skills/` by default. To use project-local OfficeSpec skills, add the project `.hermes/skills/` directory to `skills.external_dirs` in `~/.hermes/config.yaml`; Hermes then exposes skills with user-facing slash invocations such as `/officespec-propose`.
 
-\*\*\*\* Windsurf was [rebranded to Devin Desktop](https://docs.devin.ai/desktop/devin-desktop-faq) on June 2, 2026, and its config directory moved: `.devin/` is the preferred read + write location, `.windsurf/` a legacy read-only fallback. OpenSpec follows the rename — the tool id is `devin`, and `--tools windsurf` still resolves to it so existing setup scripts keep working. A project still holding OpenSpec files in `.windsurf/` is offered the move on the next `openspec update`; declining leaves them in place, and files you wrote yourself are never touched. Workflows are invoked by filename, so `.devin/workflows/opsx-apply.md` is `/opsx-apply`. The [Devin Local agent does not support workflows](https://docs.devin.ai/desktop/devin-local) — only skills, and it does not read `.windsurf/` at all — so whenever OpenSpec writes Devin skills it keeps their bodies, and the getting-started hint, on `/openspec-*` skill invocations, which work on both agents. Under commands-only delivery no skills are written and both fall back to `/opsx-*`.
+\*\*\*\* Windsurf was [rebranded to Devin Desktop](https://docs.devin.ai/desktop/devin-desktop-faq) on June 2, 2026, and its config directory moved: `.devin/` is the preferred read + write location, `.windsurf/` a legacy read-only fallback. OfficeSpec follows the rename — the tool id is `devin`, and `--tools windsurf` still resolves to it so existing setup scripts keep working. A project still holding OfficeSpec files in `.windsurf/` is offered the move on the next `openspec update`; declining leaves them in place, and files you wrote yourself are never touched. Workflows are invoked by filename, so `.devin/workflows/ofsx-apply.md` is `/ofsx-apply`. The [Devin Local agent does not support workflows](https://docs.devin.ai/desktop/devin-local) — only skills, and it does not read `.windsurf/` at all — so whenever OfficeSpec writes Devin skills it keeps their bodies, and the getting-started hint, on `/officespec-*` skill invocations, which work on both agents. Under commands-only delivery no skills are written and both fall back to `/ofsx-*`.
 
 SourceCraft Code Assistant support targets its VS Code extension. Its [custom commands](https://sourcecraft.dev/portal/docs/en/code-assistant/operations/agent/slash-commands) and [skills](https://sourcecraft.dev/portal/docs/ru/code-assistant/operations/agent/skills) are available only in VS Code. This integration does not configure SourceCraft web or JetBrains.
 
-With skills-only delivery, ask Code Assistant to use the `openspec-propose` skill with your idea. Skills activate through request matching; OpenSpec does not generate `/openspec-*` commands for this tool.
+With skills-only delivery, ask Code Assistant to use the `officespec-propose` skill with your idea. Skills activate through request matching; OfficeSpec does not generate `/officespec-*` commands for this tool.
 
-MiniMax Code is a global skills-only integration. OpenSpec writes only its
-`openspec-*` directories under `~/.minimax/skills/`; it does not create
+MiniMax Code is a global skills-only integration. OfficeSpec writes only its
+`officespec-*` directories under `~/.minimax/skills/`; it does not create
 repo-local `.minimax` or `.mavis` directories. Commands-only delivery leaves
 existing global MiniMax Code skills untouched so one project's delivery setting
 cannot remove skills used by another project.
 
 ### GitHub Copilot cloud AI assistant
 
-GitHub's [Copilot AI assistant](https://docs.github.com/en/copilot/using-github-copilot/coding-agent) runs on GitHub in a GitHub Actions environment — separate from Copilot in your editor. OpenSpec can set it up to use the OpenSpec CLI by generating two files:
+GitHub's [Copilot AI assistant](https://docs.github.com/en/copilot/using-github-copilot/coding-agent) runs on GitHub in a GitHub Actions environment — separate from Copilot in your editor. OfficeSpec can set it up to use the OfficeSpec CLI by generating two files:
 
-- `.github/workflows/copilot-setup-steps.yml` — installs `@fission-ai/openspec` in the agent's environment
-- `.github/agents/openspec.agent.md` — tells the agent how to drive OpenSpec
+- `.github/workflows/copilot-setup-steps.yml` — installs `officespec` in the agent's environment
+- `.github/agents/openspec.agent.md` — tells the agent how to drive OfficeSpec
 
 Because this writes a GitHub Actions workflow into your repository, it is **opt-in**:
 
@@ -135,9 +135,9 @@ Because this writes a GitHub Actions workflow into your repository, it is **opt-
 | `openspec init` (interactive) | Asks whether to set up cloud files. Default is **No**. |
 | `openspec init --copilot-cloud` | Sets them up without prompting (for scripts/CI). |
 | `openspec init --no-copilot-cloud` | Skips them without prompting, and removes any previously generated ones. |
-| `openspec update` | Never prompts. Refreshes the files only if you opted in (or the project already has them). If you opted out, it removes OpenSpec-managed cloud files. |
+| `openspec update` | Never prompts. Refreshes the files only if you opted in (or the project already has them). If you opted out, it removes OfficeSpec-managed cloud files. |
 
-Your choice is saved in `openspec/config.yaml` as `githubCopilot.cloudAgent: true|false`, so non-interactive updates honor it. OpenSpec only ever writes or removes files whose content it generated — if you customize `copilot-setup-steps.yml` or `openspec.agent.md`, or already have your own, it is left untouched (and `init`/`update` tell you so).
+Your choice is saved in `openspec/config.yaml` as `githubCopilot.cloudAgent: true|false`, so non-interactive updates honor it. OfficeSpec only ever writes or removes files whose content it generated — if you customize `copilot-setup-steps.yml` or `openspec.agent.md`, or already have your own, it is left untouched (and `init`/`update` tell you so).
 
 ### When to pick the shared `.agents` target
 
@@ -152,26 +152,26 @@ shared root many agent tools read, instead of a tool-specific directory.
 
 Selecting it alongside a tool-specific ID is fine; each normally writes to its
 own root. Codex and Zed Agent are the exceptions because they use the same canonical
-`.agents` root. If Codex is selected with Zed or `agents`, OpenSpec keeps one
-Codex-led tree. Its handoffs name both `$openspec-*` for Codex and
-`/openspec-*` for other agents, so `--tools all` and existing multi-agent
+`.agents` root. If Codex is selected with Zed or `agents`, OfficeSpec keeps one
+Codex-led tree. Its handoffs name both `$officespec-*` for Codex and
+`/officespec-*` for other agents, so `--tools all` and existing multi-agent
 setups keep working without two writers overwriting the same files.
-OpenSpec also offers it automatically once a project has a `.agents/skills/`
+OfficeSpec also offers it automatically once a project has a `.agents/skills/`
 directory — a bare `.agents/` is not enough, since tools use that root for rules
 and subagent definitions too. Note `.agents` is not `.agent`: the singular
 directory belongs to Antigravity.
 
 Two things to know:
 
-- **Skills only.** No command adapter exists, so no `opsx-*` command files are
+- **Skills only.** No command adapter exists, so no `ofsx-*` command files are
   written; with a commands-inclusive delivery mode `openspec init` lists `agents`
   among the tools it reports under `Commands skipped for: … (no adapter)`.
   Invoke the workflows by skill name —
-  most assistants that read `.agents/skills` spell that `/openspec-propose`, the form
-  OpenSpec's setup hint prints. The target is vendor-neutral, so check your
+  most assistants that read `.agents/skills` spell that `/officespec-propose`, the form
+  OfficeSpec's setup hint prints. The target is vendor-neutral, so check your
   assistant's own docs if it uses another form.
 - **No `AGENTS.md` is created or edited.** The target is the `.agents/` directory.
-  If your root `AGENTS.md` still carries OpenSpec marker blocks from an older
+  If your root `AGENTS.md` still carries OfficeSpec marker blocks from an older
   version, `openspec update` strips them — see the [Migration Guide](migration-guide.md).
 
 Zed support here is for the built-in Zed Agent. Zed External Agents and Terminal
@@ -181,16 +181,16 @@ Project-local skills are unavailable in an untrusted worktree until you
 [grant trust](https://zed.dev/docs/worktree-trust).
 
 Because `.agents/skills/` is shared by Codex, Zed Agent, and the vendor-neutral target,
-it is worth knowing what OpenSpec claims there:
-it writes, refreshes, and removes only the `openspec-*` skill directories for your
+it is worth knowing what OfficeSpec claims there:
+it writes, refreshes, and removes only the `officespec-*` skill directories for your
 selected workflows, plus an `.openspec-target` marker that records whether Codex,
 Zed Agent, or the vendor-neutral target rendered that shared tree. Anything else in that
-directory is left alone. Treat the `openspec-*` names and marker as OpenSpec's —
+directory is left alone. Treat the `officespec-*` names and marker as OfficeSpec's —
 edits inside them are replaced on the next `openspec update`, the same as for
 every other tool.
 
-For pre-marker projects, OpenSpec infers ownership from managed skill references:
-`$openspec-*` means Codex and `/openspec-*` means the vendor-neutral target. A
+For pre-marker projects, OfficeSpec infers ownership from managed skill references:
+`$officespec-*` means Codex and `/officespec-*` means the vendor-neutral target. A
 generic canonical tree alongside legacy `.codex/skills` is treated as an older
 dual-target install and consolidated into the compatible shared tree.
 
@@ -223,7 +223,7 @@ openspec init --profile core
 
 ## Workflow-Dependent Installation
 
-OpenSpec installs workflow artifacts based on selected workflows:
+OfficeSpec installs workflow artifacts based on selected workflows:
 
 - **Core profile (default):** `propose`, `explore`, `apply`, `update`, `sync`, `archive`
 - **Custom selection:** any subset of all workflow IDs:
@@ -233,20 +233,20 @@ In other words, skill/command counts are profile-dependent and delivery-dependen
 
 ## Generated Skill Names
 
-When selected by profile/workflow config, OpenSpec generates these skills:
+When selected by profile/workflow config, OfficeSpec generates these skills:
 
-- `openspec-propose`
-- `openspec-explore`
-- `openspec-new-change`
-- `openspec-continue-change`
-- `openspec-apply-change`
-- `openspec-update-change`
-- `openspec-ff-change`
-- `openspec-sync-specs`
-- `openspec-archive-change`
-- `openspec-bulk-archive-change`
-- `openspec-verify-change`
-- `openspec-onboard`
+- `officespec-propose`
+- `officespec-explore`
+- `officespec-new-change`
+- `officespec-continue-change`
+- `officespec-apply-change`
+- `officespec-update-change`
+- `officespec-ff-change`
+- `officespec-sync-specs`
+- `officespec-archive-change`
+- `officespec-bulk-archive-change`
+- `officespec-verify-change`
+- `officespec-onboard`
 
 See [Commands](commands.md) for command behavior and [CLI](cli.md) for `init`/`update` options.
 

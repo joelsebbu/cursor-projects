@@ -1,6 +1,6 @@
 ---
-name: openspec-ff-change
-description: Fast-forward through OpenSpec artifact creation. Use when the user wants to quickly create all artifacts needed to do the work without stepping through each one individually.
+name: officespec-ff-change
+description: Fast-forward through OfficeSpec artifact creation. Use when the user wants to quickly create all artifacts needed to do the work without stepping through each one individually.
 allowed-tools: Bash(openspec:*)
 license: MIT
 compatibility: Requires openspec CLI.
@@ -11,7 +11,7 @@ metadata:
 
 Fast-forward through artifact creation - generate everything needed to start the work in one go.
 
-**Store selection:** If the user names a store (a store is a standalone OpenSpec collection registered on this machine) or the work lives in one, run `openspec store list --json` to discover registered store ids, then pass `--store <id>` on the commands that read or write specs and changes (`new change`, `status`, `instructions`, `list`, `show`, `validate`, `archive`, `doctor`, `context`, `schemas`, `view`). Once selected, treat `--store <id>` as sticky for the rest of the workflow. Every unscoped example of those commands below is shorthand: before running it, append the flag. For example, run `openspec status --change "<name>" --json --store "<id>"`, not the unscoped form shown below. Other commands do not take the flag. Hints printed by commands already carry the flag; keep it on follow-ups. Without a store, commands act on the nearest local `openspec/` root.
+**Store selection:** If the user names a store (a store is a standalone OfficeSpec collection registered on this machine) or the work lives in one, run `openspec store list --json` to discover registered store ids, then pass `--store <id>` on the commands that read or write specs and changes (`new change`, `status`, `instructions`, `list`, `show`, `validate`, `archive`, `doctor`, `context`, `schemas`, `view`). Once selected, treat `--store <id>` as sticky for the rest of the workflow. Every unscoped example of those commands below is shorthand: before running it, append the flag. For example, run `openspec status --change "<name>" --json --store "<id>"`, not the unscoped form shown below. Other commands do not take the flag. Hints printed by commands already carry the flag; keep it on follow-ups. Without a store, commands act on the nearest local `openspec/` root.
 
 **Input**: The user's request should include a change name (kebab-case) OR a description of what they want to do.
 
@@ -95,7 +95,7 @@ After completing all artifacts, summarize:
 - Change name and location
 - List of artifacts created with brief descriptions, plus any conditional artifact you skipped and why
 - What's ready: "All artifacts needed to do the work are ready."
-- Prompt: "Run `/openspec-apply-change` or ask me to implement to start working on the tasks."
+- Prompt: "Run `/officespec-apply-change` or ask me to implement to start working on the tasks."
 
 **Artifact Creation Guidelines**
 

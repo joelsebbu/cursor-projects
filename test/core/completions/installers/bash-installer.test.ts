@@ -60,7 +60,7 @@ describe('BashInstaller', () => {
   });
 
   describe('install', () => {
-    const testScript = '# Bash completion script for OpenSpec CLI\n_openspec_completion() {\n  echo "test"\n}\n';
+    const testScript = '# Bash completion script for OfficeSpec CLI\n_openspec_completion() {\n  echo "test"\n}\n';
 
     it('should install to bash-completion path', async () => {
       const result = await installer.install(testScript);
@@ -115,7 +115,7 @@ describe('BashInstaller', () => {
 
       expect(content).toContain('# OPENSPEC:START');
       expect(content).toContain('# OPENSPEC:END');
-      expect(content).toContain('OpenSpec shell completions configuration');
+      expect(content).toContain('OfficeSpec shell completions configuration');
     });
 
     it('should include instructions when auto-config is disabled', async () => {
@@ -288,7 +288,7 @@ describe('BashInstaller', () => {
 
       expect(content).toContain('# OPENSPEC:START');
       expect(content).toContain('# OPENSPEC:END');
-      expect(content).toContain('# OpenSpec shell completions configuration');
+      expect(content).toContain('# OfficeSpec shell completions configuration');
       expect(content).toContain(completionsDir);
     });
 
@@ -349,7 +349,7 @@ describe('BashInstaller', () => {
         'export PATH="/custom/path:$PATH"',
         '',
         '# OPENSPEC:START',
-        '# Old OpenSpec config',
+        '# Old OfficeSpec config',
         '# OPENSPEC:END',
         '',
         'alias ls="ls -G"',
@@ -367,7 +367,7 @@ describe('BashInstaller', () => {
       expect(content).toContain('export PATH="/custom/path:$PATH"');
       expect(content).toContain('alias ls="ls -G"');
       expect(content).toContain(completionsDir);
-      expect(content).not.toContain('# Old OpenSpec config');
+      expect(content).not.toContain('# Old OfficeSpec config');
     });
 
     it('should return false when OPENSPEC_NO_AUTO_CONFIG is set', async () => {
@@ -428,7 +428,7 @@ describe('BashInstaller', () => {
         '# My config',
         '',
         '# OPENSPEC:START',
-        '# OpenSpec shell completions configuration',
+        '# OfficeSpec shell completions configuration',
         'if [ -d ~/.local/share/bash-completion/completions ]; then',
         '  . ~/.local/share/bash-completion/completions/openspec',
         'fi',
@@ -447,7 +447,7 @@ describe('BashInstaller', () => {
 
       expect(newContent).not.toContain('# OPENSPEC:START');
       expect(newContent).not.toContain('# OPENSPEC:END');
-      expect(newContent).not.toContain('OpenSpec shell completions configuration');
+      expect(newContent).not.toContain('OfficeSpec shell completions configuration');
       expect(newContent).toContain('# My config');
       expect(newContent).toContain('alias ll="ls -la"');
     });

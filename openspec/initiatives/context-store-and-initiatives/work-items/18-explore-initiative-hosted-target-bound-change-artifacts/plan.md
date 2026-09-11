@@ -4,7 +4,7 @@
 
 Not started. Added as a future exploratory work item. Framing updated from
 generic "configurable change homes" to the sharper question of when shared
-initiative artifacts can become executable, target-bound OpenSpec changes.
+initiative artifacts can become executable, target-bound OfficeSpec changes.
 
 ## Source Of Truth
 
@@ -20,7 +20,7 @@ Changes implement repo-owned slices.
 
 ## Why This Exists
 
-The current initiative direction assumes OpenSpec changes usually live in the
+The current initiative direction assumes OfficeSpec changes usually live in the
 local repo that owns implementation. That keeps validation, archive, and spec
 sync close to the code that will change.
 
@@ -35,7 +35,7 @@ apply, archive, spec sync, and conflict handling.
 
 ## Goal
 
-Decide whether OpenSpec should support initiative-hosted artifacts that can
+Decide whether OfficeSpec should support initiative-hosted artifacts that can
 graduate into executable changes only after they are bound to an implementation
 target.
 
@@ -74,7 +74,7 @@ Agent output
 ```
 
 Keep "change home" as internal resolver language. User-facing and agent-facing
-output should prefer clearer phrases like "plan lives in repo-local OpenSpec",
+output should prefer clearer phrases like "plan lives in repo-local OfficeSpec",
 "plan lives with the initiative", and "editable target".
 
 ## Core Invariants
@@ -84,7 +84,7 @@ output should prefer clearer phrases like "plan lives in repo-local OpenSpec",
   separate decisions.
 - Shared context-store files must not store machine-local checkout paths.
 - A targetless initiative artifact is a brief, work item, or proposal, not an
-  implementation-ready OpenSpec change.
+  implementation-ready OfficeSpec change.
 - A context-store-hosted artifact can be considered executable only after it has
   explicit target metadata and lifecycle command support.
 - Item 8 remains repo-local: `new change <id> --initiative ...` creates or links
@@ -97,7 +97,7 @@ output should prefer clearer phrases like "plan lives in repo-local OpenSpec",
 - What portable target metadata is required before an initiative-hosted artifact
   can be executable?
 - How does local resolution map a target repo identity to a checkout path,
-  OpenSpec root, branch, and allowed edit roots?
+  OfficeSpec root, branch, and allowed edit roots?
 - Should central target-bound changes require explicit opt-in such as
   `--home initiative`, or can initiative/store policy choose that behavior?
 - If config exists, what is the deterministic precedence across explicit CLI
@@ -168,7 +168,7 @@ commands instead of creating an ambiguous implementation plan.
 
 ## Go/No-Go Criteria
 
-Do not implement initiative-hosted executable changes until OpenSpec has one
+Do not implement initiative-hosted executable changes until OfficeSpec has one
 target-resolution model that can cover:
 
 - create and link output

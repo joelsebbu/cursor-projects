@@ -84,7 +84,7 @@ interface ProjectContext {
 openspec init [path]           # Initialize in specified path (default: current directory)
   --yes                       # Accept all defaults
   --no-input                  # Skip all prompts
-  --force                     # Overwrite existing OpenSpec directory
+  --force                     # Overwrite existing OfficeSpec directory
   --dry-run                   # Show what would be created
 ```
 

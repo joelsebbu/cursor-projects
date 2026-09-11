@@ -1,6 +1,6 @@
 ## Context
 
-OpenSpec project config currently provides a top-level `context` value and an artifact-keyed `rules` map. Artifact instruction generation reads both values at runtime, but the apply and archive workflow surfaces do not expose equivalent current inputs.
+OfficeSpec project config currently provides a top-level `context` value and an artifact-keyed `rules` map. Artifact instruction generation reads both values at runtime, but the apply and archive workflow surfaces do not expose equivalent current inputs.
 
 Apply already has a dynamic instruction command: `openspec instructions apply --change <name>`. Archive skills are generated from static templates and currently have no dedicated runtime-input command. Adding operation-specific advice directly to generated templates would make it stale whenever project config changes.
 
@@ -152,7 +152,7 @@ Current context is a required prompt-level input, not optional-to-ignore metadat
 
 Operation guidance is optional additive advice. When present, the generated skill must tell the agent to read and consider it and to follow entries that are applicable and compatible with the built-in workflow. If guidance is inapplicable or conflicts with an explicit user choice, resolved path, CLI-controlled state, or command contract, the skill preserves the controlling value and explains why the advice was not followed.
 
-Both semantics remain behavioral contracts for the agent, not enforcement mechanisms. OpenSpec guarantees that it validates the config shape, keeps fields separate from CLI-controlled values, delivers current inputs through the documented instruction surfaces, and leaves existing CLI checks unchanged. Existing checks continue to run wherever the current CLI already owns them. Any invariant that must be non-bypassable belongs in a real CLI check and remains outside this change; stronger archive guarantees require a separate archive execution design.
+Both semantics remain behavioral contracts for the agent, not enforcement mechanisms. OfficeSpec guarantees that it validates the config shape, keeps fields separate from CLI-controlled values, delivers current inputs through the documented instruction surfaces, and leaves existing CLI checks unchanged. Existing checks continue to run wherever the current CLI already owns them. Any invariant that must be non-bypassable belongs in a real CLI check and remains outside this change; stronger archive guarantees require a separate archive execution design.
 
 ## Risks / Trade-offs
 

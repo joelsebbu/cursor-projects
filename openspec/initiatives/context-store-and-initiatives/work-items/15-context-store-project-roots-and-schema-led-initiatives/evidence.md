@@ -57,14 +57,14 @@ brief.md
 Recommended user meaning:
 
 ```text
-context store = shared OpenSpec context project
+context store = shared OfficeSpec context project
 initiative    = iterative high-level planning object
 repo change   = implementation plan
 workspace     = local view
 ```
 
 Docs should avoid saying initiatives are only for cross-repo or cross-team
-work. A user may choose a context store simply because they want OpenSpec
+work. A user may choose a context store simply because they want OfficeSpec
 artifacts outside the implementation repo.
 
 `initiative create` should make the smallest useful shared object and then
@@ -99,7 +99,7 @@ Three focused passes converged on the same direction.
 
 Architecture pass:
 
-- Model a context store as an OpenSpec planning root:
+- Model a context store as an OfficeSpec planning root:
 
 ```text
 context-store/
@@ -120,8 +120,8 @@ context-store/
 
 UX/product pass:
 
-- Describe a context store as an OpenSpec-managed planning home. It may be used
-  for cross-repo coordination, but also simply to keep OpenSpec artifacts out of
+- Describe a context store as an OfficeSpec-managed planning home. It may be used
+  for cross-repo coordination, but also simply to keep OfficeSpec artifacts out of
   an implementation repo.
 - Make `initiative create` sparse: `initiative.yaml` plus a seed artifact such
   as `brief.md`.

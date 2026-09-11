@@ -39,7 +39,7 @@ state.
 
 ## Why The Command Is Not Needed
 
-If a user only has a context store clone, OpenSpec can already resolve the
+If a user only has a context store clone, OfficeSpec can already resolve the
 canonical initiative with:
 
 ```bash
@@ -83,7 +83,7 @@ Rules:
 - Repo-local changes remain the implementation artifacts.
 - Agents should use the current workspace or current repo context rather than
   asking a standalone initiative command to infer local availability.
-- OpenSpec should not infer repo ownership, scan arbitrary repos, clone repos,
+- OfficeSpec should not infer repo ownership, scan arbitrary repos, clone repos,
   create worktrees, or write backlinks to make resolve appear smarter than it
   is.
 

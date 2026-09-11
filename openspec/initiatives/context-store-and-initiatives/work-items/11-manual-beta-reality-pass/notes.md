@@ -7,7 +7,7 @@ Use this as the scratchpad while trying the beta flow.
 - Manual beta pass caught the bad default before building more surface area.
 - After changing the default, rerunning
   `openspec context-store setup team-context --init-git` from inside the
-  OpenSpec repo created the store at
+  OfficeSpec repo created the store at
   `~/.local/share/openspec/context-stores/team-context` instead of nesting it in
   the repo.
 - Minimal fresh-agent handoff worked for initiative creation. A subagent given
@@ -24,7 +24,7 @@ Use this as the scratchpad while trying the beta flow.
   interactive setup, but it does not. The command name itself creates that
   expectation.
 - `openspec context-store setup team-context --init-git` created
-  `team-context/` inside the current OpenSpec repo because the default path is
+  `team-context/` inside the current OfficeSpec repo because the default path is
   `./<id>`. User expected a default outside the current repo, not a new Git repo
   nested in whatever directory they happened to run from.
 - Cleaning up the accidental store had no obvious CLI path. `context-store`
@@ -39,7 +39,7 @@ Use this as the scratchpad while trying the beta flow.
   `team-context` is absent even though the next guide step is opening an
   initiative from that store. This is technically consistent with the current
   implementation, but confusing in the beta flow because the command name reads
-  like the broad "open something OpenSpec-related" entrypoint.
+  like the broad "open something OfficeSpec-related" entrypoint.
 - The post-initiative step has the wrong first-run verb. After creating a
   context store and an initiative, the user is conceptually creating a local
   workspace view for that initiative. "Open" implies the workspace already
@@ -49,7 +49,7 @@ Use this as the scratchpad while trying the beta flow.
 ## Missing Prompts Or Too Many Flags
 
 - Need clearer guidance for whether a beta pass should use existing local
-  OpenSpec state or create a normal local test context store. Avoid requiring
+  OfficeSpec state or create a normal local test context store. Avoid requiring
   environment variables as the default manual path.
 - Missing prompt: when no context-store id is provided, ask for the store id,
   path, and Git initialization choice instead of requiring the user to know the
@@ -90,12 +90,12 @@ Use this as the scratchpad while trying the beta flow.
 - The first agent step has a bootstrapping problem. `context-store setup` does
   not create repo-local guidance, and `workspace open --initiative` cannot run
   until the initiative exists. A fresh agent needs either an explicit pasted
-  mini-playbook, installed OpenSpec skills, or CLI output that prints the exact
+  mini-playbook, installed OfficeSpec skills, or CLI output that prints the exact
   next agent prompt/command.
 - In the manual subagent test, the agent ran `initiative create --help`, then
   created the initiative with `--store team-context --title ... --summary ...
   --json`. It correctly resolved the store and did not create files in the
-  OpenSpec repo.
+  OfficeSpec repo.
 - The subagent replaced generated `TBD` placeholders with useful short content,
   which suggests the templates give enough structure but not enough guidance.
   There is no CLI option to seed richer content beyond title and summary.
@@ -104,13 +104,13 @@ Use this as the scratchpad while trying the beta flow.
 - "Commands only" is product-ambiguous for this beta. The implementation treats
   it as "remove all skills and install only slash command files," but users may
   read it as "I prefer slash commands for workflow entry points." They still
-  likely expect their coding agent to understand OpenSpec concepts, context
+  likely expect their coding agent to understand OfficeSpec concepts, context
   stores, initiatives, and workspace handoff.
 
 ## Delivery UX Model
 
 - Split the concept into two layers:
-  - Baseline OpenSpec literacy: "Does the agent understand OpenSpec concepts and
+  - Baseline OfficeSpec literacy: "Does the agent understand OfficeSpec concepts and
     know how to inspect context stores, initiatives, workspaces, and repo-local
     changes?"
   - Workflow entrypoints: "How does the user invoke workflow actions such as
@@ -124,7 +124,7 @@ Use this as the scratchpad while trying the beta flow.
     slash commands.
 - In UI copy, avoid "commands only" if it implies no skills at all. Prefer
   labels like "Slash commands as workflow entrypoints" or "Workflow commands
-  only" with helper text that baseline OpenSpec guidance is still installed
+  only" with helper text that baseline OfficeSpec guidance is still installed
   when the selected agent supports skills.
 - For tools without a command adapter, commands-oriented delivery should warn
   clearly that workflow slash commands are unavailable for that tool. The tool
@@ -140,19 +140,19 @@ Use this as the scratchpad while trying the beta flow.
     that intentionally lives outside implementation repos: product intent,
     decisions, questions, roadmap notes, and tasks that should not necessarily
     be checked into the code repo.
-  - Repo-local OpenSpec changes are implementation plans owned by the repo that
+  - Repo-local OfficeSpec changes are implementation plans owned by the repo that
     will change: proposal/design/spec deltas/tasks/validation.
   - Workspaces are local views that connect shared context to local repos; they
     should not become a third durable planning home.
 - Agent guidance should not assume repo-local is preferred just because work
   touches one repo. Use or create a context-store initiative when the user wants
-  OpenSpec artifacts outside the repo, when a monorepo has multiple teams with
+  OfficeSpec artifacts outside the repo, when a monorepo has multiple teams with
   separate planning contexts, when repo policy discourages planning artifacts,
   when work is cross-repo/team-coordinated, long-lived, pre-implementation
   discovery, or already tied to an existing context store.
 - If a request is ambiguous, the agent should inspect first:
   `openspec initiative list --json`, `openspec list --json`, and workspace
-  state when available. If still ambiguous, ask: "Should these OpenSpec
+  state when available. If still ambiguous, ask: "Should these OfficeSpec
   artifacts live outside the repo in a context store, or inside this repo as a
   repo-local implementation change?"
 - CLI/skill copy should make the linked flow explicit: create/read initiative
@@ -220,9 +220,9 @@ Use this as the scratchpad while trying the beta flow.
   prompt for store id, default path, and Git initialization; keep `--json` /
   non-interactive behavior deterministic with a helpful fix message.
 - Reconsider the default context-store setup path. Options: use the managed
-  OpenSpec data directory by default, or keep `./<id>` only after an interactive
+  OfficeSpec data directory by default, or keep `./<id>` only after an interactive
   confirmation that names the full target path.
-  - Implemented during the pass: use the managed OpenSpec data directory by
+  - Implemented during the pass: use the managed OfficeSpec data directory by
     default and keep `--path` for explicit locations.
 - Add `openspec context-store unregister <id>` or `remove <id>` for local
   registry cleanup, with an explicit choice about whether to delete files or
@@ -251,11 +251,11 @@ Use this as the scratchpad while trying the beta flow.
     creating the workspace view. This avoids opening an empty workspace and
     makes the first-run path collect implementation roots at the moment the
     user expects it.
-- Consider splitting baseline OpenSpec literacy from workflow delivery. A
+- Consider splitting baseline OfficeSpec literacy from workflow delivery. A
   small default `use-openspec` skill could be installed whenever a selected
   agent supports skills, even if workflow delivery is set to commands-only, so
   "commands only" means "workflow actions are slash commands" rather than "the
-  agent gets no OpenSpec context."
+  agent gets no OfficeSpec context."
 - Simpler possible slice: treat `use-openspec` as a normal managed skill bundled
   with the configurator and installed by default. Keep it skill-only even if it
   is presented as part of the default profile, so it does not create a slash
@@ -274,16 +274,16 @@ Use this as the scratchpad while trying the beta flow.
   current initiative identity depends on `initiative.yaml`.
 - Promoted the broader fix into
   `work-items/15-context-store-project-roots-and-schema-led-initiatives/`:
-  context stores should behave like OpenSpec roots for shared context, with
+  context stores should behave like OfficeSpec roots for shared context, with
   store-local config, schemas, and sparse schema-led initiative artifacts.
 - Workspace shape correction: managed workspace views should not look like
   repos. New workspace views should contain the generated root files
   (`AGENTS.md`, `workspace.yaml`, and `<workspace>.code-workspace`) without a
   default `changes/` directory or generated `.gitignore`; VS Code multi-root
   views should show linked repos first, then initiative context, then the small
-  OpenSpec workspace folder.
+  OfficeSpec workspace folder.
 - Guide correction: after opening a workspace, the user should ask the agent to
   explore or draft using the initiative. The agent should resolve workspace
   state, initiative context, and linked repo ownership, then run repo-local
-  OpenSpec commands from the owning repo. The user-facing flow should not make
+  OfficeSpec commands from the owning repo. The user-facing flow should not make
   humans type `openspec new change` or `cd` into implementation repos.

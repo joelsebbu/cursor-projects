@@ -16,19 +16,19 @@ import {
   getBulkArchiveChangeSkillTemplate,
   getVerifyChangeSkillTemplate,
   getOnboardSkillTemplate,
-  getOpsxProposeSkillTemplate,
-  getOpsxExploreCommandTemplate,
-  getOpsxNewCommandTemplate,
-  getOpsxContinueCommandTemplate,
-  getOpsxApplyCommandTemplate,
-  getOpsxUpdateCommandTemplate,
-  getOpsxFfCommandTemplate,
-  getOpsxSyncCommandTemplate,
-  getOpsxArchiveCommandTemplate,
-  getOpsxBulkArchiveCommandTemplate,
-  getOpsxVerifyCommandTemplate,
-  getOpsxOnboardCommandTemplate,
-  getOpsxProposeCommandTemplate,
+  getOfsxProposeSkillTemplate,
+  getOfsxExploreCommandTemplate,
+  getOfsxNewCommandTemplate,
+  getOfsxContinueCommandTemplate,
+  getOfsxApplyCommandTemplate,
+  getOfsxUpdateCommandTemplate,
+  getOfsxFfCommandTemplate,
+  getOfsxSyncCommandTemplate,
+  getOfsxArchiveCommandTemplate,
+  getOfsxBulkArchiveCommandTemplate,
+  getOfsxVerifyCommandTemplate,
+  getOfsxOnboardCommandTemplate,
+  getOfsxProposeCommandTemplate,
   type SkillTemplate,
 } from '../templates/skill-templates.js';
 import type { CommandContent } from '../command-generation/index.js';
@@ -47,7 +47,7 @@ export interface SkillTemplateEntry {
  * Command template with ID mapping.
  */
 export interface CommandTemplateEntry {
-  template: ReturnType<typeof getOpsxExploreCommandTemplate>;
+  template: ReturnType<typeof getOfsxExploreCommandTemplate>;
   id: string;
 }
 
@@ -58,18 +58,18 @@ export interface CommandTemplateEntry {
  */
 export function getSkillTemplates(workflowFilter?: readonly string[]): SkillTemplateEntry[] {
   const all: SkillTemplateEntry[] = [
-    { template: getExploreSkillTemplate(), dirName: 'openspec-explore', workflowId: 'explore' },
-    { template: getNewChangeSkillTemplate(), dirName: 'openspec-new-change', workflowId: 'new' },
-    { template: getContinueChangeSkillTemplate(), dirName: 'openspec-continue-change', workflowId: 'continue' },
-    { template: getApplyChangeSkillTemplate(), dirName: 'openspec-apply-change', workflowId: 'apply' },
-    { template: getUpdateChangeSkillTemplate(), dirName: 'openspec-update-change', workflowId: 'update' },
-    { template: getFfChangeSkillTemplate(), dirName: 'openspec-ff-change', workflowId: 'ff' },
-    { template: getSyncSpecsSkillTemplate(), dirName: 'openspec-sync-specs', workflowId: 'sync' },
-    { template: getArchiveChangeSkillTemplate(), dirName: 'openspec-archive-change', workflowId: 'archive' },
-    { template: getBulkArchiveChangeSkillTemplate(), dirName: 'openspec-bulk-archive-change', workflowId: 'bulk-archive' },
-    { template: getVerifyChangeSkillTemplate(), dirName: 'openspec-verify-change', workflowId: 'verify' },
-    { template: getOnboardSkillTemplate(), dirName: 'openspec-onboard', workflowId: 'onboard' },
-    { template: getOpsxProposeSkillTemplate(), dirName: 'openspec-propose', workflowId: 'propose' },
+    { template: getExploreSkillTemplate(), dirName: 'officespec-explore', workflowId: 'explore' },
+    { template: getNewChangeSkillTemplate(), dirName: 'officespec-new-change', workflowId: 'new' },
+    { template: getContinueChangeSkillTemplate(), dirName: 'officespec-continue-change', workflowId: 'continue' },
+    { template: getApplyChangeSkillTemplate(), dirName: 'officespec-apply-change', workflowId: 'apply' },
+    { template: getUpdateChangeSkillTemplate(), dirName: 'officespec-update-change', workflowId: 'update' },
+    { template: getFfChangeSkillTemplate(), dirName: 'officespec-ff-change', workflowId: 'ff' },
+    { template: getSyncSpecsSkillTemplate(), dirName: 'officespec-sync-specs', workflowId: 'sync' },
+    { template: getArchiveChangeSkillTemplate(), dirName: 'officespec-archive-change', workflowId: 'archive' },
+    { template: getBulkArchiveChangeSkillTemplate(), dirName: 'officespec-bulk-archive-change', workflowId: 'bulk-archive' },
+    { template: getVerifyChangeSkillTemplate(), dirName: 'officespec-verify-change', workflowId: 'verify' },
+    { template: getOnboardSkillTemplate(), dirName: 'officespec-onboard', workflowId: 'onboard' },
+    { template: getOfsxProposeSkillTemplate(), dirName: 'officespec-propose', workflowId: 'propose' },
   ];
 
   if (!workflowFilter) return all;
@@ -85,18 +85,18 @@ export function getSkillTemplates(workflowFilter?: readonly string[]): SkillTemp
  */
 export function getCommandTemplates(workflowFilter?: readonly string[]): CommandTemplateEntry[] {
   const all: CommandTemplateEntry[] = [
-    { template: getOpsxExploreCommandTemplate(), id: 'explore' },
-    { template: getOpsxNewCommandTemplate(), id: 'new' },
-    { template: getOpsxContinueCommandTemplate(), id: 'continue' },
-    { template: getOpsxApplyCommandTemplate(), id: 'apply' },
-    { template: getOpsxUpdateCommandTemplate(), id: 'update' },
-    { template: getOpsxFfCommandTemplate(), id: 'ff' },
-    { template: getOpsxSyncCommandTemplate(), id: 'sync' },
-    { template: getOpsxArchiveCommandTemplate(), id: 'archive' },
-    { template: getOpsxBulkArchiveCommandTemplate(), id: 'bulk-archive' },
-    { template: getOpsxVerifyCommandTemplate(), id: 'verify' },
-    { template: getOpsxOnboardCommandTemplate(), id: 'onboard' },
-    { template: getOpsxProposeCommandTemplate(), id: 'propose' },
+    { template: getOfsxExploreCommandTemplate(), id: 'explore' },
+    { template: getOfsxNewCommandTemplate(), id: 'new' },
+    { template: getOfsxContinueCommandTemplate(), id: 'continue' },
+    { template: getOfsxApplyCommandTemplate(), id: 'apply' },
+    { template: getOfsxUpdateCommandTemplate(), id: 'update' },
+    { template: getOfsxFfCommandTemplate(), id: 'ff' },
+    { template: getOfsxSyncCommandTemplate(), id: 'sync' },
+    { template: getOfsxArchiveCommandTemplate(), id: 'archive' },
+    { template: getOfsxBulkArchiveCommandTemplate(), id: 'bulk-archive' },
+    { template: getOfsxVerifyCommandTemplate(), id: 'verify' },
+    { template: getOfsxOnboardCommandTemplate(), id: 'onboard' },
+    { template: getOfsxProposeCommandTemplate(), id: 'propose' },
   ];
 
   if (!workflowFilter) return all;
@@ -126,7 +126,7 @@ export function getCommandContents(workflowFilter?: readonly string[]): CommandC
  * Generates skill file content with YAML frontmatter.
  *
  * @param template - The skill template
- * @param generatedByVersion - The OpenSpec version to embed in the file
+ * @param generatedByVersion - The OfficeSpec version to embed in the file
  * @param transformInstructions - Optional callback to transform the instructions content
  */
 export function generateSkillContent(

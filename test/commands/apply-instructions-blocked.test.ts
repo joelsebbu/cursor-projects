@@ -86,7 +86,7 @@ describe('generateApplyInstructions blocked prerequisites', () => {
 
     // `continue` is not in CORE_WORKFLOWS, so the default install never had the
     // skill the old message named.
-    expect(instructions.instruction).not.toContain('openspec-continue-change');
+    expect(instructions.instruction).not.toContain('officespec-continue-change');
     expect(instructions.instruction).toContain('openspec status --change my-change');
   });
 
@@ -114,6 +114,6 @@ describe('generateApplyInstructions blocked prerequisites', () => {
 
     expect(output).toContain('Missing artifacts: tasks');
     expect(output).toContain('Not created yet, in build order: specs, design, tasks');
-    expect(output).not.toContain('openspec-continue-change');
+    expect(output).not.toContain('officespec-continue-change');
   });
 });

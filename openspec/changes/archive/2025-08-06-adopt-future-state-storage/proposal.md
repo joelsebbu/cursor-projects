@@ -1,4 +1,4 @@
-# Adopt Future State Storage for OpenSpec Changes
+# Adopt Future State Storage for OfficeSpec Changes
 
 ## Why
 

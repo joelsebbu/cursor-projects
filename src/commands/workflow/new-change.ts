@@ -2,7 +2,7 @@
  * New Change Command
  *
  * Creates a new change directory with optional description and schema in the
- * resolved OpenSpec root. `--store <id>` selects a registered store's
+ * resolved OfficeSpec root. `--store <id>` selects a registered store's
  * root; initiative linking and workspace affected areas are no longer part of
  * this command.
  */
@@ -55,7 +55,7 @@ interface NewChangeOutput {
 function assertRemovedOptionsAbsent(options: NewChangeOptions): void {
   if (options.initiative !== undefined) {
     throw new RootSelectionError(
-      '--initiative is no longer supported. Normal changes no longer attach to initiatives; --store <id> selects the OpenSpec root.',
+      '--initiative is no longer supported. Normal changes no longer attach to initiatives; --store <id> selects the OfficeSpec root.',
       'initiative_option_removed',
       { target: 'change.options' }
     );
@@ -63,7 +63,7 @@ function assertRemovedOptionsAbsent(options: NewChangeOptions): void {
 
   if (options.areas !== undefined) {
     throw new RootSelectionError(
-      '--areas is no longer supported. Workspace affected areas are not part of the normal OpenSpec root path.',
+      '--areas is no longer supported. Workspace affected areas are not part of the normal OfficeSpec root path.',
       'areas_option_removed',
       { target: 'change.options' }
     );

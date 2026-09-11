@@ -1,7 +1,7 @@
 ## MODIFIED Requirements
 
 ### Requirement: Update Behavior
-The update command SHALL update OpenSpec instruction files to the latest templates in a team-friendly manner.
+The update command SHALL update OfficeSpec instruction files to the latest templates in a team-friendly manner.
 
 #### Scenario: Running update command
 - **WHEN** a user runs `openspec update`
@@ -15,7 +15,7 @@ The update command SHALL handle file updates in a predictable and safe manner.
 - **THEN** completely replace `openspec/AGENTS.md` with the latest template
 
 ### Requirement: Core Files Always Updated
-The update command SHALL always update the core OpenSpec files and display an ASCII-safe success message.
+The update command SHALL always update the core OfficeSpec files and display an ASCII-safe success message.
 
 #### Scenario: Successful update
 - **WHEN** the update completes successfully

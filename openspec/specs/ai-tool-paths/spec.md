@@ -1,7 +1,7 @@
 # ai-tool-paths Specification
 
 ## Purpose
-Define AI tool path metadata used to generate OpenSpec skills and commands in tool-specific directories.
+Define AI tool path metadata used to generate OfficeSpec skills and commands in tool-specific directories.
 ## Requirements
 ### Requirement: AIToolOption skillsDir field
 
@@ -47,7 +47,7 @@ The `AI_TOOLS` array SHALL include `skillsDir` for tools that support the Agent 
 
 - **WHEN** looking up the `kimi` tool
 - **THEN** `skillsDir` SHALL be `.kimi-code`
-- **AND** OpenSpec-managed skills remaining under the legacy `.kimi/skills` directory SHALL be migrated to `.kimi-code/skills` during init and update, preserving user files
+- **AND** OfficeSpec-managed skills remaining under the legacy `.kimi/skills` directory SHALL be migrated to `.kimi-code/skills` during init and update, preserving user files
 
 #### Scenario: Hermes Agent paths defined
 

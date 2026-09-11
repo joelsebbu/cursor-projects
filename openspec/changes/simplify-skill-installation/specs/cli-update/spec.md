@@ -70,8 +70,8 @@ The update command SHALL treat a tool as configured if it has either generated s
 
 #### Scenario: Commands-only installation
 - **WHEN** user runs `openspec update`
-- **AND** a tool has generated OpenSpec command files
-- **AND** that tool has no OpenSpec skill files (commands-only delivery)
+- **AND** a tool has generated OfficeSpec command files
+- **AND** that tool has no OfficeSpec skill files (commands-only delivery)
 - **THEN** the tool SHALL still be treated as configured
 - **THEN** the system SHALL apply profile and delivery sync for that tool
 
@@ -151,13 +151,13 @@ The update command SHALL notify the user if new AI tool directories are detected
 - **AND** no new tool directories are detected
 - **THEN** the system SHALL NOT display any tool detection message
 
-### Requirement: Update requires an OpenSpec project
-The update command SHALL only run inside an initialized OpenSpec project.
+### Requirement: Update requires an OfficeSpec project
+The update command SHALL only run inside an initialized OfficeSpec project.
 
 #### Scenario: Update outside a project
 - **WHEN** user runs `openspec update`
 - **AND** no `openspec/` directory exists in the current working directory
-- **THEN** the system SHALL display: "No OpenSpec project found. Run 'openspec init' to set up."
+- **THEN** the system SHALL display: "No OfficeSpec project found. Run 'openspec init' to set up."
 - **THEN** the system SHALL exit with code 1
 
 ### Requirement: Extra workflows synchronized to active profile

@@ -455,7 +455,7 @@ describe('ZshInstaller', () => {
 
       expect(content).toContain('# OPENSPEC:START');
       expect(content).toContain('# OPENSPEC:END');
-      expect(content).toContain('# OpenSpec shell completions configuration');
+      expect(content).toContain('# OfficeSpec shell completions configuration');
       expect(content).toContain(`fpath=("${completionsDir}" $fpath)`);
       expect(content).toContain('autoload -Uz compinit');
       expect(content).toContain('compinit');
@@ -516,7 +516,7 @@ describe('ZshInstaller', () => {
         'export PATH="/custom/path:$PATH"',
         '',
         '# OPENSPEC:START',
-        '# Old OpenSpec config',
+        '# Old OfficeSpec config',
         '# OPENSPEC:END',
         '',
         'alias ls="ls -G"',
@@ -534,7 +534,7 @@ describe('ZshInstaller', () => {
       expect(content).toContain('export PATH="/custom/path:$PATH"');
       expect(content).toContain('alias ls="ls -G"');
       expect(content).toContain(`fpath=("${completionsDir}" $fpath)`);
-      expect(content).not.toContain('# Old OpenSpec config');
+      expect(content).not.toContain('# Old OfficeSpec config');
     });
 
     it('should return false when OPENSPEC_NO_AUTO_CONFIG is set', async () => {
@@ -596,7 +596,7 @@ describe('ZshInstaller', () => {
         '# My config',
         '',
         '# OPENSPEC:START',
-        '# OpenSpec shell completions configuration',
+        '# OfficeSpec shell completions configuration',
         'fpath=(~/.zsh/completions $fpath)',
         'autoload -Uz compinit',
         'compinit',
@@ -615,7 +615,7 @@ describe('ZshInstaller', () => {
 
       expect(newContent).not.toContain('# OPENSPEC:START');
       expect(newContent).not.toContain('# OPENSPEC:END');
-      expect(newContent).not.toContain('OpenSpec shell completions');
+      expect(newContent).not.toContain('OfficeSpec shell completions');
       expect(newContent).toContain('# My config');
       expect(newContent).toContain('alias ll="ls -la"');
     });
@@ -624,7 +624,7 @@ describe('ZshInstaller', () => {
       const zshrcPath = path.join(testHomeDir, '.zshrc');
       const content = [
         '# OPENSPEC:START',
-        '# OpenSpec config',
+        '# OfficeSpec config',
         '# OPENSPEC:END',
         '',
         '# User config below',
@@ -758,7 +758,7 @@ describe('ZshInstaller', () => {
       const result = await installer.uninstall();
 
       expect(result.success).toBe(true);
-      expect(result.message).toContain('Removed OpenSpec configuration from ~/.zshrc');
+      expect(result.message).toContain('Removed OfficeSpec configuration from ~/.zshrc');
 
       // Verify .zshrc config was removed
       content = await fs.readFile(zshrcPath, 'utf-8');
@@ -785,7 +785,7 @@ describe('ZshInstaller', () => {
       const result = await installer.uninstall();
 
       expect(result.success).toBe(true);
-      expect(result.message).toContain('Removed OpenSpec configuration from ~/.zshrc');
+      expect(result.message).toContain('Removed OfficeSpec configuration from ~/.zshrc');
     });
 
     it('should include both messages when removing script and .zshrc', async () => {
@@ -795,7 +795,7 @@ describe('ZshInstaller', () => {
 
       expect(result.success).toBe(true);
       expect(result.message).toContain('Completion script removed');
-      expect(result.message).toContain('Removed OpenSpec configuration from ~/.zshrc');
+      expect(result.message).toContain('Removed OfficeSpec configuration from ~/.zshrc');
     });
   });
 });

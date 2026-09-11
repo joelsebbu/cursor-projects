@@ -4,7 +4,7 @@
 > code-repo declaration and map command group entirely. Worksets are
 > purely LOCAL, personal, manually composed named views (see roadmap item
 > 7.1, which is authoritative). Code repos enter a session because the user
-> names folders in a workset or gives an explicit path, not because OpenSpec
+> names folders in a workset or gives an explicit path, not because OfficeSpec
 > derives them from declarations.
 
 Date: 2026-06-12. Source: owner design review of the 4.1 autonomous

@@ -1,4 +1,4 @@
-# OpenSpec Conventions - Changes
+# OfficeSpec Conventions - Changes
 
 ## MODIFIED Requirements
 

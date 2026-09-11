@@ -355,7 +355,7 @@ function toTaskItems(parsed: ParsedTask[]): TaskItem[] {
 /**
  * The command that builds one artifact.
  *
- * Every earlier remedy here named the `openspec-continue-change` skill, which
+ * Every earlier remedy here named the `officespec-continue-change` skill, which
  * the `core` profile never installs - the advice was a dead end for the default
  * install. The CLI verb exists on every profile and is what the skill runs.
  */

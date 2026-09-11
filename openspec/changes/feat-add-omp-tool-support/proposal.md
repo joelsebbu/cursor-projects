@@ -1,6 +1,6 @@
 ## Why
 
-Oh My Pi (OMP) is a terminal AI coding agent whose users expect OpenSpec workflows to be available as slash commands. Without an adapter, users who have OMP configured in their project cannot generate OMP-native command files or get the correct skill transformations from `openspec init` or `openspec update`.
+Oh My Pi (OMP) is a terminal AI coding agent whose users expect OfficeSpec workflows to be available as slash commands. Without an adapter, users who have OMP configured in their project cannot generate OMP-native command files or get the correct skill transformations from `openspec init` or `openspec update`.
 
 ## What Changes
 

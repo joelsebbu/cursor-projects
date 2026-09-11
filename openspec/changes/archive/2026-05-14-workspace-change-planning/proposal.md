@@ -16,7 +16,7 @@ Planning should be the commitment point. Repo visibility alone should remain lig
 
 Add workspace-level change planning:
 
-- install and refresh OpenSpec agent skills from the workspace root so agents can operate from the planning home
+- install and refresh OfficeSpec agent skills from the workspace root so agents can operate from the planning home
 - use the active global workflow profile to decide which workflow skills are installed in the workspace
 - keep `--tools` focused on which agents receive those workspace-local skills
 - add a workspace-specific planning schema for workspace changes
@@ -29,15 +29,15 @@ Add workspace-level change planning:
 
 This slice should avoid creating repo-local artifacts as a side effect of planning. Repo-local artifacts should not be created merely because a workspace change exists.
 
-Workspace setup and update may write agent skill files into the workspace root, such as `.codex/skills/` or `.claude/skills/`, because those files make the workspace planning home usable by agents. That setup work must not write OpenSpec artifacts or agent skill files into linked repos or folders.
+Workspace setup and update may write agent skill files into the workspace root, such as `.codex/skills/` or `.claude/skills/`, because those files make the workspace planning home usable by agents. That setup work must not write OfficeSpec artifacts or agent skill files into linked repos or folders.
 
-Interactive setup should ask which agents should get OpenSpec skills in the workspace, preselecting the preferred opener when that opener supports skills. Workspace update should let users refresh or change those installed agent skills later, including when run from inside the workspace.
+Interactive setup should ask which agents should get OfficeSpec skills in the workspace, preselecting the preferred opener when that opener supports skills. Workspace update should let users refresh or change those installed agent skills later, including when run from inside the workspace.
 
 Workspace setup and update should treat the global profile as the workflow selection source. For this slice, workspace setup and update are skills-only even when global delivery is `commands` or `both`; command generation for workspaces is deferred.
 
-`openspec config profile` should remain global, but when it runs from inside an OpenSpec workspace and changes the global profile or delivery settings, it should offer to apply the new workflow selection to the current workspace by running `openspec workspace update`.
+`openspec config profile` should remain global, but when it runs from inside an OfficeSpec workspace and changes the global profile or delivery settings, it should offer to apply the new workflow selection to the current workspace by running `openspec workspace update`.
 
-Workspace-local skill selection should be machine-local state: setup records which agents received skills, update refreshes that stored selection by default, and explicit `--tools` changes the stored selection. OpenSpec should detect when workspace-local skills drift from the current global profile and give clear update guidance.
+Workspace-local skill selection should be machine-local state: setup records which agents received skills, update refreshes that stored selection by default, and explicit `--tools` changes the stored selection. OfficeSpec should detect when workspace-local skills drift from the current global profile and give clear update guidance.
 
 Selected profile workflows that are not yet fully implemented for workspace-scoped changes should still be safe. Generated skills and CLI guidance must guard unsupported workspace actions instead of falling back to repo-local behavior or editing linked repos implicitly.
 

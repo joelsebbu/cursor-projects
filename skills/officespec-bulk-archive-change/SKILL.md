@@ -1,5 +1,5 @@
 ---
-name: openspec-bulk-archive-change
+name: officespec-bulk-archive-change
 description: Archive multiple completed changes at once. Use when archiving several parallel changes.
 allowed-tools: Bash(openspec:*)
 license: MIT
@@ -13,7 +13,7 @@ Archive multiple completed changes in a single operation.
 
 This skill allows you to batch-archive changes, handling spec conflicts intelligently by checking the workspace to determine what's actually done.
 
-**Store selection:** If the user names a store (a store is a standalone OpenSpec collection registered on this machine) or the work lives in one, run `openspec store list --json` to discover registered store ids, then pass `--store <id>` on the commands that read or write specs and changes (`new change`, `status`, `instructions`, `list`, `show`, `validate`, `archive`, `doctor`, `context`, `schemas`, `view`). Once selected, treat `--store <id>` as sticky for the rest of the workflow. Every unscoped example of those commands below is shorthand: before running it, append the flag. For example, run `openspec status --change "<name>" --json --store "<id>"`, not the unscoped form shown below. Other commands do not take the flag. Hints printed by commands already carry the flag; keep it on follow-ups. Without a store, commands act on the nearest local `openspec/` root.
+**Store selection:** If the user names a store (a store is a standalone OfficeSpec collection registered on this machine) or the work lives in one, run `openspec store list --json` to discover registered store ids, then pass `--store <id>` on the commands that read or write specs and changes (`new change`, `status`, `instructions`, `list`, `show`, `validate`, `archive`, `doctor`, `context`, `schemas`, `view`). Once selected, treat `--store <id>` as sticky for the rest of the workflow. Every unscoped example of those commands below is shorthand: before running it, append the flag. For example, run `openspec status --change "<name>" --json --store "<id>"`, not the unscoped form shown below. Other commands do not take the flag. Hints printed by commands already carry the flag; keep it on follow-ups. Without a store, commands act on the nearest local `openspec/` root.
 
 `<capability-path>` is the spec directory relative to `specs/` (for example, `expense-approvals` or `finance/expense-approvals`). Preserve the full path from each delta spec when resolving its main spec.
 
@@ -177,7 +177,7 @@ This skill allows you to batch-archive changes, handling spec conflicts intellig
    Process changes in the determined order (respecting conflict resolution):
 
    a. **Sync included delta specs**:
-      - Run the `openspec-sync-specs` workflow inline (agent-driven intelligent merge) only for changes with entries in `includedDeltas`, passing only the included delta paths and explicitly instructing it to ignore that change's `excludedDeltas`. Wait for it to finish.
+      - Run the `officespec-sync-specs` workflow inline (agent-driven intelligent merge) only for changes with entries in `includedDeltas`, passing only the included delta paths and explicitly instructing it to ignore that change's `excludedDeltas`. Wait for it to finish.
       - For conflicts, apply in resolved order.
       - Pass that change's fetched specs-rule snapshot into inline sync; inline
         sync must reuse it without fetching instructions again
@@ -322,7 +322,7 @@ No active changes found. Create a new change to get started.
 - Preserve .openspec.yaml when moving to archive
 - Archive directory target uses current date: YYYY-MM-DD-<name>; a name that already starts with a `YYYY-MM-DD-` prefix is used as-is (never stack a second date)
 - If archive target exists, fail that change but continue with others
-- If sync is requested, run the `openspec-sync-specs` workflow inline (agent-driven) for each change with included delta specs
+- If sync is requested, run the `officespec-sync-specs` workflow inline (agent-driven) for each change with included delta specs
 - Carry the per-delta `includedDeltas` and `excludedDeltas` decisions into execution; sync and verify only included deltas
 - Report every excluded delta as `sync skipped` without treating the archive itself as skipped
 - Never archive a change while a spec sync is still in flight — run the sync inline and verify main specs at `<planningHome.root>/openspec/specs/<capability-path>/spec.md` before moving `changeRoot`

@@ -11,7 +11,7 @@ const PLANNING_GUIDANCE = `## Planning a Change
 
 When the user is planning a change, guide them toward shared understanding with focused discovery questions. For open-ended discussion, follow the conversation without imposing an interview or a required output.
 
-Before asking a factual question, follow the context discovery below and inspect relevant OpenSpec artifacts, source, tests, docs, and configuration. Do not ask the user to repeat facts you can verify. Summarize relevant findings without reproducing private context or rules. If evidence is missing, conflicting, or inaccessible, state that limitation and ask only for the clarification needed to proceed.
+Before asking a factual question, follow the context discovery below and inspect relevant OfficeSpec artifacts, source, tests, docs, and configuration. Do not ask the user to repeat facts you can verify. Summarize relevant findings without reproducing private context or rules. If evidence is missing, conflicting, or inaccessible, state that limitation and ask only for the clarification needed to proceed.
 
 - **Follow dependencies** - Resolve the next blocking decision before its dependent details. For example, clarify the user's outcome and scope before choosing an API or data model. Revisit downstream assumptions when an earlier answer changes. Skip branches that do not matter to this goal.
 - **Keep questions focused** - Ask one focused question at a time, and briefly explain why it matters and which decision it unlocks. Batch questions only if the user asks for a batch; keep them small and group related decisions.
@@ -31,11 +31,11 @@ adding a service to operate; shared state would need a separate sync design.
 
 export function getExploreSkillTemplate(): SkillTemplate {
   return {
-    name: 'openspec-explore',
+    name: 'officespec-explore',
     description: 'Enter explore mode - a thinking partner for exploring ideas, investigating problems, and clarifying requirements. Use when the user wants to think through something before or during a change.',
     instructions: `Enter explore mode. Think deeply. Visualize freely. Follow the conversation wherever it goes.
 
-**IMPORTANT: Explore mode is for thinking, not doing.** You may read files, search docs and files, investigate the workspace, and run read-only commands or tools without confirmation, but you must NEVER carry out tasks or do the work. If the user asks you to do something, remind them to exit explore mode first and create a change proposal. You MAY create or update OpenSpec change artifacts (proposals, designs, specs) within a confirmed scope—that's capturing thinking, not implementing. Answering design or clarifying questions is never consent to write. Before the first write-capable action, name the artifacts or files you would change and what you would do, ask a direct yes/no question, and wait for the user's confirmation in a separate message. Confirmation covers only the scope you described; ask again before expanding it. For a new change, scaffold it first as described below.
+**IMPORTANT: Explore mode is for thinking, not doing.** You may read files, search docs and files, investigate the workspace, and run read-only commands or tools without confirmation, but you must NEVER carry out tasks or do the work. If the user asks you to do something, remind them to exit explore mode first and create a change proposal. You MAY create or update OfficeSpec change artifacts (proposals, designs, specs) within a confirmed scope—that's capturing thinking, not implementing. Answering design or clarifying questions is never consent to write. Before the first write-capable action, name the artifacts or files you would change and what you would do, ask a direct yes/no question, and wait for the user's confirmation in a separate message. Confirmation covers only the scope you described; ask again before expanding it. For a new change, scaffold it first as described below.
 
 **This is a stance, not a workflow.** There are no fixed steps, no required sequence, no mandatory outputs. You're a thinking partner helping the user explore.
 
@@ -108,9 +108,9 @@ Unicode diagram glyphs can render at different widths across terminals, fonts, a
 
 ---
 
-## OpenSpec Awareness
+## OfficeSpec Awareness
 
-You have full context of the OpenSpec system. Use it naturally, don't force it.
+You have full context of the OfficeSpec system. Use it naturally, don't force it.
 
 ### Check for context
 
@@ -258,7 +258,7 @@ You: [reviews workspace]
 
 **User is stuck mid-work:**
 \`\`\`
-User: /opsx:explore add-auth-system
+User: /ofsx:explore add-auth-system
       The OAuth integration is more complex than expected
 
 You: [reads change artifacts]
@@ -335,7 +335,7 @@ But this summary is optional. Sometimes the thinking IS the value.
 
 ## Guardrails
 
-- **Don't implement** - Never write code or implement features. Workflow configuration counts too: creating or editing schemas, templates, or \`openspec/config.yaml\` is a change, not thinking. Creating or updating OpenSpec change artifacts within the confirmed scope is fine, writing anything else is not.
+- **Don't implement** - Never write code or implement features. Workflow configuration counts too: creating or editing schemas, templates, or \`openspec/config.yaml\` is a change, not thinking. Creating or updating OfficeSpec change artifacts within the confirmed scope is fine, writing anything else is not.
 - **Don't fake understanding** - If something is unclear, dig deeper
 - **Don't rush** - Discovery is thinking time, not task time
 - **Don't force structure** - Let patterns emerge naturally
@@ -350,21 +350,21 @@ But this summary is optional. Sometimes the thinking IS the value.
   };
 }
 
-export function getOpsxExploreCommandTemplate(): CommandTemplate {
+export function getOfsxExploreCommandTemplate(): CommandTemplate {
   return {
-    name: 'OPSX: Explore',
+    name: 'OFSX: Explore',
     description: 'Enter explore mode - think through ideas, investigate problems, clarify requirements',
     category: 'Workflow',
     tags: ['workflow', 'explore', 'experimental', 'thinking'],
     content: `Enter explore mode. Think deeply. Visualize freely. Follow the conversation wherever it goes.
 
-**IMPORTANT: Explore mode is for thinking, not doing.** You may read files, search docs and files, investigate the workspace, and run read-only commands or tools without confirmation, but you must NEVER carry out tasks or do the work. If the user asks you to do something, remind them to exit explore mode first and create a change proposal. You MAY create or update OpenSpec change artifacts (proposals, designs, specs) within a confirmed scope—that's capturing thinking, not implementing. Answering design or clarifying questions is never consent to write. Before the first write-capable action, name the artifacts or files you would change and what you would do, ask a direct yes/no question, and wait for the user's confirmation in a separate message. Confirmation covers only the scope you described; ask again before expanding it. For a new change, scaffold it first as described below.
+**IMPORTANT: Explore mode is for thinking, not doing.** You may read files, search docs and files, investigate the workspace, and run read-only commands or tools without confirmation, but you must NEVER carry out tasks or do the work. If the user asks you to do something, remind them to exit explore mode first and create a change proposal. You MAY create or update OfficeSpec change artifacts (proposals, designs, specs) within a confirmed scope—that's capturing thinking, not implementing. Answering design or clarifying questions is never consent to write. Before the first write-capable action, name the artifacts or files you would change and what you would do, ask a direct yes/no question, and wait for the user's confirmation in a separate message. Confirmation covers only the scope you described; ask again before expanding it. For a new change, scaffold it first as described below.
 
 **This is a stance, not a workflow.** There are no fixed steps, no required sequence, no mandatory outputs. You're a thinking partner helping the user explore.
 
 ${STORE_SELECTION_GUIDANCE}
 
-**Input**: The argument after \`/opsx:explore\` is whatever the user wants to think about. Could be:
+**Input**: The argument after \`/ofsx:explore\` is whatever the user wants to think about. Could be:
 - A vague idea: "real-time collaboration"
 - A specific problem: "the auth system is getting unwieldy"
 - A change name: "add-dark-mode" (to explore in context of that change)
@@ -438,9 +438,9 @@ Unicode diagram glyphs can render at different widths across terminals, fonts, a
 
 ---
 
-## OpenSpec Awareness
+## OfficeSpec Awareness
 
-You have full context of the OpenSpec system. Use it naturally, don't force it.
+You have full context of the OfficeSpec system. Use it naturally, don't force it.
 
 ### Check for context
 
@@ -547,7 +547,7 @@ When things crystallize, you might offer a summary - but it's optional. Sometime
 
 ## Guardrails
 
-- **Don't implement** - Never write code or implement features. Workflow configuration counts too: creating or editing schemas, templates, or \`openspec/config.yaml\` is a change, not thinking. Creating or updating OpenSpec change artifacts within the confirmed scope is fine, writing anything else is not.
+- **Don't implement** - Never write code or implement features. Workflow configuration counts too: creating or editing schemas, templates, or \`openspec/config.yaml\` is a change, not thinking. Creating or updating OfficeSpec change artifacts within the confirmed scope is fine, writing anything else is not.
 - **Don't fake understanding** - If something is unclear, dig deeper
 - **Don't rush** - Discovery is thinking time, not task time
 - **Don't force structure** - Let patterns emerge naturally

@@ -1,7 +1,7 @@
 /**
  * Init Command
  *
- * Sets up OpenSpec with Agent Skills and /opsx:* slash commands.
+ * Sets up OfficeSpec with Agent Skills and /ofsx:* slash commands.
  * This is the unified setup command that replaces both the old init and experimental commands.
  */
 
@@ -68,6 +68,7 @@ import {
   writeSharedSkillTarget,
 } from './shared-skill-target.js';
 import { migrateIfNeeded, migrateLegacyToolDirs, describeLegacyMigration, keptInPlaceNotice, hasMovableContent, scanInstalledWorkflows as scanInstalledWorkflowsShared } from './migration.js';
+import { legacySkillDirForWorkflow } from './profile-sync-drift.js';
 import {
   resolveCommandSurfaceCapability,
   resolveCommandInvocation,
@@ -99,7 +100,7 @@ function formatLanguageContext(language: string): string {
   return [
     `Language: ${language}`,
     `All artifacts must be written in ${language}.`,
-    'Keep OpenSpec structural headings and SHALL/MUST keywords in English.',
+    'Keep OfficeSpec structural headings and SHALL/MUST keywords in English.',
   ].join('\n');
 }
 
@@ -109,18 +110,18 @@ const PROGRESS_SPINNER = {
 };
 
 const WORKFLOW_TO_SKILL_DIR: Record<string, string> = {
-  'explore': 'openspec-explore',
-  'new': 'openspec-new-change',
-  'continue': 'openspec-continue-change',
-  'apply': 'openspec-apply-change',
-  'update': 'openspec-update-change',
-  'ff': 'openspec-ff-change',
-  'sync': 'openspec-sync-specs',
-  'archive': 'openspec-archive-change',
-  'bulk-archive': 'openspec-bulk-archive-change',
-  'verify': 'openspec-verify-change',
-  'onboard': 'openspec-onboard',
-  'propose': 'openspec-propose',
+  'explore': 'officespec-explore',
+  'new': 'officespec-new-change',
+  'continue': 'officespec-continue-change',
+  'apply': 'officespec-apply-change',
+  'update': 'officespec-update-change',
+  'ff': 'officespec-ff-change',
+  'sync': 'officespec-sync-specs',
+  'archive': 'officespec-archive-change',
+  'bulk-archive': 'officespec-bulk-archive-change',
+  'verify': 'officespec-verify-change',
+  'onboard': 'officespec-onboard',
+  'propose': 'officespec-propose',
 };
 
 // -----------------------------------------------------------------------------
@@ -214,7 +215,7 @@ export class InitCommand {
         if (pointer.value !== undefined) {
           throw new Error(
             `This repo's planning is externalized to store '${pointer.value}' (${pointer.filePath}). ` +
-              `Remove the store: line first to convert this repo to a local OpenSpec root.`
+              `Remove the store: line first to convert this repo to a local OfficeSpec root.`
           );
         }
       }
@@ -225,7 +226,7 @@ export class InitCommand {
     // Check for legacy artifacts and handle cleanup
     const deferredLegacyCleanup = await this.handleLegacyCleanup(projectPath, extendMode);
 
-    // Migrate OpenSpec-managed skills left in renamed tool directories
+    // Migrate OfficeSpec-managed skills left in renamed tool directories
     // (e.g. .kimi -> .kimi-code) before detection so they stay recognized.
     migrateLegacyToolDirs(projectPath);
 
@@ -260,7 +261,7 @@ export class InitCommand {
     const validatedTools = this.validateTools(selectedToolIds, toolStates, projectPath);
 
     // Selecting a renamed tool is consent to leave its former directory:
-    // init is about to write the current one, and leaving OpenSpec content
+    // init is about to write the current one, and leaving OfficeSpec content
     // behind would give the user two installs of the same tool.
     for (const migration of migrateLegacyToolDirs(
       projectPath,
@@ -311,7 +312,7 @@ export class InitCommand {
     }
 
     // An explicit opt-out means "no cloud files here": clean up any that a
-    // previous run (or an older OpenSpec) generated. Only OpenSpec-managed
+    // previous run (or an older OfficeSpec) generated. Only OfficeSpec-managed
     // files are removed — a user-customized file is preserved.
     let copilotRemoved = 0;
     if (copilotDecision.optedOut) {
@@ -344,7 +345,7 @@ export class InitCommand {
     });
     if (results.failedTools.length > 0) {
       throw new Error(
-        `OpenSpec setup failed for: ${results.failedTools.map((tool) => tool.name).join(', ')}`
+        `OfficeSpec setup failed for: ${results.failedTools.map((tool) => tool.name).join(', ')}`
       );
     }
   }
@@ -499,7 +500,7 @@ export class InitCommand {
 
     if (this.force || !canPrompt) {
       // --force flag or non-interactive mode: proceed with cleanup automatically.
-      // Legacy slash commands are 100% OpenSpec-managed, and config file cleanup
+      // Legacy slash commands are 100% OfficeSpec-managed, and config file cleanup
       // only removes markers (never deletes files), so auto-cleanup is safe.
       await this.performImmediateLegacyCleanup(projectPath, detection);
       return detection.globalSlashCommandFiles.length > 0 ? { detection } : null;
@@ -676,7 +677,7 @@ export class InitCommand {
       .map((toolId) => AI_TOOLS.find((t) => t.value === toolId)?.name || toolId);
 
     if (configuredNames.length > 0) {
-      console.log(`OpenSpec configured: ${configuredNames.join(', ')} (pre-selected)`);
+      console.log(`OfficeSpec configured: ${configuredNames.join(', ')} (pre-selected)`);
     }
 
     const detectedOnlyNames = detectedTools
@@ -874,7 +875,7 @@ export class InitCommand {
       return;
     }
 
-    const spinner = this.startSpinner('Creating OpenSpec structure...');
+    const spinner = this.startSpinner('Creating OfficeSpec structure...');
 
     for (const dir of directories) {
       FileSystemUtils.assertProjectArtifactPath(path.dirname(openspecPath), dir);
@@ -885,7 +886,7 @@ export class InitCommand {
 
     spinner.stopAndPersist({
       symbol: PALETTE.white('▌'),
-      text: PALETTE.white('OpenSpec structure created'),
+      text: PALETTE.white('OfficeSpec structure created'),
     });
   }
 
@@ -919,6 +920,7 @@ export class InitCommand {
     skillsInvocableCommandSkips: string[];
     removedCommandCount: number;
     removedSkillCount: number;
+    removedLegacySkillCount: number;
   }> {
     const createdTools: typeof tools = [];
     const refreshedTools: typeof tools = [];
@@ -927,6 +929,7 @@ export class InitCommand {
     const skillsInvocableCommandSkips: string[] = [];
     let removedCommandCount = 0;
     let removedSkillCount = 0;
+    let removedLegacySkillCount = 0;
 
     // Read global config for profile and delivery settings (use --profile override if set)
     const globalConfig = getGlobalConfig();
@@ -967,6 +970,7 @@ export class InitCommand {
             FileSystemUtils.assertPathWithin(tool.skillsRoot, skillFile);
             await FileSystemUtils.writeFile(skillFile, skillContent);
           }
+          removedLegacySkillCount += await this.removeLegacySkillDirs(tool.skillsRoot, tool.skillsPath);
           writeSharedSkillTarget(projectPath, tool.value);
         }
         if (
@@ -1040,6 +1044,7 @@ export class InitCommand {
       skillsInvocableCommandSkips,
       removedCommandCount,
       removedSkillCount,
+      removedLegacySkillCount,
     };
   }
 
@@ -1062,7 +1067,7 @@ export class InitCommand {
     const serializedContext = `${formatLanguageContext(normalized)}\n`;
     if (Buffer.byteLength(serializedContext, 'utf8') > MAX_CONTEXT_SIZE) {
       throw new Error(
-        `The --language option is too long for OpenSpec's ${MAX_CONTEXT_SIZE / 1024}KB project context limit.`
+        `The --language option is too long for OfficeSpec's ${MAX_CONTEXT_SIZE / 1024}KB project context limit.`
       );
     }
     return normalized;
@@ -1102,7 +1107,7 @@ export class InitCommand {
     if (existingContext?.includes(languageContext)) return;
 
     throw new Error(
-      '--language does not overwrite an existing OpenSpec config. ' +
+      '--language does not overwrite an existing OfficeSpec config. ' +
       'Add the language instruction to its context field instead.'
     );
   }
@@ -1150,6 +1155,7 @@ export class InitCommand {
       skillsInvocableCommandSkips: string[];
       removedCommandCount: number;
       removedSkillCount: number;
+      removedLegacySkillCount: number;
     },
     configStatus: 'created' | 'exists' | 'skipped',
     copilot: {
@@ -1163,7 +1169,7 @@ export class InitCommand {
     console.log();
     console.log(
       chalk.bold(
-        results.failedTools.length > 0 ? 'OpenSpec Setup Incomplete' : 'OpenSpec Setup Complete'
+        results.failedTools.length > 0 ? 'OfficeSpec Setup Incomplete' : 'OfficeSpec Setup Complete'
       )
     );
     console.log();
@@ -1264,6 +1270,9 @@ export class InitCommand {
     if (results.removedSkillCount > 0) {
       console.log(chalk.dim(`Removed: ${results.removedSkillCount} skill directories (delivery: commands)`));
     }
+    if (results.removedLegacySkillCount > 0) {
+      console.log(chalk.dim(`Removed: ${results.removedLegacySkillCount} skill directories (previous openspec-* naming)`));
+    }
 
     // GitHub Copilot cloud files are opt-in — report what is actually on disk:
     // list the managed files that now exist (never files we didn't write), flag
@@ -1277,7 +1286,7 @@ export class InitCommand {
       if (copilot.collisions.length > 0) {
         console.log(
           chalk.dim(
-            `Left your existing ${copilot.collisions.join(' and ')} untouched — add the OpenSpec ` +
+            `Left your existing ${copilot.collisions.join(' and ')} untouched — add the OfficeSpec ` +
               `install step by hand so the Copilot cloud agent can run openspec.`
           )
         );
@@ -1315,17 +1324,17 @@ export class InitCommand {
 
     // Getting started (task 7.6: show propose if in profile)
     const activeWorkflows = this.getActiveWorkflows();
-    // When no tool got /opsx:* commands, point at the skill instead of a
+    // When no tool got /ofsx:* commands, point at the skill instead of a
     // command that does not exist.
     const activeDelivery: Delivery = getGlobalConfig().delivery ?? 'both';
     const commandsGenerated = successfulTools.some((tool) => shouldGenerateCommandsForTool(tool.value, activeDelivery));
     const skillsGenerated = successfulTools.some((tool) => shouldGenerateSkillsForTool(tool.value, activeDelivery));
     // Each hint line must be a usable instruction for the tool it serves.
     // Tools that generated commands are told the command name their files
-    // answer to (/opsx:* when namespaced under opsx/, /opsx-* when the
+    // answer to (/ofsx:* when namespaced under ofsx/, /ofsx-* when the
     // filename is the command); tools that only got skills are told their
-    // documented skill invocation (Kimi Code: /skill:openspec-*; Codex CLI:
-    // $openspec-*; others: /openspec-*). Tools that got no artifacts are
+    // documented skill invocation (Kimi Code: /skill:officespec-*; Codex CLI:
+    // $officespec-*; others: /officespec-*). Tools that got no artifacts are
     // covered by the configuration correction instead. When the selection
     // disagrees, print one line per distinct instruction, labeled with the
     // tools it applies to.
@@ -1344,7 +1353,7 @@ export class InitCommand {
         } else if (shouldGenerateSkillsForTool(tool.value, activeDelivery)) {
           const skillReference = getSkillReferenceTransformer(tool.value)(command);
           // Tools with no slash surface (e.g. Rovo Dev) reference skills as
-          // prose ("the openspec-propose skill"); phrase the hint so it reads
+          // prose ("the officespec-propose skill"); phrase the hint so it reads
           // as an instruction rather than a dead command with an argument.
           hint = usesNaturalLanguageSkillReferences(tool.value)
             ? `Start your first change: ask ${tool.name} to use ${skillReference} with "your idea"`
@@ -1395,9 +1404,9 @@ export class InitCommand {
       // whole story, so don't advertise an invocation that doesn't exist.
       advertisedAnInvocation = false;
     } else if (activeWorkflows.includes('propose')) {
-      printStartHints('/opsx:propose');
+      printStartHints('/ofsx:propose');
     } else if (activeWorkflows.includes('new')) {
-      printStartHints('/opsx:new');
+      printStartHints('/ofsx:new');
     } else {
       console.log("Done. Run 'openspec config profile' to configure your workflows.");
       advertisedAnInvocation = false;
@@ -1422,8 +1431,8 @@ export class InitCommand {
 
     // Links
     console.log();
-    console.log(`Learn more: ${chalk.cyan('https://github.com/Fission-AI/OpenSpec')}`);
-    console.log(`Feedback:   ${chalk.cyan('https://github.com/Fission-AI/OpenSpec/issues')}`);
+    console.log(`Learn more: ${chalk.cyan('https://github.com/joelsebbu/OpenSpec')}`);
+    console.log(`Feedback:   ${chalk.cyan('https://github.com/joelsebbu/OpenSpec/issues')}`);
 
     // Restart instruction for successfully configured IDE/editor-resident tools
     // with a supported surface under the active delivery. The rule and wording live in
@@ -1465,6 +1474,44 @@ export class InitCommand {
       } catch {
         // Ignore errors
       }
+
+      // Drop the pre-rename sibling too: the OfficeSpec rename moved skill
+      // directories from `openspec-*` to `officespec-*`, and a re-run must
+      // not leave both copies behind.
+      const legacyDirName = legacySkillDirForWorkflow(workflow);
+      if (legacyDirName) {
+        removed += await this.removeDirIfPresent(skillsRoot, path.join(skillsDir, legacyDirName));
+      }
+    }
+
+    return removed;
+  }
+
+  private async removeDirIfPresent(skillsRoot: string, dir: string): Promise<number> {
+    if (!fs.existsSync(dir)) return 0;
+    FileSystemUtils.assertPathWithin(skillsRoot, dir);
+    try {
+      await fs.promises.rm(dir, { recursive: true, force: true });
+      return 1;
+    } catch {
+      // Ignore errors
+      return 0;
+    }
+  }
+
+  /**
+   * Removes pre-rename (`openspec-*`) skill directories left beside the
+   * current (`officespec-*`) ones. Runs after skills are generated so a
+   * re-run upgrades the tree instead of doubling every skill.
+   * Returns the number of directories removed.
+   */
+  private async removeLegacySkillDirs(skillsRoot: string, skillsDir: string): Promise<number> {
+    let removed = 0;
+
+    for (const workflow of ALL_WORKFLOWS) {
+      const legacyDirName = legacySkillDirForWorkflow(workflow);
+      if (!legacyDirName) continue;
+      removed += await this.removeDirIfPresent(skillsRoot, path.join(skillsDir, legacyDirName));
     }
 
     return removed;

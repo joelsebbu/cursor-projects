@@ -91,7 +91,7 @@ should count. Warning stands, for the upgrade-safety reason in section 1. The re
 what changed after review.
 
 - [x] 7.1 Read a `TODO` opening the Purpose as the same finding as a `TBD`.
-      Nothing OpenSpec writes produces one, but the marker an author leaves is
+      Nothing OfficeSpec writes produces one, but the marker an author leaves is
       whichever word they reach for, and a Purpose reading `TODO: fill in` is as
       unwritten as one reading `TBD`. The narrow rule is unchanged: only the
       opening position counts, so `TODOs are tracked in the issue` and a `TODO`

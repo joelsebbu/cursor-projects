@@ -100,7 +100,7 @@ Locked field decisions:
 Success output should stay locator-focused:
 
 ```text
-OpenSpec initiative: Billing Launch
+OfficeSpec initiative: Billing Launch
 
 ID: billing-launch
 Summary: Coordinate billing launch work.

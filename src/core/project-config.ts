@@ -25,9 +25,9 @@ const OperationConfigSchema = z.object({
  * 3. Runtime validation - uses safeParse() for resilient field-by-field validation
  *
  * Why Zod over manual validation:
- * - Helps understand OpenSpec's data interfaces at a glance
+ * - Helps understand OfficeSpec's data interfaces at a glance
  * - Single source of truth for type and validation
- * - Consistent with other OpenSpec schemas
+ * - Consistent with other OfficeSpec schemas
  */
 export const ProjectConfigSchema = z.object({
   // Required: which schema to use (e.g., "spec-driven", or project-local schema name)
@@ -72,7 +72,7 @@ export const ProjectConfigSchema = z.object({
   store: z
     .string()
     .optional()
-    .describe('Store id used as the OpenSpec root when no local planning shape exists'),
+    .describe('Store id used as the OfficeSpec root when no local planning shape exists'),
 
   // Optional: GitHub Copilot integration preferences. `cloudAgent` is the
   // opt-in for generating the Copilot cloud coding-agent files (a GitHub

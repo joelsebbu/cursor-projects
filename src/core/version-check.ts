@@ -473,7 +473,7 @@ export function buildCliUpdateLines(
   projectPath: string,
   options: { withCommand?: boolean } = {}
 ): string[] {
-  const lines = [`A newer OpenSpec CLI is available (v${OPENSPEC_VERSION} → v${latestVersion}).`];
+  const lines = [`A newer OfficeSpec CLI is available (v${OPENSPEC_VERSION} → v${latestVersion}).`];
 
   // Omitted when we are about to offer to run it — printing a command and then
   // asking to run that same command reads like the user has to do both.
@@ -655,7 +655,7 @@ export function readCliVersion(binPath: string): Promise<string | null> {
     child.on('close', () => {
       clearTimeout(timer);
       // A line that is only a version, not the first version-shaped token
-      // anywhere: a wrapper banner ("Node.js v25.8.1 | OpenSpec") would
+      // anywhere: a wrapper banner ("Node.js v25.8.1 | OfficeSpec") would
       // otherwise be read as the answer.
       const version = output
         .split(/\r?\n/)

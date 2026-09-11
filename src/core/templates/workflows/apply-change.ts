@@ -11,17 +11,17 @@ import { STORE_SELECTION_GUIDANCE } from './store-selection.js';
  * The apply workflow instructions, authored once and rendered by both the
  * skill and command surfaces. The surfaces are intentionally distinct, but
  * they differ only in how they are invoked — the generation transformers
- * rewrite the canonical `/opsx:<id>` tokens per surface downstream (see
+ * rewrite the canonical `/ofsx:<id>` tokens per surface downstream (see
  * command-references.ts). The instruction text itself is shared, so the two
  * cannot silently drift. Should a surface ever need genuinely different
  * wording, add a parameter here and pass it from that surface's template.
  */
 export function getApplyInstructions(): string {
-  return `Carry out tasks from an OpenSpec change.
+  return `Carry out tasks from an OfficeSpec change.
 
 ${STORE_SELECTION_GUIDANCE}
 
-**Input**: Optionally specify a change name (e.g., \`/opsx:apply add-auth\`). If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
+**Input**: Optionally specify a change name (e.g., \`/ofsx:apply add-auth\`). If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
 
 **Steps**
 
@@ -32,7 +32,7 @@ ${STORE_SELECTION_GUIDANCE}
    - Auto-select if only one active change exists
    - If ambiguous, run \`openspec list --json\` to get available changes and ask the user to select one
 
-   Always announce: "Using change: <name>" and how to override (e.g., \`/opsx:apply <other>\`).
+   Always announce: "Using change: <name>" and how to override (e.g., \`/ofsx:apply <other>\`).
 
 2. **Check status to understand the schema**
    \`\`\`bash
@@ -58,7 +58,7 @@ ${STORE_SELECTION_GUIDANCE}
    - Optional \`operationGuidance\`: current advisory guidance for apply
 
    **Handle states:**
-   - If \`state: "blocked"\` (missing artifacts): show message, suggest using \`/opsx:continue\` (if it is not installed, run \`openspec status --change "<name>" --json\` to see the next artifact and \`openspec instructions <artifact-id> --change "<name>" --json\` for how to create it)
+   - If \`state: "blocked"\` (missing artifacts): show message, suggest using \`/ofsx:continue\` (if it is not installed, run \`openspec status --change "<name>" --json\` to see the next artifact and \`openspec instructions <artifact-id> --change "<name>" --json\` for how to create it)
    - If \`state: "all_done"\`: congratulate, suggest archive
    - Otherwise: proceed to the work
 
@@ -147,7 +147,7 @@ Working on task 4/7: <task description>
 - [x] Task 2
 ...
 
-All tasks complete! You can archive this change with \`/opsx:archive\`.
+All tasks complete! You can archive this change with \`/ofsx:archive\`.
 \`\`\`
 
 **Output On Pause (Issue Encountered)**
@@ -197,8 +197,8 @@ This skill supports the "actions on a change" model:
 
 export function getApplyChangeSkillTemplate(): SkillTemplate {
   return {
-    name: 'openspec-apply-change',
-    description: 'Carry out tasks from an OpenSpec change. Use when the user wants to start the work, continue the work, or work through tasks.',
+    name: 'officespec-apply-change',
+    description: 'Carry out tasks from an OfficeSpec change. Use when the user wants to start the work, continue the work, or work through tasks.',
     instructions: getApplyInstructions(),
     license: 'MIT',
     compatibility: 'Requires openspec CLI.',
@@ -206,10 +206,10 @@ export function getApplyChangeSkillTemplate(): SkillTemplate {
   };
 }
 
-export function getOpsxApplyCommandTemplate(): CommandTemplate {
+export function getOfsxApplyCommandTemplate(): CommandTemplate {
   return {
-    name: 'OPSX: Apply',
-    description: 'Carry out tasks from an OpenSpec change (Experimental)',
+    name: 'OFSX: Apply',
+    description: 'Carry out tasks from an OfficeSpec change (Experimental)',
     category: 'Workflow',
     tags: ['workflow', 'artifacts', 'experimental'],
     content: getApplyInstructions(),

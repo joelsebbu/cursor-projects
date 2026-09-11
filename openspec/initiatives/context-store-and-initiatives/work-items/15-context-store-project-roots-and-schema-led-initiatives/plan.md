@@ -36,9 +36,9 @@ design direction, open questions, and decisions as those artifacts become real.
 They should not create empty or fake documents that look finished just because
 the folder exists.
 
-The broader product shape is that a context store should feel like an OpenSpec
+The broader product shape is that a context store should feel like an OfficeSpec
 root in the same way a repo does after `openspec init`: it can have local
-OpenSpec configuration and project-local schemas. The difference is lifecycle:
+OfficeSpec configuration and project-local schemas. The difference is lifecycle:
 a context store is the shared context root, not an implementation repo.
 
 ## Product Model
@@ -66,13 +66,13 @@ context-store/
   initiatives/
 ```
 
-The `openspec/` directory inside a context store exists for OpenSpec config and
+The `openspec/` directory inside a context store exists for OfficeSpec config and
 schema resolution. It does not by itself make the context store an executable
 implementation planning home.
 
 ## Goals
 
-- Let context stores carry OpenSpec config, including a default initiative
+- Let context stores carry OfficeSpec config, including a default initiative
   schema.
 - Let context stores carry project-local schemas under `openspec/schemas/`.
 - Replace hardcoded initiative file creation with a schema-led artifact model.
@@ -197,7 +197,7 @@ Current reusable pieces:
 
 New initiative-specific pieces:
 
-- a context-store OpenSpec-root helper that treats the store root as the
+- a context-store OfficeSpec-root helper that treats the store root as the
   `projectRoot` for config and schema lookup
 - an initiative artifact context loader rooted at
   `context-store/initiatives/<id>/`
@@ -332,7 +332,7 @@ Likely docs to update:
 
 ## Done When
 
-- A new context store has OpenSpec config and can resolve project-local
+- A new context store has OfficeSpec config and can resolve project-local
   initiative schemas.
 - `initiative create` creates only the sparse initiative shell.
 - Agents can use initiative status/instructions to create high-level planning

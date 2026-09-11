@@ -1,6 +1,6 @@
 ## Why
 
-The current setup has two separate commands (`openspec init` and `openspec experimental`) that configure different parts of the OpenSpec workflow. This creates confusion about which command to run, results in partial setups, and maintains two parallel systems (config files + old slash commands vs skills + opsx commands). Making the skill-based workflow the default simplifies onboarding and establishes a single, consistent way to use OpenSpec.
+The current setup has two separate commands (`openspec init` and `openspec experimental`) that configure different parts of the OfficeSpec workflow. This creates confusion about which command to run, results in partial setups, and maintains two parallel systems (config files + old slash commands vs skills + opsx commands). Making the skill-based workflow the default simplifies onboarding and establishes a single, consistent way to use OfficeSpec.
 
 ## What Changes
 
@@ -17,7 +17,7 @@ The current setup has two separate commands (`openspec init` and `openspec exper
 
 ### New Capabilities
 
-- `legacy-cleanup`: Detect and remove legacy OpenSpec artifacts (config files, old slash commands, AGENTS.md) during init
+- `legacy-cleanup`: Detect and remove legacy OfficeSpec artifacts (config files, old slash commands, AGENTS.md) during init
 
 ### Modified Capabilities
 

@@ -1,5 +1,5 @@
 ## Why
-OpenSpec currently creates the root-level `AGENTS.md` stub only when teams explicitly select the "AGENTS.md standard" tool during `openspec init`. Projects that skip that checkbox never get a managed stub, so non-native assistants (Copilot, Codeium, etc.) have no entry point and later `openspec update` runs silently create the file without any context. We need to bake the stub into initialization, clarify the tool selection experience, and keep the update workflow aligned so every teammate lands on the right instructions from day one.
+OfficeSpec currently creates the root-level `AGENTS.md` stub only when teams explicitly select the "AGENTS.md standard" tool during `openspec init`. Projects that skip that checkbox never get a managed stub, so non-native assistants (Copilot, Codeium, etc.) have no entry point and later `openspec update` runs silently create the file without any context. We need to bake the stub into initialization, clarify the tool selection experience, and keep the update workflow aligned so every teammate lands on the right instructions from day one.
 
 ## What Changes
 - Update `openspec init` so the root `AGENTS.md` stub is always generated (first run and extend mode) and refreshed from a shared utility instead of being tied to a tool selection.

@@ -10,21 +10,21 @@ describe('getOnboardingCommands', () => {
   it('omits commands the profile does not install', () => {
     const commands = getOnboardingCommands(CORE_WORKFLOWS).map((c) => c.command);
 
-    expect(commands).toEqual(['/opsx:propose', '/opsx:apply']);
-    expect(commands).not.toContain('/opsx:new');
-    expect(commands).not.toContain('/opsx:continue');
+    expect(commands).toEqual(['/ofsx:propose', '/ofsx:apply']);
+    expect(commands).not.toContain('/ofsx:new');
+    expect(commands).not.toContain('/ofsx:continue');
   });
 
   it('includes expanded commands when a custom profile installs them', () => {
     const commands = getOnboardingCommands(['new', 'continue', 'apply']).map((c) => c.command);
 
-    expect(commands).toEqual(['/opsx:new', '/opsx:continue', '/opsx:apply']);
+    expect(commands).toEqual(['/ofsx:new', '/ofsx:continue', '/ofsx:apply']);
   });
 
   it('returns lifecycle order regardless of the order workflows are given', () => {
     const commands = getOnboardingCommands(['apply', 'continue', 'propose']).map((c) => c.command);
 
-    expect(commands).toEqual(['/opsx:propose', '/opsx:continue', '/opsx:apply']);
+    expect(commands).toEqual(['/ofsx:propose', '/ofsx:continue', '/ofsx:apply']);
   });
 
   it('returns nothing when no onboarding workflow is installed', () => {

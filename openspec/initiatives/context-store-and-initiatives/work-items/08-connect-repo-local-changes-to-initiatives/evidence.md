@@ -160,7 +160,7 @@ Rationale:
 - Keeping the command scoped to `.openspec.yaml` avoids creating a broad change
   editing surface.
 - `openspec change ...` is currently deprecated, `edit` implies opening an
-  editor, and `update` already means refreshing local OpenSpec tooling or
+  editor, and `update` already means refreshing local OfficeSpec tooling or
   guidance.
 
 ## Decision 8: Status And Instructions Visibility

@@ -1,20 +1,20 @@
-# Migrating to OPSX
+# Migrating to OFSX
 
-This guide helps you transition from the legacy OpenSpec workflow to OPSX. The migration is designed to be smooth—your existing work is preserved, and the new system offers more flexibility.
+This guide helps you transition from the legacy OfficeSpec workflow to OFSX. The migration is designed to be smooth—your existing work is preserved, and the new system offers more flexibility.
 
 ## What's Changing?
 
-OPSX replaces the old phase-locked workflow with a fluid, action-based approach. Here's the key shift:
+OFSX replaces the old phase-locked workflow with a fluid, action-based approach. Here's the key shift:
 
-| Aspect | Legacy | OPSX |
+| Aspect | Legacy | OFSX |
 |--------|--------|------|
-| **Commands** | `/openspec:proposal`, `/openspec:apply`, `/openspec:archive` | Default: `/opsx:propose`, `/opsx:explore`, `/opsx:apply`, `/opsx:update`, `/opsx:sync`, `/opsx:archive` (expanded workflow commands optional) |
+| **Commands** | `/openspec:proposal`, `/openspec:apply`, `/openspec:archive` | Default: `/ofsx:propose`, `/ofsx:explore`, `/ofsx:apply`, `/ofsx:update`, `/ofsx:sync`, `/ofsx:archive` (expanded workflow commands optional) |
 | **Workflow** | Create all artifacts at once | Create incrementally or all at once—your choice |
 | **Going back** | Awkward phase gates | Natural—update any artifact anytime |
 | **Customization** | Fixed structure | Schema-driven, fully hackable |
 | **Configuration** | `CLAUDE.md` with markers + `project.md` | Clean config in `openspec/config.yaml` |
 
-**The philosophy change:** Work isn't linear. OPSX stops pretending it is.
+**The philosophy change:** Work isn't linear. OFSX stops pretending it is.
 
 ---
 
@@ -24,20 +24,20 @@ OPSX replaces the old phase-locked workflow with a fluid, action-based approach.
 
 The migration process is designed with preservation in mind:
 
-- **Active changes in `openspec/changes/`** — Completely preserved. You can continue them with OPSX commands.
+- **Active changes in `openspec/changes/`** — Completely preserved. You can continue them with OFSX commands.
 - **Archived changes** — Untouched. Your history remains intact.
 - **Main specs in `openspec/specs/`** — Untouched. These are your source of truth.
-- **Your content in CLAUDE.md, AGENTS.md, etc.** — Preserved. Only the OpenSpec marker blocks are removed; everything you wrote stays.
+- **Your content in CLAUDE.md, AGENTS.md, etc.** — Preserved. Only the OfficeSpec marker blocks are removed; everything you wrote stays.
 
 ### What Gets Removed
 
-Only OpenSpec-managed files that are being replaced:
+Only OfficeSpec-managed files that are being replaced:
 
 | What | Why |
 |------|-----|
 | Legacy slash command directories/files | Replaced by the new skills system |
 | `openspec/AGENTS.md` | Obsolete workflow trigger |
-| OpenSpec markers in `CLAUDE.md`, `AGENTS.md`, etc. | No longer needed |
+| OfficeSpec markers in `CLAUDE.md`, `AGENTS.md`, etc. | No longer needed |
 
 **Legacy command locations by tool** (examples—your tool may vary):
 
@@ -47,12 +47,12 @@ Only OpenSpec-managed files that are being replaced:
 - Cline: `.clinerules/workflows/openspec-*.md`
 - Roo: `.roo/commands/openspec-*.md`
 - GitHub Copilot: `.github/prompts/openspec-*.prompt.md` (IDE extensions only; not supported in Copilot CLI)
-- Codex: OpenSpec now uses the canonical `.agents/skills/openspec-*` path. OpenSpec-managed `SKILL.md` files under the former `.codex/skills` path are reconciled only after replacements exist; custom files and divergent copies stay in place. If an unmarked `.agents` tree already contains OpenSpec skills, OpenSpec preserves its existing Codex (`$openspec-*`) or generic (`/openspec-*`) rendering instead of guessing from the legacy directory. Select `codex` explicitly with `openspec init` to switch ownership. Legacy prompt cleanup still targets only OpenSpec's allowlisted filenames in `$CODEX_HOME/prompts` or `~/.codex/prompts`.
+- Codex: OfficeSpec now uses the canonical `.agents/skills/openspec-*` path. OfficeSpec-managed `SKILL.md` files under the former `.codex/skills` path are reconciled only after replacements exist; custom files and divergent copies stay in place. If an unmarked `.agents` tree already contains OfficeSpec skills, OfficeSpec preserves its existing Codex (`$officespec-*`) or generic (`/officespec-*`) rendering instead of guessing from the legacy directory. Select `codex` explicitly with `openspec init` to switch ownership. Legacy prompt cleanup still targets only OfficeSpec's allowlisted filenames in `$CODEX_HOME/prompts` or `~/.codex/prompts`.
 - And others (Augment, Continue, Amazon Q, etc.)
 
 The migration detects whichever tools you have configured and cleans up their legacy files.
 
-The removal list may seem long, but these are all files that OpenSpec originally created. Your own content is never deleted.
+The removal list may seem long, but these are all files that OfficeSpec originally created. Your own content is never deleted.
 
 ### What Needs Your Attention
 
@@ -68,7 +68,7 @@ One file requires manual migration:
 
 The old `project.md` was passive—agents might read it, might not, might forget what they read. We found reliability was inconsistent.
 
-The new `config.yaml` context is **actively injected into every OpenSpec planning request**. This means your work conventions, tech stack, and rules are always present when the AI is creating artifacts. Higher reliability.
+The new `config.yaml` context is **actively injected into every OfficeSpec planning request**. This means your work conventions, tech stack, and rules are always present when the AI is creating artifacts. Higher reliability.
 
 **The tradeoff:**
 
@@ -99,9 +99,9 @@ openspec init
 The init command detects legacy files and guides you through cleanup:
 
 ```
-Upgrading to the new OpenSpec
+Upgrading to the new OfficeSpec
 
-OpenSpec now uses agent skills, the emerging standard across coding
+OfficeSpec now uses agent skills, the emerging standard across coding
 agents. This simplifies your setup while keeping everything working
 as before.
 
@@ -111,7 +111,7 @@ No user content to preserve:
   • openspec/AGENTS.md
 
 Files to update
-OpenSpec markers will be removed, your content preserved:
+OfficeSpec markers will be removed, your content preserved:
   • CLAUDE.md
   • AGENTS.md
 
@@ -120,7 +120,7 @@ Needs your attention
     We won't delete this file. It may contain useful project context.
 
     The new openspec/config.yaml has a "context:" section for planning
-    context. This is included in every OpenSpec request and works more
+    context. This is included in every OfficeSpec request and works more
     reliably than the old project.md approach.
 
     Review project.md, move any useful content to config.yaml's context
@@ -132,7 +132,7 @@ Needs your attention
 **What happens when you say yes:**
 
 1. Legacy slash command directories are removed
-2. OpenSpec markers are stripped from `CLAUDE.md`, `AGENTS.md`, etc. (your content stays)
+2. OfficeSpec markers are stripped from `CLAUDE.md`, `AGENTS.md`, etc. (your content stays)
 3. `openspec/AGENTS.md` is deleted
 4. New skills are installed in `.claude/skills/`
 5. `openspec/config.yaml` is created with a default schema
@@ -157,7 +157,7 @@ openspec init --force --tools claude
 
 The `--force` flag skips prompts and auto-accepts cleanup.
 
-This includes cleanup of OpenSpec-managed Codex prompt files in the global Codex prompt directory. Cleanup only targets OpenSpec's allowlisted legacy Codex prompt filenames, removes them only after replacement `.agents/skills/openspec-*` skills exist, and preserves all other files.
+This includes cleanup of OfficeSpec-managed Codex prompt files in the global Codex prompt directory. Cleanup only targets OfficeSpec's allowlisted legacy Codex prompt filenames, removes them only after replacement `.agents/skills/officespec-*` skills exist, and preserves all other files.
 
 ---
 
@@ -263,7 +263,7 @@ When migrating, be selective. Ask yourself: "Does the AI need this for *every* p
 If you're unsure how to distill your work.md, ask your AI assistant:
 
 ```
-I'm migrating from OpenSpec's old project.md to the new config.yaml format.
+I'm migrating from OfficeSpec's old project.md to the new config.yaml format.
 
 Here's my current project.md:
 [paste your work.md content]
@@ -287,33 +287,33 @@ Command availability is profile-dependent:
 
 | Command | Purpose |
 |---------|---------|
-| `/opsx:propose` | Create a change and generate planning artifacts in one step |
-| `/opsx:explore` | Think through ideas with no structure |
-| `/opsx:apply` | Implement tasks from tasks.md |
-| `/opsx:update` | Revise a change's planning artifacts and keep them coherent |
-| `/opsx:sync` | Merge delta specs into main specs |
-| `/opsx:archive` | Finalize and archive the change |
+| `/ofsx:propose` | Create a change and generate planning artifacts in one step |
+| `/ofsx:explore` | Think through ideas with no structure |
+| `/ofsx:apply` | Implement tasks from tasks.md |
+| `/ofsx:update` | Revise a change's planning artifacts and keep them coherent |
+| `/ofsx:sync` | Merge delta specs into main specs |
+| `/ofsx:archive` | Finalize and archive the change |
 
 **Expanded workflow (custom selection):**
 
 | Command | Purpose |
 |---------|---------|
-| `/opsx:new` | Start a new change scaffold |
-| `/opsx:continue` | Create the next artifact (one at a time) |
-| `/opsx:ff` | Fast-forward—create planning artifacts at once |
-| `/opsx:verify` | Validate implementation matches specs |
-| `/opsx:bulk-archive` | Archive multiple changes at once |
-| `/opsx:onboard` | Guided end-to-end onboarding workflow |
+| `/ofsx:new` | Start a new change scaffold |
+| `/ofsx:continue` | Create the next artifact (one at a time) |
+| `/ofsx:ff` | Fast-forward—create planning artifacts at once |
+| `/ofsx:verify` | Validate implementation matches specs |
+| `/ofsx:bulk-archive` | Archive multiple changes at once |
+| `/ofsx:onboard` | Guided end-to-end onboarding workflow |
 
 Enable expanded commands with `openspec config profile`, then run `openspec update`.
 
 ### Command Mapping from Legacy
 
-| Legacy | OPSX Equivalent |
+| Legacy | OFSX Equivalent |
 |--------|-----------------|
-| `/openspec:proposal` | `/opsx:propose` (default) or `/opsx:new` then `/opsx:ff` (expanded) |
-| `/openspec:apply` | `/opsx:apply` |
-| `/openspec:archive` | `/opsx:archive` |
+| `/openspec:proposal` | `/ofsx:propose` (default) or `/ofsx:new` then `/ofsx:ff` (expanded) |
+| `/openspec:apply` | `/ofsx:apply` |
+| `/openspec:archive` | `/ofsx:archive` |
 
 ### New Capabilities
 
@@ -321,13 +321,13 @@ These capabilities are part of the expanded workflow command set.
 
 **Granular artifact creation:**
 ```
-/opsx:continue
+/ofsx:continue
 ```
 Creates one artifact at a time based on dependencies. Use this when you want to review each step.
 
 **Exploration mode:**
 ```
-/opsx:explore
+/ofsx:explore
 ```
 Think through ideas with a partner before committing to a change.
 
@@ -349,7 +349,7 @@ If you're in implementation and realize the design is wrong?
 Too bad. Phase gates don't let you go back easily.
 ```
 
-OPSX uses actions, not phases:
+OFSX uses actions, not phases:
 
 ```
          ┌───────────────────────────────────────────────┐
@@ -385,7 +385,7 @@ Artifacts form a directed graph. Dependencies are enablers, not gates:
                      specs, design)
 ```
 
-When you run `/opsx:continue`, it checks what's ready and offers the next artifact. You can also create multiple ready artifacts in any order.
+When you run `/ofsx:continue`, it checks what's ready and offers the next artifact. You can also create multiple ready artifacts in any order.
 
 ### Skills vs Commands
 
@@ -398,39 +398,39 @@ The legacy system used tool-specific command files:
 └── archive.md
 ```
 
-OPSX uses the emerging **skills** standard:
+OFSX uses the emerging **skills** standard:
 
 ```
 .claude/skills/
-├── openspec-explore/SKILL.md
-├── openspec-new-change/SKILL.md
-├── openspec-continue-change/SKILL.md
-├── openspec-apply-change/SKILL.md
+├── officespec-explore/SKILL.md
+├── officespec-new-change/SKILL.md
+├── officespec-continue-change/SKILL.md
+├── officespec-apply-change/SKILL.md
 └── ...
 ```
 
 Skills are recognized across multiple AI coding tools and provide richer metadata.
 
-Codex is skills-only in OPSX. OpenSpec no longer generates Codex custom prompt files; use the generated `.agents/skills/openspec-*` directories instead.
+Codex is skills-only in OFSX. OfficeSpec no longer generates Codex custom prompt files; use the generated `.agents/skills/officespec-*` directories instead.
 
 ---
 
 ## Continuing Existing Changes
 
-Your in-progress changes work seamlessly with OPSX commands.
+Your in-progress changes work seamlessly with OFSX commands.
 
 **Have an active change from the legacy workflow?**
 
 ```
-/opsx:apply add-my-feature
+/ofsx:apply add-my-feature
 ```
 
-OPSX reads the existing artifacts and continues from where you left off.
+OFSX reads the existing artifacts and continues from where you left off.
 
 **Want to add more artifacts to an existing change?**
 
 ```
-/opsx:continue add-my-feature
+/ofsx:continue add-my-feature
 ```
 
 Shows what's ready to create based on what already exists.
@@ -472,7 +472,7 @@ rules:
 
 ### Schema Resolution
 
-When determining which schema to use, OPSX checks in order:
+When determining which schema to use, OFSX checks in order:
 
 1. **CLI flag**: `--schema <name>` (highest priority)
 2. **Change metadata**: `.openspec.yaml` in the change directory
@@ -563,16 +563,16 @@ project/
 │   │   └── archive/              # Unchanged
 │   └── config.yaml               # NEW: Project configuration
 ├── .claude/
-│   └── skills/                   # NEW: OPSX skills
-│       ├── openspec-propose/     # default core profile
-│       ├── openspec-explore/
-│       ├── openspec-apply-change/
-│       ├── openspec-update-change/
-│       ├── openspec-sync-specs/
-│       ├── openspec-archive-change/
+│   └── skills/                   # NEW: OFSX skills
+│       ├── officespec-propose/     # default core profile
+│       ├── officespec-explore/
+│       ├── officespec-apply-change/
+│       ├── officespec-update-change/
+│       ├── officespec-sync-specs/
+│       ├── officespec-archive-change/
 │       └── ...                   # expanded profile adds new/continue/ff/etc.
-├── CLAUDE.md                     # OpenSpec markers removed, your content preserved
-└── AGENTS.md                     # OpenSpec markers removed, your content preserved
+├── CLAUDE.md                     # OfficeSpec markers removed, your content preserved
+└── AGENTS.md                     # OfficeSpec markers removed, your content preserved
 ```
 
 ### What's Gone
@@ -580,19 +580,19 @@ project/
 - `.claude/commands/openspec/` — replaced by `.claude/skills/`
 - `openspec/AGENTS.md` — obsolete
 - `openspec/project.md` — migrate to `config.yaml`, then delete
-- OpenSpec marker blocks in `CLAUDE.md`, `AGENTS.md`, etc.
+- OfficeSpec marker blocks in `CLAUDE.md`, `AGENTS.md`, etc.
 
 ### Command Cheatsheet
 
 ```text
-/opsx:propose      Start quickly (default core profile)
-/opsx:apply        Implement tasks
-/opsx:archive      Finish and archive
+/ofsx:propose      Start quickly (default core profile)
+/ofsx:apply        Implement tasks
+/ofsx:archive      Finish and archive
 
 # Expanded workflow (if enabled):
-/opsx:new          Scaffold a change
-/opsx:continue     Create next artifact
-/opsx:ff           Create planning artifacts
+/ofsx:new          Scaffold a change
+/ofsx:continue     Create next artifact
+/ofsx:ff           Create planning artifacts
 ```
 
 ---
@@ -600,5 +600,5 @@ project/
 ## Getting Help
 
 - **Discord**: [discord.gg/YctCnvvshC](https://discord.gg/YctCnvvshC)
-- **GitHub Issues**: [github.com/Fission-AI/OpenSpec/issues](https://github.com/Fission-AI/OpenSpec/issues)
-- **Documentation**: [docs/opsx.md](opsx.md) for the full OPSX reference
+- **GitHub Issues**: [github.com/joelsebbu/OpenSpec/issues](https://github.com/joelsebbu/OpenSpec/issues)
+- **Documentation**: [docs/opsx.md](ofsx.md) for the full OFSX reference

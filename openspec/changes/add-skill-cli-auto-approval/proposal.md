@@ -1,6 +1,6 @@
 ## Why
 
-Every generated OpenSpec skill drives the `openspec` CLI (`openspec list`, `status`, `instructions`, …). Today the skill frontmatter never pre-approves those calls, so agents that gate Bash on permission prompt the user on every single `openspec` invocation. The workflow stalls on approvals for a first-party, read-mostly CLI the user already opted into by installing OpenSpec.
+Every generated OfficeSpec skill drives the `openspec` CLI (`openspec list`, `status`, `instructions`, …). Today the skill frontmatter never pre-approves those calls, so agents that gate Bash on permission prompt the user on every single `openspec` invocation. The workflow stalls on approvals for a first-party, read-mostly CLI the user already opted into by installing OfficeSpec.
 
 The Agent Skills standard already solves this: an `allowed-tools` frontmatter field pre-approves listed tools while a skill is active. We just aren't emitting it.
 

@@ -2,7 +2,7 @@
 
 - [x] 1.1 Confirm `setup`, `list`, and `doctor` belong to this slice
 - [x] 1.2 Capture that setup should not own preferred agent or workspace open behavior
-- [x] 1.3 Capture that linked repos or folders and monorepo paths are allowed without repo-local OpenSpec state
+- [x] 1.3 Capture that linked repos or folders and monorepo paths are allowed without repo-local OfficeSpec state
 - [x] 1.4 Capture decisions for JSON output, `ls`, `.gitignore`, non-interactive setup, required first link, and relink behavior
 - [x] 1.5 Capture that public `workspace create` is out of scope for the first release
 - [x] 1.6 Capture `link`/`relink` as the user-facing commands
@@ -38,7 +38,7 @@
 
 - [x] 4.1 Implement `openspec workspace list`
 - [x] 4.2 Add `workspace ls` as an alias for `workspace list`
-- [x] 4.3 List known OpenSpec-managed workspaces from the local workspace registry
+- [x] 4.3 List known OfficeSpec-managed workspaces from the local workspace registry
 - [x] 4.4 Handle the no-workspaces case with a clear next step
 - [x] 4.5 Show each workspace location and linked repos or folders
 - [x] 4.6 Report stale registry entries with status entries without deleting, rewriting, or repairing registry state
@@ -108,7 +108,7 @@
 
 - [x] 10.1 Run `openspec validate workspace-create-and-register-repos --strict`
 - [x] 10.2 Run targeted command tests for workspace setup/list/link/relink/doctor, including doctor inferring the current workspace
-- [x] 10.3 Run targeted tests for links without repo-local OpenSpec and monorepo folder links
+- [x] 10.3 Run targeted tests for links without repo-local OfficeSpec and monorepo folder links
 - [x] 10.4 Run targeted tests for JSON output, `ls`, `.gitignore`, non-interactive setup, required first link, verified absolute path storage, and JSON/no-interactive prompt suppression
 - [x] 10.5 Run targeted tests for global command selection, unregistered current workspace handling, and local workspace registry behavior
 

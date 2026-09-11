@@ -12,14 +12,14 @@ import { escapeYamlValue } from '../yaml.js';
 
 /**
  * SourceCraft Code Assistant adapter for command generation.
- * File path: .codeassistant/commands/opsx-<id>.md
+ * File path: .codeassistant/commands/ofsx-<id>.md
  * Format: YAML frontmatter with description
  */
 export const codeassistantAdapter: ToolCommandAdapter = {
   toolId: 'codeassistant',
 
   getFilePath(commandId: string): string {
-    return path.join('.codeassistant', 'commands', `opsx-${commandId}.md`);
+    return path.join('.codeassistant', 'commands', `ofsx-${commandId}.md`);
   },
 
   formatFile(content: CommandContent): string {

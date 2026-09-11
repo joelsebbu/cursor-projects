@@ -36,11 +36,12 @@ function normalizeGeneratedSkill(content: string): string {
 
 /**
  * Converts only known generated dual references in current Codex content back
- * to the direct syntax used by legacy `.codex` output.
+ * to the direct syntax used by legacy `.codex` output. Matches both the
+ * current `officespec-*` rendering and the pre-rename `openspec-*` one.
  */
 function toLegacyCodexReferences(content: string): string {
   return content.replace(
-    /\$(openspec-[a-z0-9-]+) \(Codex\) or \/\1 \(other agents\)/g,
+    /\$((?:open|office)spec-[a-z0-9-]+) \(Codex\) or \/\1 \(other agents\)/g,
     (match, skillName: string) =>
       OPENSPEC_SKILL_NAME_SET.has(skillName) ? `$${skillName}` : match
   );

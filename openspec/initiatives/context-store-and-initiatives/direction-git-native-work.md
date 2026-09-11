@@ -6,14 +6,14 @@ workspace, context-store, and multi-repo planning discussion.
 The positive shape is:
 
 ```text
-OpenSpec is a Git-native artifact format for specs and work.
+OfficeSpec is a Git-native artifact format for specs and work.
 
 Specs are what is true.
 Work is what is in motion.
 ```
 
-OpenSpec artifacts live as files in Git. That Git repo may be the code repo, a
-planning repo, or a contracts repo. OpenSpec should not introduce a separate
+OfficeSpec artifacts live as files in Git. That Git repo may be the code repo, a
+planning repo, or a contracts repo. OfficeSpec should not introduce a separate
 authoritative state system outside those files.
 
 ## Core Shape
@@ -31,7 +31,7 @@ openspec/
 - `specs/` describes accepted behavior.
 - `work/` describes intended effort in motion.
 
-This shape should be the same whether the OpenSpec root lives beside code or in
+This shape should be the same whether the OfficeSpec root lives beside code or in
 a dedicated planning or contracts repo.
 
 ```text
@@ -48,7 +48,7 @@ planning-repo/
 
 There is no separate product mode for "repo-local", "external", "workspace",
 "context store", or "multi-repo" artifacts. The placement choice is simply
-which Git repo contains the OpenSpec files.
+which Git repo contains the OfficeSpec files.
 
 ## Vocabulary
 
@@ -70,14 +70,14 @@ Users should not need to learn `context store`, `project`, `workspace`,
 Use these terms when explaining the near-term product:
 
 ```text
-OpenSpec root
+OfficeSpec root
   The `openspec/` directory that contains specs, changes, work, and config.
 
-In-project OpenSpec
-  OpenSpec initialized inside the project repo it helps describe.
+In-project OfficeSpec
+  OfficeSpec initialized inside the project repo it helps describe.
 
-Standalone OpenSpec repo
-  A separate Git repo whose main purpose is to hold OpenSpec artifacts.
+Standalone OfficeSpec repo
+  A separate Git repo whose main purpose is to hold OfficeSpec artifacts.
 
 Target project repo
   A code repo that a change or work item applies to.
@@ -87,20 +87,20 @@ Local repo map
 
 Workspace view
   Legacy or beta local-view language. In the new direction, this should reduce
-  to a local repo map plus an optional focused OpenSpec root or work item.
+  to a local repo map plus an optional focused OfficeSpec root or work item.
 ```
 
 Examples:
 
 ```text
-In-project OpenSpec:
+In-project OfficeSpec:
 
 app-repo/
   openspec/
     specs/
     changes/
 
-Standalone OpenSpec repo:
+Standalone OfficeSpec repo:
 
 app-openspec-repo/
   openspec/
@@ -115,7 +115,7 @@ app-repo/
 ```
 
 The product should avoid the term `repo-local` for this distinction. It is too
-easy to confuse "OpenSpec lives in this project repo" with "this work targets
+easy to confuse "OfficeSpec lives in this project repo" with "this work targets
 this repo."
 
 The product should also avoid making `workspace` a primary user-facing noun.
@@ -174,7 +174,7 @@ capabilities:
 
 ## Git Is The Source Of Truth
 
-OpenSpec should stay Git-native:
+OfficeSpec should stay Git-native:
 
 - History comes from Git.
 - Review uses normal Git and forge workflows.
@@ -184,7 +184,7 @@ OpenSpec should stay Git-native:
 
 Forge-specific status such as pull request state, CI, review approvals, or
 merge status may be read by adapters. That status should not become a competing
-OpenSpec truth.
+OfficeSpec truth.
 
 ## Targets
 
@@ -244,7 +244,7 @@ humans browse; they should not be the durable identity of the work.
 
 Multi-repo complexity is mostly about sequencing, not folder placement.
 
-OpenSpec should be able to record dependency intent in Git:
+OfficeSpec should be able to record dependency intent in Git:
 
 ```yaml
 depends_on:
@@ -265,7 +265,7 @@ can remain a derived orchestration layer.
 
 ## MVP Implication
 
-The immediate release path should keep the current OpenSpec baseline working:
+The immediate release path should keep the current OfficeSpec baseline working:
 
 ```text
 openspec/
@@ -284,14 +284,14 @@ Changes = what should change.
 
 Near-term work should not require the future `work/` layout. `change` remains
 important because a change applies deltas. The `work/` model is the future
-layout direction, not a prerequisite for making standalone OpenSpec repos
+layout direction, not a prerequisite for making standalone OfficeSpec repos
 useful.
 
 ## Roadmap
 
 ### 1. Preserve The Current Baseline
 
-Keep the existing in-project OpenSpec flow working and understandable:
+Keep the existing in-project OfficeSpec flow working and understandable:
 
 ```text
 app-repo/
@@ -308,20 +308,20 @@ model boring and reliable.
 Teach the product language:
 
 ```text
-OpenSpec can live inside your project repo,
+OfficeSpec can live inside your project repo,
 or in its own Git repo.
 ```
 
 Use:
 
-- `in-project OpenSpec` for `app-repo/openspec/`
-- `standalone OpenSpec repo` for `app-openspec-repo/openspec/`
+- `in-project OfficeSpec` for `app-repo/openspec/`
+- `standalone OfficeSpec repo` for `app-openspec-repo/openspec/`
 
 Avoid `repo-local` as the user-facing term for this split.
 
-### 3. Support Standalone OpenSpec Repos
+### 3. Support Standalone OfficeSpec Repos
 
-Allow OpenSpec to be initialized and validated in a Git repo that does not hold
+Allow OfficeSpec to be initialized and validated in a Git repo that does not hold
 application code:
 
 ```text
@@ -332,11 +332,11 @@ app-openspec-repo/
 ```
 
 This should use the same parser, templates, validation, and archive concepts as
-in-project OpenSpec. A standalone repo is not a new state system.
+in-project OfficeSpec. A standalone repo is not a new state system.
 
 ### 4. Add Target Project Repo Resolution
 
-Standalone OpenSpec repos need to describe where changes land:
+Standalone OfficeSpec repos need to describe where changes land:
 
 ```yaml
 targets:
@@ -348,7 +348,7 @@ The first slice can keep target resolution simple:
 - register local target repos
 - validate that referenced targets exist
 - report unresolved targets clearly
-- let agents know which OpenSpec repo and target repos are involved
+- let agents know which OfficeSpec repo and target repos are involved
 
 Do not clone, branch, sync, orchestrate, or infer complex repo state yet.
 
@@ -358,12 +358,12 @@ use local repo mapping as the product shape.
 
 ### 5. Add Cross-Repo Context And Doctoring
 
-Once standalone OpenSpec repos can target project repos, add read-oriented
+Once standalone OfficeSpec repos can target project repos, add read-oriented
 support for relevant context:
 
 - doctor checks for missing target repo mappings
 - local path mapping for agents
-- read-only references to other OpenSpec repos when needed
+- read-only references to other OfficeSpec repos when needed
 - clear output showing which Git repo owns each artifact
 
 Remote Git URL support, pull/push helpers, status dashboards, and sequencing
@@ -387,7 +387,7 @@ At that point:
 - initiatives become coordination-shaped work
 - dependency and sequencing views can build on stable work identity
 
-Do not make `/work` block the standalone OpenSpec repo release.
+Do not make `/work` block the standalone OfficeSpec repo release.
 
 ## Decisions Considered
 
@@ -443,8 +443,8 @@ span several targets. Repos should be targets, not mandatory lifecycle roots.
 
 Rejected as the core framing.
 
-A dedicated planning or contracts repo may hold OpenSpec artifacts, but it is
-still a Git repo. OpenSpec should not create a separate authoritative store that
+A dedicated planning or contracts repo may hold OfficeSpec artifacts, but it is
+still a Git repo. OfficeSpec should not create a separate authoritative store that
 can disagree with Git.
 
 ### Configurable Layout Modes
@@ -459,7 +459,7 @@ Prefer one opinionated layout and let users choose which Git repo contains it.
 Rejected as the new user-facing shape.
 
 The useful part of workspace-view behavior is local resolution: knowing where
-the OpenSpec repo and target project repos are checked out on this machine. That
+the OfficeSpec repo and target project repos are checked out on this machine. That
 should be treated as a local repo map, not as a planning container, lifecycle
 owner, or durable source of truth.
 

@@ -2,7 +2,7 @@
 
 ## Research Summary
 
-Existing OpenSpec patterns point toward a small explicit foundation:
+Existing OfficeSpec patterns point toward a small explicit foundation:
 
 - Global data uses XDG/platform locations from `getGlobalDataDir()`.
 - Workspace registries are machine-local convenience indexes under global data.
@@ -15,7 +15,7 @@ Existing OpenSpec patterns point toward a small explicit foundation:
 ## Decisions
 
 - The first context-store backend is Git/local checkout config only.
-- OpenSpec records where the local checkout lives; it does not decide where real
+- OfficeSpec records where the local checkout lives; it does not decide where real
   team stores are cloned by default.
 - The local registry is not source of truth. It is a machine-local index.
 - Store-root metadata is portable source-of-identity for the synced store.

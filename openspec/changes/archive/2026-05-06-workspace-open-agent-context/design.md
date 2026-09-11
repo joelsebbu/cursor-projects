@@ -6,7 +6,7 @@ The user model is:
 
 ```text
 workspace setup = create the planning home and choose the default opener
-workspace links = the repos or folders OpenSpec can plan across
+workspace links = the repos or folders OfficeSpec can plan across
 workspace open = open that linked working set
 --agent = use a different agent for this one session
 --editor = open the working set as an editor workspace
@@ -35,7 +35,7 @@ openspec workspace open platform
 openspec workspace open --workspace platform
 ```
 
-User-facing docs should prefer the positional form. If both are provided and they differ, OpenSpec should fail with a clear conflict error.
+User-facing docs should prefer the positional form. If both are provided and they differ, OfficeSpec should fail with a clear conflict error.
 
 `--prepare-only` should not be included. The POC used it to build and print launch surfaces without starting the external tool, but that does not map cleanly to a user-facing intent.
 
@@ -63,7 +63,7 @@ Workspace setup should ask which opener the user wants by default. The answer is
 
 `--agent <tool>` is a one-session override that leaves the saved preference unchanged. Persisting a changed default should require an explicit preference/config action in a later slice if users need it.
 
-This slice should not add global workspace opener config. OpenSpec already has a global config system, and workspace-level defaults can be added there later if repeated setup makes the local prompt feel noisy.
+This slice should not add global workspace opener config. OfficeSpec already has a global config system, and workspace-level defaults can be added there later if repeated setup makes the local prompt feel noisy.
 
 The local preference should be shaped so a future global default can fit underneath it with smooth migration. The intended precedence is:
 
@@ -141,7 +141,7 @@ For this slice, `--editor` means VS Code editor. The `.code-workspace` format is
 
 `github-copilot` means the VS Code Copilot experience. It should open the maintained `.code-workspace` in VS Code because that is the product surface where this Copilot mode is available.
 
-If OpenSpec later supports a Copilot CLI agent, it should use a distinct value such as `github-copilot-cli` and launch the CLI agent directly. VS Code Copilot and a CLI agent have different opener mechanics, so they should remain distinct opener values.
+If OfficeSpec later supports a Copilot CLI agent, it should use a distinct value such as `github-copilot-cli` and launch the CLI agent directly. VS Code Copilot and a CLI agent have different opener mechanics, so they should remain distinct opener values.
 
 ## Opener Availability
 
@@ -157,7 +157,7 @@ When no preferred opener is stored and no command-line override is provided, `wo
 
 `--editor` opens the workspace root plus every linked repo or folder with a valid local path.
 
-For VS Code-style editor support, OpenSpec should create and maintain a `.code-workspace` file as part of the workspace setup/link/relink lifecycle. `workspace open` should launch against existing workspace state.
+For VS Code-style editor support, OfficeSpec should create and maintain a `.code-workspace` file as part of the workspace setup/link/relink lifecycle. `workspace open` should launch against existing workspace state.
 
 Expected local workspace shape:
 
@@ -170,7 +170,7 @@ workspace-root/
     local.yaml
 ```
 
-The `.code-workspace` file should include the workspace root and each linked repo or folder with a valid local path. Because linked paths come from machine-local workspace state, OpenSpec-created workspaces should ignore the maintained `.code-workspace` file by default.
+The `.code-workspace` file should include the workspace root and each linked repo or folder with a valid local path. Because linked paths come from machine-local workspace state, OfficeSpec-created workspaces should ignore the maintained `.code-workspace` file by default.
 
 The ignore rule should target the specific maintained file and leave other `*.code-workspace` files available for user-authored tracking:
 
@@ -207,21 +207,21 @@ The guidance should explain durable workspace rules:
 The managed `AGENTS.md` text should stay short and durable, covering stable workspace guidance while runtime details remain discoverable from workspace state. A starting shape:
 
 ```markdown
-# OpenSpec Workspace Guidance
+# OfficeSpec Workspace Guidance
 
-This directory is an OpenSpec workspace for planning across linked repos or folders.
+This directory is an OfficeSpec workspace for planning across linked repos or folders.
 
 - Use `changes/` for workspace-level planning.
 - Linked repos and folders are available for exploration and planning.
 - Repo or folder visibility supports exploration and planning.
 - Make implementation edits after the user explicitly asks for implementation work.
 - Treat linked repos and folders as the implementation homes for their owned code.
-- Use OpenSpec workspace commands instead of hand-editing `.openspec-workspace/*.yaml`.
+- Use OfficeSpec workspace commands instead of hand-editing `.openspec-workspace/*.yaml`.
 ```
 
 `workspace open` is a launching feature. It should launch the selected opener against existing workspace files.
 
-For Claude and Codex, `workspace open` may still need to pass workspace and linked directory arguments to the agent process at launch because those tools do not consume `.code-workspace` directly. If an opener requires an initial prompt argument, it should be minimal, such as `Open this OpenSpec workspace.`
+For Claude and Codex, `workspace open` may still need to pass workspace and linked directory arguments to the agent process at launch because those tools do not consume `.code-workspace` directly. If an opener requires an initial prompt argument, it should be minimal, such as `Open this OfficeSpec workspace.`
 
 Dynamic workspace facts should normally be discoverable from existing files:
 
@@ -232,11 +232,11 @@ Dynamic workspace facts should normally be discoverable from existing files:
 
 Report a command file or prompt file path only when the file is actually written and used.
 
-OpenSpec should own a marked workspace-guidance block inside `AGENTS.md`:
+OfficeSpec should own a marked workspace-guidance block inside `AGENTS.md`:
 
 ```markdown
 <!-- OPENSPEC:WORKSPACE-GUIDANCE:START -->
-# OpenSpec Workspace Guidance
+# OfficeSpec Workspace Guidance
 
 ...
 <!-- OPENSPEC:WORKSPACE-GUIDANCE:END -->
@@ -244,15 +244,15 @@ OpenSpec should own a marked workspace-guidance block inside `AGENTS.md`:
 
 `workspace setup`, `workspace link`, and `workspace relink` may rewrite that marked block during open-surface sync. Content outside the marked block should be preserved so users can keep their own workspace notes in the same file.
 
-If `AGENTS.md` is missing, OpenSpec should recreate it. If `AGENTS.md` exists and the markers are absent, OpenSpec should append the managed block while preserving existing content.
+If `AGENTS.md` is missing, OfficeSpec should recreate it. If `AGENTS.md` exists and the markers are absent, OfficeSpec should append the managed block while preserving existing content.
 
 ## Linked Paths
 
 Root workspace open should attach every linked repo or folder with a valid local path.
 
-Broken links are skipped during workspace open. OpenSpec should surface clear status in human output, with `openspec workspace doctor` as the repair path.
+Broken links are skipped during workspace open. OfficeSpec should surface clear status in human output, with `openspec workspace doctor` as the repair path.
 
-Links with repo-local `openspec/` state absent remain valid for workspace open. Missing repo-local OpenSpec state can matter later for implementation readiness while still allowing visibility for exploration and planning.
+Links with repo-local `openspec/` state absent remain valid for workspace open. Missing repo-local OfficeSpec state can matter later for implementation readiness while still allowing visibility for exploration and planning.
 
 ## Safety Boundary
 

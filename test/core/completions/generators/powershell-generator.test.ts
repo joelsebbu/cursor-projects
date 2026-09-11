@@ -25,14 +25,14 @@ describe('PowerShellGenerator', () => {
 			const commands: CommandDefinition[] = [
 				{
 					name: 'init',
-					description: 'Initialize OpenSpec',
+					description: 'Initialize OfficeSpec',
 					flags: [],
 				},
 			];
 
 			const script = generator.generate(commands);
 
-			expect(script).toContain('# PowerShell completion script for OpenSpec CLI');
+			expect(script).toContain('# PowerShell completion script for OfficeSpec CLI');
 			expect(script).toContain('$openspecCompleter = {');
 			expect(script).toContain('Register-ArgumentCompleter');
 		});
@@ -41,7 +41,7 @@ describe('PowerShellGenerator', () => {
 			const commands: CommandDefinition[] = [
 				{
 					name: 'init',
-					description: 'Initialize OpenSpec',
+					description: 'Initialize OfficeSpec',
 					flags: [],
 				},
 			];
@@ -56,7 +56,7 @@ describe('PowerShellGenerator', () => {
 			const commands: CommandDefinition[] = [
 				{
 					name: 'init',
-					description: 'Initialize OpenSpec',
+					description: 'Initialize OfficeSpec',
 					flags: [],
 				},
 				{
@@ -74,7 +74,7 @@ describe('PowerShellGenerator', () => {
 			const script = generator.generate(commands);
 
 			expect(script).toContain('"init"');
-			expect(script).toContain('Initialize OpenSpec');
+			expect(script).toContain('Initialize OfficeSpec');
 			expect(script).toContain('"validate"');
 			expect(script).toContain('Validate specs');
 			expect(script).toContain('"show"');
@@ -85,7 +85,7 @@ describe('PowerShellGenerator', () => {
 			const commands: CommandDefinition[] = [
 				{
 					name: 'init',
-					description: 'Initialize OpenSpec',
+					description: 'Initialize OfficeSpec',
 					flags: [],
 				},
 			];
@@ -341,7 +341,7 @@ describe('PowerShellGenerator', () => {
 			const commands: CommandDefinition[] = [
 				{
 					name: 'init',
-					description: 'Initialize OpenSpec',
+					description: 'Initialize OfficeSpec',
 					acceptsPositional: true,
 					positionalType: 'path',
 					flags: [],
@@ -466,7 +466,7 @@ describe('PowerShellGenerator', () => {
 			const commands: CommandDefinition[] = [
 				{
 					name: 'init',
-					description: 'Initialize OpenSpec',
+					description: 'Initialize OfficeSpec',
 					flags: [
 						{
 							name: 'tools',

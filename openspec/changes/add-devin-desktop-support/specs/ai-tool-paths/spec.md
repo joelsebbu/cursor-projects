@@ -2,9 +2,9 @@
 
 ## ADDED Requirements
 
-### Requirement: Migrating OpenSpec content out of a renamed tool's former directory
+### Requirement: Migrating OfficeSpec content out of a renamed tool's former directory
 
-When a tool's directory is renamed, OpenSpec-managed content left in the former
+When a tool's directory is renamed, OfficeSpec-managed content left in the former
 location SHALL be moved to the current one. Content the user wrote SHALL never
 be moved or deleted.
 
@@ -16,13 +16,13 @@ distinguishes that user from one who took the rebrand.
 
 #### Scenario: Moving a former directory that needs no consent
 
-- **WHEN** `openspec init` or `openspec update` runs and OpenSpec-managed content is found under a former root marked as needing no consent, such as `.kimi`
+- **WHEN** `openspec init` or `openspec update` runs and OfficeSpec-managed content is found under a former root marked as needing no consent, such as `.kimi`
 - **THEN** move it to the tool's current directory without prompting
 - **AND** report what moved
 
 #### Scenario: Offering a move that needs consent
 
-- **GIVEN** OpenSpec skills or command files under `.windsurf/`
+- **GIVEN** OfficeSpec skills or command files under `.windsurf/`
 - **WHEN** `openspec update` runs interactively without `--force`
 - **THEN** explain that Windsurf is now Devin Desktop, that `.devin/` is the current directory, and that Devin Local does not read `.windsurf/` at all
 - **AND** ask before moving anything
@@ -35,22 +35,22 @@ distinguishes that user from one who took the rebrand.
 
 #### Scenario: Selecting a renamed tool is consent
 
-- **WHEN** `openspec init` configures a tool that has OpenSpec content under a former root
+- **WHEN** `openspec init` configures a tool that has OfficeSpec content under a former root
 - **THEN** move that content as part of setup, rather than leaving the user with two installs of one tool
 
-#### Scenario: Both directories already hold OpenSpec content
+#### Scenario: Both directories already hold OfficeSpec content
 
-- **GIVEN** the same OpenSpec-managed skill or command exists under both the former and the current root
+- **GIVEN** the same OfficeSpec-managed skill or command exists under both the former and the current root
 - **WHEN** the move runs
 - **THEN** the copy under the current root SHALL win, rather than being merged or overwritten
-- **AND** only the file OpenSpec generated SHALL be removed from the former root — for a skill directory that is `SKILL.md` alone, never the directory and whatever else it holds
+- **AND** only the file OfficeSpec generated SHALL be removed from the former root — for a skill directory that is `SKILL.md` alone, never the directory and whatever else it holds
 - **AND** one rule SHALL govern skills and command files alike: the former copy SHALL be removed only when it is byte-identical to the surviving one
 - **AND** a former copy that differs SHALL be left where it is, since the difference may be a customization
 - **AND** files left behind for that reason SHALL be reported, so the user knows two copies now exist
 
 #### Scenario: Every former file differs, so nothing is movable
 
-- **GIVEN** every OpenSpec-managed file under the former root differs from its counterpart under the current one
+- **GIVEN** every OfficeSpec-managed file under the former root differs from its counterpart under the current one
 - **WHEN** the move runs
 - **THEN** report the files left in place, rather than staying silent because nothing moved
 - **AND** NOT offer to move anything, since there is nothing movable to consent to
@@ -66,13 +66,13 @@ distinguishes that user from one who took the rebrand.
 
 - **GIVEN** a former root also holds files the user wrote, such as a hand-written workflow beside the generated ones
 - **WHEN** the move runs
-- **THEN** move only the files OpenSpec generates — each skill's `SKILL.md` and command files named `opsx-*`
+- **THEN** move only the files OfficeSpec generates — each skill's `SKILL.md` and command files named `opsx-*`
 - **AND** delete the former directory only when the move leaves it empty
 
-#### Scenario: A user file beside a generated skill is not carried into a directory OpenSpec prunes
+#### Scenario: A user file beside a generated skill is not carried into a directory OfficeSpec prunes
 
 - **GIVEN** a former skill directory holds `SKILL.md` alongside a file the user wrote
-- **AND** OpenSpec removes whole skill directories it owns, as under commands-only delivery or for a workflow outside the active profile
+- **AND** OfficeSpec removes whole skill directories it owns, as under commands-only delivery or for a workflow outside the active profile
 - **WHEN** the move runs
 - **THEN** move `SKILL.md` alone and leave the user's file under the former root
 - **AND** never move the enclosing directory, which would hand that file to a later removal
@@ -109,7 +109,7 @@ The `AI_TOOLS` array SHALL include `skillsDir` for tools that support the Agent 
 
 - **WHEN** looking up the `kimi` tool
 - **THEN** `skillsDir` SHALL be `.kimi-code`
-- **AND** OpenSpec-managed skills remaining under the legacy `.kimi/skills` directory SHALL be migrated to `.kimi-code/skills` during init and update, preserving user files
+- **AND** OfficeSpec-managed skills remaining under the legacy `.kimi/skills` directory SHALL be migrated to `.kimi-code/skills` during init and update, preserving user files
 
 #### Scenario: Hermes Agent paths defined
 

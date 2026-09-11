@@ -2,12 +2,12 @@
 
 ## Purpose
 
-This spec defines how OpenSpec collects anonymous usage telemetry to help improve the tool. It governs the `src/telemetry/` module, which handles PostHog integration, privacy-preserving event design, user opt-out mechanisms, and first-run notice display. The spec ensures telemetry is minimal, transparent, and respects user privacy.
+This spec defines how OfficeSpec collects anonymous usage telemetry to help improve the tool. It governs the `src/telemetry/` module, which handles PostHog integration, privacy-preserving event design, user opt-out mechanisms, and first-run notice display. The spec ensures telemetry is minimal, transparent, and respects user privacy.
 
 ## Requirements
 
 ### Requirement: Command execution tracking
-The system SHALL send a `command_executed` event to PostHog when any CLI command executes, including only the command name and OpenSpec version as properties.
+The system SHALL send a `command_executed` event to PostHog when any CLI command executes, including only the command name and OfficeSpec version as properties.
 
 #### Scenario: Standard command execution
 - **WHEN** a user runs any openspec command
@@ -62,7 +62,7 @@ The system SHALL display a one-line telemetry disclosure notice on the first com
 #### Scenario: First command execution
 - **WHEN** a user runs their first openspec command
 - **AND** telemetry is enabled
-- **THEN** the system displays: "Note: OpenSpec collects anonymous usage stats. Opt out: OPENSPEC_TELEMETRY=0"
+- **THEN** the system displays: "Note: OfficeSpec collects anonymous usage stats. Opt out: OPENSPEC_TELEMETRY=0"
 
 #### Scenario: Subsequent command execution
 - **WHEN** a user has already seen the notice (noticeSeen: true in config)

@@ -1,4 +1,4 @@
-# OpenSpec Work
+# OfficeSpec Work
 
 This directory is an experimental home for Git-native work artifacts.
 
@@ -78,10 +78,10 @@ shipped independently.
 
 ## Compatibility
 
-This directory is experimental. Current OpenSpec CLI validation, archive, and
+This directory is experimental. Current OfficeSpec CLI validation, archive, and
 spec update behavior still centers on `openspec/changes/` and
 `openspec/specs/`.
 
 Use `/work` to coordinate and learn. When a slice needs today's executable
-OpenSpec lifecycle, project that slice into a normal `openspec/changes/<id>/`
+OfficeSpec lifecycle, project that slice into a normal `openspec/changes/<id>/`
 artifact until `/work` has first-class CLI support.

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-The `openspec init` command SHALL create a complete OpenSpec directory structure in any project, enabling immediate adoption of OpenSpec conventions with support for multiple AI coding assistants.
+The `openspec init` command SHALL create a complete OfficeSpec directory structure in any project, enabling immediate adoption of OfficeSpec conventions with support for multiple AI coding assistants.
 ## Requirements
 ### Requirement: Progress Indicators
 
@@ -13,16 +13,16 @@ The command SHALL display progress indicators during initialization to provide c
 - **WHEN** executing initialization steps
 - **THEN** validate environment silently in background (no output unless error)
 - **AND** display progress with ora spinners:
-  - Show spinner: "⠋ Creating OpenSpec structure..."
-  - Then success: "✔ OpenSpec structure created"
+  - Show spinner: "⠋ Creating OfficeSpec structure..."
+  - Then success: "✔ OfficeSpec structure created"
   - Show spinner: "⠋ Configuring AI tools..."
   - Then success: "✔ AI tools configured"
 
 ### Requirement: Directory Creation
 
-The command SHALL create the OpenSpec directory structure with config file.
+The command SHALL create the OfficeSpec directory structure with config file.
 
-#### Scenario: Creating OpenSpec structure
+#### Scenario: Creating OfficeSpec structure
 
 - **WHEN** `openspec init` is executed
 - **THEN** create the following directory structure:
@@ -41,7 +41,7 @@ The command SHALL configure AI coding assistants with skills and slash commands 
 #### Scenario: Prompting for AI tool selection
 
 - **WHEN** run interactively
-- **THEN** display animated welcome screen with OpenSpec logo
+- **THEN** display animated welcome screen with OfficeSpec logo
 - **AND** present a searchable multi-select that shows all available tools
 - **AND** mark already configured tools with "(configured ✓)" indicator
 - **AND** pre-select configured tools for easy refresh
@@ -70,7 +70,7 @@ The command SHALL perform safety checks to prevent overwriting existing structur
 
 #### Scenario: Detecting existing initialization
 - **WHEN** the `openspec/` directory already exists
-- **THEN** inform the user that OpenSpec is already initialized, skip recreating the base structure, and enter an extend mode
+- **THEN** inform the user that OfficeSpec is already initialized, skip recreating the base structure, and enter an extend mode
 - **AND** continue to the AI tool selection step so additional tools can be configured
 - **AND** display the existing-initialization error message only when the user declines to add any AI tools
 
@@ -104,7 +104,7 @@ The command SHALL use consistent exit codes to indicate different failure modes.
 - **WHEN** the command completes
 - **THEN** return appropriate exit code:
   - 0: Success
-  - 1: General error (including when OpenSpec directory already exists)
+  - 1: General error (including when OfficeSpec directory already exists)
   - 2: Insufficient permissions (reserved for future use)
   - 3: User cancelled operation (reserved for future use)
 
@@ -114,7 +114,7 @@ The command SHALL use consistent exit codes to indicate different failure modes.
 #### Scenario: Configuring an extra tool after initial setup
 - **GIVEN** an `openspec/` directory already exists and at least one AI tool file is present
 - **WHEN** the user runs `openspec init` and selects a different supported AI tool
-- **THEN** generate that tool's configuration files with OpenSpec markers the same way as during first-time initialization
+- **THEN** generate that tool's configuration files with OfficeSpec markers the same way as during first-time initialization
 - **AND** leave existing tool configuration files unchanged except for managed sections that need refreshing
 - **AND** exit with code 0 and display a success summary highlighting the newly added tool files
 
@@ -130,9 +130,9 @@ The command SHALL use consistent exit codes to indicate different failure modes.
 `openspec init` SHALL treat extend mode without new native tool selections as a successful refresh.
 
 #### Scenario: Allowing empty extend runs
-- **WHEN** OpenSpec is already initialized and the user selects no additional natively supported tools
+- **WHEN** OfficeSpec is already initialized and the user selects no additional natively supported tools
 - **THEN** complete successfully without requiring additional tool setup
-- **AND** preserve the existing OpenSpec structure and config files
+- **AND** preserve the existing OfficeSpec structure and config files
 - **AND** exit with code 0
 
 ### Requirement: Non-Interactive Mode
@@ -228,12 +228,12 @@ The command SHALL generate opsx slash commands only for selected tools that have
 #### Scenario: Kimi Code skips command-file generation
 
 - **WHEN** the user selects Kimi Code during initialization
-- **THEN** OpenSpec SHALL treat it as a supported tool with `skillsDir: '.kimi-code'`
+- **THEN** OfficeSpec SHALL treat it as a supported tool with `skillsDir: '.kimi-code'`
 - **AND** command-file generation SHALL be skipped because no Kimi adapter is registered
 
 ### Requirement: Config File Generation
 
-The command SHALL create an OpenSpec config file with schema settings.
+The command SHALL create an OfficeSpec config file with schema settings.
 
 #### Scenario: Creating config.yaml
 
@@ -255,21 +255,21 @@ The command SHALL let users configure the artifact language during initializatio
 
 #### Scenario: Configuring language for a new project
 
-- **WHEN** the user runs `openspec init --language <language>` and no OpenSpec config exists
+- **WHEN** the user runs `openspec init --language <language>` and no OfficeSpec config exists
 - **THEN** create `openspec/config.yaml` with context instructing agents to write artifacts in the selected language
-- **AND** keep OpenSpec structural headings and `SHALL`/`MUST` requirement keywords in English
+- **AND** keep OfficeSpec structural headings and `SHALL`/`MUST` requirement keywords in English
 - **AND** make the language context available to artifact instructions
 
 #### Scenario: Protecting existing project context
 
-- **WHEN** the user runs `openspec init --language <language>` and an OpenSpec config already exists without the same generated language guidance
+- **WHEN** the user runs `openspec init --language <language>` and an OfficeSpec config already exists without the same generated language guidance
 - **THEN** fail before changing project files
 - **AND** direct the user to edit the existing config context
 
 #### Scenario: Rejecting an unsafe language value
 
 - **WHEN** the `--language` value is empty, multiline, contains control characters, or would exceed the project context size limit
-- **THEN** fail before creating OpenSpec files
+- **THEN** fail before creating OfficeSpec files
 - **AND** explain why the value is invalid
 
 #### Scenario: Language config cannot be written
@@ -290,7 +290,7 @@ The command SHALL maintain backward compatibility with the experimental command.
 
 ## Why
 
-Manual creation of OpenSpec structure is error-prone and creates adoption friction. A standardized init command ensures:
+Manual creation of OfficeSpec structure is error-prone and creates adoption friction. A standardized init command ensures:
 - Consistent structure across all projects
 - Proper AI instruction files are always included
 - Quick onboarding for new projects

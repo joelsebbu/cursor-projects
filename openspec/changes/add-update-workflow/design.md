@@ -6,7 +6,7 @@ OPSX models a change as a small DAG of planning artifacts. Each schema declares 
 
 That is everything an update skill needs. The artifacts are a handful of markdown files on disk; the agent can read them. So `/opsx:update` is built as a thin skill over the **existing** CLI, in the same shape as `continue-change.ts` (select change → `openspec status --json` → act).
 
-This proposal began larger — a reverse-dependency graph API, content digests, a baseline ledger, a `reconcile` write op, a `status --impact` selector. Review feedback ([PR #1278](https://github.com/Fission-AI/OpenSpec/pull/1278)) was that this over-builds: coding agents tend to over-complicate skills, and the feature should work off the existing `status` command with as little new code as possible. This design follows that steer.
+This proposal began larger — a reverse-dependency graph API, content digests, a baseline ledger, a `reconcile` write op, a `status --impact` selector. Review feedback ([PR #1278](https://github.com/joelsebbu/OpenSpec/pull/1278)) was that this over-builds: coding agents tend to over-complicate skills, and the feature should work off the existing `status` command with as little new code as possible. This design follows that steer.
 
 ## Goals / Non-Goals
 
@@ -21,7 +21,7 @@ This proposal began larger — a reverse-dependency graph API, content digests, 
 - Automatic, unattended regeneration (the user always confirms).
 - Content digests, a drift/staleness signal, a baseline ledger, a `reconcile` op, or a `status --impact` selector (see "Why not the heavier machinery").
 - Regenerating *code* from updated artifacts — that is `/opsx:apply`'s job; `/opsx:update` stops at the plan and hands off.
-- Cross-change audit ([#247](https://github.com/Fission-AI/OpenSpec/issues/247) in full) — a later proposal; this change is intra-change.
+- Cross-change audit ([#247](https://github.com/joelsebbu/OpenSpec/issues/247) in full) — a later proposal; this change is intra-change.
 - Updating anything other than a change's planning artifacts. v1 is specific to change proposals; generalizing "update" to other graph types is deferred until such a graph exists (see Naming).
 
 ## The skill, written by hand
@@ -72,7 +72,7 @@ Guardrails:
   (the "Update vs. Start Fresh" heuristic, docs/opsx.md).
 ```
 
-The `spec-driven` artifact names may appear once, as a worked *example* of how to apply step 4, exactly as `continue-change.ts` does today — but the control flow reads ids from the CLI, so the skill never branches on those names. A template test asserts there is no name-based branching (the anti-[#777](https://github.com/Fission-AI/OpenSpec/issues/777) guard).
+The `spec-driven` artifact names may appear once, as a worked *example* of how to apply step 4, exactly as `continue-change.ts` does today — but the control flow reads ids from the CLI, so the skill never branches on those names. A template test asserts there is no name-based branching (the anti-[#777](https://github.com/joelsebbu/OpenSpec/issues/777) guard).
 
 ## Decisions
 
@@ -87,18 +87,18 @@ The first draft proposed SHA-256 content digests, a per-change baseline ledger i
 
 Rejected for v1, because the cost outweighs the need:
 - The artifacts are a few markdown files. An agent that is going to *rewrite* them must read them anyway, so computing staleness for it saves little and adds a stateful subsystem (a ledger that `status` must not mutate, a separate write verb, scheme-versioning for forward-compat, cross-platform digest canonicalization, and the round-trip tests for all of it).
-- A digest/ledger only earns its keep when something must judge staleness *without* reading content — e.g. unattended drift detection across many changes ([#247](https://github.com/Fission-AI/OpenSpec/issues/247) cross-change, [#846](https://github.com/Fission-AI/OpenSpec/issues/846) tracking files). Those are out of scope here. When one of them becomes concrete, this machinery can be designed against that real need.
+- A digest/ledger only earns its keep when something must judge staleness *without* reading content — e.g. unattended drift detection across many changes ([#247](https://github.com/joelsebbu/OpenSpec/issues/247) cross-change, [#846](https://github.com/joelsebbu/OpenSpec/issues/846) tracking files). Those are out of scope here. When one of them becomes concrete, this machinery can be designed against that real need.
 
 So `/opsx:update` v1 has the agent read the change's artifacts and judge coherence directly. If, after using it, a deterministic signal proves necessary, the smallest first step is to expose the schema's `requires` edges on `status --json` (a single additive field, no new command) — and only then consider digests.
 
 ### 4. Naming: `/opsx:update` skill, not `openspec update` CLI
-`openspec update [path]` already regenerates AI tool/skill files ([src/cli/index.ts](../../../src/cli/index.ts)). Overloading it would give one verb two unrelated meanings. The artifact-update action is therefore the **skill** `/opsx:update`, with no new `openspec` verb at all. Considered and rejected: `openspec regen --from <artifact>` ([#705](https://github.com/Fission-AI/OpenSpec/issues/705)) — a mutating CLI verb that rewrites artifacts duplicates the skill's job and bypasses user confirmation; the value is in the agent's semantic revision, not a CLI rewrite.
+`openspec update [path]` already regenerates AI tool/skill files ([src/cli/index.ts](../../../src/cli/index.ts)). Overloading it would give one verb two unrelated meanings. The artifact-update action is therefore the **skill** `/opsx:update`, with no new `openspec` verb at all. Considered and rejected: `openspec regen --from <artifact>` ([#705](https://github.com/joelsebbu/OpenSpec/issues/705)) — a mutating CLI verb that rewrites artifacts duplicates the skill's job and bypasses user confirmation; the value is in the agent's semantic revision, not a CLI rewrite.
 
 Review feedback flagged that "update" alone is generic — could it apply to any graph? The resolution: the skill is scoped to **change proposals only**, and the specific name carries that scope. The skill is `openspec-update-change`, following the `openspec-<verb>-change` naming of its siblings (`openspec-continue-change`, `openspec-new-change`, …). The command is `/opsx:update` because every verb in the `/opsx:` family operates on a change (`continue`, `apply`, `archive` — none says `-change`); a change-scoped meaning is what the namespace already promises. If a future graph type needs its own update action, it gets its own specific skill name then — nothing here blocks or breaks that.
 
 ### 5. Guardrails (the part that makes it the requested command)
-- **Planning artifacts only.** The skill's write targets are the artifact paths from `status`; if a revision implies code changes it stops and points to `/opsx:apply`. This directly answers [#1188](https://github.com/Fission-AI/OpenSpec/issues/1188)'s complaint that the manual workaround edits code.
-- **Schema-driven.** Ids and paths come from `status`; no branching on literal `proposal`/`specs`/`design`/`tasks`. Works for custom schemas ([#777](https://github.com/Fission-AI/OpenSpec/issues/777), [#666](https://github.com/Fission-AI/OpenSpec/issues/666)).
+- **Planning artifacts only.** The skill's write targets are the artifact paths from `status`; if a revision implies code changes it stops and points to `/opsx:apply`. This directly answers [#1188](https://github.com/joelsebbu/OpenSpec/issues/1188)'s complaint that the manual workaround edits code.
+- **Schema-driven.** Ids and paths come from `status`; no branching on literal `proposal`/`specs`/`design`/`tasks`. Works for custom schemas ([#777](https://github.com/joelsebbu/OpenSpec/issues/777), [#666](https://github.com/joelsebbu/OpenSpec/issues/666)).
 - **Confirm each edit.** One artifact at a time, shown before writing.
 - **Intent guard.** A revision that changes intent rather than refining it is redirected to `/opsx:new` (the "Update vs. Start Fresh" heuristic, [docs/opsx.md](../../../docs/opsx.md)).
 

@@ -80,7 +80,7 @@ The command SHALL gracefully handle missing files and directories with appropria
 #### Scenario: Missing changes directory
 
 - **WHEN** `openspec/changes/` directory doesn't exist
-- **THEN** display error: "No OpenSpec changes directory found. Run 'openspec init' first."
+- **THEN** display error: "No OfficeSpec changes directory found. Run 'openspec init' first."
 - **AND** exit with code 1
 
 ### Requirement: Sorting
@@ -100,4 +100,4 @@ Developers need a quick way to:
 - Understand the overall project evolution status
 - Get a bird's-eye view without opening multiple files
 
-This command provides that visibility with minimal effort, following OpenSpec's philosophy of simplicity and clarity.
+This command provides that visibility with minimal effort, following OfficeSpec's philosophy of simplicity and clarity.

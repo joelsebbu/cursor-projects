@@ -19,13 +19,13 @@ The update command SHALL refresh existing slash command files for configured too
 
 #### Scenario: Updating slash commands for Windsurf
 - **WHEN** `.windsurf/workflows/` contains `openspec-proposal.md`, `openspec-apply.md`, and `openspec-archive.md`
-- **THEN** refresh each file using shared templates wrapped in OpenSpec markers
+- **THEN** refresh each file using shared templates wrapped in OfficeSpec markers
 - **AND** ensure templates include instructions for the relevant workflow stage
 - **AND** skip creating missing files (the update command only refreshes what already exists)
 
 #### Scenario: Updating slash commands for Kilo Code
 - **WHEN** `.kilocode/workflows/` contains `openspec-proposal.md`, `openspec-apply.md`, and `openspec-archive.md`
-- **THEN** refresh each file using shared templates wrapped in OpenSpec markers
+- **THEN** refresh each file using shared templates wrapped in OfficeSpec markers
 - **AND** ensure templates include instructions for the relevant workflow stage
 - **AND** skip creating missing files (the update command only refreshes what already exists)
 
@@ -33,7 +33,7 @@ The update command SHALL refresh existing slash command files for configured too
 - **GIVEN** the global Codex prompt directory contains `openspec-proposal.md`, `openspec-apply.md`, and `openspec-archive.md`
 - **WHEN** a user runs `openspec update`
 - **THEN** refresh each file using the shared slash-command templates (including placeholder guidance)
-- **AND** preserve any unmanaged content outside the OpenSpec marker block
+- **AND** preserve any unmanaged content outside the OfficeSpec marker block
 - **AND** skip creation when a Codex prompt file is missing
 
 #### Scenario: Missing slash command file

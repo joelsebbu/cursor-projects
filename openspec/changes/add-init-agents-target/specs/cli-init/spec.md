@@ -9,7 +9,7 @@
 #### Scenario: Non-interactive selection of the shared target
 
 - **WHEN** the user runs `openspec init --tools agents`
-- **THEN** OpenSpec SHALL generate skills for the `agents` target
+- **THEN** OfficeSpec SHALL generate skills for the `agents` target
 - **AND** initialization SHALL NOT fail because `agents` has no registered command adapter
 
 #### Scenario: Shared agents target skips command-file generation

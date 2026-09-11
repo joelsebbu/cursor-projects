@@ -1,6 +1,6 @@
 ## Why
 
-OpenSpec currently has no visibility into how the tool is being used. Without analytics, we cannot:
+OfficeSpec currently has no visibility into how the tool is being used. Without analytics, we cannot:
 - Understand which commands and features are most valuable to users
 - Measure adoption and usage patterns
 - Make data-driven decisions about product development

@@ -93,7 +93,7 @@ If a future model exists, prefer contextual receipts:
 
 Delivery copy may still need separate work to distinguish:
 
-- baseline OpenSpec guidance or literacy;
+- baseline OfficeSpec guidance or literacy;
 - workflow entrypoints such as skills or slash commands.
 
 ## Revisit When

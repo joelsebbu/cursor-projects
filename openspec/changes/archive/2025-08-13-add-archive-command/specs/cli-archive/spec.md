@@ -1,7 +1,7 @@
 # CLI Archive Command Specification
 
 ## Purpose
-The archive command moves completed changes from the active changes directory to the archive folder with date-based naming, following OpenSpec conventions.
+The archive command moves completed changes from the active changes directory to the archive folder with date-based naming, following OfficeSpec conventions.
 
 ## Command Syntax
 ```bash

@@ -1,4 +1,4 @@
-export const appName = 'OpenSpec';
+export const appName = 'OfficeSpec';
 
 // Absolute base URL of the deployed site, used to resolve Open Graph / social
 // image URLs. Set NEXT_PUBLIC_SITE_URL in your deploy environment (e.g. on
@@ -12,9 +12,9 @@ export const docsRoute = '/docs';
 export const docsImageRoute = '/og/docs';
 export const docsContentRoute = '/llms.mdx/docs';
 
-// OpenSpec source repository, used for "edit this page" and GitHub links.
+// OfficeSpec source repository, used for "edit this page" and GitHub links.
 export const gitConfig = {
-  user: 'Fission-AI',
+  user: 'joelsebbu',
   repo: 'OpenSpec',
   branch: 'main',
 };
@@ -22,6 +22,6 @@ export const gitConfig = {
 export const links = {
   github: `https://github.com/${gitConfig.user}/${gitConfig.repo}`,
   discord: 'https://discord.gg/YctCnvvshC',
-  npm: 'https://www.npmjs.com/package/@fission-ai/openspec',
+  npm: 'https://www.npmjs.com/package/officespec',
   x: 'https://x.com/0xTab',
 };

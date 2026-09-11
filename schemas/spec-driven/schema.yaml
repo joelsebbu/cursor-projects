@@ -1,6 +1,6 @@
 name: spec-driven
 version: 1
-description: Default OpenSpec workflow - proposal → specs → plan → tasks (for any office work)
+description: Default OfficeSpec workflow - proposal → specs → plan → tasks (for any office work)
 artifacts:
   - id: proposal
     generates: proposal.md

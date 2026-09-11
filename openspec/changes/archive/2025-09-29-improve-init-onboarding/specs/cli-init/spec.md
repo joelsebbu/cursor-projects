@@ -1,7 +1,7 @@
 ## MODIFIED Requirements
 ### Requirement: AI Tool Configuration
 
-The command SHALL configure AI coding assistants with OpenSpec instructions based on user selection.
+The command SHALL configure AI coding assistants with OfficeSpec instructions based on user selection.
 
 #### Scenario: Prompting for AI tool selection
 
@@ -10,14 +10,14 @@ The command SHALL configure AI coding assistants with OpenSpec instructions base
 - **AND** list every available tool with a checkbox:
   - Claude Code (creates or refreshes CLAUDE.md and slash commands)
   - Cursor (creates or refreshes `.cursor/commands/*` slash commands)
-  - AGENTS.md standard (creates or refreshes AGENTS.md with OpenSpec markers)
+  - AGENTS.md standard (creates or refreshes AGENTS.md with OfficeSpec markers)
 - **AND** show "(already configured)" beside tools whose managed files exist so users understand selections will refresh content
 - **AND** treat disabled tools as "coming soon" and keep them unselectable
 - **AND** allow confirming with Enter after selecting one or more tools
 
 ### Requirement: AI Tool Configuration Details
 
-The command SHALL properly configure selected AI tools with OpenSpec-specific instructions using a marker system.
+The command SHALL properly configure selected AI tools with OfficeSpec-specific instructions using a marker system.
 
 #### Scenario: Configuring Claude Code
 
@@ -27,12 +27,12 @@ The command SHALL properly configure selected AI tools with OpenSpec-specific in
 #### Scenario: Creating new CLAUDE.md
 
 - **WHEN** CLAUDE.md does not exist
-- **THEN** create new file with OpenSpec content wrapped in markers:
+- **THEN** create new file with OfficeSpec content wrapped in markers:
 ```markdown
 <!-- OPENSPEC:START -->
-# OpenSpec Instructions
+# OfficeSpec Instructions
 
-Instructions for AI coding assistants using OpenSpec for spec-driven development.
+Instructions for AI coding assistants using OfficeSpec for spec-driven development.
 
 ## TL;DR Quick Checklist
 - Search existing work: `openspec spec list --long`, `openspec list`
@@ -48,7 +48,7 @@ Instructions for AI coding assistants using OpenSpec for spec-driven development
 
 - **WHEN** CLAUDE.md already exists
 - **THEN** preserve all existing content
-- **AND** insert OpenSpec content at the beginning of the file using markers
+- **AND** insert OfficeSpec content at the beginning of the file using markers
 - **AND** ensure markers don't duplicate if they already exist
 
 #### Scenario: Managing content with markers
@@ -56,7 +56,7 @@ Instructions for AI coding assistants using OpenSpec for spec-driven development
 - **WHEN** using the marker system
 - **THEN** use `<!-- OPENSPEC:START -->` to mark the beginning of managed content
 - **AND** use `<!-- OPENSPEC:END -->` to mark the end of managed content
-- **AND** allow OpenSpec to update its content without affecting user customizations
+- **AND** allow OfficeSpec to update its content without affecting user customizations
 - **AND** preserve all content outside the markers intact
 
 ### Requirement: Interactive Mode

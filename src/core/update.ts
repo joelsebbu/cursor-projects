@@ -1,7 +1,7 @@
 /**
  * Update Command
  *
- * Refreshes OpenSpec skills and commands for configured tools.
+ * Refreshes OfficeSpec skills and commands for configured tools.
  * Supports profile-aware updates, delivery changes, migration, and smart update detection.
  */
 
@@ -52,6 +52,7 @@ import {
   WORKFLOW_TO_SKILL_DIR,
   getConfiguredToolsForProfileSync,
   getToolsNeedingProfileSync,
+  legacySkillDirForWorkflow,
 } from './profile-sync-drift.js';
 import {
   scanInstalledWorkflows as scanInstalledWorkflowsShared,
@@ -126,7 +127,7 @@ export class UpdateCommand {
   }
 
   /**
-   * Refreshes OpenSpec skills and commands for all configured tools,
+   * Refreshes OfficeSpec skills and commands for all configured tools,
    * regenerating artifacts according to the effective profile and delivery mode.
    *
    * @param projectPath - Path to the project root containing the openspec directory
@@ -137,10 +138,10 @@ export class UpdateCommand {
 
     // 1. Check openspec directory exists
     if (!await FileSystemUtils.directoryExists(openspecPath)) {
-      throw new Error(`No OpenSpec directory found. Run 'openspec init' first.`);
+      throw new Error(`No OfficeSpec directory found. Run 'openspec init' first.`);
     }
 
-    // 2. Migrate OpenSpec-managed skills left in renamed tool directories
+    // 2. Migrate OfficeSpec-managed skills left in renamed tool directories
     // (e.g. .kimi -> .kimi-code) so they stay detected and get refreshed,
     // then perform the one-time profile migration if needed before any
     // legacy upgrade generation.
@@ -152,7 +153,7 @@ export class UpdateCommand {
     }
     const declinedMigrations = await this.offerConsentedLegacyMigrations(resolvedProjectPath);
 
-    // Use detected tool directories to preserve existing opsx skills/commands.
+    // Use detected tool directories to preserve existing ofsx skills/commands.
     const detectedTools = getAvailableTools(resolvedProjectPath);
     migrateIfNeededShared(resolvedProjectPath, detectedTools);
 
@@ -191,8 +192,8 @@ export class UpdateCommand {
         for (const migration of declinedMigrations) {
           console.log(
             chalk.yellow(
-              `Nothing to update: this project's OpenSpec files are still in ${migration.from}/, ` +
-                `which OpenSpec no longer writes.`
+              `Nothing to update: this project's OfficeSpec files are still in ${migration.from}/, ` +
+                `which OfficeSpec no longer writes.`
             )
           );
           console.log(
@@ -284,6 +285,7 @@ export class UpdateCommand {
     let removedSkillCount = 0;
     let removedDeselectedCommandCount = 0;
     let removedDeselectedSkillCount = 0;
+    let removedLegacySkillCount = 0;
 
     for (const toolId of toolsToUpdate) {
       const tool = AI_TOOLS.find((t) => t.value === toolId);
@@ -324,6 +326,10 @@ export class UpdateCommand {
             skillsDir,
             toolWorkflows
           );
+          removedLegacySkillCount += await this.removeLegacySkillDirs(
+            skillsRoot,
+            skillsDir
+          );
         }
 
         // Delete skill directories if delivery is commands-only
@@ -336,7 +342,7 @@ export class UpdateCommand {
           // Persist the selected owner even when commands-only delivery leaves
           // this target with no generated skills.
           writeSharedSkillTarget(resolvedProjectPath, tool.value);
-          // A tool with no command adapter now has zero OpenSpec artifacts;
+          // A tool with no command adapter now has zero OfficeSpec artifacts;
           // say so like init does, rather than deleting its skills silently
           // and letting tool detection re-suggest an init that would also
           // generate nothing under this delivery setting.
@@ -433,6 +439,9 @@ export class UpdateCommand {
     if (removedDeselectedSkillCount > 0) {
       console.log(chalk.dim(`Removed: ${removedDeselectedSkillCount} skill directories (deselected workflows)`));
     }
+    if (removedLegacySkillCount > 0) {
+      console.log(chalk.dim(`Removed: ${removedLegacySkillCount} skill directories (previous openspec-* naming)`));
+    }
 
     // 12. Show onboarding message for newly configured tools from legacy upgrade.
     // Command tools get the command name their files answer to, skill-only
@@ -445,7 +454,7 @@ export class UpdateCommand {
           newlyConfiguredTools.map((toolId) => {
             if (shouldGenerateCommandsForTool(toolId, delivery)) {
               // Name the command the tool's files actually answer to:
-              // /opsx-<id> where the filename is the command name.
+              // /ofsx-<id> where the filename is the command name.
               const transformer = getTransformerForTool(
                 toolId,
                 delivery,
@@ -480,7 +489,7 @@ export class UpdateCommand {
         }
         console.log();
       }
-      console.log(`Learn more: ${chalk.cyan('https://github.com/Fission-AI/OpenSpec')}`);
+      console.log(`Learn more: ${chalk.cyan('https://github.com/joelsebbu/OpenSpec')}`);
     }
 
     await this.syncCopilotCloudFiles(resolvedProjectPath, configuredAndNewTools);
@@ -505,7 +514,7 @@ export class UpdateCommand {
       console.log(chalk.dim(restartHint));
     }
     if (failedTools.length > 0) {
-      throw new Error(`OpenSpec update failed for: ${failedTools.map((tool) => tool.name).join(', ')}`);
+      throw new Error(`OfficeSpec update failed for: ${failedTools.map((tool) => tool.name).join(', ')}`);
     }
   }
 
@@ -523,7 +532,7 @@ export class UpdateCommand {
           if (collisions.length > 0) {
             console.log(
               chalk.dim(
-                `Left your existing ${collisions.join(' and ')} untouched — add the OpenSpec ` +
+                `Left your existing ${collisions.join(' and ')} untouched — add the OfficeSpec ` +
                   `install step by hand so the Copilot cloud agent can run openspec.`
               )
             );
@@ -766,6 +775,44 @@ export class UpdateCommand {
       } catch {
         // Ignore errors
       }
+
+      // Drop the pre-rename sibling too: the OfficeSpec rename moved skill
+      // directories from `openspec-*` to `officespec-*`, and a re-run must
+      // not leave both copies behind.
+      const legacyDirName = legacySkillDirForWorkflow(workflow);
+      if (legacyDirName) {
+        removed += await this.removeDirIfPresent(skillsRoot, path.join(skillsDir, legacyDirName));
+      }
+    }
+
+    return removed;
+  }
+
+  private async removeDirIfPresent(skillsRoot: string, dir: string): Promise<number> {
+    if (!fs.existsSync(dir)) return 0;
+    FileSystemUtils.assertPathWithin(skillsRoot, dir);
+    try {
+      await fs.promises.rm(dir, { recursive: true, force: true });
+      return 1;
+    } catch {
+      // Ignore errors
+      return 0;
+    }
+  }
+
+  /**
+   * Removes pre-rename (`openspec-*`) skill directories left beside the
+   * current (`officespec-*`) ones. Runs after skills are generated so a
+   * re-run upgrades the tree instead of doubling every skill.
+   * Returns the number of directories removed.
+   */
+  private async removeLegacySkillDirs(skillsRoot: string, skillsDir: string): Promise<number> {
+    let removed = 0;
+
+    for (const workflow of ALL_WORKFLOWS) {
+      const legacyDirName = legacySkillDirForWorkflow(workflow);
+      if (!legacyDirName) continue;
+      removed += await this.removeDirIfPresent(skillsRoot, path.join(skillsDir, legacyDirName));
     }
 
     return removed;
@@ -867,7 +914,7 @@ export class UpdateCommand {
   }
 
   /**
-   * Offers to move OpenSpec content out of a renamed tool's former directory
+   * Offers to move OfficeSpec content out of a renamed tool's former directory
    * when the old location might still be the live one — today, Windsurf's
    * `.windsurf/` after the Devin Desktop rebrand.
    *
@@ -914,12 +961,12 @@ export class UpdateCommand {
           shouldMigrate = false;
         }
         if (!shouldMigrate) {
-          // Say what declining costs. OpenSpec writes the current root now, so
-          // the files keep working where they are, but OpenSpec stops managing
+          // Say what declining costs. OfficeSpec writes the current root now, so
+          // the files keep working where they are, but OfficeSpec stops managing
           // them — it no longer looks in the former directory.
           console.log(
             chalk.dim(
-              `Left in place. OpenSpec writes ${migration.to}/ now and will not manage ` +
+              `Left in place. OfficeSpec writes ${migration.to}/ now and will not manage ` +
                 `${migration.from}/, so those files stay as they are until you move them. ` +
                 `You will be asked again next run.`
             )
@@ -943,7 +990,7 @@ export class UpdateCommand {
   }
 
   /**
-   * Detect and handle legacy OpenSpec artifacts.
+   * Detect and handle legacy OfficeSpec artifacts.
    * Unlike init, update warns but continues if legacy files found in non-interactive mode.
    * Returns array of tool IDs that were newly configured during legacy upgrade.
    */

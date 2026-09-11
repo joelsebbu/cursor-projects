@@ -1,11 +1,11 @@
 # Getting Started
 
-This guide explains how OpenSpec works after you've installed and initialized it. For installation instructions, see the [main README](../README.md#quick-start) or the [Installation guide](installation.md). New to the whole docs set? The [documentation home](README.md) maps everything.
+This guide explains how OfficeSpec works after you've installed and initialized it. For installation instructions, see the [main README](../README.md#quick-start) or the [Installation guide](installation.md). New to the whole docs set? The [documentation home](README.md) maps everything.
 
 > **Where do I type these commands?** Two places, and mixing them up is the most common early stumble.
 >
 > - `openspec ...` commands (like `openspec init`) run in your **terminal**.
-> - `/opsx:...` commands (like `/opsx:propose`) run in your **AI assistant's chat**, the same box where you'd ask it to do the work.
+> - `/ofsx:...` commands (like `/ofsx:propose`) run in your **AI assistant's chat**, the same box where you'd ask it to do the work.
 >
 > There's no separate "interactive mode" to start. You just type the slash command in chat and your assistant takes it from there. Full explanation: [How Commands Work](how-commands-work.md).
 
@@ -14,42 +14,42 @@ This guide explains how OpenSpec works after you've installed and initialized it
 The whole loop, with each step labeled by where it happens:
 
 ```text
-TERMINAL   $ npm install -g @fission-ai/openspec@latest
+TERMINAL   $ npm install -g officespec@latest
 TERMINAL   $ cd your-work-folder && openspec init
-AI CHAT      /opsx:explore                    (optional: think it through first)
-AI CHAT      /opsx:propose improve-expense-approvals      (AI drafts the plan; you review it)
-AI CHAT      /opsx:apply                      (AI helps you do it)
-AI CHAT      /opsx:archive                    (specs updated, change filed away)
+AI CHAT      /ofsx:explore                    (optional: think it through first)
+AI CHAT      /ofsx:propose improve-expense-approvals      (AI drafts the plan; you review it)
+AI CHAT      /ofsx:apply                      (AI helps you do it)
+AI CHAT      /ofsx:archive                    (specs updated, change filed away)
 ```
 
 Two terminal steps to set up, then you live in chat. The rest of this guide unpacks what each step does and what you'll see.
 
 **Don't want to do the terminal part yourself?** Paste the [setup prompt](installation.md#install-with-your-ai-assistant) into your assistant and it handles both lines, then reports what it created.
 
-> **Not sure what to change yet? Start with `/opsx:explore`.** It's a no-stakes thinking partner that reads your workspace, weighs options, and sharpens a fuzzy idea into a concrete plan, all before any artifact or code exists. When the picture is clear, it hands off to `/opsx:propose`. This is the single best habit for working with an AI that will otherwise confidently do the wrong thing. See the [Explore guide](explore.md).
+> **Not sure what to change yet? Start with `/ofsx:explore`.** It's a no-stakes thinking partner that reads your workspace, weighs options, and sharpens a fuzzy idea into a concrete plan, all before any artifact or code exists. When the picture is clear, it hands off to `/ofsx:propose`. This is the single best habit for working with an AI that will otherwise confidently do the wrong thing. See the [Explore guide](explore.md).
 
 ## How It Works
 
-OpenSpec helps you and your AI AI assistant agree on what to do before any work starts.
+OfficeSpec helps you and your AI AI assistant agree on what to do before any work starts.
 
 **Default quick path (core profile):**
 
 ```text
-/opsx:explore ──► /opsx:propose ──► /opsx:apply ──► /opsx:sync ──► /opsx:archive
+/ofsx:explore ──► /ofsx:propose ──► /ofsx:apply ──► /ofsx:sync ──► /ofsx:archive
    (optional)
 ```
 
-Start with `/opsx:explore` when you're figuring out what to do, or jump straight to `/opsx:propose` when you already know. Explore is in the default profile, so it's always there when you want it.
+Start with `/ofsx:explore` when you're figuring out what to do, or jump straight to `/ofsx:propose` when you already know. Explore is in the default profile, so it's always there when you want it.
 
 **Expanded path (custom workflow selection):**
 
 ```text
-/opsx:new ──► /opsx:ff or /opsx:continue ──► /opsx:apply ──► /opsx:verify ──► /opsx:archive
+/ofsx:new ──► /ofsx:ff or /ofsx:continue ──► /ofsx:apply ──► /ofsx:verify ──► /ofsx:archive
 ```
 
 The default global profile is `core`, which includes `propose`, `explore`, `apply`, `update`, `sync`, and `archive`. You can enable the expanded workflow commands with `openspec config profile` and then `openspec update`.
 
-## What OpenSpec Creates
+## What OfficeSpec Creates
 
 After running `openspec init`, your work has this structure:
 
@@ -99,7 +99,7 @@ You can always go back and refine earlier artifacts as you learn more while doin
 
 ## How Delta Specs Work
 
-Delta specs are the key concept in OpenSpec. They show what's changing relative to your current specs.
+Delta specs are the key concept in OfficeSpec. They show what's changing relative to your current specs.
 
 ### The Format
 
@@ -152,7 +152,7 @@ Let's walk through adding dark mode to an application.
 ### 1. Start the Change (Default)
 
 ```text
-You: /opsx:propose improve-expense-approvals
+You: /ofsx:propose improve-expense-approvals
 
 AI:  Created openspec/changes/add-dark-mode/
      ✓ proposal.md — why we're doing this, what's changing
@@ -162,7 +162,7 @@ AI:  Created openspec/changes/add-dark-mode/
      Ready to do the work!
 ```
 
-If you've enabled the expanded workflow profile, you can also do this as two steps: `/opsx:new` then `/opsx:ff` (or `/opsx:continue` incrementally).
+If you've enabled the expanded workflow profile, you can also do this as two steps: `/ofsx:new` then `/ofsx:ff` (or `/ofsx:continue` incrementally).
 
 ### 2. What Gets Created
 
@@ -230,7 +230,7 @@ The process SHALL allow users to choose between light and dark themes.
 ### 3. Implement
 
 ```
-You: /opsx:apply
+You: /ofsx:apply
 
 AI:  Working through tasks...
      ✓ 1.1 Created ThemeContext with light/dark state
@@ -246,7 +246,7 @@ During implementation, if you discover the design needs adjustment, just update 
 ### 4. Archive
 
 ```
-You: /opsx:archive
+You: /ofsx:archive
 
 AI:  Archiving add-dark-mode...
      ✓ Merged specs into openspec/specs/ui/spec.md
@@ -276,16 +276,16 @@ openspec view
 
 ## Next Steps
 
-- [Explore First](explore.md) - Use `/opsx:explore` to think through an idea before you commit
+- [Explore First](explore.md) - Use `/ofsx:explore` to think through an idea before you commit
 - [Reviewing a Change](reviewing-changes.md) - What to check in the plan the AI drafts, before any code
 - [Writing Good Specs](writing-specs.md) - What a strong requirement and scenario look like
-- [Using OpenSpec in an Existing Project](existing-projects.md) - Start on a large work already in flight
+- [Using OfficeSpec in an Existing Project](existing-projects.md) - Start on a large work already in flight
 - [Editing & Iterating on a Change](editing-changes.md) - Update artifacts, go back, reconcile manual edits
 - [Core Concepts at a Glance](overview.md) - The whole mental model on one page
 - [Examples & Recipes](examples.md) - Real changes, start to finish
 - [Workflows](workflows.md) - Common patterns and when to use each command
 - [Commands](commands.md) - Full reference for all slash commands
 - [Concepts](concepts.md) - Deeper understanding of specs, changes, and schemas
-- [Customization](customization.md) - Make OpenSpec work your way
+- [Customization](customization.md) - Make OfficeSpec work your way
 - [Stores](stores-beta/user-guide.md) - Planning that spans repos or teams? Keep it in its own repo (beta)
 - [FAQ](faq.md) and [Troubleshooting](troubleshooting.md) - When you get stuck

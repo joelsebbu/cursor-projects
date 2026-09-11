@@ -22,7 +22,7 @@
 ## 3. Open Surface Sync
 
 - [x] 3.1 Add a shared open-surface sync helper used by setup, link, and relink
-- [x] 3.2 Create or refresh root `AGENTS.md` with an OpenSpec-managed workspace guidance block
+- [x] 3.2 Create or refresh root `AGENTS.md` with an OfficeSpec-managed workspace guidance block
 - [x] 3.3 Preserve user-authored `AGENTS.md` content outside the managed block
 - [x] 3.4 Append the managed block to unmarked existing `AGENTS.md` files
 - [x] 3.5 Create or refresh `<workspace-name>.code-workspace` at the workspace root

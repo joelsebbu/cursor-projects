@@ -19,7 +19,7 @@ Workspaces open local views.
 
 ## Goal
 
-Let an agent create or link a repo-local OpenSpec change to a shared
+Let an agent create or link a repo-local OfficeSpec change to a shared
 initiative without copying initiative prose, storing machine-local paths, or
 making the initiative own repo implementation artifacts.
 
@@ -132,7 +132,7 @@ Rules:
 Rationale:
 
 - The current product boundary assigns implementation plans to repo-local
-  OpenSpec changes.
+  OfficeSpec changes.
 - Workspaces are local views, not the durable planning owner for initiative
   work.
 - Extending workspace-planning changes would revive the superseded
@@ -146,7 +146,7 @@ Rules:
 
 - Creating a repo-local change with an initiative link records participation in
   the initiative.
-- The link does not claim that OpenSpec verified repo ownership, repo impact, or
+- The link does not claim that OfficeSpec verified repo ownership, repo impact, or
   initiative area coverage.
 - The command should not block or warn solely because the current repo is absent
   from initiative content.
@@ -239,7 +239,7 @@ Rationale:
 - Keeping the command limited to `.openspec.yaml` avoids a broad edit surface.
 - Avoid `openspec change ...` because that namespace is currently deprecated.
 - Avoid `edit` because it implies opening an editor, and avoid `update` because
-  OpenSpec already uses update for local guidance/tool refresh.
+  OfficeSpec already uses update for local guidance/tool refresh.
 
 ### 8. Status And Instructions Visibility
 

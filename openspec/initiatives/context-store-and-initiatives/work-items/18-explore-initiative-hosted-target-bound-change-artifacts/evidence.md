@@ -10,7 +10,7 @@
 - New artifact workflow commands already consume resolved planning paths in
   some places, which may be a useful seam for future change-home resolution.
 - Older command surfaces still assume `openspec/changes/` under a local
-  OpenSpec project and need an explicit audit before any implementation slice.
+  OfficeSpec project and need an explicit audit before any implementation slice.
 
 ## Initial Framing
 
@@ -51,7 +51,7 @@ Higher-level object = coordination and rollup
 Execution item      = work owned closer to a team, project, repo, or issue
 ```
 
-OpenSpec should keep that separation while making the agent handoff sharper
+OfficeSpec should keep that separation while making the agent handoff sharper
 than human project-management tools can.
 
 ### Clean Mental Model
@@ -111,7 +111,7 @@ Workspace context:
 
 Use for shared initiative planning before repo ownership or implementation
 targets are clear. These should be called initiative work items, planning
-briefs, or proposals, not executable OpenSpec changes, until Item 18 defines a
+briefs, or proposals, not executable OfficeSpec changes, until Item 18 defines a
 full lifecycle for context-store-backed changes.
 
 Workspace-local changes:
@@ -254,7 +254,7 @@ Keep Item 8 narrow:
 - Add `new change <id> --initiative <store>/<initiative> --json`.
 - Use `initiative show` plus workspace/repo context as the agent handoff
   backbone.
-- Do not implement context-store-backed OpenSpec changes in Item 8.
+- Do not implement context-store-backed OfficeSpec changes in Item 8.
 
 Use Item 18 to decide the larger model:
 
@@ -284,7 +284,7 @@ and lifecycle/implementation angles.
 - The visible work item should not be framed as generic configurable storage.
   That makes the hard question sound like path plumbing.
 - The sharper product question is whether initiative-hosted artifacts can
-  become executable OpenSpec changes after they are bound to a target repo or
+  become executable OfficeSpec changes after they are bound to a target repo or
   spec root.
 - Repo-local changes remain the default executable implementation artifact.
 - Initiative-hosted artifacts start as planning-only work items, briefs, or
@@ -304,7 +304,7 @@ Agents need stable CLI output that separates the artifact from the thing the
 agent may edit:
 
 ```text
-Plan lives in: repo-local OpenSpec | initiative context
+Plan lives in: repo-local OfficeSpec | initiative context
 Editable target: selected repo path | none yet
 Linked initiative: platform/billing-launch
 ```

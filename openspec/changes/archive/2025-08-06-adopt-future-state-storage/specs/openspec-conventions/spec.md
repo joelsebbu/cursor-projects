@@ -1,8 +1,8 @@
-# OpenSpec Conventions Specification
+# OfficeSpec Conventions Specification
 
 ## Purpose
 
-OpenSpec conventions SHALL define how system capabilities are documented, how changes are proposed and tracked, and how specifications evolve over time. This meta-specification serves as the source of truth for OpenSpec's own conventions.
+OfficeSpec conventions SHALL define how system capabilities are documented, how changes are proposed and tracked, and how specifications evolve over time. This meta-specification serves as the source of truth for OfficeSpec's own conventions.
 
 ## Core Principles
 
@@ -14,7 +14,7 @@ The system SHALL follow these principles:
 
 ## Directory Structure
 
-WHEN an OpenSpec project is initialized
+WHEN an OfficeSpec project is initialized
 THEN it SHALL have this structure:
 ```
 openspec/

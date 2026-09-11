@@ -9,7 +9,7 @@ import { STORE_SELECTION_GUIDANCE } from './store-selection.js';
 
 export function getSyncSpecsSkillTemplate(): SkillTemplate {
   return {
-    name: 'openspec-sync-specs',
+    name: 'officespec-sync-specs',
     description: 'Sync delta specs from a change to main specs. Use when the user wants to update main specs with changes from a delta spec, without archiving the change.',
     instructions: `Sync delta specs from a change to main specs.
 
@@ -32,7 +32,7 @@ ${STORE_SELECTION_GUIDANCE}
 
    When prompting, show changes that have delta specs (under \`specs/\` directory).
 
-   Always announce: "Using change: <name>" and how to override (e.g., \`/opsx:sync <other>\`).
+   Always announce: "Using change: <name>" and how to override (e.g., \`/ofsx:sync <other>\`).
 
 2. **Resolve change context**
 
@@ -267,9 +267,9 @@ Main specs are now updated. The change remains active - archive when the work is
   };
 }
 
-export function getOpsxSyncCommandTemplate(): CommandTemplate {
+export function getOfsxSyncCommandTemplate(): CommandTemplate {
   return {
-    name: 'OPSX: Sync',
+    name: 'OFSX: Sync',
     description: 'Sync delta specs from a change to main specs',
     category: 'Workflow',
     tags: ['workflow', 'specs', 'experimental'],
@@ -281,7 +281,7 @@ ${STORE_SELECTION_GUIDANCE}
 
 \`<capability-path>\` is the spec directory relative to \`specs/\` (for example, \`expense-approvals\` or \`finance/expense-approvals\`). Preserve the full path from each delta spec when resolving its main spec.
 
-**Input**: Optionally specify a change name after \`/opsx:sync\` (e.g., \`/opsx:sync add-auth\`). If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
+**Input**: Optionally specify a change name after \`/ofsx:sync\` (e.g., \`/ofsx:sync add-auth\`). If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
 
 **Steps**
 
@@ -294,7 +294,7 @@ ${STORE_SELECTION_GUIDANCE}
 
    When prompting, show changes that have delta specs (under \`specs/\` directory).
 
-   Always announce: "Using change: <name>" and how to override (e.g., \`/opsx:sync <other>\`).
+   Always announce: "Using change: <name>" and how to override (e.g., \`/ofsx:sync <other>\`).
 
 2. **Resolve change context**
 

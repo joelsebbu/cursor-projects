@@ -8,7 +8,7 @@ the checkpoint-4 test work in progress).
 
 - Scratch project repo `/tmp/openspec-dogfood-14/app-repo` (git-inited),
   prepared with `openspec init . --tools claude --profile core` — so the
-  repo has its own local OpenSpec root and the five generated core
+  repo has its own local OfficeSpec root and the five generated core
   workflow skills under `.claude/skills/`.
 - Isolated machine state: `XDG_DATA_HOME`/`XDG_CONFIG_HOME` pointed at
   scratch dirs; `OPENSPEC_TELEMETRY=0`; `openspec` on PATH via a shim to

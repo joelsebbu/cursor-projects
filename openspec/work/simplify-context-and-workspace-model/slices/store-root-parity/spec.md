@@ -1,12 +1,12 @@
-# Context Store As Standalone OpenSpec Root Spec
+# Context Store As Standalone OfficeSpec Root Spec
 
 ## Outcome
 
 `context-store setup` and `context-store register` treat a context store as a
-normal standalone OpenSpec root with a thin identity file.
+normal standalone OfficeSpec root with a thin identity file.
 
 After setup or registration, the durable planning state lives in normal
-OpenSpec artifacts: config, specs, changes, and archived changes. The
+OfficeSpec artifacts: config, specs, changes, and archived changes. The
 `.openspec-store/` directory remains identity or local registry metadata, not a
 separate planning model.
 
@@ -16,8 +16,8 @@ thin `.openspec-store/store.yaml` identity file used by the new model.
 
 ## User Experience
 
-A human or agent can create or register a standalone OpenSpec repo and then see
-the same root shape they would expect from a normal OpenSpec project:
+A human or agent can create or register a standalone OfficeSpec repo and then see
+the same root shape they would expect from a normal OfficeSpec project:
 
 ```text
 context-store-root/
@@ -30,14 +30,14 @@ context-store-root/
       archive/
 ```
 
-The command output and help point users toward normal OpenSpec specs and
+The command output and help point users toward normal OfficeSpec specs and
 changes, not initiatives, workspace-owned planning, generated agent files, or
 collection-specific state.
 
 In plain terms:
 
 ```text
-context store = normal OpenSpec root + .openspec-store/store.yaml
+context store = normal OfficeSpec root + .openspec-store/store.yaml
 ```
 
 ## Scope
@@ -46,12 +46,12 @@ In scope:
 
 - Root shape parity for `context-store setup` and `context-store register`.
 - Default config creation during setup.
-- Safe handling of missing, empty, Git-only, and existing healthy OpenSpec-root
+- Safe handling of missing, empty, Git-only, and existing healthy OfficeSpec-root
   directories.
 - Registering cloned or existing context stores on the local machine.
-- Turning a healthy standalone OpenSpec root into a context store only after
+- Turning a healthy standalone OfficeSpec root into a context store only after
   clear user confirmation.
-- Separate `context-store doctor` reporting for OpenSpec-root health.
+- Separate `context-store doctor` reporting for OfficeSpec-root health.
 - Tests that verify setup, register, doctor, idempotency for the new model, and
   unsafe-folder behavior.
 
@@ -71,8 +71,8 @@ Out of scope:
 
 ### Setup Ensures A Normal Root
 
-`context-store setup` creates or preserves a healthy OpenSpec root. A healthy
-OpenSpec root contains `openspec/`, a config file
+`context-store setup` creates or preserves a healthy OfficeSpec root. A healthy
+OfficeSpec root contains `openspec/`, a config file
 (`openspec/config.yaml` or `openspec/config.yml`), `openspec/specs/`,
 `openspec/changes/`, and `openspec/changes/archive/`.
 
@@ -83,7 +83,7 @@ default `spec-driven` schema.
 
 - **GIVEN** a missing directory or empty directory
 - **WHEN** the user runs `context-store setup`
-- **THEN** OpenSpec leaves the directory with `.openspec-store/store.yaml`
+- **THEN** OfficeSpec leaves the directory with `.openspec-store/store.yaml`
 - **AND** `openspec/config.yaml` exists with the default `spec-driven` schema
 - **AND** `openspec/specs/`, `openspec/changes/`, and
   `openspec/changes/archive/` exist
@@ -94,18 +94,18 @@ default `spec-driven` schema.
 
 - **GIVEN** an existing directory that contains only `.git/`
 - **WHEN** the user runs `context-store setup`
-- **THEN** OpenSpec treats the directory as a safe fresh store
-- **AND** OpenSpec preserves `.git/`
-- **AND** OpenSpec creates the context-store identity metadata and healthy
-  OpenSpec root
+- **THEN** OfficeSpec treats the directory as a safe fresh store
+- **AND** OfficeSpec preserves `.git/`
+- **AND** OfficeSpec creates the context-store identity metadata and healthy
+  OfficeSpec root
 
 #### Scenario: Preserving An Existing Healthy Root
 
-- **GIVEN** an initialized standalone OpenSpec root
+- **GIVEN** an initialized standalone OfficeSpec root
 - **WHEN** the user runs `context-store setup`
-- **THEN** OpenSpec preserves existing config, specs, changes, and archived
+- **THEN** OfficeSpec preserves existing config, specs, changes, and archived
   changes
-- **AND** OpenSpec creates `.openspec-store/store.yaml` when identity metadata
+- **AND** OfficeSpec creates `.openspec-store/store.yaml` when identity metadata
   is missing
 
 #### Scenario: Creating Default Config Non-Interactively
@@ -119,22 +119,22 @@ default `spec-driven` schema.
 
 - **GIVEN** `openspec/config.yaml` or `openspec/config.yml` already exists
 - **WHEN** setup completes successfully
-- **THEN** OpenSpec preserves the existing config file
+- **THEN** OfficeSpec preserves the existing config file
 
 #### Scenario: Rejecting Unsafe Folders
 
 - **GIVEN** an arbitrary non-empty unmarked folder
 - **WHEN** the user runs `context-store setup`
-- **THEN** OpenSpec rejects it without treating it as a store root
-- **AND** it does not create context-store metadata or OpenSpec-root files in
+- **THEN** OfficeSpec rejects it without treating it as a store root
+- **AND** it does not create context-store metadata or OfficeSpec-root files in
   that folder
 
 #### Scenario: Rejecting Nested Git Setup Paths
 
 - **GIVEN** a setup target path inside another Git repository
 - **WHEN** the user runs `context-store setup`
-- **THEN** OpenSpec rejects the path as unsafe for this slice
-- **AND** it does not create context-store metadata or OpenSpec-root files in
+- **THEN** OfficeSpec rejects the path as unsafe for this slice
+- **AND** it does not create context-store metadata or OfficeSpec-root files in
   that path
 
 ### Register Requires An Existing Root
@@ -144,38 +144,38 @@ machine. It does not initialize planning files.
 
 #### Scenario: Registering A Cloned Context Store
 
-- **GIVEN** an existing healthy OpenSpec root with `.openspec-store/store.yaml`
+- **GIVEN** an existing healthy OfficeSpec root with `.openspec-store/store.yaml`
 - **WHEN** the user runs `context-store register`
-- **THEN** OpenSpec registers it
-- **AND** OpenSpec writes local registry state only when needed
-- **AND** OpenSpec does not create or rewrite OpenSpec planning files
+- **THEN** OfficeSpec registers it
+- **AND** OfficeSpec writes local registry state only when needed
+- **AND** OfficeSpec does not create or rewrite OfficeSpec planning files
 
 #### Scenario: Turning A Healthy Root Into A Context Store
 
-- **GIVEN** an existing healthy OpenSpec root without `.openspec-store/store.yaml`
+- **GIVEN** an existing healthy OfficeSpec root without `.openspec-store/store.yaml`
 - **WHEN** the user runs `context-store register`
-- **THEN** OpenSpec asks whether to turn the root into the named context store
-- **AND** if the user confirms, OpenSpec creates `.openspec-store/store.yaml`
+- **THEN** OfficeSpec asks whether to turn the root into the named context store
+- **AND** if the user confirms, OfficeSpec creates `.openspec-store/store.yaml`
   and registers the store locally
-- **AND** if the user declines, OpenSpec does not write metadata or registry
+- **AND** if the user declines, OfficeSpec does not write metadata or registry
   state
 
 #### Scenario: Refusing Unconfirmed Non-Interactive Conversion
 
-- **GIVEN** an existing healthy OpenSpec root without `.openspec-store/store.yaml`
+- **GIVEN** an existing healthy OfficeSpec root without `.openspec-store/store.yaml`
 - **WHEN** the user runs `context-store register` in non-interactive or JSON mode
   without explicit confirmation
-- **THEN** OpenSpec refuses to convert the root into a context store
-- **AND** OpenSpec does not write metadata or registry state
+- **THEN** OfficeSpec refuses to convert the root into a context store
+- **AND** OfficeSpec does not write metadata or registry state
 
 #### Scenario: Refusing Arbitrary Directories
 
-- **GIVEN** a missing directory, partial OpenSpec root, or existing directory
-  that is not a healthy OpenSpec root
+- **GIVEN** a missing directory, partial OfficeSpec root, or existing directory
+  that is not a healthy OfficeSpec root
 - **WHEN** the user runs `context-store register`
-- **THEN** OpenSpec refuses to register it
-- **AND** OpenSpec does not silently initialize it as an OpenSpec root
-- **AND** OpenSpec does not create `.openspec-store/store.yaml` or local
+- **THEN** OfficeSpec refuses to register it
+- **AND** OfficeSpec does not silently initialize it as an OfficeSpec root
+- **AND** OfficeSpec does not create `.openspec-store/store.yaml` or local
   registry state
 
 ### Metadata Stays Thin
@@ -185,11 +185,11 @@ Context-store metadata remains identity or registry metadata only.
 #### Scenario: Avoiding Old Planning Models In This Slice
 
 - **WHEN** setup or register completes
-- **THEN** OpenSpec does not create initiative links, initiative collections, or
+- **THEN** OfficeSpec does not create initiative links, initiative collections, or
   workspace-owned planning state
-- **AND** OpenSpec does not install generated agent skills, slash commands, or
+- **AND** OfficeSpec does not install generated agent skills, slash commands, or
   tool configuration files into the store
-- **AND** OpenSpec does not run full `openspec init`, tool detection, legacy
+- **AND** OfficeSpec does not run full `openspec init`, tool detection, legacy
   cleanup, migration, skill generation, command generation, or onboarding flows
 
 #### Scenario: Ignoring Old Beta Files
@@ -198,27 +198,27 @@ Context-store metadata remains identity or registry metadata only.
   `.openspec-workspace/`, `workspace.yaml`, `AGENTS.md`, `.codex/`, `.claude/`,
   or `.cursor/`
 - **WHEN** setup or register succeeds for the new model
-- **THEN** OpenSpec ignores those files for this slice
-- **AND** OpenSpec does not migrate, upgrade, delete, or repair those files
-- **AND** OpenSpec does not treat those files as proof that the folder is a
-  healthy OpenSpec root or valid context store
-- **AND** OpenSpec does not preserve old beta planning behavior as a requirement
+- **THEN** OfficeSpec ignores those files for this slice
+- **AND** OfficeSpec does not migrate, upgrade, delete, or repair those files
+- **AND** OfficeSpec does not treat those files as proof that the folder is a
+  healthy OfficeSpec root or valid context store
+- **AND** OfficeSpec does not preserve old beta planning behavior as a requirement
 
 #### Scenario: Validating Thin Identity Metadata
 
 - **GIVEN** `.openspec-store/store.yaml` exists
 - **WHEN** setup, register, or doctor reads it
-- **THEN** OpenSpec treats it as the context-store identity file
+- **THEN** OfficeSpec treats it as the context-store identity file
 - **AND** the file must match the thin identity shape for the new model
 - **AND** invalid or mismatched identity metadata is reported as a metadata issue
 
 ### Doctor Separates Root Health
 
-`context-store doctor` reports OpenSpec-root health separately from
+`context-store doctor` reports OfficeSpec-root health separately from
 context-store metadata and Git health. In JSON output, each store includes a
 distinct `openspec_root` section.
 
-#### Scenario: Reporting OpenSpec Root Health
+#### Scenario: Reporting OfficeSpec Root Health
 
 - **WHEN** doctor inspects a context store
 - **THEN** the report covers the `openspec/` directory,
@@ -246,27 +246,27 @@ not treat previous beta context-store behavior as a stable surface.
 #### Scenario: Repeating Setup Or Register
 
 - **GIVEN** the same context-store id and path are already registered and the
-  OpenSpec root is healthy
+  OfficeSpec root is healthy
 - **WHEN** setup or register runs again for that root
-- **THEN** OpenSpec reports that the store is already registered, already exists,
+- **THEN** OfficeSpec reports that the store is already registered, already exists,
   or has nothing to change
-- **AND** OpenSpec does not mutate files just to prove the command worked
+- **AND** OfficeSpec does not mutate files just to prove the command worked
 - **AND** JSON output reports no newly created files for the no-op operation
-- **AND** OpenSpec does not duplicate registry entries
+- **AND** OfficeSpec does not duplicate registry entries
 
 #### Scenario: Preserving User Edits Across Reruns
 
 - **GIVEN** the user edits `openspec/config.yaml` or `openspec/config.yml` after
   setup
 - **WHEN** setup or register runs again for that root
-- **THEN** OpenSpec preserves the edited config file
-- **AND** OpenSpec preserves user-authored specs, changes, archived changes, and
+- **THEN** OfficeSpec preserves the edited config file
+- **AND** OfficeSpec preserves user-authored specs, changes, archived changes, and
   valid identity metadata
 
 #### Scenario: Preserving User Content On Failure
 
 - **GIVEN** setup or register creates files or directories during an operation
 - **WHEN** the operation fails before completion
-- **THEN** OpenSpec removes only files and empty directories it created during
+- **THEN** OfficeSpec removes only files and empty directories it created during
   that operation
-- **AND** OpenSpec preserves unrelated user content
+- **AND** OfficeSpec preserves unrelated user content

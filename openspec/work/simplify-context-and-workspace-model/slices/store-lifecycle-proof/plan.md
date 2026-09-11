@@ -56,7 +56,7 @@ How the user knows it worked:
 
 - A clone of a freshly set-up store registers without ceremony.
 - The journey test passes against the built binary with isolated global
-  state, ending in nothing but normal OpenSpec files.
+  state, ending in nothing but normal OfficeSpec files.
 
 ## Goals
 
@@ -101,7 +101,7 @@ Setup, register, doctor internals:
   line ~483) — *after* Git init — so the metadata write must be decoupled
   and moved before the new commit step, or the initial commit will not
   contain `store.yaml` and clones will hit the register conversion prompt.
-  Register errors live here: `requires an existing healthy OpenSpec root`
+  Register errors live here: `requires an existing healthy OfficeSpec root`
   (line ~555), metadata id mismatch (line ~569), and `already registered at
   this path` (line ~190). Git inspection currently reports only
   `isRepository`.
@@ -185,7 +185,7 @@ sequence):
    including placeholders and metadata, join `created_files`.
 5. `git init` when needed, then an index-preserving pathspec commit
    (`git add -- <pathspecs>` followed by `git commit -m "Initialize
-   OpenSpec context store <id>" -- <pathspecs>`). The commit set depends
+   OfficeSpec context store <id>" -- <pathspecs>`). The commit set depends
    on who owns the repository: when setup initialized it, the pathspecs
    are the full store shape (`openspec/` plus `.openspec-store/`) so a
    clone of a converted root is healthy; when the repository pre-existed,
@@ -292,7 +292,7 @@ Machine A (project repo without its own root):
 4. Assert: change in `changes/archive/`, spec promoted into
    `openspec/specs/`, project repo byte-identical (hash the tree before and
    after), banners on stderr, stdout payloads clean.
-5. Commit machine A's work (the test acts as the user; OpenSpec must not
+5. Commit machine A's work (the test acts as the user; OfficeSpec must not
    commit here).
 
 Machine B (separate global state):
@@ -439,5 +439,5 @@ pnpm test
   still name the resolved root.
 - `status` prints no workspace-era vocabulary.
 - The two-checkout journey passes against the built CLI with isolated
-  global state, ending in normal OpenSpec files only, and the full suite is
+  global state, ending in normal OfficeSpec files only, and the full suite is
   green.

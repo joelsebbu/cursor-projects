@@ -1,18 +1,18 @@
 # Core Concepts at a Glance
 
-**OpenSpec is a lightweight agreement layer between you and your AI.** You write down what a change should do, the AI drafts the details, you both look at the same plan, and only then does the work start. This page is the whole mental model on one screen. When you want the long version, [Concepts](concepts.md) has it.
+**OfficeSpec is a lightweight agreement layer between you and your AI.** You write down what a change should do, the AI drafts the details, you both look at the same plan, and only then does the work start. This page is the whole mental model on one screen. When you want the long version, [Concepts](concepts.md) has it.
 
 Here's the entire idea in five words: **agree first, then deliver confidently.**
 
 ## The five ideas
 
-Everything in OpenSpec is built from five concepts. Learn these and the rest is detail.
+Everything in OfficeSpec is built from five concepts. Learn these and the rest is detail.
 
 **1. Specs are the truth.** A spec describes how your work runs *right now*. It lives in `openspec/specs/`, organized by area (`finance/`, `hiring/`, `support/`). Specs are made of requirements ("the process SHALL confirm receipt within one business day") and scenarios (concrete given/when/then examples). Think of specs as the single agreed-upon answer to "how does this work today?"
 
 **2. A change is one unit of work.** When you want to add, modify, or remove how work is done, you create a change: a folder in `openspec/changes/` holding everything about that work in one place. A proposal, a plan, a task list, and the spec edits. One change, one folder, one outcome.
 
-**3. Delta specs describe what's changing, not the whole world.** Inside a change, you don't rewrite the entire spec. You write a small delta: `ADDED` this requirement, `MODIFIED` that one, `REMOVED` this other one. This is the trick that makes OpenSpec good for improving existing operations, not just new initiatives. You describe the diff, not the destination.
+**3. Delta specs describe what's changing, not the whole world.** Inside a change, you don't rewrite the entire spec. You write a small delta: `ADDED` this requirement, `MODIFIED` that one, `REMOVED` this other one. This is the trick that makes OfficeSpec good for improving existing operations, not just new initiatives. You describe the diff, not the destination.
 
 **4. Artifacts build on each other.** A change contains a few documents, created in a natural order, each feeding the next:
 
@@ -49,37 +49,37 @@ Two folders. `specs/` is what's true. `changes/` is what you're proposing. Archi
 In the default setup, your day looks like this. Optionally think it through first; then one command drafts the plan, you read it, the next helps you do it, and the last files it away.
 
 ```text
-/opsx:explore                            →  (optional) think it through with the AI first
-/opsx:propose improve-expense-approvals   →  AI drafts proposal, specs, design, tasks
+/ofsx:explore                            →  (optional) think it through with the AI first
+/ofsx:propose improve-expense-approvals   →  AI drafts proposal, specs, design, tasks
         (you read and adjust the plan)
-/opsx:apply                              →  AI helps you do it, checking off tasks
-/opsx:archive                            →  specs updated, change archived
+/ofsx:apply                              →  AI helps you do it, checking off tasks
+/ofsx:archive                            →  specs updated, change archived
 ```
 
-**When in doubt, start by exploring.** `/opsx:explore` is a no-stakes thinking partner: it reviews your files and docs, lays out options, and turns a fuzzy idea into a concrete plan before any artifact exists. It's the best antidote to an AI that will otherwise do *something* from a vague prompt. Already know exactly what you want? Skip straight to `/opsx:propose`. Either way, explore ships in the default profile, so it's always there. See the [Explore guide](explore.md).
+**When in doubt, start by exploring.** `/ofsx:explore` is a no-stakes thinking partner: it reviews your files and docs, lays out options, and turns a fuzzy idea into a concrete plan before any artifact exists. It's the best antidote to an AI that will otherwise do *something* from a vague prompt. Already know exactly what you want? Skip straight to `/ofsx:propose`. Either way, explore ships in the default profile, so it's always there. See the [Explore guide](explore.md).
 
 Those are slash commands, typed in your AI assistant's chat. Setup (`openspec init`) happens in your terminal. If that split is new to you, read [How Commands Work](how-commands-work.md) first; it's the most common point of confusion.
 
 ## "Enablers, not gates"
 
-This phrase shows up everywhere in OpenSpec, so here's what it means in plain terms.
+This phrase shows up everywhere in OfficeSpec, so here's what it means in plain terms.
 
-Old-school planning processes are waterfalls: finish planning, *then* you're allowed to start, and going back is painful. OpenSpec refuses that. The order `proposal → specs → design → tasks` shows what becomes *possible* next, not what you're *forced* to do next.
+Old-school planning processes are waterfalls: finish planning, *then* you're allowed to start, and going back is painful. OfficeSpec refuses that. The order `proposal → specs → design → tasks` shows what becomes *possible* next, not what you're *forced* to do next.
 
 Discover while doing the work that the plan was wrong? Edit `design.md` and keep going. Realize the scope should shrink? Update the proposal. Nothing locks. The dependencies exist only so the AI has the context it needs (you can't write good tasks without specs to base them on), not to box you in.
 
-The strength here is honesty: real work is messy and iterative, and OpenSpec lets it be. The tradeoff is discipline: because nothing forces you forward, it's on you to keep a change focused rather than letting it sprawl. The [Workflows](workflows.md) guide has good habits for that.
+The strength here is honesty: real work is messy and iterative, and OfficeSpec lets it be. The tradeoff is discipline: because nothing forces you forward, it's on you to keep a change focused rather than letting it sprawl. The [Workflows](workflows.md) guide has good habits for that.
 
 ## Why this is worth the small overhead
 
-Plain truth: OpenSpec adds a step. You write a short plan before starting. So what do you get for it?
+Plain truth: OfficeSpec adds a step. You write a short plan before starting. So what do you get for it?
 
 - **You catch wrong turns before they cost you.** Fixing a misunderstanding in a one-paragraph proposal is free. Fixing it after the AI did hours of work is not.
 - **The plan and the outcome stay together.** Six months later, the spec tells you (and the next AI session) why the process works the way it does.
 - **Changes are reviewable.** A change folder is a tidy package: read the proposal, skim the deltas, check the tasks. No archaeology through chat history.
 - **It fits existing work.** Deltas mean you can specify a change to a busy team process without first documenting everything.
 
-And the honest tradeoff: for a truly trivial quick fix, the ceremony may not pay off, and that's fine. OpenSpec is designed to be lightweight, but it isn't free. Use it where agreement matters, which turns out to be most of the time once you're working with an AI that will confidently do whatever you vaguely asked for.
+And the honest tradeoff: for a truly trivial quick fix, the ceremony may not pay off, and that's fine. OfficeSpec is designed to be lightweight, but it isn't free. Use it where agreement matters, which turns out to be most of the time once you're working with an AI that will confidently do whatever you vaguely asked for.
 
 ## Where to go next
 

@@ -8,7 +8,7 @@ import {
 } from '../../../src/core/shared/skill-generation.js';
 import {
   getExploreSkillTemplate,
-  getOpsxExploreCommandTemplate,
+  getOfsxExploreCommandTemplate,
 } from '../../../src/core/templates/skill-templates.js';
 import { loadSchema } from '../../../src/core/artifact-graph/schema.js';
 
@@ -40,7 +40,7 @@ function instructionFor(artifactId: string): string {
 
 const exploreBodies: Array<[string, string]> = [
   ['explore skill', getExploreSkillTemplate().instructions],
-  ['explore command', getOpsxExploreCommandTemplate().content],
+  ['explore command', getOfsxExploreCommandTemplate().content],
 ];
 
 describe('spec inventory vocabulary (#1689)', () => {

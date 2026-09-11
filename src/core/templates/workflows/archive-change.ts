@@ -9,7 +9,7 @@ import { STORE_SELECTION_GUIDANCE } from './store-selection.js';
 
 export function getArchiveChangeSkillTemplate(): SkillTemplate {
   return {
-    name: 'openspec-archive-change',
+    name: 'officespec-archive-change',
     description: 'Archive a completed change in the experimental workflow. Use when the user wants to finalize and archive a change after the work is complete.',
     instructions: `Archive a completed change in the experimental workflow.
 
@@ -31,7 +31,7 @@ ${STORE_SELECTION_GUIDANCE}
    When prompting, show only active changes (not already archived).
    Include the schema used for each change if available.
 
-   Always announce: "Using change: <name>" and how to override (e.g., \`/opsx:archive <other>\`).
+   Always announce: "Using change: <name>" and how to override (e.g., \`/ofsx:archive <other>\`).
 
    **Load current archive inputs before the existing archive checks:**
 
@@ -118,7 +118,7 @@ ${STORE_SELECTION_GUIDANCE}
    form of main specs produced by this merge; do not use them as archive guidance,
    change CLI behavior, or copy the rule text into any output file.
 
-   Then run the \`openspec-sync-specs\` workflow inline (agent-driven intelligent merge) for change '<name>', passing the delta spec analysis and the fetched specs-rule snapshot from above, and wait for it to finish. The inline sync must reuse that snapshot without fetching \`specs\` instructions again. Do not delegate it to a background task — step 5 would move \`changeRoot\` out from under a sync that is still reading it, leaving the change archived and the main specs never updated. If your agent can only run it by delegation, delegate synchronously and wait for the result.
+   Then run the \`officespec-sync-specs\` workflow inline (agent-driven intelligent merge) for change '<name>', passing the delta spec analysis and the fetched specs-rule snapshot from above, and wait for it to finish. The inline sync must reuse that snapshot without fetching \`specs\` instructions again. Do not delegate it to a background task — step 5 would move \`changeRoot\` out from under a sync that is still reading it, leaving the change archived and the main specs never updated. If your agent can only run it by delegation, delegate synchronously and wait for the result.
 
    Then re-run the comparison from the top of this step against every capability that has a delta spec in \`artifactPaths.specs.existingOutputPaths\` — not only the ones the sync reports it touched. A successful sync leaves nothing left to apply, so each capability must now read as already synced:
    - ADDED requirements present
@@ -173,7 +173,7 @@ ${STORE_SELECTION_GUIDANCE}
 - Don't block archive on warnings - just inform and confirm
 - Preserve .openspec.yaml when moving to archive (it moves with the directory)
 - Show clear summary of what happened
-- If sync is requested, run the \`openspec-sync-specs\` workflow inline (agent-driven)
+- If sync is requested, run the \`officespec-sync-specs\` workflow inline (agent-driven)
 - Never archive while a spec sync is still in flight — run the sync inline and verify the main specs before moving \`changeRoot\`
 - If delta specs exist, always run the sync assessment and show the combined summary before prompting
 - Apply relevant runtime context and report conflicts; operation guidance remains advisory
@@ -187,9 +187,9 @@ ${STORE_SELECTION_GUIDANCE}
   };
 }
 
-export function getOpsxArchiveCommandTemplate(): CommandTemplate {
+export function getOfsxArchiveCommandTemplate(): CommandTemplate {
   return {
-    name: 'OPSX: Archive',
+    name: 'OFSX: Archive',
     description: 'Archive a completed change in the experimental workflow',
     category: 'Workflow',
     tags: ['workflow', 'archive', 'experimental'],
@@ -199,7 +199,7 @@ ${STORE_SELECTION_GUIDANCE}
 
 \`<capability-path>\` is the spec directory relative to \`specs/\` (for example, \`expense-approvals\` or \`finance/expense-approvals\`). Preserve the full path from each delta spec when resolving its main spec.
 
-**Input**: Optionally specify a change name after \`/opsx:archive\` (e.g., \`/opsx:archive add-auth\`). If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
+**Input**: Optionally specify a change name after \`/ofsx:archive\` (e.g., \`/ofsx:archive add-auth\`). If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
 
 **Steps**
 
@@ -213,7 +213,7 @@ ${STORE_SELECTION_GUIDANCE}
    When prompting, show only active changes (not already archived).
    Include the schema used for each change if available.
 
-   Always announce: "Using change: <name>" and how to override (e.g., \`/opsx:archive <other>\`).
+   Always announce: "Using change: <name>" and how to override (e.g., \`/ofsx:archive <other>\`).
 
    **Load current archive inputs before the existing archive checks:**
 
@@ -300,7 +300,7 @@ ${STORE_SELECTION_GUIDANCE}
    form of main specs produced by this merge; do not use them as archive guidance,
    change CLI behavior, or copy the rule text into any output file.
 
-   Then run the \`/opsx:sync\` workflow inline (agent-driven intelligent merge) for change '<name>', passing the delta spec analysis and the fetched specs-rule snapshot from above, and wait for it to finish. The inline sync must reuse that snapshot without fetching \`specs\` instructions again. Do not delegate it to a background task — step 5 would move \`changeRoot\` out from under a sync that is still reading it, leaving the change archived and the main specs never updated. If your agent can only run it by delegation, delegate synchronously and wait for the result.
+   Then run the \`/ofsx:sync\` workflow inline (agent-driven intelligent merge) for change '<name>', passing the delta spec analysis and the fetched specs-rule snapshot from above, and wait for it to finish. The inline sync must reuse that snapshot without fetching \`specs\` instructions again. Do not delegate it to a background task — step 5 would move \`changeRoot\` out from under a sync that is still reading it, leaving the change archived and the main specs never updated. If your agent can only run it by delegation, delegate synchronously and wait for the result.
 
    Then re-run the comparison from the top of this step against every capability that has a delta spec in \`artifactPaths.specs.existingOutputPaths\` — not only the ones the sync reports it touched. A successful sync leaves nothing left to apply, so each capability must now read as already synced:
    - ADDED requirements present
@@ -402,7 +402,7 @@ Target archive directory already exists.
 - Don't block archive on warnings - just inform and confirm
 - Preserve .openspec.yaml when moving to archive (it moves with the directory)
 - Show clear summary of what happened
-- If sync is requested, run the \`/opsx:sync\` workflow inline (agent-driven)
+- If sync is requested, run the \`/ofsx:sync\` workflow inline (agent-driven)
 - Never archive while a spec sync is still in flight — run the sync inline and verify the main specs before moving \`changeRoot\`
 - If delta specs exist, always run the sync assessment and show the combined summary before prompting
 - Apply relevant runtime context and report conflicts; operation guidance remains advisory

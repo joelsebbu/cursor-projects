@@ -1,18 +1,18 @@
 export const OPENSPEC_DIR_NAME = 'openspec';
 
 export const OPENSPEC_SKILL_NAMES = [
-  'openspec-explore',
-  'openspec-new-change',
-  'openspec-continue-change',
-  'openspec-apply-change',
-  'openspec-update-change',
-  'openspec-ff-change',
-  'openspec-sync-specs',
-  'openspec-archive-change',
-  'openspec-bulk-archive-change',
-  'openspec-verify-change',
-  'openspec-onboard',
-  'openspec-propose',
+  'officespec-explore',
+  'officespec-new-change',
+  'officespec-continue-change',
+  'officespec-apply-change',
+  'officespec-update-change',
+  'officespec-ff-change',
+  'officespec-sync-specs',
+  'officespec-archive-change',
+  'officespec-bulk-archive-change',
+  'officespec-verify-change',
+  'officespec-onboard',
+  'officespec-propose',
 ] as const;
 
 export const OPENSPEC_MARKERS = {
@@ -62,7 +62,7 @@ export const AI_TOOLS: AIToolOption[] = [
   { name: 'Factory Droid', value: 'factory', available: true, successLabel: 'Factory Droid', skillsDir: '.factory' },
   { name: 'Gemini CLI', value: 'gemini', available: true, successLabel: 'Gemini CLI', skillsDir: '.gemini' },
   { name: 'GitHub Copilot', value: 'github-copilot', available: true, successLabel: 'GitHub Copilot', skillsDir: '.github', detectionPaths: ['.github/copilot-instructions.md', '.github/instructions', '.github/workflows/copilot-setup-steps.yml', '.github/prompts', '.github/agents', '.github/skills', '.github/.mcp.json'], requiresIdeRestart: true },
-  { name: 'Hermes Agent', value: 'hermes', available: true, successLabel: 'Hermes Agent', skillsDir: '.hermes', detectionPaths: ['.hermes', 'HERMES.md', '.hermes.md'], setupNote: "Hermes only loads skills from ~/.hermes/skills by default. Add this project's .hermes/skills directory to skills.external_dirs in ~/.hermes/config.yaml so Hermes picks up the generated OpenSpec skills." },
+  { name: 'Hermes Agent', value: 'hermes', available: true, successLabel: 'Hermes Agent', skillsDir: '.hermes', detectionPaths: ['.hermes', 'HERMES.md', '.hermes.md'], setupNote: "Hermes only loads skills from ~/.hermes/skills by default. Add this project's .hermes/skills directory to skills.external_dirs in ~/.hermes/config.yaml so Hermes picks up the generated OfficeSpec skills." },
   { name: 'iFlow', value: 'iflow', available: true, successLabel: 'iFlow', skillsDir: '.iflow' },
   { name: 'Junie', value: 'junie', available: true, successLabel: 'Junie', skillsDir: '.junie', requiresIdeRestart: true },
   { name: 'Kilo Code', value: 'kilocode', available: true, successLabel: 'Kilo Code', skillsDir: '.kilocode', requiresIdeRestart: true },
@@ -87,7 +87,7 @@ export const AI_TOOLS: AIToolOption[] = [
   // `.agents/` for more than skills, so the root alone says nothing about skills.
   // A project that does keep skills there is a project this target fits, the same
   // way `.claude/` selects Claude Code — the signal is the user's setup, not
-  // OpenSpec's own files.
+  // OfficeSpec's own files.
   { name: 'Shared .agents skills', value: 'agents', available: true, successLabel: 'shared .agents skills', skillsDir: '.agents', detectionPaths: ['.agents/skills'] }
 ];
 

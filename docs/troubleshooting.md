@@ -9,7 +9,7 @@ Concrete fixes for concrete problems. Each entry names a symptom, explains the l
 The CLI isn't installed, or your shell can't find it. Install it globally and check:
 
 ```bash
-npm install -g @fission-ai/openspec@latest
+npm install -g officespec@latest
 openspec --version
 ```
 
@@ -19,13 +19,13 @@ If you used the [AI-assisted install](installation.md#install-with-your-ai-assis
 
 ### "Requires Node.js 20.19.0 or higher"
 
-OpenSpec runs on Node 20.19.0+. Check your version and upgrade if needed:
+OfficeSpec runs on Node 20.19.0+. Check your version and upgrade if needed:
 
 ```bash
 node --version
 ```
 
-If you use bun to install OpenSpec, note that OpenSpec still *runs* on Node, so you need Node 20.19.0+ available on your `PATH` regardless. See [Installation](installation.md).
+If you use bun to install OfficeSpec, note that OfficeSpec still *runs* on Node, so you need Node 20.19.0+ available on your `PATH` regardless. See [Installation](installation.md).
 
 ### `openspec init` didn't configure my AI tool
 
@@ -39,9 +39,9 @@ The full list of tool IDs is in [Supported Tools](supported-tools.md). Use `--to
 
 ## Commands don't show up
 
-If `/opsx:propose` (or your tool's equivalent) doesn't appear or doesn't do anything, work down this list. They're ordered fastest-to-check first.
+If `/ofsx:propose` (or your tool's equivalent) doesn't appear or doesn't do anything, work down this list. They're ordered fastest-to-check first.
 
-1. **You may be in the wrong place.** Slash commands go in your AI assistant's chat, not your terminal. If you typed `/opsx:propose` into your shell, that's the issue. See [How Commands Work](how-commands-work.md).
+1. **You may be in the wrong place.** Slash commands go in your AI assistant's chat, not your terminal. If you typed `/ofsx:propose` into your shell, that's the issue. See [How Commands Work](how-commands-work.md).
 
 2. **Regenerate the files.** From your work root:
 
@@ -55,11 +55,11 @@ If `/opsx:propose` (or your tool's equivalent) doesn't appear or doesn't do anyt
 
 3. **Restart your assistant.** Most tools scan for skills and commands at startup. A fresh window often does it.
 
-4. **Confirm the files exist.** For Claude Code, check that `.claude/skills/` contains `openspec-*` folders. Other tools use their own directories, all listed in [Supported Tools](supported-tools.md).
+4. **Confirm the files exist.** For Claude Code, check that `.claude/skills/` contains `officespec-*` folders. Other tools use their own directories, all listed in [Supported Tools](supported-tools.md).
 
 5. **Check you initialized this project.** Skills are written per project. If you cloned a repo or switched folders, run `openspec init` (or `openspec update`) there.
 
-6. **Confirm your tool supports command files.** Codex, CodeArts, ForgeCode, Hermes, Kimi Code, Mistral Vibe, Zed Agent, and the shared `.agents` target don't get generated `opsx-*` command files; they use skill-based invocations instead, so `/opsx` will never autocomplete for them. Type `$openspec-propose` in Codex, `/skill:openspec-propose` in Kimi Code, and `/openspec-propose` in the rest. The shared `.agents` target is vendor-neutral, so `/openspec-propose` is the common form rather than a guaranteed one — if your assistant does not answer to it, check its own docs for how it invokes a skill. Amazon Q does get command files, but loads them into its prompt library rather than its slash menu — type `@opsx-propose` there, not `/opsx`. Every tool's form is listed in [How To Invoke](supported-tools.md#how-to-invoke).
+6. **Confirm your tool supports command files.** Codex, CodeArts, ForgeCode, Hermes, Kimi Code, Mistral Vibe, Zed Agent, and the shared `.agents` target don't get generated `ofsx-*` command files; they use skill-based invocations instead, so `/opsx` will never autocomplete for them. Type `$officespec-propose` in Codex, `/skill:officespec-propose` in Kimi Code, and `/officespec-propose` in the rest. The shared `.agents` target is vendor-neutral, so `/officespec-propose` is the common form rather than a guaranteed one — if your assistant does not answer to it, check its own docs for how it invokes a skill. Amazon Q does get command files, but loads them into its prompt library rather than its slash menu — type `@ofsx-propose` there, not `/opsx`. Every tool's form is listed in [How To Invoke](supported-tools.md#how-to-invoke).
 
 ## Working with changes
 
@@ -69,7 +69,7 @@ The command couldn't tell which change you meant. Name it explicitly, or check w
 
 ```bash
 openspec list                    # see active changes
-/opsx:apply add-dark-mode        # name the change in chat
+/ofsx:apply add-dark-mode        # name the change in chat
 ```
 
 Also confirm you're in the right work folder.
@@ -112,7 +112,7 @@ The AI didn't have enough context. A few levers help:
 - Add project context in `openspec/config.yaml` so your stack and conventions are injected into every request. See [Customization](customization.md#project-configuration).
 - Add per-artifact `rules:` for guidance that only applies to, say, specs.
 - Give a more detailed description when you propose.
-- Use the expanded `/opsx:continue` to create one artifact at a time and review each, instead of `/opsx:ff` doing them all at once.
+- Use the expanded `/ofsx:continue` to create one artifact at a time and review each, instead of `/ofsx:ff` doing them all at once.
 
 ### Archive won't finish, or warns about incomplete tasks
 
@@ -170,13 +170,13 @@ See [Customization](customization.md#custom-schemas).
 
 ### "Legacy files detected in non-interactive mode"
 
-You're in CI or a non-interactive shell, and OpenSpec found old files to clean up but can't prompt you. Approve automatically:
+You're in CI or a non-interactive shell, and OfficeSpec found old files to clean up but can't prompt you. Approve automatically:
 
 ```bash
 openspec init --force
 ```
 
-For Codex, OpenSpec may detect old managed prompt files in `$CODEX_HOME/prompts` or `~/.codex/prompts`. That cleanup is limited to OpenSpec's allowlisted legacy Codex prompt filenames, and non-interactive `openspec init` removes only the files whose replacement `.agents/skills/openspec-*` skills exist. Non-interactive `openspec update` leaves all legacy cleanup untouched unless you pass `--force`.
+For Codex, OfficeSpec may detect old managed prompt files in `$CODEX_HOME/prompts` or `~/.codex/prompts`. That cleanup is limited to OfficeSpec's allowlisted legacy Codex prompt filenames, and non-interactive `openspec init` removes only the files whose replacement `.agents/skills/officespec-*` skills exist. Non-interactive `openspec update` leaves all legacy cleanup untouched unless you pass `--force`.
 
 ### Commands didn't appear after migrating
 
@@ -184,12 +184,12 @@ Restart your IDE. Skills are detected at startup. If they still don't appear, ru
 
 ### My old `project.md` wasn't migrated
 
-That's intentional. OpenSpec never deletes `project.md` automatically because it may hold context you wrote. Move the useful parts into `config.yaml`'s `context:` section, then delete it yourself. The [Migration Guide](migration-guide.md#migrating-projectmd-to-configyaml) walks through this, including a prompt you can hand to your AI to do the distilling.
+That's intentional. OfficeSpec never deletes `project.md` automatically because it may hold context you wrote. Move the useful parts into `config.yaml`'s `context:` section, then delete it yourself. The [Migration Guide](migration-guide.md#migrating-projectmd-to-configyaml) walks through this, including a prompt you can hand to your AI to do the distilling.
 
 ## Still stuck?
 
 - **Discord:** [discord.gg/YctCnvvshC](https://discord.gg/YctCnvvshC)
-- **GitHub Issues:** [github.com/Fission-AI/OpenSpec/issues](https://github.com/Fission-AI/OpenSpec/issues)
+- **GitHub Issues:** [github.com/joelsebbu/OpenSpec/issues](https://github.com/joelsebbu/OpenSpec/issues)
 - **From your terminal:** `openspec feedback "what went wrong"` opens an issue for you.
 
-When you report a problem, include your OpenSpec version (`openspec --version`), your Node version (`node --version`), your AI tool, and the exact command and output. It makes help much faster.
+When you report a problem, include your OfficeSpec version (`openspec --version`), your Node version (`node --version`), your AI tool, and the exact command and output. It makes help much faster.
