@@ -11,7 +11,7 @@
 - `context-store` should be the top-level command namespace for now. It is more
   explicit for agents than `store`, and `store` can remain shorthand in scoped
   flags such as `initiative list --store <id>`.
-- A store can start as a local Git-backed folder. OpenSpec can help create the
+- A store can start as a local Git-backed folder. OfficeSpec can help create the
   folder, write metadata, register it locally, and optionally initialize Git.
 - When setup does not receive `--path`, it should create or use `./<id>`. This
   keeps the real shared store visible and avoids hiding it under global data.

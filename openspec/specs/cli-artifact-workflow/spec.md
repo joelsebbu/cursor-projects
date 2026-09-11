@@ -320,7 +320,7 @@ Artifact and apply instructions SHALL use resolved planning paths rather than ha
 - **THEN** instruction output SHALL preserve existing repo-local paths
 
 ### Requirement: Workflow skills use CLI artifact context
-Generated workflow skills SHALL use OpenSpec CLI output as the source of truth for artifact locations.
+Generated workflow skills SHALL use OfficeSpec CLI output as the source of truth for artifact locations.
 
 #### Scenario: Skills inspect status before artifact work
 - **WHEN** a generated workflow skill needs to inspect or create artifacts for a change

@@ -17,7 +17,7 @@ import { STORE_SELECTION_GUIDANCE } from './store-selection.js';
  * wording, add a parameter here and pass it from that surface's template.
  */
 export function getApplyInstructions(): string {
-  return `Carry out tasks from an OpenSpec change.
+  return `Carry out tasks from an OfficeSpec change.
 
 ${STORE_SELECTION_GUIDANCE}
 
@@ -198,7 +198,7 @@ This skill supports the "actions on a change" model:
 export function getApplyChangeSkillTemplate(): SkillTemplate {
   return {
     name: 'openspec-apply-change',
-    description: 'Carry out tasks from an OpenSpec change. Use when the user wants to start the work, continue the work, or work through tasks.',
+    description: 'Carry out tasks from an OfficeSpec change. Use when the user wants to start the work, continue the work, or work through tasks.',
     instructions: getApplyInstructions(),
     license: 'MIT',
     compatibility: 'Requires openspec CLI.',
@@ -209,7 +209,7 @@ export function getApplyChangeSkillTemplate(): SkillTemplate {
 export function getOpsxApplyCommandTemplate(): CommandTemplate {
   return {
     name: 'OPSX: Apply',
-    description: 'Carry out tasks from an OpenSpec change (Experimental)',
+    description: 'Carry out tasks from an OfficeSpec change (Experimental)',
     category: 'Workflow',
     tags: ['workflow', 'artifacts', 'experimental'],
     content: getApplyInstructions(),

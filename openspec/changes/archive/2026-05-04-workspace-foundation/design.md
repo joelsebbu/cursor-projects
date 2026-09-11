@@ -1,6 +1,6 @@
 ## Product Model
 
-An OpenSpec workspace is the durable planning home for work that spans multiple repos or folders.
+An OfficeSpec workspace is the durable planning home for work that spans multiple repos or folders.
 
 It should feel like this:
 
@@ -10,13 +10,13 @@ link      = a named repo or folder the workspace can plan against
 change    = one feature, fix, project, or other planned piece of work
 ```
 
-The foundation intentionally avoids the rest of the workflow. It only defines how OpenSpec recognizes a workspace, where managed workspaces live, how linked paths are represented, and how shared state differs from local state.
+The foundation intentionally avoids the rest of the workflow. It only defines how OfficeSpec recognizes a workspace, where managed workspaces live, how linked paths are represented, and how shared state differs from local state.
 
 A workspace is not a feature. It can hold many changes over time. The linked repos or folders provide planning context, while the code stays where it is.
 
 ## Workspace Shape
 
-OpenSpec workspaces use this shape:
+OfficeSpec workspaces use this shape:
 
 ```text
 workspace-root/
@@ -44,7 +44,7 @@ coordination workspace -> shared cross-repo planning
 repo-local project     -> repo-owned specs and implementation planning
 ```
 
-Users should not run repo-local `openspec init` inside the workspace root. A workspace is already an OpenSpec coordination surface; it is not a product repo adopting repo-local OpenSpec.
+Users should not run repo-local `openspec init` inside the workspace root. A workspace is already an OfficeSpec coordination surface; it is not a product repo adopting repo-local OfficeSpec.
 
 ## Workspace Names
 
@@ -52,7 +52,7 @@ A workspace name is a simple folder-style identifier, not a display name.
 
 The name must be usable as a folder name in the current runtime. It must not be empty, must not be `.` or `..`, and must not contain path separators.
 
-OpenSpec should not maintain a cross-platform reserved-name list in this slice. Setup/create flows should let filesystem creation surface OS-specific invalid folder names, then report that failure clearly.
+OfficeSpec should not maintain a cross-platform reserved-name list in this slice. Setup/create flows should let filesystem creation surface OS-specific invalid folder names, then report that failure clearly.
 
 The same workspace name is stored in `.openspec-workspace/workspace.yaml`, used as the default managed workspace folder name, and used as the local registry name.
 
@@ -86,17 +86,17 @@ paths:
 
 Later slices can expand these shapes, but the product rule should stay stable: a shared workspace should not commit one user's absolute checkout paths.
 
-OpenSpec-created workspaces should include an ignore rule for `.openspec-workspace/local.yaml` so local checkout paths are not accidentally shared. `.openspec-workspace/workspace.yaml` remains the portable workspace identity and link-name state.
+OfficeSpec-created workspaces should include an ignore rule for `.openspec-workspace/local.yaml` so local checkout paths are not accidentally shared. `.openspec-workspace/workspace.yaml` remains the portable workspace identity and link-name state.
 
 ## Workspace Location
 
-OpenSpec should create managed workspaces in one standard place:
+OfficeSpec should create managed workspaces in one standard place:
 
 ```text
 getGlobalDataDir()/workspaces
 ```
 
-That reuses existing OpenSpec data-directory behavior:
+That reuses existing OfficeSpec data-directory behavior:
 
 - `$XDG_DATA_HOME/openspec/workspaces` when `XDG_DATA_HOME` is set
 - `~/.local/share/openspec/workspaces` on Unix/macOS fallback
@@ -106,11 +106,11 @@ This slice intentionally does not define a workspace-specific environment-variab
 
 This is deliberately quiet. The product should not ask most users where workspaces should live.
 
-OpenSpec should show the resolved workspace path after setup. Quiet defaults should avoid a prompt, not hide where planning files were created.
+OfficeSpec should show the resolved workspace path after setup. Quiet defaults should avoid a prompt, not hide where planning files were created.
 
 ## Local Workspace Registry
 
-OpenSpec should keep a lightweight local registry of known workspaces:
+OfficeSpec should keep a lightweight local registry of known workspaces:
 
 ```text
 getGlobalDataDir()/workspaces/registry.yaml
@@ -172,11 +172,11 @@ Link names are normally inferred from the folder basename in guided flows. Direc
 
 ## Linked Repos And Folders
 
-Workspace planning visibility should not require repo-local OpenSpec state.
+Workspace planning visibility should not require repo-local OfficeSpec state.
 
 That matters for two common cases:
 
-- a repo has not adopted OpenSpec yet, but still needs to be considered in planning
+- a repo has not adopted OfficeSpec yet, but still needs to be considered in planning
 - a large monorepo has folders such as packages, services, or apps that should be planned like separate areas, without each folder having its own `openspec/`
 
 Foundation should allow the link model to describe both:

@@ -1,5 +1,5 @@
 /**
- * Legacy cleanup module for detecting and removing OpenSpec artifacts
+ * Legacy cleanup module for detecting and removing OfficeSpec artifacts
  * from previous init versions during the migration to the skill-based workflow.
  */
 
@@ -13,7 +13,7 @@ import type { WorkflowId } from './profiles.js';
 
 /**
  * Legacy config file names from the old ToolRegistry.
- * These were config files created at project root with OpenSpec markers.
+ * These were config files created at project root with OfficeSpec markers.
  */
 export const LEGACY_CONFIG_FILES = [
   'CLAUDE.md',
@@ -61,7 +61,7 @@ export const LEGACY_SLASH_COMMAND_PATHS: Record<string, LegacySlashCommandPatter
   // the `.agent` copies of them are relocated by LEGACY_TOOL_ROOTS, which
   // preserves a customized file instead of deleting it. These patterns are
   // matched in every project, so a shared root like `.agents` is not listed:
-  // OpenSpec never wrote `openspec-*` files there, and a user might have.
+  // OfficeSpec never wrote `openspec-*` files there, and a user might have.
   'antigravity': { type: 'files', pattern: '.agent/workflows/openspec-*.md' },
   'iflow': { type: 'files', pattern: '.iflow/commands/openspec-*.md' },
   'qwen': { type: 'files', pattern: ['.qwen/commands/opsx-*.toml', '.qwen/commands/openspec-*.toml'] },
@@ -73,7 +73,7 @@ export const LEGACY_SLASH_COMMAND_PATHS: Record<string, LegacySlashCommandPatter
 };
 
 /**
- * Final OpenSpec-managed global Codex prompt filenames mapped to the workflows
+ * Final OfficeSpec-managed global Codex prompt filenames mapped to the workflows
  * they represented before Codex moved to skills-only delivery.
  */
 const LEGACY_GLOBAL_CODEX_WORKFLOWS: Record<string, readonly WorkflowId[]> = {
@@ -114,7 +114,7 @@ export interface LegacySlashCommandPattern {
 }
 
 /**
- * Describes a managed global prompt home and the exact filenames OpenSpec is
+ * Describes a managed global prompt home and the exact filenames OfficeSpec is
  * allowed to treat as legacy artifacts there.
  */
 export interface LegacyGlobalPromptPattern {
@@ -157,7 +157,7 @@ function normalizePathForMatch(filePath: string): string {
 }
 
 /**
- * Classifies a global Codex prompt path as OpenSpec-managed only when it matches
+ * Classifies a global Codex prompt path as OfficeSpec-managed only when it matches
  * the explicit legacy allowlist for the resolved prompt home.
  */
 function getManagedGlobalLegacyPromptMetadata(filePath: string): LegacyGlobalPromptMatch | undefined {
@@ -192,7 +192,7 @@ function getManagedGlobalLegacyPromptMetadata(filePath: string): LegacyGlobalPro
  * Result of legacy artifact detection
  */
 export interface LegacyDetectionResult {
-  /** Config files with OpenSpec markers detected */
+  /** Config files with OfficeSpec markers detected */
   configFiles: string[];
   /** Config files to update (remove markers only, never delete) */
   configFilesToUpdate: string[];
@@ -208,14 +208,14 @@ export interface LegacyDetectionResult {
   hasOpenspecAgents: boolean;
   /** Whether openspec/project.md exists (preserved, migration hint only) */
   hasProjectMd: boolean;
-  /** Whether root AGENTS.md has OpenSpec markers */
+  /** Whether root AGENTS.md has OfficeSpec markers */
   hasRootAgentsWithMarkers: boolean;
   /** Whether any legacy artifacts were found */
   hasLegacyArtifacts: boolean;
 }
 
 /**
- * Detects all legacy OpenSpec artifacts in a project.
+ * Detects all legacy OfficeSpec artifacts in a project.
  *
  * @param projectPath - The root path of the project
  * @returns Detection result with all found legacy artifacts
@@ -270,7 +270,7 @@ export async function detectLegacyArtifacts(
 }
 
 /**
- * Detects legacy config files with OpenSpec markers.
+ * Detects legacy config files with OfficeSpec markers.
  * All config files with markers are candidates for update (marker removal only).
  * Config files are NEVER deleted - they belong to the user's project root.
  *
@@ -342,7 +342,7 @@ export async function detectLegacySlashCommands(
  */
 /**
  * Scans the resolved global Codex prompt directories and returns only the
- * allowlisted OpenSpec-managed legacy prompt files.
+ * allowlisted OfficeSpec-managed legacy prompt files.
  */
 async function detectLegacyGlobalPromptFiles(): Promise<LegacyGlobalPromptMatch[]> {
   const foundFiles: LegacyGlobalPromptMatch[] = [];
@@ -416,7 +416,7 @@ async function findLegacySlashCommandFiles(
 }
 
 /**
- * Detects legacy OpenSpec structure files (AGENTS.md and project.md).
+ * Detects legacy OfficeSpec structure files (AGENTS.md and project.md).
  *
  * @param projectPath - The root path of the project
  * @returns Object with detection results for structure files
@@ -440,7 +440,7 @@ export async function detectLegacyStructureFiles(
   const projectMdPath = FileSystemUtils.joinPath(projectPath, 'openspec', 'project.md');
   hasProjectMd = await FileSystemUtils.fileExists(projectMdPath);
 
-  // Check for root AGENTS.md with OpenSpec markers
+  // Check for root AGENTS.md with OfficeSpec markers
   const rootAgentsPath = FileSystemUtils.joinPath(projectPath, 'AGENTS.md');
   if (await FileSystemUtils.fileExists(rootAgentsPath)) {
     const content = await FileSystemUtils.readFile(rootAgentsPath);
@@ -451,7 +451,7 @@ export async function detectLegacyStructureFiles(
 }
 
 /**
- * Checks if content contains OpenSpec markers.
+ * Checks if content contains OfficeSpec markers.
  *
  * @param content - File content to check
  * @returns True if both start and end markers are present
@@ -463,7 +463,7 @@ export function hasOpenSpecMarkers(content: string): boolean {
 }
 
 /**
- * Checks if file content is 100% OpenSpec content (only markers and whitespace outside).
+ * Checks if file content is 100% OfficeSpec content (only markers and whitespace outside).
  *
  * @param content - File content to check
  * @returns True if content outside markers is only whitespace
@@ -483,11 +483,11 @@ export function isOnlyOpenSpecContent(content: string): boolean {
 }
 
 /**
- * Removes the OpenSpec marker block from file content.
+ * Removes the OfficeSpec marker block from file content.
  * Only removes markers that are on their own lines (ignores inline mentions).
  * Cleans up double blank lines that may result from removal.
  *
- * @param content - File content with OpenSpec markers
+ * @param content - File content with OfficeSpec markers
  * @returns Content with marker block removed
  */
 export function removeMarkerBlock(content: string): string {
@@ -513,7 +513,7 @@ export interface CleanupResult {
 }
 
 /**
- * Cleans up legacy OpenSpec artifacts from a project.
+ * Cleans up legacy OfficeSpec artifacts from a project.
  * Preserves openspec/project.md (shows migration hint instead of deleting).
  *
  * @param projectPath - The root path of the project
@@ -548,7 +548,7 @@ export async function cleanupLegacyArtifacts(
     }
   }
 
-  // Delete legacy slash command directories (these are 100% OpenSpec-managed)
+  // Delete legacy slash command directories (these are 100% OfficeSpec-managed)
   for (const dirPath of detection.slashCommandDirs) {
     const fullPath = FileSystemUtils.joinPath(projectPath, dirPath);
     try {
@@ -559,7 +559,7 @@ export async function cleanupLegacyArtifacts(
     }
   }
 
-  // Delete legacy slash command files (these are 100% OpenSpec-managed)
+  // Delete legacy slash command files (these are 100% OfficeSpec-managed)
   for (const filePath of detection.slashCommandFiles) {
     const fullPath = FileSystemUtils.joinPath(projectPath, filePath);
     try {
@@ -570,7 +570,7 @@ export async function cleanupLegacyArtifacts(
     }
   }
 
-  // Delete managed global slash command files (these are 100% OpenSpec-managed)
+  // Delete managed global slash command files (these are 100% OfficeSpec-managed)
   const globalPromptMatchesByPath = new Map(
     getLegacyGlobalPromptMatches(detection).map((prompt) => [prompt.path, prompt] as const)
   );
@@ -592,7 +592,7 @@ export async function cleanupLegacyArtifacts(
     }
   }
 
-  // Delete openspec/AGENTS.md (this is inside openspec/, it's OpenSpec-managed)
+  // Delete openspec/AGENTS.md (this is inside openspec/, it's OfficeSpec-managed)
   if (detection.hasOpenspecAgents) {
     const agentsPath = FileSystemUtils.joinPath(projectPath, 'openspec', 'AGENTS.md');
     if (await FileSystemUtils.fileExists(agentsPath)) {
@@ -605,7 +605,7 @@ export async function cleanupLegacyArtifacts(
     }
   }
 
-  // Handle root AGENTS.md with OpenSpec markers - remove markers only, NEVER delete
+  // Handle root AGENTS.md with OfficeSpec markers - remove markers only, NEVER delete
   // Note: Root AGENTS.md is handled via configFilesToUpdate above (it's in LEGACY_CONFIG_FILES)
   // This hasRootAgentsWithMarkers flag is just for detection, cleanup happens via configFilesToUpdate
 
@@ -634,11 +634,11 @@ export function formatCleanupSummary(result: CleanupResult): string {
     }
 
     for (const dir of result.deletedDirs) {
-      lines.push(`  ✓ Removed ${dir}/ (replaced by OpenSpec skills and commands)`);
+      lines.push(`  ✓ Removed ${dir}/ (replaced by OfficeSpec skills and commands)`);
     }
 
     for (const file of result.modifiedFiles) {
-      lines.push(`  ✓ Removed OpenSpec markers from ${file}`);
+      lines.push(`  ✓ Removed OfficeSpec markers from ${file}`);
     }
   }
 
@@ -664,7 +664,7 @@ export function formatCleanupSummary(result: CleanupResult): string {
 
 /**
  * Build list of files to be removed with explanations.
- * Only includes OpenSpec-managed files (slash commands, openspec/AGENTS.md).
+ * Only includes OfficeSpec-managed files (slash commands, openspec/AGENTS.md).
  * Config files like CLAUDE.md, AGENTS.md are NEVER deleted.
  *
  * @param detection - Detection result from detectLegacyArtifacts
@@ -673,14 +673,14 @@ export function formatCleanupSummary(result: CleanupResult): string {
 function buildRemovalsList(detection: LegacyDetectionResult): Array<{ path: string; explanation: string }> {
   const removals: Array<{ path: string; explanation: string }> = [];
 
-  // Slash command directories (these are 100% OpenSpec-managed)
+  // Slash command directories (these are 100% OfficeSpec-managed)
   for (const dir of detection.slashCommandDirs) {
     // Split on both forward and backward slashes for Windows compatibility
     const toolDir = dir.split(/[\/\\]/)[0];
     removals.push({ path: dir + '/', explanation: `replaced by ${toolDir}/skills/` });
   }
 
-  // Slash command files (these are 100% OpenSpec-managed)
+  // Slash command files (these are 100% OfficeSpec-managed)
   for (const file of detection.slashCommandFiles) {
     removals.push({ path: file, explanation: 'replaced by skills/' });
   }
@@ -693,7 +693,7 @@ function buildRemovalsList(detection: LegacyDetectionResult): Array<{ path: stri
     removals.push({ path: prompt.path, explanation });
   }
 
-  // openspec/AGENTS.md (inside openspec/, it's OpenSpec-managed)
+  // openspec/AGENTS.md (inside openspec/, it's OfficeSpec-managed)
   if (detection.hasOpenspecAgents) {
     removals.push({ path: 'openspec/AGENTS.md', explanation: 'obsolete workflow file' });
   }
@@ -716,7 +716,7 @@ function buildUpdatesList(detection: LegacyDetectionResult): Array<{ path: strin
 
   // All config files with markers get updated (markers removed, file preserved)
   for (const file of detection.configFilesToUpdate) {
-    updates.push({ path: file, explanation: 'removing OpenSpec markers' });
+    updates.push({ path: file, explanation: 'removing OfficeSpec markers' });
   }
 
   return updates;
@@ -741,9 +741,9 @@ export function formatDetectionSummary(detection: LegacyDetectionResult): string
   }
 
   // Header - welcoming upgrade message
-  lines.push(chalk.bold('Upgrading to the new OpenSpec'));
+  lines.push(chalk.bold('Upgrading to the new OfficeSpec'));
   lines.push('');
-  lines.push('OpenSpec now uses agent skills, the emerging standard across AI assistants');
+  lines.push('OfficeSpec now uses agent skills, the emerging standard across AI assistants');
   lines.push('agents. This simplifies your setup while keeping everything working');
   lines.push('as before.');
   lines.push('');
@@ -761,7 +761,7 @@ export function formatDetectionSummary(detection: LegacyDetectionResult): string
   if (updates.length > 0) {
     if (removals.length > 0) lines.push('');
     lines.push(chalk.bold('Files to update'));
-    lines.push(chalk.dim('OpenSpec markers will be removed, your content preserved:'));
+    lines.push(chalk.dim('OfficeSpec markers will be removed, your content preserved:'));
     for (const { path } of updates) {
       lines.push(`  • ${path}`);
     }
@@ -914,7 +914,7 @@ export function omitGlobalLegacyPromptFiles(detection: LegacyDetectionResult): L
  * Codex upgrade suppressed because the shared `.agents` root is already owned by
  * another tool. Deleting the legacy prompt without writing its replacement would
  * violate the cleanup contract ("remove X because replacement Y now exists") and
- * strip the tool's only OpenSpec integration.
+ * strip the tool's only OfficeSpec integration.
  */
 export function omitToolLegacyArtifacts(
   detection: LegacyDetectionResult,
@@ -974,7 +974,7 @@ export function formatProjectMdMigrationHint(): string {
   lines.push(chalk.dim('    We won\'t delete this file. It may contain useful project context.'));
   lines.push('');
   lines.push(chalk.dim('    The new openspec/config.yaml has a "context:" section for planning'));
-  lines.push(chalk.dim('    context. This is included in every OpenSpec request and works more'));
+  lines.push(chalk.dim('    context. This is included in every OfficeSpec request and works more'));
   lines.push(chalk.dim('    reliably than the old project.md approach.'));
   lines.push('');
   lines.push(chalk.dim('    Review project.md, move any useful content to config.yaml\'s context'));

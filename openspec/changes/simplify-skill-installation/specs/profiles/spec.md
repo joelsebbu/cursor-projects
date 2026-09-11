@@ -70,14 +70,14 @@ The system SHALL provide an interactive picker for configuring profiles.
 - **THEN** the new profile takes effect on the next `openspec init` or `openspec update` run
 
 #### Scenario: Config profile run inside a project
-- **WHEN** user runs `openspec config profile` inside an OpenSpec project directory
+- **WHEN** user runs `openspec config profile` inside an OfficeSpec project directory
 - **THEN** after updating global config, the system SHALL prompt: "Apply to this project now? (y/n)"
 - **WHEN** user confirms
 - **THEN** the system SHALL run `openspec update` automatically
 - **THEN** the system SHALL still display: "Run `openspec update` in your other projects to apply."
 
 #### Scenario: Config profile - user declines apply
-- **WHEN** user runs `openspec config profile` inside an OpenSpec project directory
+- **WHEN** user runs `openspec config profile` inside an OfficeSpec project directory
 - **AND** user declines the "Apply to this project now?" prompt
 - **THEN** the system SHALL display: "Config updated. Run `openspec update` in your projects to apply."
 - **THEN** the system SHALL exit successfully without modifying project files

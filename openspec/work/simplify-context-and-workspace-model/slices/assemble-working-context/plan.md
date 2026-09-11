@@ -2,7 +2,7 @@
 
 ## Current Shape
 
-`openspec context` assembles the resolved OpenSpec root and referenced stores.
+`openspec context` assembles the resolved OfficeSpec root and referenced stores.
 It no longer includes inferred code repos or implementation-folder discovery.
 
 ## Implementation Notes

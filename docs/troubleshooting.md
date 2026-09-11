@@ -9,7 +9,7 @@ Concrete fixes for concrete problems. Each entry names a symptom, explains the l
 The CLI isn't installed, or your shell can't find it. Install it globally and check:
 
 ```bash
-npm install -g @fission-ai/openspec@latest
+npm install -g officespec@latest
 openspec --version
 ```
 
@@ -19,13 +19,13 @@ If you used the [AI-assisted install](installation.md#install-with-your-ai-assis
 
 ### "Requires Node.js 20.19.0 or higher"
 
-OpenSpec runs on Node 20.19.0+. Check your version and upgrade if needed:
+OfficeSpec runs on Node 20.19.0+. Check your version and upgrade if needed:
 
 ```bash
 node --version
 ```
 
-If you use bun to install OpenSpec, note that OpenSpec still *runs* on Node, so you need Node 20.19.0+ available on your `PATH` regardless. See [Installation](installation.md).
+If you use bun to install OfficeSpec, note that OfficeSpec still *runs* on Node, so you need Node 20.19.0+ available on your `PATH` regardless. See [Installation](installation.md).
 
 ### `openspec init` didn't configure my AI tool
 
@@ -170,13 +170,13 @@ See [Customization](customization.md#custom-schemas).
 
 ### "Legacy files detected in non-interactive mode"
 
-You're in CI or a non-interactive shell, and OpenSpec found old files to clean up but can't prompt you. Approve automatically:
+You're in CI or a non-interactive shell, and OfficeSpec found old files to clean up but can't prompt you. Approve automatically:
 
 ```bash
 openspec init --force
 ```
 
-For Codex, OpenSpec may detect old managed prompt files in `$CODEX_HOME/prompts` or `~/.codex/prompts`. That cleanup is limited to OpenSpec's allowlisted legacy Codex prompt filenames, and non-interactive `openspec init` removes only the files whose replacement `.agents/skills/openspec-*` skills exist. Non-interactive `openspec update` leaves all legacy cleanup untouched unless you pass `--force`.
+For Codex, OfficeSpec may detect old managed prompt files in `$CODEX_HOME/prompts` or `~/.codex/prompts`. That cleanup is limited to OfficeSpec's allowlisted legacy Codex prompt filenames, and non-interactive `openspec init` removes only the files whose replacement `.agents/skills/openspec-*` skills exist. Non-interactive `openspec update` leaves all legacy cleanup untouched unless you pass `--force`.
 
 ### Commands didn't appear after migrating
 
@@ -184,12 +184,12 @@ Restart your IDE. Skills are detected at startup. If they still don't appear, ru
 
 ### My old `project.md` wasn't migrated
 
-That's intentional. OpenSpec never deletes `project.md` automatically because it may hold context you wrote. Move the useful parts into `config.yaml`'s `context:` section, then delete it yourself. The [Migration Guide](migration-guide.md#migrating-projectmd-to-configyaml) walks through this, including a prompt you can hand to your AI to do the distilling.
+That's intentional. OfficeSpec never deletes `project.md` automatically because it may hold context you wrote. Move the useful parts into `config.yaml`'s `context:` section, then delete it yourself. The [Migration Guide](migration-guide.md#migrating-projectmd-to-configyaml) walks through this, including a prompt you can hand to your AI to do the distilling.
 
 ## Still stuck?
 
 - **Discord:** [discord.gg/YctCnvvshC](https://discord.gg/YctCnvvshC)
-- **GitHub Issues:** [github.com/Fission-AI/OpenSpec/issues](https://github.com/Fission-AI/OpenSpec/issues)
+- **GitHub Issues:** [github.com/joelsebbu/OpenSpec/issues](https://github.com/joelsebbu/OpenSpec/issues)
 - **From your terminal:** `openspec feedback "what went wrong"` opens an issue for you.
 
-When you report a problem, include your OpenSpec version (`openspec --version`), your Node version (`node --version`), your AI tool, and the exact command and output. It makes help much faster.
+When you report a problem, include your OfficeSpec version (`openspec --version`), your Node version (`node --version`), your AI tool, and the exact command and output. It makes help much faster.

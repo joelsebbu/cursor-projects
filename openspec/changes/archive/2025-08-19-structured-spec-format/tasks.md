@@ -1,4 +1,4 @@
-## 1. Update OpenSpec Conventions Spec
+## 1. Update OfficeSpec Conventions Spec
 
 - [x] 1.1 Add "Specification Format" section to openspec-conventions
 - [x] 1.2 Document structured format with Requirement/Scenario headers

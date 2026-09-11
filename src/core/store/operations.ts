@@ -475,7 +475,7 @@ async function prepareSetupPlan(
       'store_setup_path_not_directory',
       {
         target: 'store.root',
-        fix: 'Choose an empty directory or an existing healthy OpenSpec root.',
+        fix: 'Choose an empty directory or an existing healthy OfficeSpec root.',
       }
     );
   }
@@ -514,11 +514,11 @@ async function prepareSetupPlan(
       const safeFreshDirectory = await isDirectoryEmpty(storeRoot) || await isGitOnlyDirectory(storeRoot);
       if (!openspecRoot.healthy && !safeFreshDirectory) {
         throw new StoreError(
-          'Store setup does not support initializing a non-empty folder that is not a healthy OpenSpec root.',
+          'Store setup does not support initializing a non-empty folder that is not a healthy OfficeSpec root.',
           'store_setup_non_empty_directory',
           {
             target: 'store.root',
-            fix: 'Choose an empty folder, a Git-only folder, or an existing healthy OpenSpec root.',
+            fix: 'Choose an empty folder, a Git-only folder, or an existing healthy OfficeSpec root.',
           }
         );
       }
@@ -767,7 +767,7 @@ export async function registerExistingStore(
   if (!openspecRoot.healthy) {
     const problems =
       openspecRoot.diagnostics.map((diagnostic) => diagnostic.message).join(' ') ||
-      'The OpenSpec root is missing or incomplete.';
+      'The OfficeSpec root is missing or incomplete.';
     const isEmptyCloneSuspect =
       (await isGitRepositoryAtRoot(storeRoot)) &&
       (await gitHasCommits(storeRoot)) === false;
@@ -776,7 +776,7 @@ export async function registerExistingStore(
       : '';
 
     throw new StoreError(
-      `Store register requires an existing healthy OpenSpec root. ${problems}${emptyCloneHint}`,
+      `Store register requires an existing healthy OfficeSpec root. ${problems}${emptyCloneHint}`,
       'store_register_root_unhealthy',
       {
         target: 'openspec.root',
@@ -813,7 +813,7 @@ export async function registerExistingStore(
   const id = metadata?.id ?? explicitId ?? inferStoreIdFromPath(storeRoot);
   if (!metadata && !input.allowCreateIdentity) {
     throw new StoreError(
-      `Turn this OpenSpec root into store '${id}'?`,
+      `Turn this OfficeSpec root into store '${id}'?`,
       'store_register_identity_confirmation_required',
       {
         target: 'store.metadata',

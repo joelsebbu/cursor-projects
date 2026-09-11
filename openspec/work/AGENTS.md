@@ -5,7 +5,7 @@ When working in this directory, use a product-facing lens first.
 Start from how the work is experienced by users, not from the internal command
 or file structure. In this product there are two users:
 
-- Humans: they usually do OpenSpec work by prompting agents. They may run shell
+- Humans: they usually do OfficeSpec work by prompting agents. They may run shell
   commands for interactive setup or one-off actions, but prompts are the normal
   interface.
 - Agents: they need clear intent, discoverable state, unambiguous next actions,

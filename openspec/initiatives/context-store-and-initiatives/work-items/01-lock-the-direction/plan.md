@@ -75,7 +75,7 @@ repo-owned implementation change that updates the relevant behavioral contract.
 - Do not delete the `workspace-planning` schema.
 - Do not add CLI deprecation warnings until the initiative replacement exists.
 - Do not implement context stores in this work item.
-- Do not edit OpenSpec specs as part of the initial direction lock.
+- Do not edit OfficeSpec specs as part of the initial direction lock.
 
 ## Done When
 

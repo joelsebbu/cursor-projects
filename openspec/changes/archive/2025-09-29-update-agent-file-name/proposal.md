@@ -4,7 +4,7 @@
 The agent instructions live in `openspec/README.md`, which clashes with conventional project README usage and creates confusion for tooling and contributors.
 
 ## Solution
-Rename the agent instruction file to `openspec/AGENTS.md` and update OpenSpec tooling to use the new filename:
+Rename the agent instruction file to `openspec/AGENTS.md` and update OfficeSpec tooling to use the new filename:
 - `openspec init` generates `AGENTS.md` instead of `README.md`
 - Templates and code reference `AGENTS.md`
 - Specifications and documentation are updated accordingly

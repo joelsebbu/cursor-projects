@@ -20,7 +20,7 @@ The command SHALL generate Agent Skills for selected AI tools.
 - **AND** each SKILL.md SHALL contain YAML frontmatter with name and description
 - **AND** each SKILL.md SHALL contain the skill instructions
 
-#### Scenario: Pre-approving the OpenSpec CLI in skill frontmatter
+#### Scenario: Pre-approving the OfficeSpec CLI in skill frontmatter
 
 - **WHEN** generating a skill's YAML frontmatter
 - **THEN** the frontmatter SHALL include an `allowed-tools` field with the value `Bash(openspec:*)`

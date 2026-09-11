@@ -15,7 +15,7 @@ vi.mock('node:fs/promises', async (importOriginal) => ({
   ...await importOriginal<typeof import('node:fs/promises')>(),
 }));
 
-describe('OpenSpec root helper', () => {
+describe('OfficeSpec root helper', () => {
   let tempDir: string;
 
   beforeEach(() => {

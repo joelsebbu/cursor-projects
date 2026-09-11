@@ -4,7 +4,7 @@
 - [x] 1.3 Ensure `openspec update` pulls the Windsurf configurator when winds is selected and skips creation when files are absent.
 
 ## 2. Workflow templates
-- [x] 2.1 Reuse the shared proposal/apply/archive bodies, adding Windsurf-specific headings/description before the OpenSpec markers.
+- [x] 2.1 Reuse the shared proposal/apply/archive bodies, adding Windsurf-specific headings/description before the OfficeSpec markers.
 - [x] 2.2 Confirm generated Markdown (per file) stays comfortably under the 12k character ceiling noted in the Windsurf docs.
 
 ## 3. Tests & safeguards

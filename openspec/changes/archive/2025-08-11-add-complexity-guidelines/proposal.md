@@ -1,7 +1,7 @@
 # Add Complexity Management Guidelines
 
 ## Why
-OpenSpec currently lacks guidance on managing complexity, leading to over-engineered solutions when simple ones suffice.
+OfficeSpec currently lacks guidance on managing complexity, leading to over-engineered solutions when simple ones suffice.
 
 ## What Changes
 - Add "Start Simple" section to openspec/README.md with default minimalism rules

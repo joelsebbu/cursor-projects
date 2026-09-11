@@ -1,27 +1,27 @@
 # How Commands Work
 
-**The one thing to know: OpenSpec has two kinds of commands, and they run in two different places.**
+**The one thing to know: OfficeSpec has two kinds of commands, and they run in two different places.**
 
 - `openspec ...` commands run in your **terminal**. (Example: `openspec init`.)
 - `/opsx:...` commands run in your **AI assistant's chat**. (Example: `/opsx:propose`.)
 
-If you ever type `/opsx:propose` into your terminal and nothing happens, this page is why. You are talking to the wrong half of OpenSpec. Slash commands are not terminal commands. They are instructions you give to your AI AI assistant, in the same chat box where you'd normally type "add a login form."
+If you ever type `/opsx:propose` into your terminal and nothing happens, this page is why. You are talking to the wrong half of OfficeSpec. Slash commands are not terminal commands. They are instructions you give to your AI AI assistant, in the same chat box where you'd normally type "add a login form."
 
 That single distinction is the most common stumbling block for new users, so let's make it crystal clear.
 
 ## The two halves
 
-OpenSpec is one project wearing two hats.
+OfficeSpec is one project wearing two hats.
 
 **The CLI (terminal half).** A program named `openspec` that you install and run from your shell. It sets up your work, lists and validates changes, shows a dashboard, and archives finished work. You type these into iTerm, the VS Code terminal, PowerShell, anywhere you'd run `git` or `npm`.
 
 ```bash
-openspec init        # set up OpenSpec in this project
+openspec init        # set up OfficeSpec in this project
 openspec list        # see active changes
 openspec view        # open the interactive dashboard
 ```
 
-**The slash commands (chat half).** Short commands like `/opsx:propose` and `/opsx:apply` that you type into your AI assistant. These tell the AI to follow the OpenSpec workflow: draft a proposal, write specs, build from the task list, archive when done. You type these into Claude Code, Cursor, Devin Desktop, Copilot, or whichever assistant you use.
+**The slash commands (chat half).** Short commands like `/opsx:propose` and `/opsx:apply` that you type into your AI assistant. These tell the AI to follow the OfficeSpec workflow: draft a proposal, write specs, build from the task list, archive when done. You type these into Claude Code, Cursor, Devin Desktop, Copilot, or whichever assistant you use.
 
 ```text
 /opsx:propose improve-expense-approvals    (typed in your AI chat)
@@ -47,13 +47,13 @@ Notice the arrow. Running `openspec init` in your terminal is what *installs* th
 
 **There is no separate interactive mode to start.** This question comes up a lot, so it deserves a plain answer.
 
-You don't enter a special OpenSpec mode. You just open your AI AI assistant like you always do, and type a slash command into the chat. The slash command *is* how you "enter" OpenSpec. Your assistant recognizes it, loads the matching OpenSpec skill, and starts following the workflow.
+You don't enter a special OfficeSpec mode. You just open your AI AI assistant like you always do, and type a slash command into the chat. The slash command *is* how you "enter" OfficeSpec. Your assistant recognizes it, loads the matching OfficeSpec skill, and starts following the workflow.
 
 So the real instructions are:
 
 1. Open your AI AI assistant (Claude Code, Cursor, Devin Desktop, and so on) in your work.
 2. Type `/opsx:propose` in its chat, the same place you type any other request.
-3. Watch the autocomplete: if OpenSpec is installed, you'll see `/opsx:propose`, `/opsx:apply`, and friends appear as you type the slash.
+3. Watch the autocomplete: if OfficeSpec is installed, you'll see `/opsx:propose`, `/opsx:apply`, and friends appear as you type the slash.
 
 That's it. No mode to toggle, no daemon to launch, no separate window.
 
@@ -61,11 +61,11 @@ One thing that *is* genuinely interactive lives in the terminal: `openspec view`
 
 ## Why this split exists
 
-It's worth understanding, because it explains why OpenSpec works with 30+ different AI tools.
+It's worth understanding, because it explains why OfficeSpec works with 30+ different AI tools.
 
 The CLI is the **engine**. It knows the rules: what a change folder looks like, which artifacts depend on which, how to merge a delta spec into your source of truth. It's the same everywhere.
 
-The slash commands are the **steering wheel**, and every AI tool has a slightly different one. Claude Code calls them commands. Cursor and Devin Desktop have their own formats. Some tools call them skills. When you run `openspec init`, OpenSpec generates the right kind of file for each tool you selected, so the same `/opsx:propose` intent works no matter which assistant you prefer.
+The slash commands are the **steering wheel**, and every AI tool has a slightly different one. Claude Code calls them commands. Cursor and Devin Desktop have their own formats. Some tools call them skills. When you run `openspec init`, OfficeSpec generates the right kind of file for each tool you selected, so the same `/opsx:propose` intent works no matter which assistant you prefer.
 
 The strength of this design: you learn the workflow once and carry it across tools. The tradeoff: the exact syntax of a command can differ slightly between tools, which is the next section.
 
@@ -85,7 +85,7 @@ The intent is identical everywhere. The spelling follows the file your tool load
 Devin is the one tool that spans two rows. Devin Desktop reads
 `.devin/workflows/`, so `/opsx-propose` works there; [Devin Local does
 not](https://docs.devin.ai/desktop/devin-local), so on that agent use the
-`/openspec-propose` skill instead. The skills OpenSpec writes to
+`/openspec-propose` skill instead. The skills OfficeSpec writes to
 `.devin/skills/` work on both, which is why they reference each other by skill
 name.
 
@@ -101,7 +101,7 @@ works too, for the tools that surface slash commands at all.
 
 ## How the commands got there: skills and commands
 
-When you run `openspec init` (or `openspec update`), OpenSpec writes small files into your work so your AI tool can find the workflow. Depending on your tool and settings, these are **skills**, **commands**, or both.
+When you run `openspec init` (or `openspec update`), OfficeSpec writes small files into your work so your AI tool can find the workflow. Depending on your tool and settings, these are **skills**, **commands**, or both.
 
 - **Skills** live in places like `.claude/skills/openspec-*/SKILL.md`. They're the emerging cross-tool standard: a folder of instructions your assistant auto-detects.
 - **Commands** live in places like `.cursor/commands/opsx-<id>.md` or `.claude/commands/opsx/<id>.md` — the layout is the tool's, and it decides how you type the command. They're the older per-tool slash command files. Codex does not get generated command files; use `.agents/skills/openspec-*`.
@@ -121,7 +121,7 @@ Quick checks, fastest first:
 
 ## Which commands do I even have?
 
-By default, OpenSpec installs the **core** set of slash commands:
+By default, OfficeSpec installs the **core** set of slash commands:
 
 - `/opsx:explore`: think through an idea with the AI before committing to a change (great first step when you're unsure)
 - `/opsx:propose`: create a change and draft all its planning artifacts in one step
@@ -143,7 +143,7 @@ For what each command does in detail, see [Commands](commands.md). For when to r
 Putting it together, here is the whole sequence with each step labeled by where it happens.
 
 ```text
-TERMINAL   $ npm install -g @fission-ai/openspec@latest
+TERMINAL   $ npm install -g officespec@latest
 TERMINAL   $ cd your-work-folder
 TERMINAL   $ openspec init
               (installs slash commands into your AI tool)

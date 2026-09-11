@@ -87,7 +87,7 @@ received exactly `[codeWorkspacePath]` as argv; agent-style openers got
 optional pre-args + `['--add-dir', path]` per attached path + cwd at the
 root (`f858c19^:src/commands/workspace/open.ts:73-103`). That maps 1:1 to
 FR2.3's `workspace-file` / `attach-dirs` styles. What 7.1 drops: the old
-code appended `WORKSPACE_OPEN_MINIMAL_PROMPT = 'Open this OpenSpec
+code appended `WORKSPACE_OPEN_MINIMAL_PROMPT = 'Open this OfficeSpec
 workspace.'` as a final positional on every agent launch
 (`f858c19^:open.ts:19, 90-100`) — the locked no-starter-prompt decision
 removes it; agent argv ends with the attach flags.

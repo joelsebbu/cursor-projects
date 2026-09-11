@@ -122,7 +122,7 @@ All other sections of this runbook apply unchanged.
 ## Standing quality bars (checked in every slice's reviews)
 
 - **Vocabulary**: new user-facing strings use only the locked nouns (store,
-  reference, target project repo, OpenSpec root). One concept, one token —
+  reference, target project repo, OfficeSpec root). One concept, one token —
   no synonym drift.
 - **Error UX**: every new error or hint names the concrete next action,
   carries `--store <id>` when a store is selected, and uses absolute paths

@@ -58,7 +58,7 @@ describe('openspec CLI e2e basics', () => {
     const gitOptions = { cwd: projectDir, env: { ...process.env, ...env }, stdio: 'pipe' as const };
     execFileSync('git', ['init'], gitOptions);
     execFileSync('git', ['add', 'openspec'], gitOptions);
-    execFileSync('git', ['commit', '-m', 'Initialize OpenSpec'], gitOptions);
+    execFileSync('git', ['commit', '-m', 'Initialize OfficeSpec'], gitOptions);
     execFileSync('git', ['clone', '--no-local', projectDir, cloneDir], gitOptions);
 
     expect(await fs.readdir(path.join(cloneDir, 'openspec', 'specs'))).toEqual(['.gitkeep']);
@@ -212,7 +212,7 @@ describe('openspec CLI e2e basics', () => {
       );
       expect(config).toContain('Language: French');
       expect(config).toContain('All artifacts must be written in French.');
-      expect(config).toContain('Keep OpenSpec structural headings and SHALL/MUST keywords in English.');
+      expect(config).toContain('Keep OfficeSpec structural headings and SHALL/MUST keywords in English.');
 
       const created = await runCLI(['new', 'change', 'language-check'], {
         cwd: emptyProjectDir,
@@ -240,7 +240,7 @@ describe('openspec CLI e2e basics', () => {
       });
       expect(result.timedOut).toBe(false);
       expect(result.exitCode).toBe(0);
-      expect(result.stdout).toContain('OpenSpec Setup Complete');
+      expect(result.stdout).toContain('OfficeSpec Setup Complete');
 
       // Check that skills were created for multiple tools
       const claudeSkillPath = path.join(emptyProjectDir, '.claude/skills/openspec-explore/SKILL.md');
@@ -261,7 +261,7 @@ describe('openspec CLI e2e basics', () => {
 
       const result = await runCLI(['init', '--tools', 'claude'], { cwd: emptyProjectDir });
       expect(result.exitCode).toBe(0);
-      expect(result.stdout).toContain('OpenSpec Setup Complete');
+      expect(result.stdout).toContain('OfficeSpec Setup Complete');
       expect(result.stdout).toContain('Claude Code');
 
       // New init creates skills, not CLAUDE.md
@@ -278,7 +278,7 @@ describe('openspec CLI e2e basics', () => {
 
       const result = await runCLI(['init', '--tools', 'agents'], { cwd: emptyProjectDir });
       expect(result.exitCode).toBe(0);
-      expect(result.stdout).toContain('OpenSpec Setup Complete');
+      expect(result.stdout).toContain('OfficeSpec Setup Complete');
 
       const skillPath = path.join(emptyProjectDir, '.agents', 'skills', 'openspec-explore', 'SKILL.md');
       expect(await fileExists(skillPath)).toBe(true);
@@ -291,7 +291,7 @@ describe('openspec CLI e2e basics', () => {
 
       const result = await runCLI(['init', '--tools', 'zed'], { cwd: emptyProjectDir });
       expect(result.exitCode).toBe(0);
-      expect(result.stdout).toContain('OpenSpec Setup Complete');
+      expect(result.stdout).toContain('OfficeSpec Setup Complete');
       expect(result.stdout).toContain('Zed Agent');
       expect(result.stdout).not.toContain('Restart your IDE');
 
@@ -320,7 +320,7 @@ describe('openspec CLI e2e basics', () => {
 
       const result = await runCLI(['init', '--tools', 'none'], { cwd: emptyProjectDir });
       expect(result.exitCode).toBe(0);
-      expect(result.stdout).toContain('OpenSpec Setup Complete');
+      expect(result.stdout).toContain('OfficeSpec Setup Complete');
 
       // With --tools none, no tool skills should be created
       const claudeSkillPath = path.join(emptyProjectDir, '.claude/skills/openspec-explore/SKILL.md');

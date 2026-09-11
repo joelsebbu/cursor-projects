@@ -1,6 +1,6 @@
 ## 1. CLI integration
 - [x] 1.1 Add Codex to the init tool picker with display text that clarifies prompts live in the global `.codex/prompts/` directory and implement "already configured" detection by checking for managed Codex prompt files.
-- [x] 1.2 Implement a `CodexSlashCommandConfigurator` that writes `.codex/prompts/openspec-{proposal,apply,archive}.md`, ensuring the prompt directory exists and wrapping content in OpenSpec markers.
+- [x] 1.2 Implement a `CodexSlashCommandConfigurator` that writes `.codex/prompts/openspec-{proposal,apply,archive}.md`, ensuring the prompt directory exists and wrapping content in OfficeSpec markers.
 // (No helper command required)
 - [x] 1.3 Register the configurator with the slash-command registry and include Codex in init/update wiring so both commands invoke the new configurator when appropriate.
 

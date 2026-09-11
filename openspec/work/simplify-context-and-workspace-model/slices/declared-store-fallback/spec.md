@@ -2,7 +2,7 @@
 
 ## Outcome
 
-A repo whose planning is fully externalized — no local OpenSpec root —
+A repo whose planning is fully externalized — no local OfficeSpec root —
 declares its store once, and every normal command works there without
 `--store` on every invocation. The declaration is a fallback, never an
 override: with any local root present, behavior is byte-identical to
@@ -85,7 +85,7 @@ local root exists) → today's error with the stores hint.
    root has planning shape AND a `store:` pointer, commands emit
    exactly one stderr warning per invocation — "Warning: <absolute
    config path> declares store 'x', but this directory is a real
-   OpenSpec root; the declaration is ignored." (implementation
+   OfficeSpec root; the declaration is ignored." (implementation
    amendment: the absolute path replaces the spec draft's relative
    `openspec/config.yaml`, per the absolute-paths quality bar) — in
    both human and JSON modes (stderr keeps stdout payloads clean).
@@ -114,7 +114,7 @@ Every normal command just works there, no flag:
 
 ```text
 $ openspec new change billing-rework
-Using OpenSpec root: team-context (/Users/dev/src/team-context)
+Using OfficeSpec root: team-context (/Users/dev/src/team-context)
 Created change 'billing-rework' at /Users/dev/src/team-context/openspec/changes/billing-rework/
 ...
 $ openspec status --change billing-rework --json
@@ -191,7 +191,7 @@ Out of scope:
 - **WHEN** `new change`, `status`, `instructions`, `validate`, `list`,
   `show`, and `archive` run there without `--store`
 - **THEN** every command acts on the store's root
-- **AND** the banner prints `Using OpenSpec root: team-context (…)`
+- **AND** the banner prints `Using OfficeSpec root: team-context (…)`
 - **AND** JSON output's root block is
   `{path: <store root>, source: "declared", store_id: "team-context"}`
 - **AND** printed hints carry `--store team-context`

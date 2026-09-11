@@ -1,7 +1,7 @@
 /**
  * Init Command
  *
- * Sets up OpenSpec with Agent Skills and /opsx:* slash commands.
+ * Sets up OfficeSpec with Agent Skills and /opsx:* slash commands.
  * This is the unified setup command that replaces both the old init and experimental commands.
  */
 
@@ -99,7 +99,7 @@ function formatLanguageContext(language: string): string {
   return [
     `Language: ${language}`,
     `All artifacts must be written in ${language}.`,
-    'Keep OpenSpec structural headings and SHALL/MUST keywords in English.',
+    'Keep OfficeSpec structural headings and SHALL/MUST keywords in English.',
   ].join('\n');
 }
 
@@ -214,7 +214,7 @@ export class InitCommand {
         if (pointer.value !== undefined) {
           throw new Error(
             `This repo's planning is externalized to store '${pointer.value}' (${pointer.filePath}). ` +
-              `Remove the store: line first to convert this repo to a local OpenSpec root.`
+              `Remove the store: line first to convert this repo to a local OfficeSpec root.`
           );
         }
       }
@@ -225,7 +225,7 @@ export class InitCommand {
     // Check for legacy artifacts and handle cleanup
     const deferredLegacyCleanup = await this.handleLegacyCleanup(projectPath, extendMode);
 
-    // Migrate OpenSpec-managed skills left in renamed tool directories
+    // Migrate OfficeSpec-managed skills left in renamed tool directories
     // (e.g. .kimi -> .kimi-code) before detection so they stay recognized.
     migrateLegacyToolDirs(projectPath);
 
@@ -260,7 +260,7 @@ export class InitCommand {
     const validatedTools = this.validateTools(selectedToolIds, toolStates, projectPath);
 
     // Selecting a renamed tool is consent to leave its former directory:
-    // init is about to write the current one, and leaving OpenSpec content
+    // init is about to write the current one, and leaving OfficeSpec content
     // behind would give the user two installs of the same tool.
     for (const migration of migrateLegacyToolDirs(
       projectPath,
@@ -311,7 +311,7 @@ export class InitCommand {
     }
 
     // An explicit opt-out means "no cloud files here": clean up any that a
-    // previous run (or an older OpenSpec) generated. Only OpenSpec-managed
+    // previous run (or an older OfficeSpec) generated. Only OfficeSpec-managed
     // files are removed — a user-customized file is preserved.
     let copilotRemoved = 0;
     if (copilotDecision.optedOut) {
@@ -344,7 +344,7 @@ export class InitCommand {
     });
     if (results.failedTools.length > 0) {
       throw new Error(
-        `OpenSpec setup failed for: ${results.failedTools.map((tool) => tool.name).join(', ')}`
+        `OfficeSpec setup failed for: ${results.failedTools.map((tool) => tool.name).join(', ')}`
       );
     }
   }
@@ -499,7 +499,7 @@ export class InitCommand {
 
     if (this.force || !canPrompt) {
       // --force flag or non-interactive mode: proceed with cleanup automatically.
-      // Legacy slash commands are 100% OpenSpec-managed, and config file cleanup
+      // Legacy slash commands are 100% OfficeSpec-managed, and config file cleanup
       // only removes markers (never deletes files), so auto-cleanup is safe.
       await this.performImmediateLegacyCleanup(projectPath, detection);
       return detection.globalSlashCommandFiles.length > 0 ? { detection } : null;
@@ -676,7 +676,7 @@ export class InitCommand {
       .map((toolId) => AI_TOOLS.find((t) => t.value === toolId)?.name || toolId);
 
     if (configuredNames.length > 0) {
-      console.log(`OpenSpec configured: ${configuredNames.join(', ')} (pre-selected)`);
+      console.log(`OfficeSpec configured: ${configuredNames.join(', ')} (pre-selected)`);
     }
 
     const detectedOnlyNames = detectedTools
@@ -874,7 +874,7 @@ export class InitCommand {
       return;
     }
 
-    const spinner = this.startSpinner('Creating OpenSpec structure...');
+    const spinner = this.startSpinner('Creating OfficeSpec structure...');
 
     for (const dir of directories) {
       FileSystemUtils.assertProjectArtifactPath(path.dirname(openspecPath), dir);
@@ -885,7 +885,7 @@ export class InitCommand {
 
     spinner.stopAndPersist({
       symbol: PALETTE.white('▌'),
-      text: PALETTE.white('OpenSpec structure created'),
+      text: PALETTE.white('OfficeSpec structure created'),
     });
   }
 
@@ -1062,7 +1062,7 @@ export class InitCommand {
     const serializedContext = `${formatLanguageContext(normalized)}\n`;
     if (Buffer.byteLength(serializedContext, 'utf8') > MAX_CONTEXT_SIZE) {
       throw new Error(
-        `The --language option is too long for OpenSpec's ${MAX_CONTEXT_SIZE / 1024}KB project context limit.`
+        `The --language option is too long for OfficeSpec's ${MAX_CONTEXT_SIZE / 1024}KB project context limit.`
       );
     }
     return normalized;
@@ -1102,7 +1102,7 @@ export class InitCommand {
     if (existingContext?.includes(languageContext)) return;
 
     throw new Error(
-      '--language does not overwrite an existing OpenSpec config. ' +
+      '--language does not overwrite an existing OfficeSpec config. ' +
       'Add the language instruction to its context field instead.'
     );
   }
@@ -1163,7 +1163,7 @@ export class InitCommand {
     console.log();
     console.log(
       chalk.bold(
-        results.failedTools.length > 0 ? 'OpenSpec Setup Incomplete' : 'OpenSpec Setup Complete'
+        results.failedTools.length > 0 ? 'OfficeSpec Setup Incomplete' : 'OfficeSpec Setup Complete'
       )
     );
     console.log();
@@ -1277,7 +1277,7 @@ export class InitCommand {
       if (copilot.collisions.length > 0) {
         console.log(
           chalk.dim(
-            `Left your existing ${copilot.collisions.join(' and ')} untouched — add the OpenSpec ` +
+            `Left your existing ${copilot.collisions.join(' and ')} untouched — add the OfficeSpec ` +
               `install step by hand so the Copilot cloud agent can run openspec.`
           )
         );
@@ -1422,8 +1422,8 @@ export class InitCommand {
 
     // Links
     console.log();
-    console.log(`Learn more: ${chalk.cyan('https://github.com/Fission-AI/OpenSpec')}`);
-    console.log(`Feedback:   ${chalk.cyan('https://github.com/Fission-AI/OpenSpec/issues')}`);
+    console.log(`Learn more: ${chalk.cyan('https://github.com/joelsebbu/OpenSpec')}`);
+    console.log(`Feedback:   ${chalk.cyan('https://github.com/joelsebbu/OpenSpec/issues')}`);
 
     // Restart instruction for successfully configured IDE/editor-resident tools
     // with a supported surface under the active delivery. The rule and wording live in

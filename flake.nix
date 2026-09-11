@@ -1,5 +1,5 @@
 {
-  description = "OpenSpec - AI-native system for spec-driven development";
+  description = "OfficeSpec - AI-native system for spec-driven office work";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -74,7 +74,7 @@
 
             meta = with pkgs.lib; {
               description = "AI-native system for spec-driven development";
-              homepage = "https://github.com/Fission-AI/OpenSpec";
+              homepage = "https://github.com/joelsebbu/OpenSpec";
               license = licenses.mit;
               maintainers = [ ];
               mainProgram = "openspec";
@@ -103,7 +103,7 @@
             ];
 
             shellHook = ''
-              echo "OpenSpec development environment"
+              echo "OfficeSpec development environment"
               echo "Node version: $(node --version)"
               echo "pnpm version: $(pnpm --version)"
               echo "Run 'pnpm install' to install dependencies"

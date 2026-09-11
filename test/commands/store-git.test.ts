@@ -140,7 +140,7 @@ describe('store git lifecycle', () => {
     const committed = execFileSync('git', ['log', '--format=%s'], { cwd: storeRoot })
       .toString()
       .trim();
-    expect(committed).toBe('Initialize OpenSpec store interactive-context');
+    expect(committed).toBe('Initialize OfficeSpec store interactive-context');
     expect(process.exitCode).toBeUndefined();
   });
 

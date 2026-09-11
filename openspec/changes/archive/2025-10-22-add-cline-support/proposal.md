@@ -1,5 +1,5 @@
 ## Why
-Add support for Cline (VS Code extension) in OpenSpec to enable developers to use Cline's AI-powered coding capabilities for spec-driven development workflows.
+Add support for Cline (VS Code extension) in OfficeSpec to enable developers to use Cline's AI-powered coding capabilities for spec-driven development workflows.
 
 ## What Changes
 - Add Cline slash command configurator for proposal, apply, and archive operations

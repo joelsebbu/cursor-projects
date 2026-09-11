@@ -40,7 +40,7 @@ function getWelcomeText(workflows: readonly string[]): string[] {
   }
 
   return [
-    chalk.white.bold('Welcome to OpenSpec'),
+    chalk.white.bold('Welcome to OfficeSpec'),
     chalk.dim('A lightweight spec-driven framework'),
     '',
     chalk.white('This setup will configure:'),

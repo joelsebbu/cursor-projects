@@ -51,7 +51,7 @@ initiatives/<id>/
 - Initiative code should live outside `src/core/context-store/`.
 - Context-store core should not know initiative semantics.
 - Initiative APIs should consume a mounted `initiatives` collection from Item 4.
-- Repo-local OpenSpec changes remain the implementation artifacts; initiatives
+- Repo-local OfficeSpec changes remain the implementation artifacts; initiatives
   coordinate intent, decisions, questions, and tasks.
 - Do not implement workspace opening, repo resolution, status dashboards, sync,
   or linked change lifecycle in this item.
@@ -205,7 +205,7 @@ openspec initiative list --store-path <path>
 ```
 
 Use `initiative create/list` as a deliberate noun namespace, similar to
-`workspace` and `schema`, even though newer OpenSpec conventions generally
+`workspace` and `schema`, even though newer OfficeSpec conventions generally
 prefer verb-first top-level commands. The stricter alternative would spread
 initiative behavior across `new initiative` and global `list` flags, which is a
 larger surface for this slice because initiative commands must resolve a

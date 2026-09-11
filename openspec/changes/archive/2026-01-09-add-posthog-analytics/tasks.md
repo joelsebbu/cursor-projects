@@ -22,7 +22,7 @@
 
 - [x] 4.1 Implement `maybeShowTelemetryNotice()` function
 - [x] 4.2 Check `noticeSeen` flag before displaying notice
-- [x] 4.3 Display notice text: "Note: OpenSpec collects anonymous usage stats. Opt out: OPENSPEC_TELEMETRY=0"
+- [x] 4.3 Display notice text: "Note: OfficeSpec collects anonymous usage stats. Opt out: OPENSPEC_TELEMETRY=0"
 - [x] 4.4 Update `noticeSeen` in config after first display
 
 ## 5. CLI Integration

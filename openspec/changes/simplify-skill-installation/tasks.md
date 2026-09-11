@@ -23,7 +23,7 @@
 - [x] 3.4 Pre-select current config values in picker
 - [x] 3.5 Update global config on confirmation (config-only, no file regeneration)
 - [x] 3.6 Display post-update message: "Config updated. Run `openspec update` in your projects to apply."
-- [x] 3.7 Detect if running inside an OpenSpec project and offer to run update automatically
+- [x] 3.7 Detect if running inside an OfficeSpec project and offer to run update automatically
 - [x] 3.8 Implement `config profile core` preset shortcut (preserves delivery setting)
 - [x] 3.9 Handle non-interactive mode: error with helpful message
 - [x] 3.10 Update `openspec config list` to display profile, delivery, and workflows settings (indicate defaults vs explicit)

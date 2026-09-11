@@ -2,9 +2,9 @@
 
 ### Requirement: Directory Creation
 
-The command SHALL create the OpenSpec directory structure with config file.
+The command SHALL create the OfficeSpec directory structure with config file.
 
-#### Scenario: Creating OpenSpec structure
+#### Scenario: Creating OfficeSpec structure
 
 - **WHEN** `openspec init` is executed
 - **THEN** create the following directory structure:
@@ -23,7 +23,7 @@ The command SHALL configure AI coding assistants with skills and slash commands 
 #### Scenario: Prompting for AI tool selection
 
 - **WHEN** run interactively
-- **THEN** display animated welcome screen with OpenSpec logo
+- **THEN** display animated welcome screen with OfficeSpec logo
 - **AND** present a searchable multi-select that shows all available tools
 - **AND** mark already configured tools with "(configured ✓)" indicator
 - **AND** pre-select configured tools for easy refresh
@@ -101,7 +101,7 @@ The command SHALL provide clear, actionable next steps upon successful initializ
 
 ### Requirement: Config File Generation
 
-The command SHALL create an OpenSpec config file with schema settings.
+The command SHALL create an OfficeSpec config file with schema settings.
 
 #### Scenario: Creating config.yaml
 
@@ -155,7 +155,7 @@ The command SHALL maintain backward compatibility with the experimental command.
 
 **Reason**: AGENTS.md and project.md are no longer generated. Skills contain all necessary instructions.
 
-**Migration**: Skills in `.<tool>/skills/` provide all OpenSpec workflow instructions. No manual file needed.
+**Migration**: Skills in `.<tool>/skills/` provide all OfficeSpec workflow instructions. No manual file needed.
 
 ### Requirement: AI Tool Configuration Details
 

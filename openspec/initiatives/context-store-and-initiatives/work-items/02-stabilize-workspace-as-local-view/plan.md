@@ -33,13 +33,13 @@ Generated workspace guidance should route agents by ownership:
 - Use the workspace to open the local view of coordinated work.
 - Use initiatives for durable cross-team or cross-repo intent, decisions,
   requirements, and coordination context.
-- Use repo-local OpenSpec changes for implementation plans owned by a repo or
+- Use repo-local OfficeSpec changes for implementation plans owned by a repo or
   team.
 - Use linked repos and folders to inspect context, understand ownership, and
   make edits in the place that owns the work.
 - Keep workspace-local files focused on local paths, opener state, agent setup,
   and other machine-specific view state.
-- Use OpenSpec workspace commands instead of hand-editing
+- Use OfficeSpec workspace commands instead of hand-editing
   `.openspec-workspace/*.yaml`.
 - If a workspace contains legacy or beta workspace-level planning files, treat
   them as compatibility context unless the user explicitly asks to use that beta

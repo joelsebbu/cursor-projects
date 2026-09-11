@@ -1125,7 +1125,7 @@ export class ArchiveCommand {
       } catch {
         throw new ArchiveBlockedError(
           'archive_path_outside_root',
-          `Refusing to archive through a path outside the OpenSpec root: ${managedDir}`
+          `Refusing to archive through a path outside the OfficeSpec root: ${managedDir}`
         );
       }
     }

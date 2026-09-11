@@ -9,7 +9,7 @@ Proposed next work item.
 Make the beta docs match how people should actually use the feature:
 
 - humans use terminal prompts for local setup and local paths
-- coding agents use explicit CLI commands for OpenSpec work
+- coding agents use explicit CLI commands for OfficeSpec work
 
 ## Working Model
 
@@ -20,7 +20,7 @@ current caveats.
 Manual beta clarification: after a workspace is opened, the user should ask the
 agent to explore or draft from the workspace. The agent should resolve the
 workspace and initiative context, identify the owning linked repo, and run
-repo-local OpenSpec commands from that repo. The workspace is the conversation
+repo-local OfficeSpec commands from that repo. The workspace is the conversation
 surface, not the artifact home.
 
 ## Scope

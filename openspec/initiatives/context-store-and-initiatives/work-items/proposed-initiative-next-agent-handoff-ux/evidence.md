@@ -8,7 +8,7 @@ GSD's useful lesson was not its storage model. It was the simple user loop:
 create context, move to the next concrete step, and keep the agent from guessing
 where it is in the workflow.
 
-OpenSpec should keep the current boundary:
+OfficeSpec should keep the current boundary:
 
 ```text
 Context stores sync truth.
@@ -31,7 +31,7 @@ status, progress, dashboarding, or workspace orchestration.
 
 The 2026-05-28 manual beta pass found that command-level handoff is not the
 only missing layer. A fresh agent also needs a small, tool-readable guide for
-how to use OpenSpec at all:
+how to use OfficeSpec at all:
 
 - inspect context stores, initiatives, workspaces, and repo-local changes before
   guessing;
@@ -40,7 +40,7 @@ how to use OpenSpec at all:
 - understand that repo-local changes own implementation planning when the user
   wants artifacts in the repo;
 - treat workspaces as local views, not durable planning homes;
-- route to narrower OpenSpec workflow skills when available.
+- route to narrower OfficeSpec workflow skills when available.
 
 As a temporary beta aid, a manual Codex skill was created at
 `.codex/skills/use-openspec/` with references for shared context and artifact

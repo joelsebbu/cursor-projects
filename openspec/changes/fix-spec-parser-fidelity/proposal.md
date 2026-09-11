@@ -1,6 +1,6 @@
 ## Why
 
-OpenSpec's promise is that the spec is the source of truth, and `validate`/`archive` are the gate that protects it. That gate is undermined by a fragmented requirement-parsing layer: the requirement **reader** is implemented twice — `MarkdownParser.parseRequirements` (used by `validate <spec>` and `archive`) and `Validator.extractRequirementText` + `countScenarios` (used by `validate <change>`) — and the two have drifted apart. Every defect below was reproduced against `main` with the bundled CLI; outputs are quoted in `design.md`.
+OfficeSpec's promise is that the spec is the source of truth, and `validate`/`archive` are the gate that protects it. That gate is undermined by a fragmented requirement-parsing layer: the requirement **reader** is implemented twice — `MarkdownParser.parseRequirements` (used by `validate <spec>` and `archive`) and `Validator.extractRequirementText` + `countScenarios` (used by `validate <change>`) — and the two have drifted apart. Every defect below was reproduced against `main` with the bundled CLI; outputs are quoted in `design.md`.
 
 The two readers differ in ways that are each a reproduced bug:
 

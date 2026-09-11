@@ -197,7 +197,7 @@ describe('store root selection for normal commands', () => {
         env,
       });
       expect(result.exitCode).toBe(0);
-      expect(result.stderr).toContain(`Using OpenSpec root: team-context (${storeRoot})`);
+      expect(result.stderr).toContain(`Using OfficeSpec root: team-context (${storeRoot})`);
       expect(result.stdout).toContain("Created change 'add-billing'");
       expect(result.stdout).toContain(
         path.join(storeRoot, 'openspec', 'changes', 'add-billing')
@@ -435,7 +435,7 @@ operations:
       });
       expect(result.exitCode).toBe(0);
       expect(result.stdout.startsWith('## Why')).toBe(true);
-      expect(result.stderr).toContain(`Using OpenSpec root: team-context (${storeRoot})`);
+      expect(result.stderr).toContain(`Using OfficeSpec root: team-context (${storeRoot})`);
     });
 
     it('diffs a delta against the selected store\'s main specs', async () => {
@@ -476,7 +476,7 @@ operations:
       );
       expect(result.exitCode).toBe(0);
       expect(result.stdout.startsWith('<artifact id="design"')).toBe(true);
-      expect(result.stderr).toContain('Using OpenSpec root: team-context');
+      expect(result.stderr).toContain('Using OfficeSpec root: team-context');
     });
 
     it('writes the status banner to stderr in human mode', async () => {
@@ -487,9 +487,9 @@ operations:
         { cwd: appRepo, env }
       );
       expect(result.exitCode).toBe(0);
-      expect(result.stderr).toContain(`Using OpenSpec root: team-context (${storeRoot})`);
+      expect(result.stderr).toContain(`Using OfficeSpec root: team-context (${storeRoot})`);
       expect(result.stdout).toContain('Change: store-change');
-      expect(result.stdout).not.toContain('Using OpenSpec root');
+      expect(result.stdout).not.toContain('Using OfficeSpec root');
     });
   });
 
@@ -690,7 +690,7 @@ operations:
         expect(result.exitCode).toBe(1);
         expect(result.stdout).toBe('');
         expect(result.stderr).toContain(
-          'Error: No OpenSpec root found from the current directory.'
+          'Error: No OfficeSpec root found from the current directory.'
         );
         expect(result.stderr).not.toContain('No items found to validate.');
         expect(result.stderr).not.toContain('No active changes found.');
@@ -726,7 +726,7 @@ operations:
           expect.objectContaining({
             severity: 'error',
             code: 'no_openspec_root',
-            message: 'No OpenSpec root found from the current directory.',
+            message: 'No OfficeSpec root found from the current directory.',
           })
         );
       }
@@ -767,7 +767,7 @@ operations:
       });
       expect(result.exitCode).toBe(1);
       expect(result.stderr).toContain("Unknown item 'missing'.");
-      expect(result.stderr).not.toContain('No OpenSpec root found');
+      expect(result.stderr).not.toContain('No OfficeSpec root found');
     });
   });
 
@@ -961,7 +961,7 @@ operations:
       expect(fs.existsSync(metadataPath)).toBe(false);
 
       const help = await runCLI(['--help'], { cwd: localRepo, env });
-      expect(help.stdout).not.toContain('Set checked-in OpenSpec metadata');
+      expect(help.stdout).not.toContain('Set checked-in OfficeSpec metadata');
       expect(help.stdout).not.toMatch(/^\s*set\s/m);
     });
   });

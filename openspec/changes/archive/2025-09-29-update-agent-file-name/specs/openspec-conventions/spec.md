@@ -1,10 +1,10 @@
 ## MODIFIED Requirements
 
 ### Requirement: Project Structure
-An OpenSpec project SHALL maintain a consistent directory structure for specifications and changes.
+An OfficeSpec project SHALL maintain a consistent directory structure for specifications and changes.
 
 #### Scenario: Initializing project structure
-- **WHEN** an OpenSpec project is initialized
+- **WHEN** an OfficeSpec project is initialized
 - **THEN** it SHALL have this structure:
 ```
 openspec/

@@ -2,8 +2,8 @@
 
 ## Outcome
 
-A registered standalone OpenSpec repo provably supports the same basic
-lifecycle as an OpenSpec root inside a project repo, including the sharing
+A registered standalone OfficeSpec repo provably supports the same basic
+lifecycle as an OfficeSpec root inside a project repo, including the sharing
 path that is the reason standalone repos exist: a teammate or second machine
 can clone the repo, register it, and continue the work.
 
@@ -14,7 +14,7 @@ the selected store mid-flow.
 
 The proof itself is one chained journey test that drives the built CLI
 through both checkouts and asserts that the end state is nothing but normal
-OpenSpec files.
+OfficeSpec files.
 
 ## Locked Decisions (2026-06-11)
 
@@ -34,7 +34,7 @@ OpenSpec files.
    store directories so a fresh clone reproduces the healthy root shape.
    Setup verifies a usable Git commit identity before creating anything
    and fails with the exact fix when it is missing, rather than inventing
-   an OpenSpec-local identity.
+   an OfficeSpec-local identity.
 3. **Create-time and read-only is the Git line.** Setup may initialize and
    commit at creation time. Doctor may report read-only Git facts. Nothing
    clones, pulls, pushes, branches, or syncs. Register never commits.
@@ -63,10 +63,10 @@ openspec context-store setup team-context --path ~/src/team-context
 
 The folder is a Git repository with an initial commit containing the store
 shape. The next-steps output teaches the two things the user needs: how to
-put work in the store, and the one thing OpenSpec will not do for them:
+put work in the store, and the one thing OfficeSpec will not do for them:
 
 ```text
-Next: run normal OpenSpec commands against this store, for example:
+Next: run normal OfficeSpec commands against this store, for example:
   openspec new change <change-id> --store team-context
 To share this store, commit and push it like any Git repo.
 ```
@@ -79,7 +79,7 @@ openspec context-store register team-context
 ```
 
 Because setup committed the store shape, the clone is immediately a healthy
-OpenSpec root and register succeeds without ceremony. From then on, both
+OfficeSpec root and register succeeds without ceremony. From then on, both
 machines run the same normal commands with `--store team-context`, and every
 hint those commands print keeps the store in the loop, so following the
 output never strands the user in the wrong root.
@@ -157,12 +157,12 @@ Out of scope:
   placeholder file, because Git cannot track empty directories
 - **AND** the placeholder files appear in `created_files` and the initial
   commit
-- **AND** a clone of the store is immediately a healthy OpenSpec root
+- **AND** a clone of the store is immediately a healthy OfficeSpec root
 
 #### Scenario: Committing Only What Setup Created
 
 - **GIVEN** setup runs against an existing Git repository it accepts (for
-  example a healthy OpenSpec root missing only identity metadata)
+  example a healthy OfficeSpec root missing only identity metadata)
 - **AND** the repository has uncommitted user changes, including changes
   the user had already staged
 - **WHEN** setup creates files
@@ -173,7 +173,7 @@ Out of scope:
 
 #### Scenario: Converted Roots Get Placeholders Too
 
-- **GIVEN** setup first accepts an existing healthy OpenSpec root that is
+- **GIVEN** setup first accepts an existing healthy OfficeSpec root that is
   not yet registered
 - **AND** its `openspec/specs/` or `openspec/changes/archive/` directories
   are empty
@@ -232,7 +232,7 @@ Out of scope:
   accept it
 - **AND** no files, directories, Git repository, or registry entries are
   created
-- **AND** setup does not commit using an invented OpenSpec-local identity
+- **AND** setup does not commit using an invented OfficeSpec-local identity
 - **AND** setup with `--no-init-git` does not require a Git identity
 
 #### Scenario: Next Steps Mention Sharing
@@ -296,10 +296,10 @@ Out of scope:
 
 #### Scenario: Explaining An Unhealthy Or Empty Clone
 
-- **GIVEN** a directory that is a Git repository without a healthy OpenSpec
+- **GIVEN** a directory that is a Git repository without a healthy OfficeSpec
   root (for example a clone of a commitless store)
 - **WHEN** the user runs register against it
-- **THEN** the refusal names the missing OpenSpec root pieces
+- **THEN** the refusal names the missing OfficeSpec root pieces
 - **AND** when the repository has no commits, the error says the clone may
   be empty and the origin needs an initial commit
 
@@ -323,7 +323,7 @@ Out of scope:
 - **GIVEN** store resolution succeeds for a supported command
 - **WHEN** the command then fails (for example `instructions apply` with no
   active changes)
-- **THEN** stderr still includes the `Using OpenSpec root` banner
+- **THEN** stderr still includes the `Using OfficeSpec root` banner
 
 #### Scenario: New Change Names The Next Command
 
@@ -346,7 +346,7 @@ with isolated global state per simulated machine.
 #### Scenario: First Checkout Lifecycle
 
 - **GIVEN** simulated machine A with isolated global state and a project
-  repo without its own OpenSpec root
+  repo without its own OfficeSpec root
 - **WHEN** the journey runs setup, `context-store list`, doctor, then
   `new change`, `status`, `instructions`, artifact writes, `validate`,
   `list`, `show`, and `archive` with `--store` from the project repo

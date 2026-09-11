@@ -1,8 +1,8 @@
 ## Why
 
-Project configuration reaches agents while they create OpenSpec artifacts, but apply and archive workflows cannot fetch the same current project context or operation-specific working preferences when they run. Generated skills therefore lack a stable runtime input contract and can become disconnected from later configuration changes.
+Project configuration reaches agents while they create OfficeSpec artifacts, but apply and archive workflows cannot fetch the same current project context or operation-specific working preferences when they run. Generated skills therefore lack a stable runtime input contract and can become disconnected from later configuration changes.
 
-OpenSpec needs a clear separation between project context, artifact requirements, and operation advice. Project `context` supplies facts, conventions, and constraints the agent must apply when relevant. Artifact `rules` continue to describe the artifacts an agent produces, while optional operation guidance provides additive advice about how an agent should conduct apply or archive work. Both apply and archive should fetch their current inputs from OpenSpec at execution time.
+OfficeSpec needs a clear separation between project context, artifact requirements, and operation advice. Project `context` supplies facts, conventions, and constraints the agent must apply when relevant. Artifact `rules` continue to describe the artifacts an agent produces, while optional operation guidance provides additive advice about how an agent should conduct apply or archive work. Both apply and archive should fetch their current inputs from OfficeSpec at execution time.
 
 ## What Changes
 

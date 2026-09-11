@@ -2,7 +2,7 @@
 
 - [x] Create Item 15 work-item tracking notes.
 - [ ] Record the product decision that context stores should behave like
-      OpenSpec roots for config and schema resolution, but not as implementation
+      OfficeSpec roots for config and schema resolution, but not as implementation
       repos by default.
 - [ ] Define the context-store root layout, including `.openspec-store/`,
       `openspec/config.yaml`, `openspec/schemas/`, and `initiatives/`.

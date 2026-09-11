@@ -4,7 +4,7 @@
 
 ### Simplicity First
 - No version tracking - always update when commanded
-- Full replacement for OpenSpec-managed files only (e.g., `openspec/README.md`)
+- Full replacement for OfficeSpec-managed files only (e.g., `openspec/README.md`)
 - Marker-based updates for user-owned files (e.g., `CLAUDE.md`)
 - Templates bundled with package - no network required
 - Minimal error handling - only check prerequisites
@@ -33,7 +33,7 @@ export class UpdateCommand {
 
     // 1. Check openspec directory exists
     if (!await FileSystemUtils.directoryExists(openspecPath)) {
-      throw new Error(`No OpenSpec directory found. Run 'openspec init' first.`);
+      throw new Error(`No OfficeSpec directory found. Run 'openspec init' first.`);
     }
 
     // 2. Update README.md (full replacement)
@@ -51,7 +51,7 @@ export class UpdateCommand {
     );
 
     // 4. Success message (ASCII-safe, checkmark optional by terminal)
-    console.log('Updated OpenSpec instructions');
+    console.log('Updated OfficeSpec instructions');
   }
 }
 ```
@@ -66,7 +66,7 @@ export class UpdateCommand {
 
 ### Trade-offs Accepted
 - No version tracking (unnecessary complexity)
-- Full overwrite only for OpenSpec-managed files
+- Full overwrite only for OfficeSpec-managed files
 - Marker-managed updates for user-owned files
 
 ## Error Handling
@@ -81,6 +81,6 @@ Manual smoke tests are sufficient initially:
 1. Run `openspec init` in a test project
 2. Modify both files (including custom content around markers in `CLAUDE.md`)
 3. Run `openspec update`
-4. Verify `openspec/README.md` fully replaced; `CLAUDE.md` OpenSpec block updated without altering user content outside markers
+4. Verify `openspec/README.md` fully replaced; `CLAUDE.md` OfficeSpec block updated without altering user content outside markers
 5. Run the command twice to verify idempotency and no duplicate markers
 6. Test with missing `openspec` directory (expect failure)

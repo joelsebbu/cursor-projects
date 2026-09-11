@@ -6,11 +6,11 @@ Kimi CLI is not another Claude/Codex-style adapter target. Its extension model i
 - skills are exposed as `/skill:<name>`
 - no stable `.kimi/commands/` or prompt-file loading mechanism was found in the Kimi CLI codebase
 
-OpenSpec's existing architecture can already represent that shape:
+OfficeSpec's existing architecture can already represent that shape:
 
 - `AI_TOOLS` can advertise a `skillsDir`
 - `init` can install skills for any selected tool with `skillsDir`
-- when command generation is attempted for a tool without an adapter, OpenSpec already records `commandsSkipped`
+- when command generation is attempted for a tool without an adapter, OfficeSpec already records `commandsSkipped`
 
 ## Goals
 
@@ -44,11 +44,11 @@ Rationale:
 
 - Kimi CLI exposes skills dynamically as `/skill:<name>`
 - the previous upstream PR stalled specifically because no legitimate adapter target was available
-- adding a fake `.kimi/commands/...` path would create behavior OpenSpec cannot justify against upstream Kimi CLI behavior
+- adding a fake `.kimi/commands/...` path would create behavior OfficeSpec cannot justify against upstream Kimi CLI behavior
 
 ### 3. Document Kimi by its real invocation surface
 
-Kimi documentation in OpenSpec must use Kimi's actual skill invocation form:
+Kimi documentation in OfficeSpec must use Kimi's actual skill invocation form:
 
 - supported-tools: no generated command files, use `/skill:openspec-*`
 - commands doc: examples such as `/skill:openspec-propose`

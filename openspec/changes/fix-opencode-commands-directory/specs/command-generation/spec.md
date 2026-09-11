@@ -59,5 +59,5 @@ The legacy cleanup module SHALL detect and remove old OpenCode command files fro
 
 - **WHEN** a user runs `openspec init` in non-interactive mode (e.g., CI) and legacy artifacts are detected
 - **THEN** the system SHALL auto-cleanup legacy artifacts without requiring `--force`
-- **AND** legacy slash command files (100% OpenSpec-managed) SHALL be removed
-- **AND** config file cleanup SHALL only remove OpenSpec markers (never delete user files)
+- **AND** legacy slash command files (100% OfficeSpec-managed) SHALL be removed
+- **AND** config file cleanup SHALL only remove OfficeSpec markers (never delete user files)

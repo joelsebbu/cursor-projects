@@ -2,12 +2,12 @@
 
 ### Requirement: Legacy artifact detection
 
-The system SHALL detect legacy OpenSpec artifacts from previous init versions.
+The system SHALL detect legacy OfficeSpec artifacts from previous init versions.
 
 #### Scenario: Detecting legacy config files
 
 - **WHEN** running `openspec init` on an existing project
-- **THEN** the system SHALL check for config files with OpenSpec markers:
+- **THEN** the system SHALL check for config files with OfficeSpec markers:
   - `CLAUDE.md`
   - `.cursorrules`
   - `.windsurfrules`
@@ -28,13 +28,13 @@ The system SHALL detect legacy OpenSpec artifacts from previous init versions.
   - `.windsurf/workflows/openspec-*.md`
   - And equivalent directories for all tools in the legacy SlashCommandRegistry
 
-#### Scenario: Detecting legacy OpenSpec structure files
+#### Scenario: Detecting legacy OfficeSpec structure files
 
 - **WHEN** running `openspec init` on an existing project
 - **THEN** the system SHALL check for:
   - `openspec/AGENTS.md`
   - `openspec/project.md` (for migration messaging only, not deleted)
-  - Root `AGENTS.md` with OpenSpec markers
+  - Root `AGENTS.md` with OfficeSpec markers
 
 ### Requirement: Legacy cleanup confirmation
 
@@ -69,26 +69,26 @@ The system SHALL prompt for confirmation before removing legacy artifacts.
 
 ### Requirement: Surgical removal of config file content
 
-The system SHALL preserve user content when removing OpenSpec markers from config files.
+The system SHALL preserve user content when removing OfficeSpec markers from config files.
 
-#### Scenario: Config file with only OpenSpec content
+#### Scenario: Config file with only OfficeSpec content
 
-- **WHEN** a config file contains only OpenSpec marker block (whitespace outside is acceptable)
-- **THEN** the system SHALL remove the OpenSpec marker block
+- **WHEN** a config file contains only OfficeSpec marker block (whitespace outside is acceptable)
+- **THEN** the system SHALL remove the OfficeSpec marker block
 - **AND** preserve the file (even if empty or whitespace-only)
 - **AND** NOT delete the file (config files belong to the user's project root)
 
 #### Scenario: Config file with mixed content
 
-- **WHEN** a config file contains content outside OpenSpec markers
+- **WHEN** a config file contains content outside OfficeSpec markers
 - **THEN** the system SHALL remove only the `<!-- OPENSPEC:START -->` to `<!-- OPENSPEC:END -->` block
 - **AND** preserve all content before and after the markers
 - **AND** clean up any resulting double blank lines
 
 #### Scenario: Root AGENTS.md with mixed content
 
-- **WHEN** root `AGENTS.md` contains OpenSpec markers AND other content
-- **THEN** the system SHALL remove only the OpenSpec marker block
+- **WHEN** root `AGENTS.md` contains OfficeSpec markers AND other content
+- **THEN** the system SHALL remove only the OfficeSpec marker block
 - **AND** preserve the rest of the file
 
 ### Requirement: Legacy directory removal
@@ -139,7 +139,7 @@ The system SHALL report what was cleaned up.
 - **THEN** the system SHALL display a summary section:
   ```
   Cleaned up legacy files:
-    ✓ Removed OpenSpec markers from CLAUDE.md
+    ✓ Removed OfficeSpec markers from CLAUDE.md
     ✓ Removed .claude/commands/openspec/ (replaced by /opsx:*)
     ✓ Removed openspec/AGENTS.md (no longer needed)
   ```

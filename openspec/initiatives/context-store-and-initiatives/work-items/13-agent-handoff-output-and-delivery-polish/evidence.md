@@ -9,7 +9,7 @@ The manual beta pass found:
   playbook;
 - `initiative create --json` reports `created_files` as relative names, so
   agents must combine them with the returned root before writing;
-- "commands only" can sound like "the agent gets no OpenSpec guidance," even
+- "commands only" can sound like "the agent gets no OfficeSpec guidance," even
   though users may only mean slash commands as workflow entrypoints;
 - tools without command adapters need a clear warning when workflow slash
   commands cannot be installed.
@@ -20,7 +20,7 @@ Treat this as output polish, not a new workflow engine:
 
 - add direct path fields rather than breaking existing relative fields;
 - keep handoff guidance concrete and command-sized;
-- keep baseline OpenSpec literacy separate from workflow entrypoints;
+- keep baseline OfficeSpec literacy separate from workflow entrypoints;
 - leave the broader "what should I do next?" command to the proposed handoff
   work item.
 

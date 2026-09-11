@@ -241,9 +241,9 @@ Work item:
 `work-items/15-context-store-project-roots-and-schema-led-initiatives/`
 
 - [x] Create Item 15 work-item tracking notes.
-- [ ] Update initiative direction language so context stores are OpenSpec-aware
+- [ ] Update initiative direction language so context stores are OfficeSpec-aware
   shared project roots, not only cross-team/cross-repo coordination folders.
-- [ ] Decide the minimal context-store OpenSpec structure:
+- [ ] Decide the minimal context-store OfficeSpec structure:
   `.openspec-store/store.yaml`, `openspec/config.yaml`,
   `openspec/schemas/`, and collection mounts.
 - [ ] Decide the store-local config shape for initiative collection defaults,

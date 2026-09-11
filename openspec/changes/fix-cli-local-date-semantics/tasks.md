@@ -10,4 +10,4 @@
 - [x] 2.2 Update affected archive test expectations to use the effective-local-date contract.
 - [x] 2.3 Add archive and change-creation tests for a non-boundary instant where UTC and local calendar dates match.
 - [x] 2.4 Run focused archive and change-creation tests on the supported cross-platform test suite.
-- [x] 2.5 Run the full build and OpenSpec validation for the change.
+- [x] 2.5 Run the full build and OfficeSpec validation for the change.

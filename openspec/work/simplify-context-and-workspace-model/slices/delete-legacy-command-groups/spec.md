@@ -6,7 +6,7 @@ The `openspec workspace` and `openspec initiative` command groups no
 longer exist, and everything that only they consumed goes with them —
 command layer, orphaned core modules, completions entries, tests, and
 docs. After this slice the CLI's visible surface is the simple path:
-OpenSpec roots, stores, and the normal lifecycle commands. What survives
+OfficeSpec roots, stores, and the normal lifecycle commands. What survives
 is exactly what other surfaces still need: the planning-home
 workspace-mode contract (until 4.1 rebuilds opening), legacy change
 metadata display, the `--initiative` rejection error, and every byte of
@@ -304,7 +304,7 @@ owns:
 #### Scenario: Update Falls Through Cleanly
 
 - **GIVEN** the working directory is a workspace view dir with no
-  OpenSpec project
+  OfficeSpec project
 - **WHEN** the user runs `openspec update`
 - **THEN** the standard no-project error appears, with no mention of
   workspace commands

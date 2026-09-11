@@ -2,11 +2,11 @@
 
 ## Summary
 
-Add `openspec/config.yaml` support for project-level configuration. This enables teams to customize OpenSpec behavior without forking schemas, by providing context and rules that are injected into artifact generation.
+Add `openspec/config.yaml` support for project-level configuration. This enables teams to customize OfficeSpec behavior without forking schemas, by providing context and rules that are injected into artifact generation.
 
 ## Motivation
 
-Currently, customizing OpenSpec requires forking entire schemas:
+Currently, customizing OfficeSpec requires forking entire schemas:
 - Must copy all files even to add one rule
 - Lose updates when openspec upgrades
 - High friction for simple customizations
@@ -19,7 +19,7 @@ Most users don't need different workflow structure. They need to:
 
 ### Two-Path Model
 
-OpenSpec customization follows two distinct paths:
+OfficeSpec customization follows two distinct paths:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -173,7 +173,7 @@ Future (When graduating):
 **Why optional?**
 
 Config is **additive**, not required:
-- OpenSpec works without config (uses defaults)
+- OfficeSpec works without config (uses defaults)
 - Users can skip during setup and add manually later
 - Teams can start simple and add config when they feel friction
 - No config file in git = no problem, everyone gets defaults
@@ -242,7 +242,7 @@ Setting up experimental artifact workflow...
 
 📋 Project Configuration (Optional)
 
-Configure project defaults for OpenSpec workflows.
+Configure project defaults for OfficeSpec workflows.
 
 ? Create openspec/config.yaml? (Y/n) Y
 
@@ -296,7 +296,7 @@ Usage:
 
 To share with team:
   git add openspec/config.yaml .claude/
-  git commit -m "Setup OpenSpec experimental workflow with project config"
+  git commit -m "Setup OfficeSpec experimental workflow with project config"
 
 [Rest of experimental setup output...]
 ```
@@ -457,7 +457,7 @@ After creating skills and commands, the setup command will:
    ```
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    📋 Project Configuration (Optional)
-   Configure project defaults for OpenSpec workflows.
+   Configure project defaults for OfficeSpec workflows.
    ```
 
 2. **Prompt: Create config?**
@@ -579,7 +579,7 @@ The experimental setup command will need an interactive prompting library for th
 1. **@inquirer/prompts** (recommended)
    - Modern, tree-shakeable, TypeScript-first
    - Individual imports: `@inquirer/input`, `@inquirer/confirm`, `@inquirer/checkbox`, `@inquirer/editor`
-   - Already used in OpenSpec (if not, lightweight addition)
+   - Already used in OfficeSpec (if not, lightweight addition)
 
 2. **inquirer** (classic)
    - More established, larger ecosystem
@@ -743,7 +743,7 @@ export type ProjectConfig = z.infer<typeof ProjectConfigSchema>;
 │                              │                                  │
 │                              ▼                                  │
 │   ┌─────────────────────────────────────────────────────────┐   │
-│   │ OpenSpec merges:                                        │   │
+│   │ OfficeSpec merges:                                        │   │
 │   │                                                         │   │
 │   │   Schema (spec-driven)                                  │   │
 │   │   + User's context                                      │   │

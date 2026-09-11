@@ -1,6 +1,6 @@
 ## Context
 
-OpenSpec currently has strong building blocks (workflow templates, command adapters, generation helpers), but orchestration concerns are distributed:
+OfficeSpec currently has strong building blocks (workflow templates, command adapters, generation helpers), but orchestration concerns are distributed:
 
 - Workflow definitions and projection lists are maintained separately
 - Tool support is represented in multiple places with partial overlap

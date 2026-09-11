@@ -46,7 +46,7 @@ A raw `--root` or `--cwd` flag was rejected because it would bypass registry val
 The command will use `resolveRootForCommand()` unchanged:
 
 1. Explicit `--store`.
-2. Nearest OpenSpec root, including resolution of a config-only `store:` pointer.
+2. Nearest OfficeSpec root, including resolution of a config-only `store:` pointer.
 3. Global `defaultStore` when no nearer root exists.
 4. An implicit current-directory root only when no root or registered-store selection is available.
 

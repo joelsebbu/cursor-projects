@@ -1,6 +1,6 @@
 ## Why
 
-Users need a way to view and modify their global OpenSpec settings without manually editing JSON files. The `global-config` spec provides the foundation, but there's no user-facing interface to interact with the config. A dedicated `openspec config` command provides discoverability and ease of use.
+Users need a way to view and modify their global OfficeSpec settings without manually editing JSON files. The `global-config` spec provides the foundation, but there's no user-facing interface to interact with the config. A dedicated `openspec config` command provides discoverability and ease of use.
 
 ## What Changes
 

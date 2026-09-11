@@ -16,7 +16,7 @@ spec whose Purpose says nothing at all passes.
 
 The result is a capability that carries a to-do indefinitely while every command
 reports success, and a silent pass is indistinguishable from a clean run.
-[#369](https://github.com/Fission-AI/OpenSpec/issues/369) reported agents leaving
+[#369](https://github.com/joelsebbu/OpenSpec/issues/369) reported agents leaving
 the placeholder behind and stayed open for seven months; the remedies since have
 been instructions, which is the mechanism that report described as unreliable.
 

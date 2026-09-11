@@ -57,7 +57,7 @@ describe('InitCommand', () => {
   });
 
   describe('execute with --tools flag', () => {
-    it('should create OpenSpec directory structure', async () => {
+    it('should create OfficeSpec directory structure', async () => {
       const initCommand = new InitCommand({ tools: 'claude', force: true });
 
       await initCommand.execute(testDir);
@@ -170,7 +170,7 @@ describe('InitCommand', () => {
       expect(content).toContain('context: |');
       expect(content).toContain('  Language: Portuguese (pt-BR)');
       expect(content).toContain('  All artifacts must be written in Portuguese (pt-BR).');
-      expect(content).toContain('  Keep OpenSpec structural headings and SHALL/MUST keywords in English.');
+      expect(content).toContain('  Keep OfficeSpec structural headings and SHALL/MUST keywords in English.');
       expect(readProjectConfig(testDir)?.context).toContain('Language: Portuguese (pt-BR)');
 
       await initCommand.execute(testDir);
@@ -188,7 +188,7 @@ describe('InitCommand', () => {
       const initCommand = new InitCommand({ tools: 'none', force: true, language: 'French' });
 
       await expect(initCommand.execute(testDir)).rejects.toThrow(
-        '--language does not overwrite an existing OpenSpec config',
+        '--language does not overwrite an existing OfficeSpec config',
       );
       expect(await fs.readFile(configPath, 'utf-8')).toBe(originalConfig);
     });
@@ -204,13 +204,13 @@ describe('InitCommand', () => {
       const initCommand = new InitCommand({ tools: 'none', force: true, language: 'French' });
 
       await expect(initCommand.execute(testDir)).rejects.toThrow(
-        '--language does not overwrite an existing OpenSpec config',
+        '--language does not overwrite an existing OfficeSpec config',
       );
       expect(await fs.readFile(configPath, 'utf-8')).toBe(originalConfig);
     });
 
     it('should accept language context at the exact project context size limit', async () => {
-      const language = 'x'.repeat(25_542);
+      const language = 'x'.repeat(25_541);
       const initCommand = new InitCommand({ tools: 'none', force: true, language });
 
       await initCommand.execute(testDir);
@@ -405,13 +405,13 @@ describe('InitCommand', () => {
 
       const initCommand = new InitCommand({ tools: 'claude', force: true });
       await expect(initCommand.execute(testDir)).rejects.toThrow(
-        'OpenSpec setup failed for: Claude Code'
+        'OfficeSpec setup failed for: Claude Code'
       );
 
       expect(await fs.readdir(outsideDir)).toEqual([]);
       expect((await fs.lstat(path.join(testDir, '.claude'))).isSymbolicLink()).toBe(true);
       expect(vi.mocked(console.log).mock.calls.flat().join('\n')).toContain(
-        'OpenSpec Setup Incomplete'
+        'OfficeSpec Setup Incomplete'
       );
     });
 
@@ -430,13 +430,13 @@ describe('InitCommand', () => {
         copilotCloud: true,
       });
       await expect(initCommand.execute(testDir)).rejects.toThrow(
-        'OpenSpec setup failed for: GitHub Copilot'
+        'OfficeSpec setup failed for: GitHub Copilot'
       );
 
       expect(await fs.readdir(outsideDir)).toEqual([]);
       expect((await fs.lstat(path.join(testDir, '.github'))).isSymbolicLink()).toBe(true);
       expect(vi.mocked(console.log).mock.calls.flat().join('\n')).toContain(
-        'OpenSpec Setup Incomplete'
+        'OfficeSpec Setup Incomplete'
       );
     });
 
@@ -456,7 +456,7 @@ describe('InitCommand', () => {
 
       const initCommand = new InitCommand({ tools: 'claude', force: true });
       await expect(initCommand.execute(testDir)).rejects.toThrow(
-        'OpenSpec setup failed for: Claude Code'
+        'OfficeSpec setup failed for: Claude Code'
       );
 
       expect(await fs.readFile(outsideFile, 'utf-8')).toBe(originalContent);
@@ -477,13 +477,13 @@ describe('InitCommand', () => {
 
       const initCommand = new InitCommand({ tools: 'minimax-code', force: true });
       await expect(initCommand.execute(testDir)).rejects.toThrow(
-        'OpenSpec setup failed for: MiniMax Code'
+        'OfficeSpec setup failed for: MiniMax Code'
       );
 
       expect(await fs.readdir(outsideDir)).toEqual([]);
       expect((await fs.lstat(linkedSkillDir)).isSymbolicLink()).toBe(true);
       expect(vi.mocked(console.log).mock.calls.flat().join('\n')).toContain(
-        'OpenSpec Setup Incomplete'
+        'OfficeSpec Setup Incomplete'
       );
     });
 
@@ -928,7 +928,7 @@ describe('InitCommand', () => {
       ).toBe(true);
     });
 
-    it('should migrate OpenSpec skills from legacy .kimi to .kimi-code during init', async () => {
+    it('should migrate OfficeSpec skills from legacy .kimi to .kimi-code during init', async () => {
       const legacySkillDir = path.join(testDir, '.kimi', 'skills', 'openspec-explore');
       await fs.mkdir(legacySkillDir, { recursive: true });
       await fs.writeFile(
@@ -1277,7 +1277,7 @@ describe('InitCommand', () => {
 
       await initCommand.execute(testDir);
 
-      // Should create OpenSpec structure but no skills
+      // Should create OfficeSpec structure but no skills
       const openspecPath = path.join(testDir, 'openspec');
       expect(await directoryExists(openspecPath)).toBe(true);
 
@@ -1585,12 +1585,12 @@ describe('InitCommand', () => {
         copilotCloud: true,
       });
       await expect(initCommand.execute(testDir)).rejects.toThrow(
-        'OpenSpec setup failed for: GitHub Copilot'
+        'OfficeSpec setup failed for: GitHub Copilot'
       );
 
       await expect(fs.stat(setupStepsPath)).rejects.toMatchObject({ code: 'ENOENT' });
       expect(vi.mocked(console.log).mock.calls.flat().join('\n')).toContain(
-        'OpenSpec Setup Incomplete'
+        'OfficeSpec Setup Incomplete'
       );
     });
 
@@ -1839,15 +1839,15 @@ describe('InitCommand - profile and detection features', () => {
   });
 
   it('should preselect configured tools but not directory-detected tools in extend mode', async () => {
-    // Simulate existing OpenSpec project (extend mode).
+    // Simulate existing OfficeSpec project (extend mode).
     await fs.mkdir(path.join(testDir, 'openspec'), { recursive: true });
 
-    // Configured with OpenSpec
+    // Configured with OfficeSpec
     const claudeSkillDir = path.join(testDir, '.claude', 'skills', 'openspec-explore');
     await fs.mkdir(claudeSkillDir, { recursive: true });
     await fs.writeFile(path.join(claudeSkillDir, 'SKILL.md'), 'configured');
 
-    // Directory detected only (not configured with OpenSpec)
+    // Directory detected only (not configured with OfficeSpec)
     await fs.mkdir(path.join(testDir, '.github'), { recursive: true });
     await fs.writeFile(path.join(testDir, '.github', 'copilot-instructions.md'), '');
 
@@ -1870,7 +1870,7 @@ describe('InitCommand - profile and detection features', () => {
   });
 
   it('should preselect detected tools for first-time interactive setup', async () => {
-    // First-time init: no openspec/ directory and no configured OpenSpec skills.
+    // First-time init: no openspec/ directory and no configured OfficeSpec skills.
     await fs.mkdir(path.join(testDir, '.github'), { recursive: true });
     await fs.writeFile(path.join(testDir, '.github', 'copilot-instructions.md'), '');
 

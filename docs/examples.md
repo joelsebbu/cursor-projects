@@ -23,7 +23,7 @@ AI:  Created openspec/changes/add-expense-checklist/
      Ready to do the work. Run /opsx:apply.
 ```
 
-Now read the plan. Open the proposal and the delta spec. This is the moment OpenSpec is built for: catching a wrong assumption while it's still one paragraph, not hours of wasted work. Edit any artifact directly if something's off, then continue.
+Now read the plan. Open the proposal and the delta spec. This is the moment OfficeSpec is built for: catching a wrong assumption while it's still one paragraph, not hours of wasted work. Edit any artifact directly if something's off, then continue.
 
 ```text
 You: /opsx:apply
@@ -188,14 +188,14 @@ Review each artifact as it lands, edit freely, and continue when you're happy. W
 
 ## Recipe 7: Learning the whole loop hands-on
 
-**When to use it:** you've installed OpenSpec and want to *feel* the workflow on your own code, not a toy example.
+**When to use it:** you've installed OfficeSpec and want to *feel* the workflow on your own code, not a toy example.
 
 Turn on the expanded commands (see Recipe 6), then:
 
 ```text
 You: /opsx:onboard
 
-AI:  Welcome to OpenSpec! I'll walk you through a complete change
+AI:  Welcome to OfficeSpec! I'll walk you through a complete change
      using your actual workspace. Let me scan for a small, safe
      improvement we can make together...
 ```

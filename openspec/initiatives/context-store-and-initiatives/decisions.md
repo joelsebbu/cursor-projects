@@ -4,10 +4,10 @@
 
 Decision: Track initiative roadmap implementation inside
 `openspec/initiatives/context-store-and-initiatives/` rather than creating an
-OpenSpec change for each roadmap item.
+OfficeSpec change for each roadmap item.
 
 Why: The initiative is the durable coordination object for this work. Repo-local
-OpenSpec changes should be reserved for implementation slices owned by a repo or
+OfficeSpec changes should be reserved for implementation slices owned by a repo or
 team. Roadmap-item tracking belongs with the initiative until a task needs a
 repo-owned implementation plan.
 
@@ -15,7 +15,7 @@ Implications:
 
 - Use `tasks.md` as the initiative-wide progress dashboard.
 - Use `work-items/<nn-slug>/` for detailed execution notes on one roadmap item.
-- Link repo-local OpenSpec changes back to the initiative later when
+- Link repo-local OfficeSpec changes back to the initiative later when
   implementation moves into a repo-owned slice.
 
 ## 2026-05-20: Lock Workspace-To-Initiative Product Boundary
@@ -34,7 +34,7 @@ Implications:
 
 ## 2026-05-21: Leave Specs Alone Until Behavior Changes
 
-Decision: Do not use the initial direction lock to rewrite OpenSpec specs.
+Decision: Do not use the initial direction lock to rewrite OfficeSpec specs.
 Specs should describe the current behavioral contract behind the code. The
 initiative artifacts should carry product intent, roadmap decisions, and future
 direction until a later implementation change deliberately updates behavior and
@@ -69,7 +69,7 @@ Implications:
 
 Decision: Generated workspace guidance should describe workspaces as local
 working views and route durable work to the owning artifact: initiatives own
-cross-team or cross-repo intent, repo-local OpenSpec changes own implementation
+cross-team or cross-repo intent, repo-local OfficeSpec changes own implementation
 plans, and linked repos or folders own their implementation.
 
 Why: The initiative direction supersedes the older model where a workspace-level
@@ -107,7 +107,7 @@ Implications:
 
 Decision: Treat initiatives as an agent-first workflow. Users should be able to
 prompt an agent with intent like "using initiative X, explore Y and create a
-proposal"; OpenSpec should provide small CLI primitives the agent can compose.
+proposal"; OfficeSpec should provide small CLI primitives the agent can compose.
 
 Why: The practical UX is not a human manually typing every coordination command.
 Agents need reliable structured answers about where canonical initiative context

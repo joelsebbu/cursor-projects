@@ -10,7 +10,7 @@ export const SKILLS_DIR = 'skills';
 
 /**
  * Drop the per-release `generatedBy` frontmatter line so the committed
- * skills.sh copies stay byte-stable across OpenSpec version bumps. The line is
+ * skills.sh copies stay byte-stable across OfficeSpec version bumps. The line is
  * meaningful only for skills that `openspec init` writes into a project; in the
  * standalone distribution it would just churn the files on every release.
  */

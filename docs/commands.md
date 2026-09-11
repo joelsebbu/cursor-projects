@@ -1,13 +1,13 @@
 # Commands
 
-This is the reference for OpenSpec's slash commands. These commands are invoked in your AI AI assistant's chat interface (e.g., Claude Code, Cursor, Devin Desktop).
+This is the reference for OfficeSpec's slash commands. These commands are invoked in your AI AI assistant's chat interface (e.g., Claude Code, Cursor, Devin Desktop).
 
 For workflow patterns and when to use each command, see [Workflows](workflows.md). For CLI commands, see [CLI](cli.md).
 
 These pages use `/opsx:<command>` as the canonical name. Some tools spell it
 differently — Cursor and GitHub Copilot register `/opsx-propose`, Codex uses
 `$openspec-propose` — so check [How To Invoke](supported-tools.md#how-to-invoke)
-for your tool. The files OpenSpec generates already use the right form.
+for your tool. The files OfficeSpec generates already use the right form.
 
 ## Quick Reference
 
@@ -607,7 +607,7 @@ AI:  ✓ Archived add-dark-mode
 
 ### `/opsx:onboard`
 
-Guided onboarding through the complete OpenSpec workflow. An interactive tutorial using your actual workspace.
+Guided onboarding through the complete OfficeSpec workflow. An interactive tutorial using your actual workspace.
 
 **Syntax:**
 ```
@@ -639,7 +639,7 @@ Guided onboarding through the complete OpenSpec workflow. An interactive tutoria
 ```
 You: /opsx:onboard
 
-AI:  Welcome to OpenSpec!
+AI:  Welcome to OfficeSpec!
 
      I'll walk you through the complete workflow using your actual workspace.
      We'll find something small to improve, create a proper change for it,
@@ -679,7 +679,7 @@ Different AI tools use slightly different command syntax. Use the format that ma
 
 > **Devin Desktop vs Devin Local:** the `.devin/workflows/opsx-*.md` files give
 > Devin Desktop `/opsx-propose`. Devin Local has no workflows — use the skills
-> OpenSpec writes to `.devin/skills/`, e.g. `/openspec-propose`, which work on
+> OfficeSpec writes to `.devin/skills/`, e.g. `/openspec-propose`, which work on
 > both agents.
 
 The intent is the same across tools, but how commands are surfaced can differ by integration. [How To Invoke](supported-tools.md#how-to-invoke) lists every supported tool; this table shows only examples of each shape.
@@ -739,10 +739,10 @@ The specified schema doesn't exist.
 
 ### Commands not recognized
 
-The AI tool doesn't recognize OpenSpec commands.
+The AI tool doesn't recognize OfficeSpec commands.
 
 **Solutions:**
-- Ensure OpenSpec is initialized: `openspec init`
+- Ensure OfficeSpec is initialized: `openspec init`
 - Regenerate skills: `openspec update`
 - Check that `.claude/skills/` directory exists (for Claude Code)
 - Restart your AI tool to pick up new skills

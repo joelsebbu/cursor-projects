@@ -163,7 +163,7 @@ export function shouldDeferCompletionTip(command: Command, stderrIsTty: boolean)
 
 program
   .name('openspec')
-  .description('AI-native system for spec-driven development')
+  .description('AI-native system for spec-driven office work')
   .version(version);
 
 // Global options
@@ -219,9 +219,9 @@ const toolsOptionDescription = `Configure AI tools non-interactively. Use "all",
 
 program
   .command('init [path]')
-  .description('Initialize OpenSpec in your project')
+  .description('Initialize OfficeSpec in your project')
   .option('--tools <tools>', toolsOptionDescription)
-  .option('--language <language>', 'Write new OpenSpec artifacts in this language')
+  .option('--language <language>', 'Write new OfficeSpec artifacts in this language')
   .option('--force', 'Auto-cleanup legacy files without prompting')
   .option('--profile <profile>', 'Override global config profile (core or custom)')
   .option('--no-animation', 'Show a static welcome screen instead of the animated one')
@@ -287,7 +287,7 @@ program
 
 program
   .command('update [path]')
-  .description('Update OpenSpec instruction files')
+  .description('Update OfficeSpec instruction files')
   .option('--force', 'Force update even when tools are up to date')
   .action(async (targetPath = '.', options?: { force?: boolean }) => {
     try {
@@ -414,7 +414,7 @@ program
 // Change command with subcommands
 const changeCmd = program
   .command('change')
-  .description('Manage OpenSpec change proposals');
+  .description('Manage OfficeSpec change proposals');
 
 // Deprecation notice for noun-based commands
 changeCmd.hook('preAction', () => {
@@ -563,7 +563,7 @@ program
 // Feedback command
 program
   .command('feedback <message>')
-  .description('Submit feedback about OpenSpec')
+  .description('Submit feedback about OfficeSpec')
   .option('--body <text>', 'Detailed description for the feedback')
   .action(async (message: string, options?: { body?: string }) => {
     try {
@@ -578,7 +578,7 @@ program
 // Completion command with subcommands
 const completionCmd = program
   .command('completion')
-  .description('Manage shell completions for OpenSpec CLI');
+  .description('Manage shell completions for OfficeSpec CLI');
 
 completionCmd
   .command('generate [shell]')

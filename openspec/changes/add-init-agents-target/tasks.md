@@ -7,7 +7,7 @@
 
 - [x] 2.1 Enable `agents` in `src/core/config.ts` with `skillsDir: '.agents'`
 - [x] 2.2 Scope detection with `detectionPaths: ['.agents/skills']`
-- [x] 2.3 Rename the entry to `Shared .agents skills` so it names the directory instead of a file OpenSpec never writes
+- [x] 2.3 Rename the entry to `Shared .agents skills` so it names the directory instead of a file OfficeSpec never writes
 
 ## 3. Docs
 

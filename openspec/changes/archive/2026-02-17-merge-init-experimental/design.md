@@ -45,16 +45,16 @@ The skill-based workflow (experimental) is the direction we're going, so we're m
 
 ### Decision 3: Surgical removal of legacy content
 
-**Choice**: For files with mixed content (OpenSpec markers + user content), only remove the OpenSpec marker block. For files that are 100% OpenSpec content, delete the entire file.
+**Choice**: For files with mixed content (OfficeSpec markers + user content), only remove the OfficeSpec marker block. For files that are 100% OfficeSpec content, delete the entire file.
 
-**Rationale**: Respects user customizations. CLAUDE.md might have other instructions beyond OpenSpec.
+**Rationale**: Respects user customizations. CLAUDE.md might have other instructions beyond OfficeSpec.
 
 **Edge cases**:
 - **Config files with mixed content**: Remove only `<!-- OPENSPEC:START -->` to `<!-- OPENSPEC:END -->` block
-- **Config files that are 100% OpenSpec**: Delete file entirely (check if content outside markers is empty/whitespace)
+- **Config files that are 100% OfficeSpec**: Delete file entirely (check if content outside markers is empty/whitespace)
 - **Old slash command directories** (`.claude/commands/openspec/`): Delete entire directory (ours)
 - **`openspec/AGENTS.md`**: Delete (ours)
-- **Root `AGENTS.md`**: Only remove OpenSpec marker block, preserve rest
+- **Root `AGENTS.md`**: Only remove OfficeSpec marker block, preserve rest
 
 ### Decision 6: Preserve project.md with migration hint
 
@@ -145,11 +145,11 @@ openspec/
 
 | Artifact Type | Detection Method | Removal Method |
 |--------------|------------------|----------------|
-| Config files (CLAUDE.md, etc.) | File exists AND contains OpenSpec markers | Remove marker block; delete file if empty after |
+| Config files (CLAUDE.md, etc.) | File exists AND contains OfficeSpec markers | Remove marker block; delete file if empty after |
 | Old slash command dirs | Directory exists at `.<tool>/commands/openspec/` | Delete entire directory |
 | openspec/AGENTS.md | File exists at `openspec/AGENTS.md` | Delete file |
 | openspec/project.md | File exists at `openspec/project.md` | **Preserve** - show migration hint only |
-| Root AGENTS.md | File exists at `AGENTS.md` AND contains OpenSpec markers | Remove marker block; delete file if empty after |
+| Root AGENTS.md | File exists at `AGENTS.md` AND contains OfficeSpec markers | Remove marker block; delete file if empty after |
 
 ### Code to remove
 

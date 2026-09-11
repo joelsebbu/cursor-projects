@@ -1,6 +1,6 @@
 ## Context
 
-OpenSpec needs usage analytics to understand adoption and inform product decisions. PostHog provides a privacy-conscious analytics platform suitable for open source projects.
+OfficeSpec needs usage analytics to understand adoption and inform product decisions. PostHog provides a privacy-conscious analytics platform suitable for open source projects.
 
 ## Goals / Non-Goals
 
@@ -49,7 +49,7 @@ Auto-disabled when `CI=true` is detected.
   event: 'command_executed',
   properties: {
     command: 'init',      // Command name only
-    version: '1.2.3'      // OpenSpec version
+    version: '1.2.3'      // OfficeSpec version
   }
 }
 ```
@@ -142,7 +142,7 @@ program
 **Decision:** One-liner on first command ever, stored "seen" flag in config.
 
 ```
-Note: OpenSpec collects anonymous usage stats. Opt out: OPENSPEC_TELEMETRY=0
+Note: OfficeSpec collects anonymous usage stats. Opt out: OPENSPEC_TELEMETRY=0
 ```
 
 **Rationale:**

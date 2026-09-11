@@ -4,13 +4,13 @@ Quick answers to the questions people ask most. If your question is really a "so
 
 ## The basics
 
-### What is OpenSpec, in one sentence?
+### What is OfficeSpec, in one sentence?
 
 A lightweight layer that gets you and your AI AI assistant to agree on what to do, in writing, before any work starts.
 
 ### Why would I want that?
 
-Because AI assistants are confident even when they're wrong. When the requirements live only in a chat thread, the AI fills gaps with guesses, and you find out after the code exists. OpenSpec moves the agreement earlier, where mistakes are cheap to fix. See [Core Concepts at a Glance](overview.md) for the full case.
+Because AI assistants are confident even when they're wrong. When the requirements live only in a chat thread, the AI fills gaps with guesses, and you find out after the code exists. OfficeSpec moves the agreement earlier, where mistakes are cheap to fix. See [Core Concepts at a Glance](overview.md) for the full case.
 
 ### Do I have to use it for everything?
 
@@ -18,11 +18,11 @@ No. Use it where agreement matters, which is most non-trivial work. For a one-ch
 
 ### Can I use it on a big existing workspace, or only new projects?
 
-Existing workspaces are the main event. OpenSpec is existing work-first: you do not document your whole app up front. You write specs only for what each change touches, and your specs fill in over time around the work you actually do. There's a dedicated guide: [Using OpenSpec in an Existing Project](existing-projects.md).
+Existing workspaces are the main event. OfficeSpec is existing work-first: you do not document your whole app up front. You write specs only for what each change touches, and your specs fill in over time around the work you actually do. There's a dedicated guide: [Using OfficeSpec in an Existing Project](existing-projects.md).
 
 ### Is it tied to one AI tool?
 
-No. OpenSpec works with 30+ assistants, including Claude Code, Cursor, Devin Desktop, GitHub Copilot, Gemini CLI, Codex, and more. The full list and per-tool details are in [Supported Tools](supported-tools.md).
+No. OfficeSpec works with 30+ assistants, including Claude Code, Cursor, Devin Desktop, GitHub Copilot, Gemini CLI, Codex, and more. The full list and per-tool details are in [Supported Tools](supported-tools.md).
 
 ## Running commands
 
@@ -32,7 +32,7 @@ In your AI assistant's chat, not your terminal. This is the single most common p
 
 ### How do I "start interactive mode"?
 
-There isn't a separate mode to start. You open your AI assistant like normal and type a slash command into its chat. The slash command is how you "enter" OpenSpec. (The one genuinely interactive terminal feature is `openspec view`, a dashboard for browsing specs and changes.) Full explanation in [How Commands Work](how-commands-work.md).
+There isn't a separate mode to start. You open your AI assistant like normal and type a slash command into its chat. The slash command is how you "enter" OfficeSpec. (The one genuinely interactive terminal feature is `openspec view`, a dashboard for browsing specs and changes.) Full explanation in [How Commands Work](how-commands-work.md).
 
 ### I typed a slash command and nothing happened. Why?
 
@@ -40,11 +40,11 @@ Most likely you typed it in the terminal instead of your AI chat, you used a spe
 
 ### Why is the syntax `/opsx:propose` in one tool and `/opsx-propose` in another?
 
-Each AI tool surfaces custom commands a little differently, and OpenSpec spells them the way your tool loads the file it wrote. A command file named `opsx-propose.md` is typed `/opsx-propose`; one filed under `commands/opsx/` is typed `/opsx:propose`. Tools that take skills instead of commands use the skill name — Codex needs `$openspec-propose`, Kimi Code `/skill:openspec-propose`. The `openspec init` "Getting started" line already prints the right form for the tools you picked; the full table is in [How To Invoke](supported-tools.md#how-to-invoke).
+Each AI tool surfaces custom commands a little differently, and OfficeSpec spells them the way your tool loads the file it wrote. A command file named `opsx-propose.md` is typed `/opsx-propose`; one filed under `commands/opsx/` is typed `/opsx:propose`. Tools that take skills instead of commands use the skill name — Codex needs `$openspec-propose`, Kimi Code `/skill:openspec-propose`. The `openspec init` "Getting started" line already prints the right form for the tools you picked; the full table is in [How To Invoke](supported-tools.md#how-to-invoke).
 
 ### What's the difference between a skill and a command?
 
-Both are files OpenSpec writes so your assistant can run the workflow. Skills (`.../skills/openspec-*/SKILL.md`) are the newer cross-tool standard; commands (`.../commands/opsx-*`) are the older per-tool slash files. You don't need to pick. You just type the slash command, and OpenSpec installs whichever your tool uses.
+Both are files OfficeSpec writes so your assistant can run the workflow. Skills (`.../skills/openspec-*/SKILL.md`) are the newer cross-tool standard; commands (`.../commands/opsx-*`) are the older per-tool slash files. You don't need to pick. You just type the slash command, and OfficeSpec installs whichever your tool uses.
 
 ## The workflow
 
@@ -104,7 +104,7 @@ A spec describes observable behavior: what the process does, its inputs, outputs
 
 ### What's a delta spec?
 
-A spec that describes only what's changing, using `ADDED`, `MODIFIED`, and `REMOVED` sections, rather than restating the whole spec. It's how OpenSpec handles edits to existing systems cleanly. See [Concepts](concepts.md#delta-specs).
+A spec that describes only what's changing, using `ADDED`, `MODIFIED`, and `REMOVED` sections, rather than restating the whole spec. It's how OfficeSpec handles edits to existing systems cleanly. See [Concepts](concepts.md#delta-specs).
 
 ### Where do archived changes go?
 
@@ -128,26 +128,26 @@ Yes, with custom schemas. A schema defines which artifacts exist and how they de
 
 ### Which AI model should I use?
 
-OpenSpec works best with high-reasoning models. The README recommends models like Codex 5.5 and Opus 4.7 for both planning and implementation. Also keep your context window clean: clear it before implementation for best results.
+OfficeSpec works best with high-reasoning models. The README recommends models like Codex 5.5 and Opus 4.7 for both planning and implementation. Also keep your context window clean: clear it before implementation for best results.
 
-### Does OpenSpec collect data?
+### Does OfficeSpec collect data?
 
 It collects anonymous usage stats: command names and version only. No arguments, paths, content, or personal data, and it's off automatically in CI. Opt out with `export OPENSPEC_TELEMETRY=0` or `export DO_NOT_TRACK=1`.
 
 ### How do I upgrade?
 
-Two steps. Upgrade the package (`npm install -g @fission-ai/openspec@latest`), then run `openspec update` inside each project to refresh the generated skills and commands.
+Two steps. Upgrade the package (`npm install -g officespec@latest`), then run `openspec update` inside each project to refresh the generated skills and commands.
 
-### How do I uninstall OpenSpec?
+### How do I uninstall OfficeSpec?
 
-There's no uninstall command, because it's just a global package plus files in your work. Remove the package (`npm uninstall -g @fission-ai/openspec`), and optionally delete the `openspec/` directory and the generated tool files. Step-by-step, including what's safe to keep, is in [Installation: Uninstalling](installation.md#uninstalling).
+There's no uninstall command, because it's just a global package plus files in your work. Remove the package (`npm uninstall -g officespec`), and optionally delete the `openspec/` directory and the generated tool files. Step-by-step, including what's safe to keep, is in [Installation: Uninstalling](installation.md#uninstalling).
 
 ## Getting help
 
 ### Where do I ask questions or report bugs?
 
 - **Discord:** [discord.gg/YctCnvvshC](https://discord.gg/YctCnvvshC)
-- **GitHub Issues:** [github.com/Fission-AI/OpenSpec/issues](https://github.com/Fission-AI/OpenSpec/issues)
+- **GitHub Issues:** [github.com/joelsebbu/OpenSpec/issues](https://github.com/joelsebbu/OpenSpec/issues)
 - **From your terminal:** `openspec feedback "your message"` opens a GitHub issue for you.
 
 ### These docs are wrong or confusing. What do I do?

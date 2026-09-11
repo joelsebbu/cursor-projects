@@ -1,6 +1,6 @@
 ## Why
 
-OPSX names **four** first-class actions — "create, implement, **update**, archive — do any of them anytime" ([docs/opsx.md:52](../../../docs/opsx.md)). Three ship as commands. **`update` does not exist.** The only mechanism offered is *"edit the files manually"* — and when you edit one artifact, nothing helps you keep the rest of the change coherent. Worse, the manual workaround lets the agent edit **code** when the user only wanted to revise the **plan** ([#1188](https://github.com/Fission-AI/OpenSpec/issues/1188)).
+OPSX names **four** first-class actions — "create, implement, **update**, archive — do any of them anytime" ([docs/opsx.md:52](../../../docs/opsx.md)). Three ship as commands. **`update` does not exist.** The only mechanism offered is *"edit the files manually"* — and when you edit one artifact, nothing helps you keep the rest of the change coherent. Worse, the manual workaround lets the agent edit **code** when the user only wanted to revise the **plan** ([#1188](https://github.com/joelsebbu/OpenSpec/issues/1188)).
 
 This is the most-requested missing capability in the tracker. It is one gap with several faces, and the fix is small: a thin `/opsx:update` skill that revises a change's planning artifacts and keeps them coherent with each other, built on the **existing** `openspec status` / `openspec list` commands. No new graph engine, no digests, no ledger — just an agent that reads the change's artifacts and updates what needs updating, with the user's confirmation.
 
@@ -16,8 +16,8 @@ The whole feature is a single new workflow skill, `/opsx:update`. The skill is d
 
 Two guardrails make it the command the cluster asked for:
 
-- **Planning artifacts only, never code.** If a revised plan implies code changes, it hands off to `/opsx:apply` ([#1188](https://github.com/Fission-AI/OpenSpec/issues/1188)).
-- **Schema-driven, not name-driven.** Artifact ids and paths come from `openspec status`, so the skill works for custom schemas, not just the default `proposal → specs → design → tasks` ([#777](https://github.com/Fission-AI/OpenSpec/issues/777), [#666](https://github.com/Fission-AI/OpenSpec/issues/666)).
+- **Planning artifacts only, never code.** If a revised plan implies code changes, it hands off to `/opsx:apply` ([#1188](https://github.com/joelsebbu/OpenSpec/issues/1188)).
+- **Schema-driven, not name-driven.** Artifact ids and paths come from `openspec status`, so the skill works for custom schemas, not just the default `proposal → specs → design → tasks` ([#777](https://github.com/joelsebbu/OpenSpec/issues/777), [#666](https://github.com/joelsebbu/OpenSpec/issues/666)).
 
 **Coherence is bidirectional.** Earlier framing treated update as strictly "downstream" propagation. That is wrong: in `proposal → specs → design → tasks`, editing `design` can require revising `proposal` too. The skill reads the change's artifacts and reconciles them in whatever direction the edit demands, rather than assuming a fixed flow.
 
@@ -45,15 +45,15 @@ Verified against `Fission-AI/OpenSpec` on 2026-06-30.
 
 Closes (the missing-update-action family):
 
-- [#1188](https://github.com/Fission-AI/OpenSpec/issues/1188) — "Add a command to update proposal, design and task" (and stop it editing code). Delivered as `/opsx:update`, planning-artifacts-only.
-- [#705](https://github.com/Fission-AI/OpenSpec/issues/705) — "Rebuild downstream artifacts from a modified upstream." Delivered as the skill's read-and-reconcile pass over the change's artifacts.
-- [#673](https://github.com/Fission-AI/OpenSpec/issues/673) — "clarify": update existing artifacts without auto-advancing the build frontier. `/opsx:update` revises in place and never creates the next artifact.
-- [#247](https://github.com/Fission-AI/OpenSpec/issues/247) — "review and update all change proposals." Delivered as the within-a-change coherence review; cross-change audit is a separate, later proposal.
+- [#1188](https://github.com/joelsebbu/OpenSpec/issues/1188) — "Add a command to update proposal, design and task" (and stop it editing code). Delivered as `/opsx:update`, planning-artifacts-only.
+- [#705](https://github.com/joelsebbu/OpenSpec/issues/705) — "Rebuild downstream artifacts from a modified upstream." Delivered as the skill's read-and-reconcile pass over the change's artifacts.
+- [#673](https://github.com/joelsebbu/OpenSpec/issues/673) — "clarify": update existing artifacts without auto-advancing the build frontier. `/opsx:update` revises in place and never creates the next artifact.
+- [#247](https://github.com/joelsebbu/OpenSpec/issues/247) — "review and update all change proposals." Delivered as the within-a-change coherence review; cross-change audit is a separate, later proposal.
 
 Answers (questions whose honest answer today is "no command exists"):
 
-- [#694](https://github.com/Fission-AI/OpenSpec/issues/694), [#684](https://github.com/Fission-AI/OpenSpec/issues/684), [#618](https://github.com/Fission-AI/OpenSpec/issues/618) — "which command regenerates a document after the flow progressed / after apply?" → `/opsx:update`.
-- Discussion [#1206](https://github.com/Fission-AI/OpenSpec/discussions/1206) — the official answer becomes `/opsx:update`.
+- [#694](https://github.com/joelsebbu/OpenSpec/issues/694), [#684](https://github.com/joelsebbu/OpenSpec/issues/684), [#618](https://github.com/joelsebbu/OpenSpec/issues/618) — "which command regenerates a document after the flow progressed / after apply?" → `/opsx:update`.
+- Discussion [#1206](https://github.com/joelsebbu/OpenSpec/discussions/1206) — the official answer becomes `/opsx:update`.
 
 Supersedes:
 
@@ -61,6 +61,6 @@ Supersedes:
 
 Delineated from adjacent commands (distinct surfaces — coordinate, don't collide):
 
-- [#702](https://github.com/Fission-AI/OpenSpec/pull/702) `/opsx:clarify` — resolves ambiguity *within one artifact* via Q&A; a complementary upstream step. `/opsx:update` then reconciles the change's artifacts with each other.
-- [#1251](https://github.com/Fission-AI/OpenSpec/pull/1251) `/opsx:review`, [#880](https://github.com/Fission-AI/OpenSpec/issues/880) — review the *implementation (code)* against the plan. `/opsx:update` is the mirror image: it keeps the *plan* coherent and never touches code.
-- [#783](https://github.com/Fission-AI/OpenSpec/issues/783) — cross-artifact quality review. The skill's coherence pass is the lightweight form of this; a deterministic `validate`-side check is a separate proposal.
+- [#702](https://github.com/joelsebbu/OpenSpec/pull/702) `/opsx:clarify` — resolves ambiguity *within one artifact* via Q&A; a complementary upstream step. `/opsx:update` then reconciles the change's artifacts with each other.
+- [#1251](https://github.com/joelsebbu/OpenSpec/pull/1251) `/opsx:review`, [#880](https://github.com/joelsebbu/OpenSpec/issues/880) — review the *implementation (code)* against the plan. `/opsx:update` is the mirror image: it keeps the *plan* coherent and never touches code.
+- [#783](https://github.com/joelsebbu/OpenSpec/issues/783) — cross-artifact quality review. The skill's coherence pass is the lightweight form of this; a deterministic `validate`-side check is a separate proposal.

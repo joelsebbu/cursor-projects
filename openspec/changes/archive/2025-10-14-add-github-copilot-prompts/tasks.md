@@ -17,7 +17,7 @@
   - Display "(already configured)" when prompt files exist
 
 - [x] Update `src/core/update.ts` to refresh GitHub Copilot prompts when they exist
-  - Call `updateExisting()` for GitHub Copilot configurator when `.github/prompts/` contains OpenSpec prompt files
+  - Call `updateExisting()` for GitHub Copilot configurator when `.github/prompts/` contains OfficeSpec prompt files
 
 - [x] Add integration tests for GitHub Copilot slash command generation
   - Test `generateAll()` creates three prompt files with correct structure (frontmatter + markers + body)

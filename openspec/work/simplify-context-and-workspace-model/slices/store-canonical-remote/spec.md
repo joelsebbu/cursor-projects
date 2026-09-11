@@ -142,7 +142,7 @@ Store doctor
 
 team-context
   Location: /Users/dev/src/team-context
-  OpenSpec root: ok
+  OfficeSpec root: ok
   Metadata: ok
   Remote: git@github.com:acme/team-context.git
   Git: repository detected (commits: yes, uncommitted changes: no, remote: yes)

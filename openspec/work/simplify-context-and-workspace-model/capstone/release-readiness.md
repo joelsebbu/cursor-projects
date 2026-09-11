@@ -9,7 +9,7 @@ Ideas. No open P1/P2 findings anywhere in the capstone ledgers.**
 
 ## The five-minute new-user story
 
-You install OpenSpec and run two commands:
+You install OfficeSpec and run two commands:
 
 ```bash
 openspec store setup team-plans --path ~/openspec/team-plans
@@ -26,7 +26,7 @@ line (`store: team-plans` in `openspec/config.yaml`) after which the
 lifecycle works from inside them with zero flags; project roots can
 declare `references:` for read-only upstream context with fetch recipes.
 `openspec doctor` answers "is my setup healthy"; `openspec context`
-answers "what OpenSpec roots are related by declarations"; and personal
+answers "what OfficeSpec roots are related by declarations"; and personal
 worksets open the planning repo plus whichever code folders the user
 chooses. Everything has `--json` with a documented agent contract
 (`docs/agent-contract.md`).
@@ -41,7 +41,7 @@ abstraction is now recorded as a removed experiment, not current product proof.
 - **One root model.** A single resolution precedence (explicit
   `--store` → nearest qualifying root → declared pointer →
   hint/implicit) implemented exactly once and verified hold across all
-  command entry points. Stores are standalone OpenSpec repos in a typed
+  command entry points. Stores are standalone OfficeSpec repos in a typed
   local registry.
 - **Declared references, no machinery.** `references:` are read-only
   context declarations; nothing clones, syncs, or enforces edit

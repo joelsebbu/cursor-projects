@@ -1,13 +1,13 @@
 # Contributing
 
-Thanks for helping improve OpenSpec.
+Thanks for helping improve OfficeSpec.
 
 ## 1. Open a discussion or an issue first
 
 Every change starts here, including small ones.
 
-- [Start a discussion](https://github.com/Fission-AI/OpenSpec/discussions) if it affects OpenSpec's core design.
-- [Open an issue](https://github.com/Fission-AI/OpenSpec/issues) for bugs and everything else.
+- [Start a discussion](https://github.com/joelsebbu/OpenSpec/discussions) if it affects OfficeSpec's core design.
+- [Open an issue](https://github.com/joelsebbu/OpenSpec/issues) for bugs and everything else.
 
 This is so we can agree on the approach before you spend time building. PRs without a linked issue or a prior discussion may be closed.
 
@@ -15,9 +15,9 @@ This is so we can agree on the approach before you spend time building. PRs with
 
 A bug fix, a typo, or a small improvement goes straight to a PR.
 
-A new workflow, a significant refactor, or anything that changes OpenSpec's structure needs an OpenSpec change proposal first, so we can align on intent and goals before work begins. Open it as a PR containing only `openspec/changes/<name>/` and wait for it to be approved before you do the work.
+A new workflow, a significant refactor, or anything that changes OfficeSpec's structure needs an OfficeSpec change proposal first, so we can align on intent and goals before work begins. Open it as a PR containing only `openspec/changes/<name>/` and wait for it to be approved before you do the work.
 
-When writing a proposal, keep the OpenSpec philosophy in mind: we serve a wide variety of users across different AI assistants, models, and use cases — from software teams to operations, HR, finance, marketing, and admin. Changes should work well for everyone.
+When writing a proposal, keep the OfficeSpec philosophy in mind: we serve a wide variety of users across different AI assistants, models, and use cases — from software teams to operations, HR, finance, marketing, and admin. Changes should work well for everyone.
 
 If you are not sure which side of the line your change falls on, ask in the discussion or issue from step 1.
 

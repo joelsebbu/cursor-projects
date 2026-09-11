@@ -9,8 +9,8 @@
 - How should linked repo changes report progress back into an initiative without
   becoming a Jira clone?
 - How should monorepos map capabilities, folders, and repo-local changes?
-- Should OpenSpec support configurable change homes across context stores and
-  local OpenSpec repos, and what ownership rules keep that model safe?
+- Should OfficeSpec support configurable change homes across context stores and
+  local OfficeSpec repos, and what ownership rules keep that model safe?
 
 ## Resolved
 

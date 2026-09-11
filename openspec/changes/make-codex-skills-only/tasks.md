@@ -9,9 +9,9 @@
 
 - [x] 2.1 Reuse the command-surface capability model for Codex by resolving Codex as `skills-invocable`; do not add a Codex-only delivery predicate.
 - [x] 2.2 Update `openspec init` generation so Codex skills are created for `both`, `skills`, and `commands` delivery modes.
-- [x] 2.3 Update `openspec init` command cleanup so `commands` delivery does not remove Codex OpenSpec skill directories.
+- [x] 2.3 Update `openspec init` command cleanup so `commands` delivery does not remove Codex OfficeSpec skill directories.
 - [x] 2.4 Update `openspec update` generation so configured Codex skills are refreshed for `both`, `skills`, and `commands` delivery modes.
-- [x] 2.5 Update `openspec update` delivery reconciliation so `commands` delivery does not remove Codex OpenSpec skill directories.
+- [x] 2.5 Update `openspec update` delivery reconciliation so `commands` delivery does not remove Codex OfficeSpec skill directories.
 - [x] 2.6 Keep command generation skipped for Codex whenever command generation would otherwise run.
 - [x] 2.7 If `add-tool-command-surface-capabilities` has not landed first, stage the smallest shared capability helper needed so Codex and later skills-invocable tools use the same path.
 

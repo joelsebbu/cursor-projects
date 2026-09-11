@@ -1,15 +1,15 @@
 # Add Slash Command Support for Coding Agents
 
 ## Summary
-- Enable OpenSpec to generate and update custom slash commands for supported coding agents (Claude Code and Cursor).
-- Provide three slash commands aligned with OpenSpec's workflow: proposal (start a change proposal), apply (implement), and archive.
+- Enable OfficeSpec to generate and update custom slash commands for supported coding agents (Claude Code and Cursor).
+- Provide three slash commands aligned with OfficeSpec's workflow: proposal (start a change proposal), apply (implement), and archive.
 - Share slash command templating between agents to make future extensions simple.
 
 ## Motivation
-Developers use different coding agents and editors. Having consistent slash commands across tools for the OpenSpec workflow reduces friction and ensures a standard way to trigger the workflow. Supporting both Claude Code and Cursor now lays a foundation for future agents that introduce slash command features.
+Developers use different coding agents and editors. Having consistent slash commands across tools for the OfficeSpec workflow reduces friction and ensures a standard way to trigger the workflow. Supporting both Claude Code and Cursor now lays a foundation for future agents that introduce slash command features.
 
 ## Proposal
-1. During `openspec init`, when a user selects a supported tool, generate slash command configuration for three OpenSpec workflow stages:
+1. During `openspec init`, when a user selects a supported tool, generate slash command configuration for three OfficeSpec workflow stages:
    - Claude (namespaced): `/openspec/proposal`, `/openspec/apply`, `/openspec/archive`.
    - Cursor (flat, prefixed): `/openspec-proposal`, `/openspec-apply`, `/openspec-archive`.
    - Semantics:
@@ -23,9 +23,9 @@ Developers use different coding agents and editors. Having consistent slash comm
    - Ensure nested directories are created.
 3. Command file format and metadata:
    - Use Markdown with optional YAML frontmatter for tool metadata (name/title, description, category/tags) when supported by the tool.
-   - Place OpenSpec markers around the body only, never inside frontmatter.
+   - Place OfficeSpec markers around the body only, never inside frontmatter.
    - Keep the visible slash name, file name, and any frontmatter `name`/`id` consistently aligned (e.g., `proposal`, `openspec-proposal`).
-   - Namespacing: categorize these under “OpenSpec” and prefer unique IDs (e.g., `openspec-proposal`) to avoid collisions.
+   - Namespacing: categorize these under “OfficeSpec” and prefer unique IDs (e.g., `openspec-proposal`) to avoid collisions.
 4. Centralize templates: define command bodies once and reuse across tools; apply minimal per-tool wrappers (frontmatter, categories, filenames).
 5. During `openspec update`, refresh only existing slash command files (per-file basis) within markers; do not create missing files or new tools.
 
@@ -50,7 +50,7 @@ Developers use different coding agents and editors. Having consistent slash comm
 
 ### Command Naming & UX
 - Claude Code: use namespacing in the slash itself for readability and grouping: `/openspec/proposal`, `/openspec/apply`, `/openspec/archive`.
-- Cursor: use flat names with an `openspec-` prefix: `/openspec-proposal`, `/openspec-apply`, `/openspec-archive`. Group via `category: OpenSpec` when supported.
+- Cursor: use flat names with an `openspec-` prefix: `/openspec-proposal`, `/openspec-apply`, `/openspec-archive`. Group via `category: OfficeSpec` when supported.
 - Consistency: align file names, visible slash names, and any frontmatter `id` (e.g., `id: openspec-apply`).
 - Migration: do not rename existing commands during `update`; apply new naming only on `init` (or via an explicit migrate step).
 
@@ -79,9 +79,9 @@ The following examples illustrate expected structure. If a tool does not support
 ### Claude Code: `.claude/commands/openspec/proposal.md`
 ```markdown
 ---
-name: OpenSpec: Proposal
-description: Scaffold a new OpenSpec change and validate strictly.
-category: OpenSpec
+name: OfficeSpec: Proposal
+description: Scaffold a new OfficeSpec change and validate strictly.
+category: OfficeSpec
 tags: [openspec, change]
 ---
 <!-- OPENSPEC:START -->
@@ -96,8 +96,8 @@ Slash invocation: `/openspec/proposal` (namespaced)
 ---
 name: /openspec-proposal
 id: openspec-proposal
-category: OpenSpec
-description: Scaffold a new OpenSpec change and validate strictly.
+category: OfficeSpec
+description: Scaffold a new OfficeSpec change and validate strictly.
 ---
 <!-- OPENSPEC:START -->
 ...command body from shared template...

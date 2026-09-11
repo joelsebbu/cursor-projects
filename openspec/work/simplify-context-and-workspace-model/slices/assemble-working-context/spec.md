@@ -2,8 +2,8 @@
 
 ## Outcome
 
-From any root, one command produces the OpenSpec working context its
-declarations describe: the resolved OpenSpec root plus referenced stores.
+From any root, one command produces the OfficeSpec working context its
+declarations describe: the resolved OfficeSpec root plus referenced stores.
 The result is consumable as an agent brief (JSON), human listing, or optional
 `.code-workspace` file. Unresolvable references are reported, not guessed.
 
@@ -14,7 +14,7 @@ personal worksets.
 ## Locked Decisions
 
 1. **Assembly is a local convenience, not a planning system.** The selected
-   OpenSpec root remains the source of truth; references provide read-only
+   OfficeSpec root remains the source of truth; references provide read-only
    upstream context.
 2. **The primary interface is an agent brief.** The editor file is one consumer
    of the same assembled data.
@@ -45,7 +45,7 @@ cross-cutting degradation such as an unreadable registry.
 $ openspec context
 Working context for team-context (/Users/dev/src/team-context)
 
-OpenSpec root
+OfficeSpec root
   team-context  /Users/dev/src/team-context
 
 Referenced stores

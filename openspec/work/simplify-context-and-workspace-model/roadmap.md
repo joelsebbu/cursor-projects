@@ -9,8 +9,8 @@ Specs are what is true.
 Work is what is in motion.
 ```
 
-OpenSpec work should live in normal Git files. Those files can live inside the
-project repo, or they can live in a separate OpenSpec repo that points at one or
+OfficeSpec work should live in normal Git files. Those files can live inside the
+project repo, or they can live in a separate OfficeSpec repo that points at one or
 more project repos.
 
 This roadmap should be readable by someone with no beta context. Each item says:
@@ -30,16 +30,16 @@ initiatives, workspaces, collections, and repo-local modes.
 
 The simpler product story should become:
 
-1. OpenSpec can live in this project repo or in its own Git repo.
-2. If OpenSpec lives in its own repo, users can register that repo locally.
-3. Normal OpenSpec commands can create, read, validate, and archive work in that
-   selected OpenSpec repo.
-4. A project repo with its own OpenSpec root can reference standalone OpenSpec
+1. OfficeSpec can live in this project repo or in its own Git repo.
+2. If OfficeSpec lives in its own repo, users can register that repo locally.
+3. Normal OfficeSpec commands can create, read, validate, and archive work in that
+   selected OfficeSpec repo.
+4. A project repo with its own OfficeSpec root can reference standalone OfficeSpec
    repos its work draws on, such as high-level requirements from PMs and
    architects, without those repos taking over where commands act.
 5. Personal worksets can open a planning repo alongside whichever code repos
    the user explicitly chooses for this machine.
-6. The assembled OpenSpec context can show the root plus referenced stores; it
+6. The assembled OfficeSpec context can show the root plus referenced stores; it
    does not infer implementation repos from declarations.
 
 The product should not require users or agents to understand initiatives,
@@ -47,26 +47,26 @@ workspace-owned planning, or collection state as the main model.
 
 ## Vocabulary For This Roadmap
 
-- **OpenSpec root**: the `openspec/` folder with `config.yaml`, `specs/`, and
+- **OfficeSpec root**: the `openspec/` folder with `config.yaml`, `specs/`, and
   `changes/`.
-- **OpenSpec inside a project repo**: the `openspec/` folder lives inside the
+- **OfficeSpec inside a project repo**: the `openspec/` folder lives inside the
   code repo.
-- **Standalone OpenSpec repo**: the `openspec/` folder lives in its own Git
+- **Standalone OfficeSpec repo**: the `openspec/` folder lives in its own Git
   repo.
-- **Store**: a standalone OpenSpec repo registered on this machine. It has a
+- **Store**: a standalone OfficeSpec repo registered on this machine. It has a
   thin `.openspec-store/store.yaml` identity file, but the real planning work
   lives in normal files under `openspec/`. (Renamed from the beta noun
   "context store" on 2026-06-11; the CLI group rename lands in slice 1.4.)
-- **Reference store**: a standalone OpenSpec repo that a project repo's work
+- **Reference store**: a standalone OfficeSpec repo that a project repo's work
   draws on for context (for example PM/architect requirements). A reference
   never changes where commands act; it is read as context.
-- **View**: a local convenience for opening the OpenSpec repo and project repos
+- **View**: a local convenience for opening the OfficeSpec repo and project repos
   together. It is not the source of truth.
 
 ## Rules We Should Not Forget
 
 - Keep the normal `openspec/specs/` and `openspec/changes/` lifecycle working.
-- When context stores are used, treat them as standalone OpenSpec repos, not as
+- When context stores are used, treat them as standalone OfficeSpec repos, not as
   a separate planning system.
 - References are repo-level config, never per-change lifecycle links. The
   moment each change carries a managed link object with status coupling back
@@ -96,7 +96,7 @@ an item are status steps for that numbered work item.
 - [x] **Phase 0. Make the active direction easy to find.**
   Old beta plans were marked as history, and this `/work` roadmap became the
   active direction.
-- [ ] **Phase 1. Make a standalone OpenSpec repo useful.**
+- [ ] **Phase 1. Make a standalone OfficeSpec repo useful.**
   Slices 1.1–1.4 are implemented with passing tests on the working branch;
   only merge to `main` remains. The noun is "store" everywhere (CLI group,
   machine tokens, guidance, docs), and a headless agent completes a
@@ -144,7 +144,7 @@ Phase checklist:
 
 - [x] **0.1** Point people away from the old context-store beta plan.
 - [x] **0.2** Mark deferred workspace plans as not the current queue.
-- [x] **0.3** Reframe local agent guidance around OpenSpec roots.
+- [x] **0.3** Reframe local agent guidance around OfficeSpec roots.
 
 ### 0.1 Point People Away From The Old Context-Store Beta Plan
 
@@ -190,7 +190,7 @@ How we know it worked:
 
 - The old workspace changes no longer look like the next thing to implement.
 
-### 0.3 Reframe Local Agent Guidance Around OpenSpec Roots
+### 0.3 Reframe Local Agent Guidance Around OfficeSpec Roots
 
 Progress:
 
@@ -198,12 +198,12 @@ Progress:
 
 What the user or agent needs:
 
-- Agent instructions that start with "where is the OpenSpec root?" instead of
+- Agent instructions that start with "where is the OfficeSpec root?" instead of
   "which beta workspace/context-store mode is this?"
 
 What changed:
 
-- Local guidance was reframed around OpenSpec roots, artifact placement, and
+- Local guidance was reframed around OfficeSpec roots, artifact placement, and
   explicit implementation ownership.
 - Beta shared-context guidance was described as old, non-default history.
 
@@ -213,20 +213,20 @@ How we know it worked:
   promises about clone, sync, branch, worktree, dashboard, or edit-boundary
   behavior.
 
-## Phase 1. Make A Standalone OpenSpec Repo Useful
+## Phase 1. Make A Standalone OfficeSpec Repo Useful
 
 The user-facing goal of this phase:
 
 ```text
-I can keep OpenSpec work in its own Git repo and still use normal OpenSpec
+I can keep OfficeSpec work in its own Git repo and still use normal OfficeSpec
 commands.
 ```
 
 Phase checklist:
 
-- [x] **1.1** Create or register a standalone OpenSpec repo.
+- [x] **1.1** Create or register a standalone OfficeSpec repo.
   Implemented in draft PR #1190.
-- [ ] **1.2** Let normal commands use a named standalone OpenSpec repo.
+- [ ] **1.2** Let normal commands use a named standalone OfficeSpec repo.
   Implemented, tested, and review follow-up fixed on
   `codex/store-root-selection`; merge remains.
 - [ ] **1.3** Prove the standalone repo lifecycle end to end.
@@ -236,7 +236,7 @@ Phase checklist:
   Absorbs old item 2.2; gated on the context-store terminology decision;
   carries the deferred guidance debt from slice 1.2.
 
-### 1.1 Create Or Register A Standalone OpenSpec Repo
+### 1.1 Create Or Register A Standalone OfficeSpec Repo
 
 Progress:
 
@@ -250,14 +250,14 @@ Slice: `slices/store-root-parity/spec.md`
 
 What the user can do:
 
-- Run `context-store setup` and get a normal OpenSpec root in a standalone repo.
-- Clone a teammate's standalone OpenSpec repo and register it locally.
-- Run `context-store doctor` and see whether the OpenSpec root is healthy.
+- Run `context-store setup` and get a normal OfficeSpec root in a standalone repo.
+- Clone a teammate's standalone OfficeSpec repo and register it locally.
+- Run `context-store doctor` and see whether the OfficeSpec root is healthy.
 
 Why it matters:
 
 - A context store should not feel like a special beta planning system.
-- It should be a normal OpenSpec root plus a small identity file.
+- It should be a normal OfficeSpec root plus a small identity file.
 
 What changes in commands or files:
 
@@ -274,9 +274,9 @@ context-store-root/
       archive/
 ```
 
-- Register requires an existing healthy OpenSpec root.
+- Register requires an existing healthy OfficeSpec root.
 - Register can add `.openspec-store/store.yaml` only after confirmation.
-- Doctor reports OpenSpec-root health separately from metadata and Git health.
+- Doctor reports OfficeSpec-root health separately from metadata and Git health.
 - Setup/register do not create initiatives, workspace planning files, generated
   agent files, slash commands, or tool config.
 
@@ -288,7 +288,7 @@ How the user or agent knows it worked:
 - Existing config, specs, changes, archived changes, and old beta files are not
   overwritten.
 
-### 1.2 Let Normal Commands Use A Named Standalone OpenSpec Repo
+### 1.2 Let Normal Commands Use A Named Standalone OfficeSpec Repo
 
 Progress:
 
@@ -307,8 +307,8 @@ Slice: `slices/store-root-selection/spec.md`
 Plain-English version of the next slice:
 
 ```text
-When I am in an app repo, I can tell OpenSpec to create or read work in my
-registered standalone OpenSpec repo.
+When I am in an app repo, I can tell OfficeSpec to create or read work in my
+registered standalone OfficeSpec repo.
 ```
 
 Example user flow:
@@ -322,20 +322,20 @@ openspec instructions apply --store team-context
 What the user can do:
 
 - Stay in the project repo they are working on.
-- Pick a registered standalone OpenSpec repo by name.
-- Create, inspect, validate, and archive normal OpenSpec work in that selected
+- Pick a registered standalone OfficeSpec repo by name.
+- Create, inspect, validate, and archive normal OfficeSpec work in that selected
   repo.
 
 Why it matters:
 
-- Without this, users can create/register a standalone OpenSpec repo, but normal
+- Without this, users can create/register a standalone OfficeSpec repo, but normal
   commands still mostly act on the nearest local `openspec/` folder.
 - The user should not need initiative links or workspace planning state just to
-  put work in a standalone OpenSpec repo.
+  put work in a standalone OfficeSpec repo.
 
 What changes in commands or files:
 
-- Add `--store <id>` as the way to choose the OpenSpec root for normal
+- Add `--store <id>` as the way to choose the OfficeSpec root for normal
   commands.
 - First command set: `new change`, `status`, `instructions`, `list`, `show`,
   `validate`, and `archive`, behind one shared root resolver.
@@ -356,17 +356,17 @@ Decisions locked on 2026-06-10 (details in the slice spec):
 - Leftover workspace view state never wins root resolution on this path. The
   workspace branch is demoted during this slice's resolver rework instead of
   waiting for Phase 2.3/5.1.
-- When the current directory has no OpenSpec root and registered stores
+- When the current directory has no OfficeSpec root and registered stores
   exist, commands error with a hint naming the registered stores instead of
   silently scaffolding a local root. With no registered stores, current
   behavior is unchanged.
 
 How the user or agent knows it worked:
 
-- Without `--store`, commands keep using the nearest/current OpenSpec root.
+- Without `--store`, commands keep using the nearest/current OfficeSpec root.
 - With `--store team-context`, `openspec/changes/<id>` is created in the
   registered store root.
-- JSON output shows which OpenSpec root was used.
+- JSON output shows which OfficeSpec root was used.
 - No new initiative link is created.
 
 ### 1.3 Prove The Standalone Repo Lifecycle End To End
@@ -384,14 +384,14 @@ Slice: `slices/store-lifecycle-proof/spec.md`
 Plain-English version:
 
 ```text
-Show that a registered standalone OpenSpec repo can do the same basic lifecycle
-as an OpenSpec root inside a project repo — including cloning it and continuing
+Show that a registered standalone OfficeSpec repo can do the same basic lifecycle
+as an OfficeSpec root inside a project repo — including cloning it and continuing
 the work from a second checkout.
 ```
 
 What the user can do:
 
-- Set up a standalone OpenSpec repo that is a real Git repo (initialized, with
+- Set up a standalone OfficeSpec repo that is a real Git repo (initialized, with
   an initial commit) at a path they chose.
 - Create, inspect, validate, and archive a change there from their project
   repo.
@@ -402,7 +402,7 @@ What the user can do:
 
 Why it matters:
 
-- This proves standalone OpenSpec repos are not just setup plumbing.
+- This proves standalone OfficeSpec repos are not just setup plumbing.
 - The sharing path (clone, register, continue) is the reason standalone repos
   exist, and it is where the hands-on walk on 2026-06-11 found the real gaps.
 - It catches missing command support before more features are built on top.
@@ -441,7 +441,7 @@ How the user or agent knows it worked:
 
 - The journey passes against the built CLI with isolated global state,
   without using old initiative collections or workspace-owned planning state.
-- A clone of a freshly set-up store is immediately a healthy OpenSpec root.
+- A clone of a freshly set-up store is immediately a healthy OfficeSpec root.
 - The final files are normal `openspec/specs/`, `openspec/changes/`, and
   `openspec/changes/archive/` files in both checkouts.
 
@@ -457,7 +457,7 @@ Progress:
 Slice: `slices/store-rename-and-guidance/spec.md`
 
 - [x] Terminology decided (2026-06-11): the noun is **store**, defined
-  everywhere as "a store — a standalone OpenSpec repo you've registered."
+  everywhere as "a store — a standalone OfficeSpec repo you've registered."
   Command group renames `context-store` → `store`; the `--store` flag stays;
   machine tokens rename in the same pass (`context_store_*` diagnostic codes
   → `store_*`, JSON `context_store` keys → `store`, data dir
@@ -481,7 +481,7 @@ Plain-English version:
 
 ```text
 An agent prompted in a project repo can discover the registered standalone
-OpenSpec repo and use it without the human spelling out flags — and is no
+OfficeSpec repo and use it without the human spelling out flags — and is no
 longer steered toward initiatives or workspaces.
 ```
 
@@ -490,7 +490,7 @@ What the user can do:
 - Prompt an agent with "create a change for X in our team store" and have the
   agent find the registered store and use `--store` on its own.
 - Read top-level help and recognize the context-store commands as the
-  standalone OpenSpec repo feature.
+  standalone OfficeSpec repo feature.
 - Follow generated guidance without being pointed at `openspec initiative` or
   workspace flows as normal workflow steps.
 
@@ -541,7 +541,7 @@ How the user or agent knows it worked:
 The user-facing goal of this phase:
 
 ```text
-Normal OpenSpec work should not require an initiative.
+Normal OfficeSpec work should not require an initiative.
 ```
 
 Old initiative data can remain readable as legacy history, but the simpler path
@@ -589,7 +589,7 @@ What changes in commands or files:
 - `openspec set change` is removed because initiative linking was its only
   behavior.
 - Existing `.openspec.yaml` initiative metadata remains parseable if needed.
-- Store/root selection points to normal OpenSpec roots, not initiative
+- Store/root selection points to normal OfficeSpec roots, not initiative
   collections.
 
 How the user or agent knows it worked:
@@ -629,10 +629,10 @@ This project repo's work draws on these planning repos.
 
 One declared relationship between roots:
 
-- A project repo can **reference** the standalone OpenSpec repos its work
+- A project repo can **reference** the standalone OfficeSpec repos its work
   draws on (PMs and architects keep high-level requirements and design in a
   store; devs create lower-level design and tasks in the app repo's own
-  OpenSpec root, with the store as cited context).
+  OfficeSpec root, with the store as cited context).
 
 Root resolution precedence is fixed and stated once: explicit `--store` wins,
 then the nearest local `openspec/` root, then (only when no local root
@@ -870,19 +870,19 @@ Progress:
 
 What the user can do:
 
-- Ask OpenSpec whether the roots this work relates to — referenced stores and
-  the resolved OpenSpec root — are available on the current machine.
+- Ask OfficeSpec whether the roots this work relates to — referenced stores and
+  the resolved OfficeSpec root — are available on the current machine.
 
 Why it matters:
 
 - Agents need to know whether they can read the referenced context and
-  trust the resolved OpenSpec root.
+  trust the resolved OfficeSpec root.
 - This should be diagnostic only; it should not clone or sync anything.
 
 What changes in commands or files:
 
 - Doctor output reports root, store, and reference health.
-- The report clearly separates OpenSpec root health, store metadata health,
+- The report clearly separates OfficeSpec root health, store metadata health,
   reference health, and top-level relationship warnings.
 
 How the user or agent knows it worked:
@@ -897,7 +897,7 @@ The user-facing goal of this phase:
 
 ```text
 Give me — or my agent — everything this work relates to in one working set:
-the OpenSpec root and the stores it references.
+the OfficeSpec root and the stores it references.
 ```
 
 Phase checklist:
@@ -929,7 +929,7 @@ Progress:
 What the user can do:
 
 - From any root, get the full working set its declarations describe: the
-  OpenSpec root itself and its referenced stores.
+  OfficeSpec root itself and its referenced stores.
 - Consume that set as an editor view (for example a code-workspace file) or
   as an agent session brief — opening in an editor is one consumer of
   assembly, not the feature itself.
@@ -947,16 +947,16 @@ What changes in commands or files:
 
 - Replace or rebuild workspace opening around assembled context (this is
   where old item 2.3's initiative decoupling actually happens).
-- Use the selected OpenSpec root as the durable planning source of truth and
+- Use the selected OfficeSpec root as the durable planning source of truth and
   reference declarations for upstream stores.
 - Do not create workspace-owned planning state.
 
 How the user or agent knows it worked:
 
-- The assembled set contains the OpenSpec root and resolvable referenced
+- The assembled set contains the OfficeSpec root and resolvable referenced
   stores, with unresolvable references reported, not guessed.
 - Assembly does not create or require initiative planning state.
-- The durable files remain normal OpenSpec artifacts.
+- The durable files remain normal OfficeSpec artifacts.
 - The result does not imply clone, pull, push, sync, branch, worktree,
   dashboard, or edit-boundary enforcement.
 
@@ -1015,7 +1015,7 @@ Progress:
 
 What the user can do:
 
-- Follow the simple OpenSpec root path without being distracted by obsolete beta
+- Follow the simple OfficeSpec root path without being distracted by obsolete beta
   workflows.
 
 Why it matters:
@@ -1131,7 +1131,7 @@ and never a membership truth — it makes no claims about the work, only
 about what this user likes open together. A future multi-repo
 coordination design may suggest members during composition, but there is
 no code-repo relationship machinery in the current product path. `openspec
-context` remains focused on OpenSpec roots and references.
+context` remains focused on OfficeSpec roots and references.
 
 Progress:
 
@@ -1302,7 +1302,7 @@ prompt library.
 
 ## Later Ideas
 
-Keep these out of the main queue until the simpler standalone OpenSpec repo path
+Keep these out of the main queue until the simpler standalone OfficeSpec repo path
 is working:
 
 - **L1** Rewrite public concept docs after behavior is solid.
@@ -1347,11 +1347,11 @@ is working:
   history.
 - 2026-06-09: Marked old workspace reimplementation artifacts obsolete or
   pending deletion review.
-- 2026-06-09: Reframed checked-in `use-openspec` guidance around OpenSpec roots
+- 2026-06-09: Reframed checked-in `use-openspec` guidance around OfficeSpec roots
   and artifact placement instead of beta shared-context framing.
 - 2026-06-09: Deferred public concept docs until the simplified model is more
   solid.
-- 2026-06-09: Reordered the roadmap around standalone OpenSpec repos and local
+- 2026-06-09: Reordered the roadmap around standalone OfficeSpec repos and local
   views.
 - 2026-06-09: Added the store-root-parity slice spec.
 - 2026-06-10: Rewrote this roadmap in user-facing language so each slice says
@@ -1359,7 +1359,7 @@ is working:
   visible.
 - 2026-06-10: Numbered phases, phase subitems, and later parking-lot ideas so
   progress can be tracked unambiguously.
-- 2026-06-10: Settled the model question behind 1.2: the OpenSpec root is the
+- 2026-06-10: Settled the model question behind 1.2: the OfficeSpec root is the
   planning home, a context store is registration/identity only, and workspace
   "planning home" is legacy beta language.
 - 2026-06-10: Locked the 1.2 decisions and added the store-root-selection
